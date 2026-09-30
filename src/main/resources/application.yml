@@ -1,0 +1,108 @@
+server:
+  port: 8080
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+
+spring:
+  application:
+    name: consense-service
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:mysql}
+  servlet:
+    multipart:
+      max-file-size: 120MB
+      max-request-size: 240MB
+  jpa:
+    open-in-view: false
+    hibernate:
+      # 表结构由 Flyway 维护（resources/db/migration），这里不做 Hibernate 自动校验
+      ddl-auto: none
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 50
+        order_inserts: true
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    # baseline 记为版本 0，保证 V1__init.sql 不被跳过（默认 baseline 版本是 1，会顶掉 V1）
+    baseline-version: 0
+    locations: classpath:db/migration
+  jackson:
+    default-property-inclusion: non_null
+    serialization:
+      write-dates-as-timestamps: false
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs
+
+logging:
+  level:
+    root: INFO
+    com.consense: DEBUG
+    org.hibernate.SQL: WARN
+
+consense:
+  # 上传文件落盘目录（相对 service 运行目录）
+  storage-root: ./data/uploads
+  cors:
+    # 使用 originPatterns：允许任意局域网 IP 的 5173 前端（浏览器从 LAN IP 访问时 Origin 不再被 403）
+    allowed-origins: "http://localhost:5173,http://127.0.0.1:5173,http://*:5173"
+
+  # ---------------- 本地大模型（Ollama） ----------------
+  llm:
+    enabled: true
+    provider: ollama                     # ollama | openai
+    base-url: http://localhost:11434
+    chat-model: qwen2.5:7b               # 本地实际 pull 的模型（ollama list 里须有同名 tag）
+    embed-model: bge-m3                  # 按你本地已 pull 的 embedding 模型改
+    temperature: 0.2
+    num-ctx: 8192
+    timeout-ms: 1200000
+    max-retry: 1
+
+  # ---------------- OCR（PaddleOCR / PP-Structure 服务） ----------------
+  ocr:
+    enabled: true
+    base-url: http://localhost:8868
+    # PaddleOCR 常见两种形态：
+    #  1) 经典版：POST base-url + ocr-path，body = {"images": ["<base64>"]}
+    #  2) hubserving：POST base-url + structure-path，multipart "image"
+    mode: classic                        # classic | hubserving
+    ocr-path: /predict/ocr_system
+    structure-path: /predict/structure_system
+    timeout-ms: 180000
+    # PDF 文本层字符数低于该阈值时，自动转 OCR 识别
+    text-layer-min-chars: 40
+    # 每页最多 OCR 的扫描页数，防止超大文件拖死
+    max-ocr-pages: 60
+
+  # ---------------- 向量库（Qdrant） ----------------
+  vector:
+    provider: qdrant                     # qdrant | memory
+    base-url: http://localhost:6333
+    api-key: ""
+    collection: consense_evidence
+    vector-size: 1024                    # 需与 embed-model 维度一致（bge-m3 = 1024）
+    distance: Cosine
+    timeout-ms: 60000
+    chunk-size: 800
+    chunk-overlap: 120
+    top-k: 6
+    score-threshold: 0.35
+    # 混合检索：证据总量（字符）≤ stuffing-limit 时全量喂给 chat 模型（零检索误差），
+    # 超过才走向量检索；检索路径的 topK 至少抬到 retrieve-top-k-floor 扩召回
+    stuffing-limit: 30000
+    retrieve-top-k-floor: 20
+
+  # ---------------- 业务规则 ----------------
+  vetting:
+    # 主观风险条款每次产出上限（对应设计稿 Skill 3 规则 7）
+    max-risk-findings: 10
+    # 只审查相对标准模板基线改动过的内容
+    diff-against-baseline: true

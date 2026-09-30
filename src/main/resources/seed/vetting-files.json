@@ -1,0 +1,56 @@
+[
+  {
+    "key": "NTT",
+    "role": "起草生成文件",
+    "fileName": "01_Notes to Tenderers (NTT).docx",
+    "basis": "由起草模块产出"
+  },
+  {
+    "key": "SCT",
+    "role": "起草生成文件",
+    "fileName": "03_Special Condition of Tender (SCT).docx",
+    "basis": "由起草模块产出"
+  },
+  {
+    "key": "SCC",
+    "role": "起草生成文件",
+    "fileName": "07_Special Conditions of Contract (SCC).docx",
+    "basis": "由起草模块产出"
+  },
+  {
+    "key": "GCT",
+    "role": "审查补充文件",
+    "fileName": "02_General Conditions of Tender (GCT).pdf",
+    "basis": "项目资料库"
+  },
+  {
+    "key": "FT",
+    "role": "审查补充文件",
+    "fileName": "04_Form of Tender.pdf",
+    "basis": "项目资料库"
+  },
+  {
+    "key": "AA",
+    "role": "审查补充文件",
+    "fileName": "05_Articles of Agreement.pdf",
+    "basis": "项目资料库"
+  },
+  {
+    "key": "GCC",
+    "role": "审查补充文件",
+    "fileName": "06_General Conditions of Contract (GCC).pdf",
+    "basis": "项目资料库"
+  },
+  {
+    "key": "SL",
+    "role": "审查补充文件",
+    "fileName": "Specification Library / General Specification.pdf",
+    "basis": "规范库"
+  },
+  {
+    "key": "PRE",
+    "role": "审查补充文件",
+    "fileName": "PSS - Preliminaries (PRE).docx",
+    "basis": "规范库"
+  }
+]

@@ -1,0 +1,65 @@
+[
+  {
+    "id": "demoProject",
+    "name": {
+      "zhHans": "示例房屋重建项目",
+      "zhHant": "示例房屋重建項目",
+      "en": "Sample Housing Redevelopment"
+    },
+    "contractNo": "DEMO-CA-001",
+    "packageRef": "DEMO-PKG-001",
+    "outputReferenceFile": "Fullset Contract.pdf",
+    "pages": "9",
+    "nttRange": "NTT/1 - NTT/11",
+    "sctRange": "SCT/1 - SCT/23 + Appendices",
+    "sccRange": "SCC/1 - SCC/63",
+    "specification": "PSS PRE, CLA, COM, FIN, PLU, DRA, EXT...",
+    "titleLines": [
+      {"zhHans": "公共房屋业主", "zhHant": "公共房屋業主", "en": "PUBLIC HOUSING CLIENT"},
+      {"zhHans": "房屋重建工程", "zhHant": "房屋重建工程", "en": "HOUSING REDEVELOPMENT WORKS"},
+      {"zhHans": "示例合约文件包", "zhHant": "示例合約文件包", "en": "SAMPLE CONTRACT PACKAGE"}
+    ]
+  },
+  {
+    "id": "demoProject_02",
+    "name": {
+      "zhHans": "示例升降机现代化项目",
+      "zhHant": "示例升降機現代化項目",
+      "en": "Sample Lift Modernisation"
+    },
+    "contractNo": "DEMO-CA-002",
+    "packageRef": "DEMO-PKG-002",
+    "outputReferenceFile": "Sample Tender Package - Lift Modernisation.pdf",
+    "pages": "9",
+    "nttRange": "NTT/1 - NTT/10",
+    "sctRange": "SCT/1 - SCT/19 + Appendices",
+    "sccRange": "SCC/1 - SCC/58",
+    "specification": "PSS PRE, LIF, ELE, FIN, PLU...",
+    "titleLines": [
+      {"zhHans": "公共房屋业主", "zhHant": "公共房屋業主", "en": "PUBLIC HOUSING CLIENT"},
+      {"zhHans": "升降机现代化工程", "zhHant": "升降機現代化工程", "en": "LIFT MODERNISATION WORKS"},
+      {"zhHans": "示例合约文件包", "zhHant": "示例合約文件包", "en": "SAMPLE CONTRACT PACKAGE"}
+    ]
+  },
+  {
+    "id": "demoProject_03",
+    "name": {
+      "zhHans": "示例外墙改善项目",
+      "zhHant": "示例外牆改善項目",
+      "en": "Sample Facade Improvement"
+    },
+    "contractNo": "DEMO-CA-003",
+    "packageRef": "DEMO-PKG-003",
+    "outputReferenceFile": "Sample Contract Package - Facade Improvement.pdf",
+    "pages": "9",
+    "nttRange": "NTT/1 - NTT/12",
+    "sctRange": "SCT/1 - SCT/21 + Appendices",
+    "sccRange": "SCC/1 - SCC/60",
+    "specification": "PSS PRE, FAD, CLA, FIN, PLU, EXT...",
+    "titleLines": [
+      {"zhHans": "公共房屋业主", "zhHant": "公共房屋業主", "en": "PUBLIC HOUSING CLIENT"},
+      {"zhHans": "外墙改善工程", "zhHant": "外牆改善工程", "en": "FACADE IMPROVEMENT WORKS"},
+      {"zhHans": "示例合约文件包", "zhHant": "示例合約文件包", "en": "SAMPLE CONTRACT PACKAGE"}
+    ]
+  }
+]

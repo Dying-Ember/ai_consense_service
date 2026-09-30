@@ -1,0 +1,266 @@
+[
+  {
+    "code": "VT-001",
+    "types": "f2-ix",
+    "scope": "intra",
+    "severity": "low",
+    "fileKey": "NTT",
+    "pageNo": "P5",
+    "bucketKey": "grammar",
+    "title": {
+      "zhHans": "NTT5(b) 语法错误 “will be took”",
+      "zhHant": "NTT5(b) 語法錯誤「will be took」",
+      "en": "NTT5(b) grammatical error “will be took”"
+    },
+    "body": {
+      "zhHans": "原文 “the tender documents will be took back by the Tenderer” 存在动词形态错误。",
+      "zhHant": "原文「the tender documents will be took back by the Tenderer」存在動詞形態錯誤。",
+      "en": "The clause reads “the tender documents will be took back by the Tenderer”, which is grammatically incorrect."
+    },
+    "impact": {
+      "zhHans": "不影响合约权利，但属明显笔误，会在评标阶段被各方质疑文件严谨性。",
+      "zhHant": "不影響合約權利，但屬明顯筆誤，會在評標階段被各方質疑文件嚴謹性。",
+      "en": "No contractual impact, but it is an obvious typo that undermines the perceived rigour of the package."
+    },
+    "suggestion": {
+      "zhHans": "改为 “will be taken back”。",
+      "zhHant": "改為「will be taken back」。",
+      "en": "Replace with “will be taken back”."
+    },
+    "refs": "NTT5(b)",
+    "location": "NTT 5(b)",
+    "expected": "will be taken back",
+    "evidenceId": "ev-f2-review-set"
+  },
+  {
+    "code": "VT-002",
+    "types": "f2-i",
+    "scope": "inter",
+    "severity": "high",
+    "fileKey": "NTT",
+    "pageNo": "P6",
+    "bucketKey": "evalWeight",
+    "title": {
+      "zhHans": "NTT6(b) 评审权重 30:70 与 SCT 评标附表冲突",
+      "zhHant": "NTT6(b) 評審權重 30:70 與 SCT 評標附表衝突",
+      "en": "NTT6(b) evaluation weighting 30:70 conflicts with the SCT marking scheme"
+    },
+    "body": {
+      "zhHans": "NTT6(b) 载明技术 30 / 价格 70，而 SCT 评标附表载明技术 40 / 价格 60，两份文件给出不同口径。",
+      "zhHant": "NTT6(b) 載明技術 30 / 價格 70，而 SCT 評標附表載明技術 40 / 價格 60，兩份文件給出不同口徑。",
+      "en": "NTT6(b) states 30 (technical) : 70 (price) while the SCT marking scheme states 40 : 60. The two documents give different weightings."
+    },
+    "impact": {
+      "zhHans": "评标口径不一致会直接引发投标人质疑甚至投诉，必须在发出前统一。",
+      "zhHant": "評標口徑不一致會直接引發投標人質疑甚至投訴，必須在發出前統一。",
+      "en": "Inconsistent scoring criteria invite tenderer challenges and possible complaints; must be unified before issue."
+    },
+    "suggestion": {
+      "zhHans": "以 SCT 评标附表为准，同步修改 NTT6(b) 的权重表述。",
+      "zhHant": "以 SCT 評標附表為準，同步修改 NTT6(b) 的權重表述。",
+      "en": "Adopt the SCT marking scheme as authoritative and align the wording in NTT6(b)."
+    },
+    "refs": "NTT6(b) ↔ SCT Marking Scheme",
+    "location": "NTT 6(b)",
+    "expected": "40 : 60",
+    "evidenceId": "ev-injected-high"
+  },
+  {
+    "code": "VT-003",
+    "types": "f2-i",
+    "scope": "inter",
+    "severity": "high",
+    "fileKey": "NTT",
+    "pageNo": "P10",
+    "bucketKey": "bondForm",
+    "title": {
+      "zhHans": "NTT10 与 SCC5.1 保函表格 G1a / G1 冲突",
+      "zhHant": "NTT10 與 SCC5.1 保函表格 G1a / G1 衝突",
+      "en": "NTT10 and SCC5.1 conflict on bond form G1a / G1"
+    },
+    "body": {
+      "zhHans": "NTT10 要求提交 Appendix G1a 保函，SCC5.1 则要求 Appendix G1；两者为互斥表格。",
+      "zhHant": "NTT10 要求提交 Appendix G1a 保函，SCC5.1 則要求 Appendix G1；兩者為互斥表格。",
+      "en": "NTT10 requires Appendix G1a while SCC5.1 requires Appendix G1. The two forms are mutually exclusive."
+    },
+    "impact": {
+      "zhHans": "投标人无法判断应提交哪一份保函，可能导致投标无效。",
+      "zhHant": "投標人無法判斷應提交哪一份保函，可能導致投標無效。",
+      "en": "Tenderers cannot tell which bond form to submit, which risks invalidating compliant tenders."
+    },
+    "suggestion": {
+      "zhHans": "按项目实际情况（是否含基础工程、保养期长度）确定唯一表格后统一两处引用。",
+      "zhHant": "按項目實際情況（是否含基礎工程、保養期長度）確定唯一表格後統一兩處引用。",
+      "en": "Determine the single applicable form from the project facts (foundation section, maintenance period) and align both references."
+    },
+    "refs": "NTT10 ↔ SCC5.1",
+    "location": "NTT 10",
+    "expected": "Appendix G1a",
+    "evidenceId": "ev-injected-high"
+  },
+  {
+    "code": "VT-004",
+    "types": "f2-iii",
+    "scope": "inter",
+    "severity": "medium",
+    "fileKey": "NTT",
+    "pageNo": "P3",
+    "bucketKey": "missing",
+    "title": {
+      "zhHans": "NTT3(b) 悬空引用 SCT26",
+      "zhHant": "NTT3(b) 懸空引用 SCT26",
+      "en": "NTT3(b) contains a dangling reference to SCT26"
+    },
+    "body": {
+      "zhHans": "NTT3(b) 引用 SCT26，但本包 SCT 仅至 SCT23，不存在 SCT26。",
+      "zhHant": "NTT3(b) 引用 SCT26，但本包 SCT 僅至 SCT23，不存在 SCT26。",
+      "en": "NTT3(b) refers to SCT26, but this package only contains SCT up to SCT23; SCT26 does not exist."
+    },
+    "impact": {
+      "zhHans": "投标人按引用查找时找不到对应条款，会造成澄清提问与工期延误。",
+      "zhHant": "投標人按引用查找時找不到對應條款，會造成澄清提問與工期延誤。",
+      "en": "Tenderers following the reference find no such clause, generating queries and delay."
+    },
+    "suggestion": {
+      "zhHans": "改为引用实际存在的 SCT20（分包）或删除该引用。",
+      "zhHant": "改為引用實際存在的 SCT20（分包）或刪除該引用。",
+      "en": "Repoint to the existing SCT20 (subcontracting) clause or delete the reference."
+    },
+    "refs": "NTT3(b) → SCT26",
+    "location": "NTT 3(b)",
+    "expected": "SCT20",
+    "evidenceId": "ev-injected-reference"
+  },
+  {
+    "code": "VT-005",
+    "types": "f2-ii",
+    "scope": "intra",
+    "severity": "medium",
+    "fileKey": "SCT",
+    "pageNo": "P8",
+    "bucketKey": "particulars",
+    "title": {
+      "zhHans": "SCT8 现场勘察日期留空",
+      "zhHant": "SCT8 現場勘察日期留空",
+      "en": "SCT8 leaves the site inspection date blank"
+    },
+    "body": {
+      "zhHans": "SCT8 的现场勘察日期仍为模板占位符 “________”，未按本项目填写。",
+      "zhHant": "SCT8 的現場勘察日期仍為模板佔位符「________」，未按本項目填寫。",
+      "en": "The site inspection date in SCT8 remains the template placeholder “________” and was not completed."
+    },
+    "impact": {
+      "zhHans": "投标人无法安排勘察，属程序性缺陷，需在发出前补齐。",
+      "zhHant": "投標人無法安排勘察，屬程序性缺陷，需在發出前補齊。",
+      "en": "Tenderers cannot plan attendance; a procedural gap that must be closed before issue."
+    },
+    "suggestion": {
+      "zhHans": "由项目 QS 填写确定的勘察日期与时间。",
+      "zhHant": "由項目 QS 填寫確定的勘察日期與時間。",
+      "en": "Have the project QS insert the confirmed inspection date and time."
+    },
+    "refs": "SCT8",
+    "location": "SCT 8",
+    "expected": "特定期日",
+    "evidenceId": "ev-f2-review-set"
+  },
+  {
+    "code": "VT-006",
+    "types": "f2-iv",
+    "scope": "inter",
+    "severity": "high",
+    "fileKey": "SCT",
+    "pageNo": "P2",
+    "bucketKey": "wrongNo",
+    "title": {
+      "zhHans": "SCT2(1)(c) 规范库版本错误（2018 应为 2022）",
+      "zhHant": "SCT2(1)(c) 規範庫版本錯誤（2018 應為 2022）",
+      "en": "SCT2(1)(c) cites the wrong Specification Library version (2018 instead of 2022)"
+    },
+    "body": {
+      "zhHans": "SCT2(1)(c) 引用 Specification Library 2018 版，本包适用版本为 2022（Batch 1）。",
+      "zhHant": "SCT2(1)(c) 引用 Specification Library 2018 版，本包適用版本為 2022（Batch 1）。",
+      "en": "SCT2(1)(c) refers to the 2018 Specification Library, but the applicable version is 2022 (Batch 1)."
+    },
+    "impact": {
+      "zhHans": "技术规范版本错误会导致报价基础不同，属高风险。",
+      "zhHant": "技術規範版本錯誤會導致報價基礎不同，屬高風險。",
+      "en": "Quoting against the wrong specification baseline changes pricing assumptions; high risk."
+    },
+    "suggestion": {
+      "zhHans": "更新引用为 2022（Batch 1）并复核全包其他版本引用。",
+      "zhHant": "更新引用為 2022（Batch 1）並覆核全包其他版本引用。",
+      "en": "Update the reference to 2022 (Batch 1) and check other version references across the package."
+    },
+    "refs": "SCT2(1)(c) ↔ Specification Library",
+    "location": "SCT 2(1)(c)",
+    "expected": "2022 (Batch 1)",
+    "evidenceId": "ev-sl-version"
+  },
+  {
+    "code": "VT-007",
+    "types": "f2-v,f2-viii",
+    "scope": "inter",
+    "severity": "high",
+    "fileKey": "SCT",
+    "pageNo": "P5",
+    "bucketKey": "billRange",
+    "title": {
+      "zhHans": "SCT5(4)(c)(ii) 提交范围遗漏 Bill 10 / 11",
+      "zhHant": "SCT5(4)(c)(ii) 提交範圍遺漏 Bill 10 / 11",
+      "en": "SCT5(4)(c)(ii) omits Bills 10 and 11 from the submission scope"
+    },
+    "body": {
+      "zhHans": "SCT5(4)(c)(ii) 要求提交 Bill 3 至 9，但本项目 BQ 实际为 Bill 3 至 11。",
+      "zhHant": "SCT5(4)(c)(ii) 要求提交 Bill 3 至 9，但本項目 BQ 實際為 Bill 3 至 11。",
+      "en": "SCT5(4)(c)(ii) requires Bills 3 to 9, but the project BQ actually contains Bills 3 to 11."
+    },
+    "impact": {
+      "zhHans": "投标人可能漏交两个 Bill 的报价，导致投标不完整。",
+      "zhHant": "投標人可能漏交兩個 Bill 的報價，導致投標不完整。",
+      "en": "Tenderers may omit pricing for two Bills, producing incomplete submissions."
+    },
+    "suggestion": {
+      "zhHans": "改为 Bill 3 至 11，与 BQ 清单保持一致。",
+      "zhHant": "改為 Bill 3 至 11，與 BQ 清單保持一致。",
+      "en": "Change to Bills 3 to 11 to match the BQ schedule."
+    },
+    "refs": "SCT5(4)(c)(ii) ↔ Bills 3–11",
+    "location": "SCT 5(4)(c)(ii)",
+    "expected": "Bills No. 3 to 11",
+    "evidenceId": "ev-sct5"
+  },
+  {
+    "code": "VT-008",
+    "types": "f2-iii",
+    "scope": "intra",
+    "severity": "high",
+    "fileKey": "SCC",
+    "pageNo": "P5",
+    "bucketKey": "wrongNo",
+    "title": {
+      "zhHans": "SCC5.2 引用错误子条款（指向 SCC4.2）",
+      "zhHant": "SCC5.2 引用錯誤子條款（指向 SCC4.2）",
+      "en": "SCC5.2 points to the wrong sub-clause (SCC4.2)"
+    },
+    "body": {
+      "zhHans": "SCC5.2 保函相关表述引用 SCC4.2，但 SCC4.2 为文件优先次序条款，与保函无关。",
+      "zhHant": "SCC5.2 保函相關表述引用 SCC4.2，但 SCC4.2 為文件優先次序條款，與保函無關。",
+      "en": "SCC5.2 cites SCC4.2, but SCC4.2 deals with precedence of documents, not security."
+    },
+    "impact": {
+      "zhHans": "保函要求指向错误条款，履约阶段会产生争议。",
+      "zhHant": "保函要求指向錯誤條款，履約階段會產生爭議。",
+      "en": "The security requirement points at the wrong clause, creating dispute risk during performance."
+    },
+    "suggestion": {
+      "zhHans": "改为引用 SCC5.1 保函条款。",
+      "zhHant": "改為引用 SCC5.1 保函條款。",
+      "en": "Repoint to SCC5.1."
+    },
+    "refs": "SCC5.2 → SCC4.2",
+    "location": "SCC 5.2",
+    "expected": "SCC5.1",
+    "evidenceId": "ev-injected-reference"
+  }
+]

@@ -1,0 +1,46 @@
+# build outputs
+target/
+build/
+out/
+*.class
+*.jar
+*.war
+
+# IDE
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+.project
+.classpath
+.settings/
+
+# logs & runtime
+*.log
+*.err.log
+*.out.log
+backend.err.log
+backend.out.log
+verify-db.err.log
+verify-db.log
+
+# uploaded runtime data (用户上传的合约/证据文件，不入库)
+data/uploads/
+/tmp/
+
+# env
+.env
+.env.local
+
+# OS
+Thumbs.db
+.DS_Store
+
+# misc
+*.bak
+*.tmp
+*.ps1
+
+# 让 seed/data 目录里的演示数据保留入库
+# （service/src/main/resources/seed 和 service/data/ 下的 demo 文档作为演示数据提交）

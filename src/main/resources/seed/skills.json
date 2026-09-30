@@ -1,0 +1,203 @@
+[
+  {
+    "id": "infer",
+    "code": "template-variable-inference",
+    "name": {
+      "zhHans": "模板变量推理",
+      "zhHant": "模板變量推理",
+      "en": "Template variable inference"
+    },
+    "purpose": {
+      "zhHans": "读取标准模板的排版层，把「尚待决定」的地方识别为候选变量，并保留原文作为依据。",
+      "zhHant": "讀取標準模板的排版層，把「尚待決定」的地方識別為候選變量，並保留原文作為依據。",
+      "en": "Reads the typographic layer of the standard templates and treats every “to be decided” spot as a candidate variable, keeping the source wording as evidence."
+    },
+    "badges": [
+      {"zhHans": "7 条判定规则", "zhHant": "7 條判定規則", "en": "7 detection rules"},
+      {"zhHans": "NTT / SCT / SCC", "zhHant": "NTT / SCT / SCC", "en": "NTT / SCT / SCC"}
+    ],
+    "steps": [
+      [
+        {"zhHans": "解析排版层", "zhHant": "解析排版層", "en": "Parse the typographic layer"},
+        {"zhHans": "读取模板的字体、斜体、粗体、中括号与星号标记，而不是只读文字。", "zhHant": "讀取模板的字體、斜體、粗體、中括號與星號標記，而不是只讀文字。", "en": "Read italic, bold, bracket and asterisk marks rather than plain text only."}
+      ],
+      [
+        {"zhHans": "套用各文件排版约定", "zhHant": "套用各文件排版約定", "en": "Apply per-document conventions"},
+        {"zhHans": "NTT / SCT 的斜体多为二选一或删除指令；SCC 的中括号粗体多为填空。", "zhHant": "NTT / SCT 的斜體多為二選一或刪除指令；SCC 的中括號粗體多為填空。", "en": "Italics in NTT / SCT usually mean alternatives or deletions; bold brackets in SCC usually mean fill-in."}
+      ],
+      [
+        {"zhHans": "识别信号类型", "zhHant": "識別信號類型", "en": "Classify the signal"},
+        {"zhHans": "归入二选一、是非、可选条款、填空、编校指令五类。", "zhHant": "歸入二選一、是非、可選條款、填空、編校指令五類。", "en": "Classify into choice, yes/no, optional clause, fill-in, or editorial instruction."}
+      ],
+      [
+        {"zhHans": "推理变量与改写动作", "zhHant": "推理變量與改寫動作", "en": "Infer the variable and the edit action"},
+        {"zhHans": "为每个候选生成变量名、所属文件、条款号与预期动作（删除 / Not used / 二选一 / 重写 / 填空）。", "zhHant": "為每個候選生成變量名、所屬文件、條款號與預期動作（刪除 / Not used / 二選一 / 重寫 / 填空）。", "en": "Produce a variable name, owning file, clause number and expected action (delete / not used / choice / rewrite / fill)."}
+      ],
+      [
+        {"zhHans": "留证并交回人工", "zhHant": "留證並交回人工", "en": "Leave evidence and hand back"},
+        {"zhHans": "每条候选附原文、命中规则与置信度，等待人工确认，不静默写入条款。", "zhHant": "每條候選附原文、命中規則與置信度，等待人工確認，不靜默寫入條款。", "en": "Each candidate carries source text, matched rule and confidence, and waits for human confirmation — nothing is silently written into the clauses."}
+      ]
+    ],
+    "ruleHead": [
+      {"zhHans": "模板中的信号", "zhHant": "模板中的信號", "en": "Signal in the template"},
+      {"zhHans": "排版样式", "zhHant": "排版樣式", "en": "Typographic style"},
+      {"zhHans": "适用文件", "zhHant": "適用文件", "en": "Applies to"},
+      {"zhHans": "推理结果", "zhHant": "推理結果", "en": "What the skill infers"},
+      {"zhHans": "置信度", "zhHant": "置信度", "en": "Conf."}
+    ],
+    "rules": [
+      ["(Alternative (a) - for tenders adopting electronic ...)", "斜体", "NTT · SCT", "二选一变量", "0.92"],
+      ["(Delete if precast facade is not applicable)", "斜体", "NTT · SCT", "是非变量（整段删除，含编号）", "0.92"],
+      ["\"Not used\" if ... WTO GPA", "斜体", "NTT · SCT · SCC", "保留编号，正文改为 Not used", "0.88"],
+      ["*(e) / *G1 / *G1a", "星号", "NTT · SCT · SCC", "可选条款", "0.86"],
+      ["[ Maintenance Period ]", "中括号粗体", "SCC", "填空变量", "0.94"],
+      ["[Guidance Note: Delete/amend by the PQS as appropriate]", "中括号粗体", "SCC", "编校指令", "0.90"],
+      ["(Insert all Bill Nos. ...)", "圆括号斜体", "SCT · SCC", "填空变量", "0.93"]
+    ],
+    "outItems": [
+      {"zhHans": "候选变量清单：变量名 / 类型 / 所属文件 / 条款号。", "zhHant": "候選變量清單：變量名 / 類型 / 所屬文件 / 條款號。", "en": "Candidate variable list with name, type, owning file and clause number."},
+      {"zhHans": "每条候选附原文、命中规则与置信度。", "zhHant": "每條候選附原文、命中規則與置信度。", "en": "Each candidate carries source text, matched rule and confidence."},
+      {"zhHans": "按 NTT / SCT / SCC 分组进入第 2 步确认。", "zhHant": "按 NTT / SCT / SCC 分組進入第 2 步確認。", "en": "Grouped by NTT / SCT / SCC for confirmation in step 2."}
+    ],
+    "guardItems": [
+      {"zhHans": "排版样式丢失时不猜测，标记为待人工判断。", "zhHant": "排版樣式丟失時不猜測，標記為待人工判斷。", "en": "When styling is lost, do not guess — flag for manual review."},
+      {"zhHans": "同一片段命中多条规则时取优先级最高的一条。", "zhHant": "同一片段命中多條規則時取優先級最高的一條。", "en": "When one span matches several rules, take the highest priority only."},
+      {"zhHans": "置信度低于 0.70 不自动生成变量。", "zhHant": "置信度低於 0.70 不自動生成變量。", "en": "Never auto-generate a variable below 0.70 confidence."},
+      {"zhHans": "只识别与留证，不替代 QS 的专业判断。", "zhHant": "只識別與留證，不替代 QS 的專業判斷。", "en": "Detect and document only; never replace the QS judgement."}
+    ]
+  },
+  {
+    "id": "extract",
+    "code": "evidence-fact-extraction",
+    "name": {
+      "zhHans": "交互文件事实提取",
+      "zhHant": "交互文件事實提取",
+      "en": "Evidence fact extraction"
+    },
+    "purpose": {
+      "zhHans": "从邮件、会议纪要、备忘录与澄清函中抽取事实，每一条都能回溯到原句。",
+      "zhHant": "從郵件、會議紀要、備忘錄與澄清函中抽取事實，每一條都能回溯到原句。",
+      "en": "Extracts facts from emails, minutes, memos and clarifications, with every fact traceable to its source sentence."
+    },
+    "badges": [
+      {"zhHans": "8 种抽取模式", "zhHant": "8 種抽取模式", "en": "8 extraction patterns"},
+      {"zhHans": "邮件 / 纪要 / 备忘 / 澄清", "zhHant": "郵件 / 紀要 / 備忘 / 澄清", "en": "Email / Minutes / Memo / Clarification"}
+    ],
+    "steps": [
+      [
+        {"zhHans": "取正文与元数据", "zhHant": "取正文與元數據", "en": "Take body and metadata"},
+        {"zhHans": "保留发件人、日期、主题与正文，作为回溯路径。", "zhHant": "保留發件人、日期、主題與正文，作為回溯路徑。", "en": "Keep sender, date, subject and body as the trace-back path."}
+      ],
+      [
+        {"zhHans": "语种识别与术语归一", "zhHant": "語種識別與術語歸一", "en": "Detect language and normalise terms"},
+        {"zhHans": "two-envelope = 双信封 = 雙信封，避免同一事实重复抽取。", "zhHant": "two-envelope = 雙信封 = 双信封，避免同一事實重複抽取。", "en": "two-envelope = 双信封 = 雙信封, so one fact is not extracted twice."}
+      ],
+      [
+        {"zhHans": "按槽位类型匹配", "zhHant": "按槽位類型匹配", "en": "Match against slot types"},
+        {"zhHans": "正则与关键词、肯定否定、枚举清单、数值与单位。", "zhHant": "正則與關鍵詞、肯定否定、枚舉清單、數值與單位。", "en": "Regex and keywords, affirmation or negation, enumerated lists, numbers and units."}
+      ],
+      [
+        {"zhHans": "绑定证据", "zhHant": "綁定證據", "en": "Bind evidence"},
+        {"zhHans": "同一事实多版本时取最新，并列出被覆盖的旧版本。", "zhHant": "同一事實多版本時取最新，並列出被覆蓋的舊版本。", "en": "Take the latest version and list the superseded ones."}
+      ],
+      [
+        {"zhHans": "置信度分级与转人工", "zhHant": "置信度分級與轉人工", "en": "Grade confidence and escalate"},
+        {"zhHans": "≥0.90 直接采用；hedged 措辞 ≤0.70 转 QS；范围外仅记录不入库。", "zhHant": "≥0.90 直接採用；hedged 措辭 ≤0.70 轉 QS；範圍外僅記錄不入庫。", "en": "≥0.90 auto-adopt; hedged wording ≤0.70 to QS; out-of-scope recorded but not committed."}
+      ]
+    ],
+    "ruleHead": [
+      {"zhHans": "抽取内容", "zhHant": "抽取內容", "en": "What is extracted"},
+      {"zhHans": "识别方式", "zhHant": "識別方式", "en": "How the skill recognises it"},
+      {"zhHans": "结果处理", "zhHant": "結果處理", "en": "How the result is handled"}
+    ],
+    "rules": [
+      ["合约编号 / QS 编号", "编号形态 + 上下文关键词", "绑定 B01，需人工确认"],
+      ["项目名称", "专有名词 + 项目上下文", "绑定 B01 / B02"],
+      ["是否采用双信封", "two-envelope / 双信封 / 雙信封", "绑定分文件变量 B04（整段重写）"],
+      ["电子 / 纸质招标路线", "electronic / paper / 电子 / 紙本", "绑定 B05（二选一）"],
+      ["评分表与提交要求", "权重百分比 + 提交清单", "绑定 B03，与 SCT 附表交叉复核"],
+      ["清单（Bill Nos. / 专业分包）", "枚举清单 + 编号序列", "绑定 billNos / subcontractors 清单变量"],
+      ["限定句（\"proposed\" / \"subject to\"）", "情态与限定措辞识别", "置信度 ≤0.70，转 QS 人工判断"],
+      ["范围外声明（价格计算 / 图纸算量）", "范围外关键词", "仅记录，不入库"]
+    ],
+    "outItems": [
+      {"zhHans": "事实清单：值 / 绑定变量 / 置信度 / 是否转人工。", "zhHant": "事實清單：值 / 綁定變量 / 置信度 / 是否轉人工。", "en": "Fact list with value, bound variable, confidence and escalation flag."},
+      {"zhHans": "每条事实可回溯到具体一行原文。", "zhHant": "每條事實可回溯到具體一行原文。", "en": "Every fact traces back to a specific source line."},
+      {"zhHans": "与模板推理候选合并后在 Step 2 一并确认。", "zhHant": "與模板推理候選合併後在 Step 2 一併確認。", "en": "Merged with template candidates and confirmed together in step 2."}
+    ],
+    "guardItems": [
+      {"zhHans": "范围内作答，排除 BQ 计价、施工方案与图纸算量。", "zhHant": "範圍內作答，排除 BQ 計價、施工方案與圖紙算量。", "en": "Stay in scope: no BQ pricing, method statements or quantity take-off."},
+      {"zhHans": "冲突时不覆盖原值，两个版本并列展示。", "zhHant": "衝突時不覆蓋原值，兩個版本並列展示。", "en": "On conflict, never overwrite — present both versions."},
+      {"zhHans": "缺原文依据的事实宁缺勿造，不补全、不推测。", "zhHant": "缺原文依據的事實寧缺勿造，不補全、不推測。", "en": "Without source support, leave the fact out — no completion, no speculation."},
+      {"zhHans": "重复上传以最后一次解析结果为准。", "zhHant": "重複上傳以最後一次解析結果為準。", "en": "For re-uploads, the latest parse wins."}
+    ]
+  },
+  {
+    "id": "vetting",
+    "code": "tender-rule-vetting",
+    "name": {
+      "zhHans": "招标文件审查规则",
+      "zhHant": "招標文件審查規則",
+      "en": "Tender document vetting rules"
+    },
+    "purpose": {
+      "zhHans": "对组装后的招标文件逐条核对交叉引用、来源事实与标准惯例，把每处命中变成可复核的 finding，而不是静默改写。",
+      "zhHant": "對組裝後的招標文件逐條核對交叉引用、來源事實與標準慣例，把每處命中變成可覆核的 finding，而不是靜默改寫。",
+      "en": "Checks the assembled tender package against cross-references, source facts and standard practice, turning every hit into a reviewable finding instead of a silent edit."
+    },
+    "badges": [
+      {"zhHans": "4 类问题", "zhHant": "4 類問題", "en": "4 finding types"},
+      {"zhHans": "跨文件 · 文件内", "zhHant": "跨文件 · 文件內", "en": "Cross-file · in-file"}
+    ],
+    "steps": [
+      [
+        {"zhHans": "建立引用索引", "zhHant": "建立引用索引", "en": "Build the reference index"},
+        {"zhHans": "扫描全包的条款引用与条款编号，形成可回查的索引。", "zhHant": "掃描全包的條款引用與條款編號，形成可回查的索引。", "en": "Scan every clause reference and number across the package into a look-up index."}
+      ],
+      [
+        {"zhHans": "引用逐条回查", "zhHant": "引用逐條回查", "en": "Resolve every reference"},
+        {"zhHans": "每个引用必须落到实际存在的条款，否则报「引用不存在」。", "zhHant": "每個引用必須落到實際存在的條款，否則報「引用不存在」。", "en": "Each reference must resolve to an existing clause, otherwise report “reference not found”."}
+      ],
+      [
+        {"zhHans": "同一事项跨文件比对", "zhHant": "同一事項跨文件比對", "en": "Compare the same subject across files"},
+        {"zhHans": "范围、付款、工期、违约金等同一事项在不同文件中必须一致。", "zhHant": "範圍、付款、工期、違約金等同一事項在不同文件中必須一致。", "en": "Scope, payment, programme and liquidated damages must agree across files."}
+      ],
+      [
+        {"zhHans": "归入四类问题之一", "zhHant": "歸入四類問題之一", "en": "Assign to one of the four finding types"},
+        {"zhHans": "条款引用错误 / 内容冲突 / 语言与用词 / 主观风险条款。", "zhHant": "條款引用錯誤 / 內容衝突 / 語言與用詞 / 主觀風險條款。", "en": "Reference error / content conflict / language and wording / subjective risk clause."}
+      ],
+      [
+        {"zhHans": "留证并交回报告", "zhHant": "留證並交回報告", "en": "Leave evidence and hand back a report"},
+        {"zhHans": "每条附原文、理由与建议，按类型与文件分组导出。", "zhHant": "每條附原文、理由與建議，按類型與文件分組導出。", "en": "Each finding carries source, reason and suggestion, exportable grouped by type and file."}
+      ]
+    ],
+    "ruleHead": [
+      {"zhHans": "问题类型", "zhHant": "問題類型", "en": "Finding type"},
+      {"zhHans": "识别方式", "zhHant": "識別方式", "en": "How the skill recognises it"},
+      {"zhHans": "建议处理", "zhHant": "建議處理", "en": "What it suggests"}
+    ],
+    "rules": [
+      ["条款引用错误", "引用不存在或已删除的条款；编号错误；空白未定稿；规范库版本错误", "指向正确条款，或删除该引用"],
+      ["内容冲突", "范围、付款、工期、违约金等同一事项跨文件不一致", "统一表述，并列出冲突的两个版本"],
+      ["语言与用词", "语法、拼写、英式 / 美式英语混用、表达不清", "给出替换建议，由 QS 定夺"],
+      ["主观风险条款", "易引发争议或难以执行的表述", "标记为需 QS 判断，并给出可选写法"],
+      ["同一条款出现在两份文件", "条款编号与正文重复命中", "保留唯一口径，另一处改为「见……」"],
+      ["审查范围", "先与标准模板基线做 diff", "照搬的固定文本不审查，只审查本项目改动过的内容"],
+      ["主观风险条款产出上限", "每次审查计数", "每次最多 10 条，超出按严重度取前十条"],
+      ["范围外请求", "计价 / 算量类提问", "仅记录，按范围外退回"]
+    ],
+    "outItems": [
+      {"zhHans": "问题清单：类型 / 文件 / 条款 / 严重度 / 建议 / 状态。", "zhHant": "問題清單：類型 / 文件 / 條款 / 嚴重度 / 建議 / 狀態。", "en": "Finding list with type, file, clause, severity, suggestion and status."},
+      {"zhHans": "每条附原文与理由，可复核。", "zhHant": "每條附原文與理由，可覆核。", "en": "Each finding carries source text and reason for review."},
+      {"zhHans": "按类型与文件分组，可导出审查报告。", "zhHant": "按類型與文件分組，可導出審查報告。", "en": "Grouped by type and file, exportable as a vetting report."}
+    ],
+    "guardItems": [
+      {"zhHans": "不擅自改写条款，只给建议。", "zhHant": "不擅自改寫條款，只給建議。", "en": "Never rewrite a clause — suggest only."},
+      {"zhHans": "来源缺失时按「缺失」上报，不推定正确。", "zhHant": "來源缺失時按「缺失」上報，不推定正確。", "en": "Missing sources are reported as missing, never assumed correct."},
+      {"zhHans": "风险条款只标记，不静默采纳或删除。", "zhHant": "風險條款只標記，不靜默採納或刪除。", "en": "Risky clauses are flagged, never silently accepted or deleted."},
+      {"zhHans": "照搬模板的文本不产出问题。", "zhHant": "照搬模板的文本不產出問題。", "en": "Text copied straight from the template produces no findings."},
+      {"zhHans": "主观风险条款每次不超过 10 条。", "zhHant": "主觀風險條款每次不超過 10 條。", "en": "At most 10 subjective risk findings per run."},
+      {"zhHans": "每次裁决记录裁决人与时间。", "zhHant": "每次裁決記錄裁決人與時間。", "en": "Every disposition records who decided and when."}
+    ]
+  }
+]
