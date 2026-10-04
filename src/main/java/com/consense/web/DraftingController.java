@@ -54,6 +54,13 @@ public class DraftingController {
         return ApiResponse.ok(draftingService.uploadInputs(projectId, files));
     }
 
+    @DeleteMapping("/inputs/{id}")
+    public ApiResponse<Void> deleteInput(@PathVariable String projectId,
+                                         @PathVariable Long id) {
+        draftingService.deleteInput(projectId, id);
+        return ApiResponse.ok();
+    }
+
     @GetMapping("/variables")
     public ApiResponse<List<VariableVO>> variables(@PathVariable String projectId) {
         return ApiResponse.ok(draftingService.listVariables(projectId));

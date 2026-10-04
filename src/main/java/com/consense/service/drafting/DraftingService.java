@@ -11,12 +11,15 @@ import com.consense.domain.Project;
 import com.consense.domain.SourceDocument;
 import com.consense.repository.DraftDocumentRepository;
 import com.consense.repository.DraftVariableRepository;
+import com.consense.repository.EvidenceChunkRepository;
 import com.consense.repository.SourceDocumentRepository;
 import com.consense.service.ProjectService;
 import com.consense.service.StorageService;
 import com.consense.service.prompt.PromptCatalog;
 import com.consense.service.prompt.PromptService;
+import com.consense.vector.VectorStore;
 import com.consense.web.dto.DraftingDtos.*;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -59,7 +62,7 @@ public class DraftingService {
     private static final int MAX_DOC_CHARS = 8000;
     private static final int MAX_TEMPLATE_CHARS = 10000;
     private static final int MAX_EVIDENCE_CHARS = 3000;
-    private static final int MAX_EVIDENCE_SNIPPET_CHARS = 2500;
+    private static final int MAX_EVIDENCE_SNIPPET_CHARS = 4500;
     /**
      * 模板中的决策线索标记：命中的位置附近（条款正文 + 右侧/下方 Guidance Note 小字）
      * 优先送入模型，避免长模板从头截断把决策点全部砍掉。
@@ -81,6 +84,8 @@ public class DraftingService {
     private final SourceDocumentRepository sourceDocumentRepository;
     private final DraftVariableRepository variableRepository;
     private final DraftDocumentRepository documentRepository;
+    private final EvidenceChunkRepository evidenceChunkRepository;
+    private final VectorStore vectorStore;
     /** 提示词从数据库取（支持前端在线编辑），DB 无值时回退出厂默认 */
     private final PromptService promptService;
     private final DraftDocPdfWriter pdfWriter;
@@ -102,10 +107,35 @@ public class DraftingService {
         private String action;
         private List<String> options;
         private String affects;
+
+        /**
+         * value 宽容反序列化：模型有时把清单型变量（如 billNos）输出为 JSON 数组而非字符串，
+         * 统一转字符串（数组/对象序列化为 JSON 字符串，后续 normalizeListValue 再解析成列表）。
+         */
+        @JsonDeserialize(using = LenientStringDeserializer.class)
         private String value;
         private String reason;
         private String sourceQuote;
         private Double confidence;
+    }
+
+    /** 把模型输出的任意 JSON 节点转成字符串：文本/数字/布尔直接用，数组/对象序列化为 JSON 字符串 */
+    public static class LenientStringDeserializer extends com.fasterxml.jackson.databind.JsonDeserializer<String> {
+        @Override
+        public String deserialize(com.fasterxml.jackson.core.JsonParser parser,
+                                  com.fasterxml.jackson.databind.DeserializationContext context) throws java.io.IOException {
+            com.fasterxml.jackson.databind.JsonNode node = parser.readValueAsTree();
+            if (node == null || node.isNull()) {
+                return null;
+            }
+            if (node.isTextual()) {
+                return node.asText();
+            }
+            if (node.isContainerNode()) {
+                return node.toString();
+            }
+            return node.asText();
+        }
     }
 
     @Data
@@ -305,6 +335,22 @@ public class DraftingService {
             sourceDocumentRepository.save(document);
         }
         return new UploadResultVO(files.size(), parsed, failed, messages);
+    }
+
+    /**
+     * 删除一条项目沟通证据：连同其解析分块、向量索引与磁盘文件一并清理。
+     */
+    @Transactional
+    public void deleteInput(String projectId, Long id) {
+        projectService.require(projectId);
+        SourceDocument document = sourceDocumentRepository.findById(id)
+                .filter(d -> projectId.equals(d.getProjectId()))
+                .filter(d -> SourceDocument.CATEGORY_PROJECT_INPUT.equals(d.getCategory()))
+                .orElseThrow(() -> new BizException(4011, "证据不存在或不属于该项目"));
+        evidenceChunkRepository.deleteByDocumentId(id);
+        vectorStore.deleteByDocument(String.valueOf(id));
+        storageService.delete(document.getStoragePath());
+        sourceDocumentRepository.delete(document);
     }
 
     // ------------------------------------------------------------ 第 2/3 步：变量
@@ -1064,7 +1110,11 @@ public class DraftingService {
         List<String> keywords = Arrays.asList(
                 "contract no", "contract title", "tender a", "tender b", "funding arrangement",
                 "bill ", "bq", "bill schedule", "preliminar", "preamble",
-                "sub-contractor", "subcontractor", "specialist", "nominated", "trade");
+                "sub-contractor", "subcontractor", "specialist", "nominated", "trade",
+                "foundation", "combined contract", "merge",
+                "month", "39", "threshold", "period", "programme",
+                "two-envelope", "envelope", "l10pro", "hard copy", "hardcopy", "tendering method",
+                "electronic dissemination", "tender preparation", "tender return");
         List<SourceDocument> documents =
                 sourceDocumentRepository.findByProjectIdAndCategoryOrderByIdAsc(projectId,
                         SourceDocument.CATEGORY_PROJECT_INPUT);
@@ -1104,6 +1154,10 @@ public class DraftingService {
                 }
                 String entry = "  " + trimmed + "\n";
                 if (entry.length() > remaining) {
+                    // 长行超出剩余预算：截断保留关键内容而不是整行丢弃，
+                    // 避免靠后文件（如 39 个月阈值邮件）的关键判定句被跳过
+                    builder.append(entry, 0, remaining);
+                    remaining = 0;
                     break;
                 }
                 builder.append(entry);

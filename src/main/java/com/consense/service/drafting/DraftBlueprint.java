@@ -72,7 +72,7 @@ public final class DraftBlueprint {
         }
     }
 
-    /** 设计稿里的 5 个 BASE 变量（顺序固定，前端展示按此顺序）。
+    /** 设计稿里的 8 个 BASE 变量（顺序固定，前端展示按此顺序）。
      *  key / 标签 / action / options / kind / affects 由设计稿固定，模型不允许新增 / 删除 / 重命名，
      *  只能为每个 BASE 填写 value（其余字段 sourceQuote/reason/confidence 由识别产生）。 */
     public static final List<BaseSpec> BASE_VARIABLES = Collections.unmodifiableList(Arrays.asList(
@@ -95,7 +95,19 @@ public final class DraftBlueprint {
             new BaseSpec(
                     "subcontractors", "SUB",
                     "专业分包清单", "專業分包清單", "Nominated Sub-contractors",
-                    "fill", null, "list", "SCC")
+                    "fill", null, "list", "SCC"),
+            new BaseSpec(
+                    "twoEnvelopeSystem", "B04",
+                    "双信封投标制度", "雙信封投標制度", "Two-Envelope Tendering System",
+                    "choice", Arrays.asList("是", "否", "待确认"), null, "NTT"),
+            new BaseSpec(
+                    "foundationIncluded", "B05",
+                    "包含基础工程的合并合约", "包含基礎工程的合併合約", "Combined Contract with Foundation Works",
+                    "choice", Arrays.asList("是", "否", "待确认"), null, "SCC"),
+            new BaseSpec(
+                    "contractPeriod39Months", "B06",
+                    "合约期是否39个月或以上", "合約期是否39個月或以上", "Contract Period 39 Months or More",
+                    "choice", Arrays.asList("是", "否", "待确认"), null, "SCC")
     ));
 
     private static final Map<String, BaseSpec> BASE_BY_KEY;

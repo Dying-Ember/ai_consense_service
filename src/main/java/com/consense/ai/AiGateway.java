@@ -135,6 +135,7 @@ public class AiGateway {
             try {
                 return parseList(retry, elementType);
             } catch (Exception second) {
+                log.error("模型 JSON 数组解析失败，完整原始返回如下（{} 字符）：\n{}", retry.length(), retry);
                 throw new BizException(5002, "模型返回内容无法解析为 JSON 数组：" + abbreviate(retry));
             }
         }
