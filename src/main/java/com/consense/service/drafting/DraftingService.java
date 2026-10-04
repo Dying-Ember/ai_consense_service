@@ -60,8 +60,9 @@ public class DraftingService {
      * 留约 3K token 给输出；长模板靠决策片段聚焦提取保证质量，不靠堆全文。
      */
     private static final int MAX_DOC_CHARS = 8000;
-    private static final int MAX_TEMPLATE_CHARS = 10000;
-    private static final int MAX_EVIDENCE_CHARS = 3000;
+    private static final int MAX_TEMPLATE_CHARS = 14000;
+    /** 证据原文总预算：提高后按文件均分，避免靠后文件（Bill 清单 / L10Pro / 分包等）整篇进不了 prompt */
+    private static final int MAX_EVIDENCE_CHARS = 8000;
     private static final int MAX_EVIDENCE_SNIPPET_CHARS = 4500;
     /**
      * 模板中的决策线索标记：命中的位置附近（条款正文 + 右侧/下方 Guidance Note 小字）
@@ -607,13 +608,15 @@ public class DraftingService {
         final String storedValue = value;
         variable.setValueText(storedValue);
         if (spec != null && "choice".equalsIgnoreCase(spec.action)) {
-            // B03 资金安排：value 必须落在 options 里，否则视为模型自由文本、不写 choice
-            if (spec.options != null && spec.options.contains(storedValue)) {
-                variable.setChoice(storedValue);
-            } else if (spec.options != null && !storedValue.isEmpty()) {
+            // choice 型：value 先做归一化（模型可能输出 Yes/No/Pending/true/false 等英文或缩写），
+            // 再落到 options 里，否则会误取第一个选项（如把 Pending 硬靠成「是」）
+            String normalized = normalizeChoiceValue(spec, storedValue);
+            if (spec.options != null && spec.options.contains(normalized)) {
+                variable.setChoice(normalized);
+            } else if (spec.options != null && !normalized.isEmpty()) {
                 // 取最相似的一个作为默认 choice（用户后续可改）
                 String guess = spec.options.stream()
-                        .filter(o -> storedValue.toLowerCase(Locale.ROOT).contains(o.toLowerCase(Locale.ROOT)))
+                        .filter(o -> normalized.toLowerCase(Locale.ROOT).contains(o.toLowerCase(Locale.ROOT)))
                         .findFirst().orElse(spec.options.get(0));
                 variable.setChoice(guess);
             } else {
@@ -626,6 +629,47 @@ public class DraftingService {
         variable.setNoteText(truncate("依据：" + nvl(item.getReason())
                 + "（置信度 " + String.format(Locale.ROOT, "%.2f", confidence) + "）", 2000));
         variable.setResultText(null);
+    }
+
+    /**
+     * choice 型 BASE 的值归一化：模型在长 prompt 下可能输出英文 / 缩写
+     * （Yes / No / Pending / true / false / Y / N），统一映射回选项原文
+     * （是 / 否 / 待确认、Tender A / Tender B 等），防止落库后与下拉选项不匹配。
+     */
+    private String normalizeChoiceValue(DraftBlueprint.BaseSpec spec, String value) {
+        if (value == null || spec.options == null || spec.options.isEmpty()) {
+            return value;
+        }
+        String v = value.trim();
+        for (String opt : spec.options) {
+            if (opt.equals(v)) {
+                return opt;
+            }
+        }
+        String lower = v.toLowerCase(Locale.ROOT);
+        if ("yes".equals(lower) || "y".equals(lower) || "true".equals(lower) || "1".equals(lower)) {
+            return "是";
+        }
+        if ("no".equals(lower) || "n".equals(lower) || "false".equals(lower) || "0".equals(lower)) {
+            return "否";
+        }
+        if (lower.startsWith("pending") || lower.contains("待确认") || lower.contains("待確認")
+                || lower.contains("tbd") || lower.contains("unknown")) {
+            return "待确认";
+        }
+        if (lower.startsWith("tender a")) {
+            return "Tender A";
+        }
+        if (lower.startsWith("tender b")) {
+            return "Tender B";
+        }
+        if (lower.contains("l10pro") || lower.contains("l10 pro")) {
+            return "L10Pro";
+        }
+        if (lower.contains("hardcopy") || lower.contains("hard copy")) {
+            return "hardcopy";
+        }
+        return value;
     }
 
     /**
@@ -1012,18 +1056,25 @@ public class DraftingService {
                 .findByProjectIdAndCategoryOrderByIdAsc(projectId, SourceDocument.CATEGORY_STANDARD_TEMPLATE);
         StringBuilder builder = new StringBuilder();
         int remaining = MAX_TEMPLATE_CHARS;
-        for (SourceDocument document : documents) {
+        for (int i = 0; i < documents.size(); i++) {
+            SourceDocument document = documents.get(i);
             if (JsonUtils.isBlankText(document.getTextContent()) || remaining <= 0) {
                 continue;
             }
             String header = "\n\n=== " + document.getFileName() + " ===\n";
+            // 均分预算：每个模板文件至少拿到「剩余预算 / 剩余文件数」的配额，靠后文件不被挤掉
+            int share = Math.max(1500, remaining / Math.max(1, documents.size() - i));
+            int budget = Math.min(share, remaining - header.length());
+            if (budget <= 0) {
+                break;
+            }
             String raw = document.getTextContent();
             String body;
             if (raw.length() <= MAX_DOC_CHARS) {
-                body = raw;
+                body = raw.length() <= budget ? raw : truncate(raw, budget);
             } else {
-                body = focusDecisionSegments(raw, Math.min(MAX_DOC_CHARS, remaining - header.length()));
-                int room = Math.min(MAX_DOC_CHARS, remaining - header.length()) - body.length();
+                body = focusDecisionSegments(raw, budget);
+                int room = budget - body.length();
                 if (room > 800) {
                     // 文档开头（封面/目录）提供全局背景
                     body = truncate(raw, Math.min(1800, room)) + "\n……（中间内容省略）……\n" + body;
@@ -1090,12 +1141,20 @@ public class DraftingService {
                 sourceDocumentRepository.findByProjectIdAndCategoryOrderByIdAsc(projectId, category);
         StringBuilder builder = new StringBuilder();
         int remaining = MAX_EVIDENCE_CHARS;
-        for (SourceDocument document : documents) {
+        for (int i = 0; i < documents.size(); i++) {
+            SourceDocument document = documents.get(i);
             if (JsonUtils.isBlankText(document.getTextContent()) || remaining <= 0) {
                 continue;
             }
             String header = "\n\n=== " + document.getFileName() + " ===\n";
-            String body = truncate(document.getTextContent(), Math.min(MAX_DOC_CHARS, remaining));
+            // 均分预算：每个文件至少拿到「剩余预算 / 剩余文件数」的配额，
+            // 保证排在后位的文件（39 个月邮件 / Bill 清单 / L10Pro 等）也有原文进入 prompt
+            int share = Math.max(400, remaining / Math.max(1, documents.size() - i));
+            int budget = Math.min(share, remaining - header.length());
+            if (budget <= 0) {
+                break;
+            }
+            String body = truncate(document.getTextContent(), budget);
             builder.append(header).append(body);
             remaining -= body.length() + header.length();
         }

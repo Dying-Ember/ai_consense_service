@@ -50,6 +50,7 @@ public final class DraftPrompts {
             + "【硬性边界】\n"
             + "1. 只使用材料中明确出现的事实，不得推测、不得补全、不得引入外部常识。\n"
             + "2. value 必须是证据或模板支持的具体取值；材料中没有依据的，value 输出空字符串，等待人工补充。\n"
+            + "2.1 choice 型变量的 value 必须严格使用选项原文（如「是」「否」「待确认」「Tender A」），不得输出 Yes / No / Pending / true / false 等变体。\n"
             + "3. 每个变量必须给出 sourceQuote（材料中的原句片段）与 reason（依据说明）。\n"
             + "4. confidence 为 0 到 1 之间的小数；低于 0.70 的不要输出。\n"
             + "5. 按 confidence 从高到低排列。\n";
