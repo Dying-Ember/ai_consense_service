@@ -1,6 +1,7 @@
 package com.consense.web;
 
 import com.consense.ai.AiGateway;
+import com.consense.common.ApiResponse;
 import com.consense.config.ConsenseProperties;
 import com.consense.ocr.OcrClient;
 import com.consense.vector.VectorStore;
@@ -26,16 +27,17 @@ public class SystemController {
     private final ConsenseProperties props;
 
     @GetMapping("/health")
-    public Map<String, Object> health() {
+    public ApiResponse<Map<String, Object>> health() {
         Map<String, Object> result = new LinkedHashMap<>();
         boolean llm = ai.available();
         boolean ocr = props.getOcr().isEnabled() && ocrClient.available();
         boolean vector = vectorStore.available();
 
         Map<String, Object> llmInfo = new LinkedHashMap<>();
+        com.consense.ai.LlmOperation selected=ai.capture();
         llmInfo.put("available", llm);
-        llmInfo.put("provider", props.getLlm().getProvider());
-        llmInfo.put("baseUrl", props.getLlm().getBaseUrl());
+        llmInfo.put("provider", selected!=null&&selected.isExplicit()?selected.getIdentity().getProvider():props.getLlm().getProvider());
+        llmInfo.put("baseUrl", selected!=null&&selected.isExplicit()?selected.getBaseUrl():props.getLlm().getBaseUrl());
         llmInfo.put("chatModel", ai.chatModel());
         llmInfo.put("embedModel", ai.embedModel());
 
@@ -56,6 +58,6 @@ public class SystemController {
         result.put("vector", vectorInfo);
         result.put("storageRoot", props.getStorageRoot());
         result.put("ready", llm && vector);
-        return result;
+        return ApiResponse.ok(result);
     }
 }

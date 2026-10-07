@@ -27,7 +27,16 @@ verify-db.log
 
 # uploaded runtime data (用户上传的合约/证据文件，不入库)
 data/uploads/
+data/vetting-local-uploads/
+data/vetting-local*.db
 /tmp/
+
+# Local Python environments, OCR/model caches and evaluation outputs
+.venv/
+__pycache__/
+*.pyc
+tools/vetting_eval/output/
+tools/vetting_eval/models/
 
 # env
 .env
@@ -44,3 +53,18 @@ Thumbs.db
 
 # 让 seed/data 目录里的演示数据保留入库
 # （service/src/main/resources/seed 和 service/data/ 下的 demo 文档作为演示数据提交）
+
+# Snapshot publication: local data, secrets and generated outputs
+data/
+uploads/
+output/
+logs/
+tmp/
+.env*
+*.pem
+*.p12
+*.pfx
+*.key
+*.jks
+*.keystore
+tests/external-fixtures/private-resources/

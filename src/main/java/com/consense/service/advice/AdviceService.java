@@ -1,6 +1,7 @@
 package com.consense.service.advice;
 
 import com.consense.ai.AiGateway;
+import com.consense.ai.ModelIdentity;
 import com.consense.common.BizException;
 import com.consense.common.JsonUtils;
 import com.consense.common.LocalizedText;
@@ -163,15 +164,24 @@ public class AdviceService {
         }
         String scope = JsonUtils.isBlankText(request.getScope()) ? "fullset" : request.getScope();
 
-        saveMessage(projectId, ChatMessage.ROLE_USER, null, question, null, null, null);
+        // Configuration errors are model-action errors even when no index has been built.
+        if (ai.explicitProfileSelected() && ai.capture().getUnavailableReason() != null) {
+            ai.requireAvailable();
+        }
+
+        saveMessage(projectId, ChatMessage.ROLE_USER, null, question, null, null, null, null);
 
         List<VectorStore.SearchHit> hits = retrieve(projectId, question);
         List<CitationVO> sources = hits.stream().map(this::toCitation).collect(Collectors.toList());
 
         if (hits.isEmpty()) {
-            AskResponseVO response = unknown(projectId, scope, sources, Collections.<String>emptyList());
+            AskResponseVO response = unknown(projectId, scope, sources, Collections.<String>emptyList(), false);
             persistAssistant(projectId, response);
             return response;
+        }
+
+        if (ai.explicitProfileSelected()) {
+            ai.requireAvailable();
         }
 
         String excerpts = renderExcerpts(hits);
@@ -182,15 +192,19 @@ public class AdviceService {
         try {
             answer = ai.completeJson(promptService.system(PromptCatalog.KEY_ADVICE), userPrompt, AnswerRecord.class);
         } catch (Exception e) {
-            log.warn("问答模型调用失败: {}", e.getMessage());
-            throw new BizException(4203, "模型调用失败：" + e.getMessage());
+            // External exception text may contain credentials; retain only the safe failure type/profile.
+            log.warn("Advice model call failed ({}).", e.getClass().getSimpleName());
+            ModelIdentity selected = ai.modelIdentity();
+            throw new BizException(4203, "Selected LLM profile "
+                    + (selected == null ? "legacy deployment" : selected.getProfileId())
+                    + " failed; the operation was not rerouted.");
         }
 
         if (answer == null || !answer.isGrounded() || JsonUtils.isBlankText(answer.getAnswer())) {
             List<String> extra = answer != null && answer.getMissingReason() != null
                     ? Arrays.asList(answer.getMissingReason())
                     : Collections.<String>emptyList();
-            AskResponseVO response = unknown(projectId, scope, sources, extra);
+            AskResponseVO response = unknown(projectId, scope, sources, extra, true);
             persistAssistant(projectId, response);
             return response;
         }
@@ -206,7 +220,7 @@ public class AdviceService {
                 citations,
                 evidenceIdOf(sources),
                 sources,
-                ai.chatModel());
+                ai.chatModel(), ai.modelIdentity());
         persistAssistant(projectId, response);
         log.info("项目 {} 问答完成，命中 {} 条证据", projectId, hits.size());
         return response;
@@ -236,7 +250,14 @@ public class AdviceService {
         }
 
         // 大证据量：走向量检索，扩召回
-        if (!ai.available() || !vectorStore.available()) {
+        if (!ai.embeddingAvailable()) {
+            if (ai.explicitProfileSelected()) {
+                throw new BizException(4203,
+                        "The deployment embedding adapter is unavailable; the selected chat profile was not rerouted.");
+            }
+            return Collections.emptyList();
+        }
+        if (!vectorStore.available()) {
             return Collections.emptyList();
         }
         List<float[]> vectors = ai.embed(Collections.singletonList(question));
@@ -260,7 +281,7 @@ public class AdviceService {
     }
 
     private AskResponseVO unknown(String projectId, String scope, List<CitationVO> sources,
-                                  List<String> extraReasons) {
+                                  List<String> extraReasons, boolean chatDispatched) {
         List<String> citations = new ArrayList<>();
         if (sources.isEmpty()) {
             citations.add("Searched selected scope · no basis");
@@ -275,7 +296,7 @@ public class AdviceService {
                 citations,
                 evidenceIdOf(sources),
                 sources,
-                ai.chatModel());
+                chatDispatched ? ai.chatModel() : null, chatDispatched ? ai.modelIdentity() : null);
     }
 
     /**
@@ -336,7 +357,9 @@ public class AdviceService {
                     message.getUnknownScope(),
                     citations,
                     message.getEvidenceId(),
-                    Collections.<CitationVO>emptyList()));
+                    Collections.<CitationVO>emptyList(),
+                    message.getModelIdentityJson() == null ? null
+                            : JsonUtils.read(message.getModelIdentityJson(), ModelIdentity.class)));
         }
         return result;
     }
@@ -374,7 +397,7 @@ public class AdviceService {
     // ------------------------------------------------------------ 内部
 
     private void saveMessage(String projectId, String role, String title, String content,
-                             String unknownScope, List<String> citations, String evidenceId) {
+                             String unknownScope, List<String> citations, String evidenceId, ModelIdentity modelIdentity) {
         ChatMessage message = new ChatMessage();
         message.setProjectId(projectId);
         message.setRole(role);
@@ -383,6 +406,7 @@ public class AdviceService {
         message.setUnknownScope(unknownScope);
         message.setCitationsJson(citations == null ? null : JsonUtils.write(citations));
         message.setEvidenceId(evidenceId);
+        message.setModelIdentityJson(modelIdentity == null ? null : JsonUtils.write(modelIdentity));
         message.setCreatedAt(Instant.now());
         chatMessageRepository.save(message);
     }
@@ -396,7 +420,7 @@ public class AdviceService {
                 content,
                 response.getUnknownScope(),
                 response.getCitations(),
-                response.getEvidenceId());
+                response.getEvidenceId(), response.getModelIdentity());
     }
 
     private List<String> safeList(String json) {

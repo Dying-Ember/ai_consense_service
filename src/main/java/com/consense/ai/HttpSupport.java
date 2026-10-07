@@ -28,6 +28,12 @@ public class HttpSupport {
         return execute(request, timeoutMs, 0);
     }
 
+    public String get(String url, long timeoutMs, String authHeader) {
+        Request.Builder request = new Request.Builder().url(url).get();
+        if (authHeader != null) request.header("Authorization", authHeader);
+        return execute(request.build(), timeoutMs, 0);
+    }
+
     public String postJson(String url, String json, long timeoutMs, String authHeader, int maxRetry) {
         Request.Builder builder = new Request.Builder()
                 .url(url)

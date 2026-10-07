@@ -9,116 +9,12 @@ public final class DraftPrompts {
     private DraftPrompts() {
     }
 
-    /**
-     * 变量识别：BASE 变量由设计稿固定（key/label/action/options/kind/affects 不变），
-     * 模型仅从证据中填 value/sourceQuote/reason/confidence；FILE 变量仍由模型自行发现。
-     */
-    public static final String DISCOVER_SYSTEM =
-            "你是香港公共工程合约文件的起草助手，服务于工料测量师（QS）。\n"
-            + "\n"
-            + "【任务】通读「标准模板原文」与「项目证据原文」：\n"
-            + "  A) 为下列 8 个 BASE 变量查找建议取值与可复核的依据；key / 标签 / 类型 / 选项 / 影响文件均由设计稿固定，\n"
-            + "     你只需给出 value / sourceQuote / reason / confidence，材料中无依据时 value 留空。\n"
-            + "     **绝对不能新增 BASE key**——除了下面这 8 个以外，任何你想到的项目事实（如 contractNo、projectName 等）\n"
-            + "     都不允许作为 BASE 变量，必须作为 FILE 变量输出。\n"
-            + "  B) 同时识别模板中其他需要决策的 FILE 变量（key / 标签 / 类型 / 选项 / 影响文件 / 取值 / 依据 全部由你判断）。\n"
-            + "\n"
-            + "【BASE 变量清单（固定）】\n"
-            + "%s\n"
-            + "worksType（B02）value 仅填工程类型本身（如「住宅发展工程」）；reason 必须按以下两行格式分别给出两个维度的判断结论并引用证据句子：\n"
-            + "  维度一【是否为包含基础工程的合并合约】：是 / 否 / 待确认（依据材料判定句）\n"
-            + "  维度二【合约期是否 39 个月或以上】：是 / 否 / 待确认（依据材料判定句）\n"
-            + "fundingArrangement（B03）若材料中证据明确支持 Tender A 或 Tender B，value 直接给选项原名；\n"
-            + "billNos：「BQ Bill 编号与名称」为清单型，每个 Bill 编号/名称分行给出；\n"
-            + "subcontractors：同理为清单型，每项一行。\n"
-            + "twoEnvelopeSystem（B04）若材料中证据明确支持采用双信封投标制度，value 填「是」，明确不支持则填「否」；证据不足或未定论时填「待确认」。\n"
-            + "foundationIncluded（B05）仅当材料明确判定为包含基础工程的合并合约时填「是」；明确排除则填「否」；若材料只是提到基础工程相关工作但明确表示分类 pending / 未定论，value 填「待确认」。\n"
-            + "contractPeriod39Months（B06）若材料中明确说明合约期是否达到或超过 39 个月，value 填「是」或「否」；证据未定论时填「待确认」。\n"
-            + "\n"
-            + "【FILE 变量识别规则】\n"
-            + "1. 【最重要的线索】模板正文旁边（右侧或下方）的斜体小字是 Guidance Note（指引注释），\n"
-            + "   每一条几乎都对应一个 FILE 变量，必须逐条识别，形如：\n"
-            + "   - (Guidance Note: For use in building contract adopting the two-envelope tendering system ...) —— 二选一路缐变量；\n"
-            + "   - [Guidance Note: *Delete/amend by the PQS as appropriate] —— 由 QS 决定删除或修改的条款变量；\n"
-            + "   - For use where the Contractor is responsible for the design ... —— 条件适用型变量。\n"
-            + "2. 模板中的占位符、留空括号、可选路线（电子/纸质招标、Option A / Option B），"
-            + "   与项目证据冲突或被证据覆盖的条款，也都是变量来源。\n"
-            + "3. action 只能取：fill（填空）/ choice（二选一，必须给 options）/ rewrite（整段重写）/ delete（整段删除）/ notused（标记 Not used）。\n"
-            + "4. key 用简短稳定的英文标识（如 foundationIncluded、electronicTendering）；同一语义只输出一个。\n"
-            + "5. FILE 变量数量按材料实际情况，通常 5 到 20 个；Guidance Note 多的模板可适当超过。\n"
-            + "\n"
-            + "【硬性边界】\n"
-            + "1. 只使用材料中明确出现的事实，不得推测、不得补全、不得引入外部常识。\n"
-            + "2. value 必须是证据或模板支持的具体取值；材料中没有依据的，value 输出空字符串，等待人工补充。\n"
-            + "2.1 choice 型变量的 value 必须严格使用选项原文（如「是」「否」「待确认」「Tender A」），不得输出 Yes / No / Pending / true / false 等变体。\n"
-            + "3. 每个变量必须给出 sourceQuote（材料中的原句片段）与 reason（依据说明）。\n"
-            + "4. confidence 为 0 到 1 之间的小数；低于 0.70 的不要输出。\n"
-            + "5. 按 confidence 从高到低排列。\n";
-
-    public static final String DISCOVER_USER_TEMPLATE =
-            "【标准模板原文】\n"
-            + "%s\n"
-            + "\n"
-            + "【项目证据原文】\n"
-            + "%s\n"
-            + "\n"
-            + "【输出格式】\n"
-            + "输出 JSON 数组，每个元素：\n"
-            + "BASE 变量（8 条固定 key，每条仅含 value / sourceQuote / reason / confidence）：\n"
-            + "{\n"
-            + "  \"key\": \"contractTitle | worksType | fundingArrangement | billNos | subcontractors | twoEnvelopeSystem | foundationIncluded | contractPeriod39Months\",\n"
-            + "  \"value\": \"依据材料原文的取值，无依据时为空字符串\",\n"
-            + "  \"reason\": \"依据说明，需引用材料中的具体句子\",\n"
-            + "  \"sourceQuote\": \"材料中的原句片段\",\n"
-            + "  \"confidence\": 0.92\n"
-            + "}\n"
-            + "FILE 变量（key / 标签 / 类型 / 选项 / 影响文件 全部自行识别）：\n"
-            + "{\n"
-            + "  \"key\": \"变量英文标识\",\n"
-            + "  \"fileKey\": \"NTT / SCT / SCC\",\n"
-            + "  \"labelZh\": \"简体中文标签\",\n"
-            + "  \"labelZhHant\": \"繁體中文標籤\",\n"
-            + "  \"labelEn\": \"English label\",\n"
-            + "  \"action\": \"fill / choice / rewrite / delete / notused\",\n"
-            + "  \"options\": [\"仅 choice 型给出全部选项，其他为空数组\"],\n"
-            + "  \"affects\": \"影响的文件，逗号分隔，如 NTT,SCT\",\n"
-            + "  \"value\": \"建议取值，材料中无依据时为空字符串\",\n"
-            + "  \"reason\": \"依据说明，需引用材料中的具体句子\",\n"
-            + "  \"sourceQuote\": \"材料中的原句片段\",\n"
-            + "  \"confidence\": 0.92\n"
-            + "}\n"
-            + "BASE 标签 / 选项 / 影响文件不要输出（已固定），FILE 标签全三语必填。\n";
-
-    public static final String CLAUSE_SYSTEM =
-            "你是香港公共工程合约文件的起草助手，服务于工料测量师（QS）。\n"
-            + "\n"
-            + "【任务】基于已确认的变量，起草指定的合约文件正文。\n"
-            + "\n"
-            + "【硬性边界】\n"
-            + "1. 只使用给定的已确认变量，不得编造任何项目事实。\n"
-            + "2. action 的处理方式必须遵守：\n"
-            + "   delete   —— 整段删除，含条款编号；\n"
-            + "   notused  —— 保留条款编号，正文写 \"Not used\"；\n"
-            + "   choice   —— 只保留选定选项对应的表述；\n"
-            + "   rewrite  —— 按变量值整段重写；\n"
-            + "   fill     —— 在原文占位处填入变量值。\n"
-            + "3. 未提供依据的占位符保留为 [ 待确认 ]，不要猜测。\n"
-            + "4. 输出语言与所选语言一致，条款编号格式与模板保持一致。\n";
-
-    public static final String CLAUSE_USER_TEMPLATE =
-            "【目标文件】%s\n"
-            + "\n"
-            + "【已确认变量】\n"
-            + "%s\n"
-            + "\n"
-            + "【标准模板原文节选】\n"
-            + "%s\n"
-            + "\n"
-            + "【输出格式】\n"
-            + "{\n"
-            + "  \"title\": \"文件标题\",\n"
-            + "  \"content\": \"完整的文件正文（Markdown 文本，使用 ## 与 ### 表示条款层级）\"\n"
-            + "}\n";
+    public static final String INPUT_CONTRACT = "FINAL AUTHORITATIVE DRAFTING INPUT CONTRACT. It supersedes older fixed-eight, BASE/FILE, discovery-count or confirmation instructions. The attached versioned editable-input schemas define the allowed keys and value structures. Return only keys supported by this evidence part; missing answers are not No. Never invent keys, project facts, company names, clause mappings or exact durations. Each item is {key,value:string,sourceQuote:string,reason:string,confidence:number}. Structured values are JSON serialized inside the value string, following each schema's columnFields. Boolean values are true/false strings; an empty string means unknown; [] means an explicit empty list only where the correspondence expressly says none. Copy a short contiguous evidence sentence character for character, including punctuation and curly quotes. Never fabricate or concatenate non-adjacent quotes. The service checks each quote against this exact evidence part. Only project correspondence establishes project values; generation templates, project metadata and example answer documents do not. Extract evidence-supported partial structured fields without inventing their missing siblings. Formal Bill/Schedule descriptions and other free text stay exactly as written; type and purpose classification are separate metadata and cannot be appended to a description. L10Pro denotes BQ issue/pricing preparation and does not remove paper/DVD return obligations. NSC/BSSSC arrangement is separate from actual trade scope. The foundation-combined-contract AND >=39-month threshold controls the appendix selection; neither condition proves the other. Tender A/B is excluded. G1/G1a, tree count, final clause numbering and NSC applicability are derived results, not new inputs. Model suggestions are never automatically confirmed or used instead of manually adopted values. Do not output targetOverrides. Confidence must be between 0 and 1; unsupported or conflicting parts should be explained as uncertainty rather than guessed. Preserve English terminology and values.\n";
+    public static final String GENERATION_CONTRACT = "Contract editing is deterministic from the shared adopted-input snapshot and target decisions. Preserve complete English source text and formal descriptions. Unknown items remain explicit unresolved metadata; no invented language, numbering, edition mapping or user facts. A model may suggest exact wording only for later explicit user adoption.\n";
+    public static final String DISCOVER_SYSTEM = "You extract candidate answers from supplied project correspondence for a Hong Kong QS.";
+    public static final String DISCOVER_USER_TEMPLATE = "Input boundary:\n%s\nEvidence identity and complete source part:\n%s";
+    public static final String CLAUSE_SYSTEM = GENERATION_CONTRACT;
+    public static final String CLAUSE_USER_TEMPLATE = "Target document: %s\nAdopted inputs:\n%s\nComplete source part:\n%s\nPreserve this complete source part.";
 
     /** 审查用提示词（VettingService 复用） */
     public static final String VETTING_SYSTEM =
@@ -230,3 +126,6 @@ public final class DraftPrompts {
             + "}\n"
             + "grounded 只能为 true 或 false。citations 必须是摘录中真实出现的条款编号或文件名。\n";
 }
+
+
+

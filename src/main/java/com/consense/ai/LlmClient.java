@@ -1,5 +1,6 @@
 package com.consense.ai;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import java.util.List;
 
 /**
@@ -9,6 +10,11 @@ public interface LlmClient {
 
     /** 普通对话补全 */
     String chat(List<ChatTurn> turns);
+
+    /** Optional structured decoding. Providers without schema support keep prompt-based decoding. */
+    default String chatStructured(List<ChatTurn> turns, JsonNode schema) {
+        return chat(turns);
+    }
 
     /** 文本向量化 */
     List<float[]> embed(List<String> texts);

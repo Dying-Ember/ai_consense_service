@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -18,19 +19,28 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 @Slf4j
 @Service
-@RequiredArgsConstructor
 public class AiGateway {
 
     private static final String JSON_INSTRUCTION =
             "\n\n【输出要求】只输出一个合法的 JSON，不要 Markdown 代码块，不要任何解释文字。";
 
     private final LlmClient llmClient;
+    private final LlmProfiles profiles;
+    @org.springframework.beans.factory.annotation.Autowired
+    public AiGateway(LlmClient llmClient,LlmProfiles profiles){this.llmClient=llmClient;this.profiles=profiles;}
+    /** Legacy adapter-only callers preserve their existing deployment behavior. */
+    public AiGateway(LlmClient llmClient){this(llmClient,null);}
+    public LlmOperation capture(){return profiles==null?null:profiles.capture();}
+    public ModelIdentity modelIdentity(){return profiles==null?null:profiles.capture().getIdentity();}
+    public boolean explicitProfileSelected(){return profiles!=null&&profiles.capture().isExplicit();}
+    private LlmClient selectedClient(){return profiles==null?llmClient:profiles.capture().getClient();}
 
     private final AtomicLong lastProbeAt = new AtomicLong(0);
     private volatile boolean lastProbeResult = false;
 
     /** 30 秒内复用可用性探测结果，避免每次请求都打一次 /api/tags */
     public boolean available() {
+        if(explicitProfileSelected())return profiles.capture().getUnavailableReason()==null&&selectedClient().available();
         long now = System.currentTimeMillis();
         if (now - lastProbeAt.get() > 30_000) {
             lastProbeResult = llmClient.available();
@@ -40,6 +50,12 @@ public class AiGateway {
     }
 
     public void requireAvailable() {
+        if(explicitProfileSelected()) {
+            LlmOperation operation=profiles.capture();
+            if(operation.getUnavailableReason()!=null)throw new BizException(5001,"Selected LLM profile "+operation.getIdentity().getProfileId()+" is not configured: "+operation.getUnavailableReason());
+            if(!available())throw new BizException(5001,"Selected LLM profile "+operation.getIdentity().getProfileId()+" is unavailable (configured model "+operation.getIdentity().getModel()+").");
+            return;
+        }
         if (!available()) {
             throw new BizException(5001,
                     "本地大模型服务不可用（模型 " + llmClient.chatModel()
@@ -50,7 +66,7 @@ public class AiGateway {
     public String complete(String systemPrompt, String userPrompt) {
         requireAvailable();
         logPrompt("发送给模型的完整提示词", systemPrompt, userPrompt);
-        String raw = llmClient.chat(Arrays.asList(
+        String raw = selectedClient().chat(Arrays.asList(
                 LlmClient.ChatTurn.system(systemPrompt),
                 LlmClient.ChatTurn.user(userPrompt)));
         logResponse(raw);
@@ -81,7 +97,7 @@ public class AiGateway {
 
     public String chat(List<LlmClient.ChatTurn> turns) {
         requireAvailable();
-        return llmClient.chat(turns);
+        return selectedClient().chat(turns);
     }
 
     /**
@@ -135,19 +151,80 @@ public class AiGateway {
             try {
                 return parseList(retry, elementType);
             } catch (Exception second) {
-                log.error("模型 JSON 数组解析失败，完整原始返回如下（{} 字符）：\n{}", retry.length(), retry);
                 throw new BizException(5002, "模型返回内容无法解析为 JSON 数组：" + abbreviate(retry));
             }
         }
     }
 
     public List<float[]> embed(List<String> texts) {
-        requireAvailable();
+        if(!embeddingAvailable())throw new BizException(5001,"Deployment embedding adapter is unavailable (model "+llmClient.embedModel()+").");
         return llmClient.embed(texts);
+    }
+    public boolean embeddingAvailable(){return llmClient.available();}
+
+    /** Vetting-only strict schema subset decoding; source/evidence truth remains the caller's responsibility. */
+    public <T> List<T> completeStructuredJsonList(String systemPrompt, String userPrompt,
+                                                 Class<T> elementType, JsonNode schema) {
+        return completeStructuredJsonList(systemPrompt,userPrompt,elementType,schema,null);
+    }
+
+    public <T> List<T> completeStructuredJsonList(String systemPrompt, String userPrompt,
+                                                 Class<T> elementType, JsonNode schema,List<String> rawOut) {
+        return completeStructuredJsonList(systemPrompt,userPrompt,elementType,schema,rawOut,null);
+    }
+
+    /** Optional monotonic wall-time observations; strict validation never extracts, unwraps, repairs or retries. */
+    public <T> List<T> completeStructuredJsonList(String systemPrompt, String userPrompt,
+                                                 Class<T> elementType, JsonNode schema,List<String> rawOut,
+                                                 Map<String,Long> phaseWallNanos) {
+        long started=System.nanoTime();
+        final JsonNode suppliedSchema;
+        final StructuredJsonValidator.Schema validatedSchema;
+        try {
+            suppliedSchema=schema==null?null:schema.deepCopy();
+            validatedSchema=StructuredJsonValidator.compile(suppliedSchema);
+        } finally { recordTiming(phaseWallNanos,"structured_schema_validation",started); }
+        started=System.nanoTime();
+        try { requireAvailable(); }
+        finally { recordTiming(phaseWallNanos,"availability_check",started); }
+        String constrainedSystem;
+        started=System.nanoTime();
+        try { constrainedSystem=systemPrompt + "\nReturn only a JSON array conforming to this schema:\n" + JsonUtils.write(suppliedSchema); }
+        finally { recordTiming(phaseWallNanos,"schema_envelope_construction",started); }
+        started=System.nanoTime();
+        try { logPrompt("Structured model request", constrainedSystem, userPrompt); }
+        finally { recordTiming(phaseWallNanos,"prompt_log",started); }
+        String raw;
+        started=System.nanoTime();
+        try {
+            try { raw = selectedClient().chatStructured(Arrays.asList(
+                    LlmClient.ChatTurn.system(constrainedSystem), LlmClient.ChatTurn.user(userPrompt)), suppliedSchema);
+            } finally { recordTiming(phaseWallNanos,"structured_client_call",started); }
+        } catch (IncompleteModelResponseException incomplete) {
+            started=System.nanoTime();
+            try {
+                if (rawOut != null && incomplete.getModelContent() != null) rawOut.add(incomplete.getModelContent());
+                logResponse(incomplete.getRawResponse());
+            } finally { recordTiming(phaseWallNanos,"incomplete_content_capture_and_log",started); }
+            throw incomplete;
+        }
+        started=System.nanoTime();
+        try {
+            if(rawOut!=null) rawOut.add(raw);
+            logResponse(raw);
+        } finally { recordTiming(phaseWallNanos,"raw_content_capture_and_log",started); }
+        // Invalid output is an incomplete topic. Never silently turn a malformed record into [].
+        started=System.nanoTime();
+        try { return StructuredJsonValidator.decode(raw, elementType, validatedSchema); }
+        finally { recordTiming(phaseWallNanos,"parse_list",started); }
+    }
+
+    private static void recordTiming(Map<String,Long> phases,String phase,long started) {
+        if(phases!=null)phases.put(phase,System.nanoTime()-started);
     }
 
     public String chatModel() {
-        return llmClient.chatModel();
+        return explicitProfileSelected()?profiles.capture().getIdentity().getModel():llmClient.chatModel();
     }
 
     public String embedModel() {

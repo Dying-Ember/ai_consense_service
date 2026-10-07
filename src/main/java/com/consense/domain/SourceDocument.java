@@ -38,6 +38,10 @@ public class SourceDocument {
     @Column(name = "file_key", length = 32)
     private String fileKey;
 
+    /** Vetting input role: tender / standard / project_fact / package_manifest; null is legacy auto. */
+    @Column(name = "review_role", length = 32)
+    private String reviewRole;
+
     @Column(name = "file_name", length = 512, nullable = false)
     private String fileName;
 
@@ -66,6 +70,15 @@ public class SourceDocument {
     @Lob
     @Column(name = "text_content", columnDefinition = "LONGTEXT")
     private String textContent;
+
+    /** Original structure / evidence locations. No artificial DOCX page numbers. */
+    @Lob
+    @Column(name = "structured_content_json", columnDefinition = "LONGTEXT")
+    private String structuredContentJson;
+
+    @Lob
+    @Column(name = "parse_coverage_json", columnDefinition = "LONGTEXT")
+    private String parseCoverageJson;
 
     @Column(name = "created_at", nullable = false)
     private Instant createdAt = Instant.now();

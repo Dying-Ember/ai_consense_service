@@ -36,6 +36,27 @@ public class DraftDocument {
     @Column(name = "`generated`", nullable = false)
     private Boolean generated = false;
 
+    @Column(name = "content_edited", nullable = false)
+    @org.hibernate.annotations.ColumnDefault("0")
+    private Boolean contentEdited = false;
+
+    @Column(name = "snapshot_id", length = 64)
+    private String snapshotId;
+
+    @Column(name="revision_id",length=64)
+    private String revisionId;
+
+    @Column(name = "rule_version", length = 128)
+    private String ruleVersion;
+
+    @Lob
+    @Column(name = "input_snapshot_json", columnDefinition = "LONGTEXT")
+    private String inputSnapshotJson;
+
+    @Lob
+    @Column(name = "unresolved_json", columnDefinition = "LONGTEXT")
+    private String unresolvedJson;
+
     @Column(name = "created_at", nullable = false)
     private Instant createdAt = Instant.now();
 

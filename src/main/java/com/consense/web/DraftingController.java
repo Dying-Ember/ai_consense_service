@@ -16,6 +16,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/drafting/{projectId}")
@@ -24,6 +25,21 @@ public class DraftingController {
 
     private final DraftingService draftingService;
     private final OcrClient ocrClient;
+
+    @GetMapping("/catalog")
+    public ApiResponse<Map<String,Object>> catalog(@PathVariable String projectId) {
+        return ApiResponse.ok(draftingService.catalog(projectId));
+    }
+
+    @GetMapping("/plan")
+    public ApiResponse<Map<String,Object>> plan(@PathVariable String projectId) {
+        return ApiResponse.ok(draftingService.plan(projectId, null));
+    }
+
+    @PostMapping("/plan")
+    public ApiResponse<Map<String,Object>> previewPlan(@PathVariable String projectId, @RequestBody PlanPreview body) {
+        return ApiResponse.ok(draftingService.plan(projectId, body.getValues()));
+    }
 
     @GetMapping("/templates")
     public ApiResponse<List<TemplateVO>> templates(@PathVariable String projectId) {
@@ -55,10 +71,8 @@ public class DraftingController {
     }
 
     @DeleteMapping("/inputs/{id}")
-    public ApiResponse<Void> deleteInput(@PathVariable String projectId,
-                                         @PathVariable Long id) {
-        draftingService.deleteInput(projectId, id);
-        return ApiResponse.ok();
+    public ApiResponse<Void> deleteInput(@PathVariable String projectId,@PathVariable Long id) {
+        draftingService.deleteInput(projectId,id);return ApiResponse.ok();
     }
 
     @GetMapping("/variables")
@@ -76,6 +90,16 @@ public class DraftingController {
         return ApiResponse.ok(draftingService.lastExtractTrace(projectId));
     }
 
+    @GetMapping("/variables/extract-traces")
+    public ApiResponse<List<ExtractRunSummaryVO>> extractTraceHistory(@PathVariable String projectId,@RequestParam(defaultValue="10") int limit) {
+        return ApiResponse.ok(draftingService.extractTraceHistory(projectId,limit));
+    }
+
+    @GetMapping("/variables/extract-traces/{runId}")
+    public ApiResponse<ExtractTraceVO> extractTraceRun(@PathVariable String projectId,@PathVariable String runId) {
+        return ApiResponse.ok(draftingService.extractTraceRun(projectId,runId));
+    }
+
     @PutMapping("/variables/{key}")
     public ApiResponse<VariableVO> update(@PathVariable String projectId,
                                           @PathVariable String key,
@@ -91,7 +115,7 @@ public class DraftingController {
 
     @PostMapping("/variables/confirm-all")
     public ApiResponse<List<VariableVO>> confirmAll(@PathVariable String projectId,
-                                                    @RequestParam(defaultValue = "BASE") String scope,
+                                                    @RequestParam(defaultValue = "INPUT") String scope,
                                                     @RequestParam(required = false) String fileKey) {
         return ApiResponse.ok(draftingService.confirmAll(projectId, scope, fileKey));
     }
@@ -121,8 +145,8 @@ public class DraftingController {
 
     @GetMapping("/documents/{fileKey}/preview.pdf")
     public ResponseEntity<ByteArrayResource> previewPdf(@PathVariable String projectId,
-                                                        @PathVariable String fileKey) {
-        byte[] bytes = draftingService.previewPdf(projectId, fileKey);
+                                                        @PathVariable String fileKey,@RequestParam(required=false) String revisionId) {
+        byte[] bytes = draftingService.previewPdf(projectId, fileKey,revisionId);
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=" + fileKey + ".pdf")
                 .contentType(MediaType.APPLICATION_PDF)
@@ -131,8 +155,8 @@ public class DraftingController {
 
     @GetMapping("/templates/{fileKey}/preview.pdf")
     public ResponseEntity<ByteArrayResource> previewTemplate(@PathVariable String projectId,
-                                                             @PathVariable String fileKey) {
-        byte[] bytes = draftingService.previewTemplate(projectId, fileKey);
+                                                             @PathVariable String fileKey,@RequestParam(required=false) String sourceSha256) {
+        byte[] bytes = draftingService.previewTemplate(projectId, fileKey,sourceSha256);
         String fileName = draftingService.previewTemplateFileName(projectId, fileKey);
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=" + urlEncode(fileName))
@@ -144,6 +168,30 @@ public class DraftingController {
     public ApiResponse<TemplateTextVO> getTemplateText(@PathVariable String projectId,
                                                        @PathVariable String fileKey) {
         return ApiResponse.ok(draftingService.getTemplateText(projectId, fileKey));
+    }
+
+    @GetMapping("/templates/{fileKey}/source")
+    public ResponseEntity<ByteArrayResource> templateSource(@PathVariable String projectId,@PathVariable String fileKey) {
+        DraftingService.TemplateSourceFile source=draftingService.templateSource(projectId,fileKey);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION,"inline; filename*=UTF-8''"+urlEncode(source.getFileName()))
+                .contentType(MediaType.parseMediaType(source.getContentType()))
+                .body(new ByteArrayResource(source.getBytes()));
+    }
+
+    @GetMapping("/templates/{fileKey}/reading")
+    public ApiResponse<TemplateReadingVO> templateReading(@PathVariable String projectId,@PathVariable String fileKey) {
+        return ApiResponse.ok(draftingService.templateReading(projectId,fileKey));
+    }
+
+    @GetMapping("/templates/{fileKey}/bindings")
+    public ApiResponse<DocumentBindingsVO> templateBindings(@PathVariable String projectId,@PathVariable String fileKey,@RequestParam(required=false) String sourceSha256) {
+        return ApiResponse.ok(draftingService.templateBindings(projectId,fileKey,sourceSha256));
+    }
+
+    @GetMapping("/documents/{fileKey}/bindings")
+    public ApiResponse<DocumentBindingsVO> documentBindings(@PathVariable String projectId,@PathVariable String fileKey,@RequestParam(required=false) String revisionId,@RequestParam(required=false) String docxSha256) {
+        return ApiResponse.ok(draftingService.documentBindings(projectId,fileKey,revisionId,docxSha256));
     }
 
     @PutMapping("/templates/{fileKey}/text")
@@ -186,6 +234,15 @@ public class DraftingController {
                         "attachment; filename*=UTF-8''" + encoded)
                 .contentType(new MediaType("text", "markdown", StandardCharsets.UTF_8))
                 .body(new ByteArrayResource(content));
+    }
+
+    @GetMapping("/documents/{fileKey}/export.{format}")
+    public ResponseEntity<ByteArrayResource> export(@PathVariable String projectId, @PathVariable String fileKey, @PathVariable String format,@RequestParam(required=false) String revisionId) {
+        if (!"pdf".equals(format) && !"docx".equals(format)) throw new com.consense.common.BizException(4007, "仅支持 Word 和 PDF");
+        byte[] bytes = "pdf".equals(format) ? draftingService.previewPdf(projectId, fileKey,revisionId) : draftingService.exportWord(projectId, fileKey,revisionId);
+        MediaType type = "pdf".equals(format) ? MediaType.APPLICATION_PDF : MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename*=UTF-8''" + urlEncode("ConSense_" + fileKey + "." + format))
+                .contentType(type).body(new ByteArrayResource(bytes));
     }
 
     private static String urlEncode(String value) {

@@ -49,16 +49,16 @@ logging:
 
 consense:
   # 上传文件落盘目录（相对 service 运行目录）
-  storage-root: ./data/uploads
+  storage-root: "${CONSENSE_STORAGE_ROOT:./data/uploads}"
   cors:
     # 使用 originPatterns：允许任意局域网 IP 的 5173 前端（浏览器从 LAN IP 访问时 Origin 不再被 403）
-    allowed-origins: "http://localhost:5173,http://127.0.0.1:5173,http://*:5173"
+    allowed-origins: "${CONSENSE_ALLOWED_ORIGINS:http://localhost:5173}"
 
   # ---------------- 本地大模型（Ollama） ----------------
   llm:
-    enabled: true
+    enabled: "${CONSENSE_LLM_ENABLED:true}"
     provider: ollama                     # ollama | openai
-    base-url: http://localhost:11434
+    base-url: "${CONSENSE_LLM_BASE_URL:}"
     chat-model: qwen2.5:7b               # 本地实际 pull 的模型（ollama list 里须有同名 tag）
     embed-model: bge-m3                  # 按你本地已 pull 的 embedding 模型改
     temperature: 0.2
@@ -66,10 +66,21 @@ consense:
     timeout-ms: 1200000
     max-retry: 1
 
+  # Separate China Token Plan chat profile; embedding configuration above remains fixed.
+  minimax-cn:
+    enabled: "${CONSENSE_MINIMAX_ENABLED:true}"
+    provider: openai
+    base-url: "${CONSENSE_MINIMAX_BASE_URL:}"
+    chat-model: MiniMax-M3
+    api-key: ${MiniMaxCN_Token_Plan_API_Key:}
+    structured-open-ai-thinking-mode: disabled
+    structured-open-ai-reasoning-split: true
+    structured-max-tokens: 16384
+
   # ---------------- OCR（PaddleOCR / PP-Structure 服务） ----------------
   ocr:
-    enabled: true
-    base-url: http://localhost:8868
+    enabled: "${CONSENSE_OCR_ENABLED:true}"
+    base-url: "${CONSENSE_OCR_BASE_URL:}"
     # PaddleOCR 常见两种形态：
     #  1) 经典版：POST base-url + ocr-path，body = {"images": ["<base64>"]}
     #  2) hubserving：POST base-url + structure-path，multipart "image"
@@ -85,8 +96,8 @@ consense:
   # ---------------- 向量库（Qdrant） ----------------
   vector:
     provider: qdrant                     # qdrant | memory
-    base-url: http://localhost:6333
-    api-key: ""
+    base-url: "${CONSENSE_VECTOR_BASE_URL:}"
+    api-key: "${CONSENSE_VECTOR_API_KEY:}"
     collection: consense_evidence
     vector-size: 1024                    # 需与 embed-model 维度一致（bge-m3 = 1024）
     distance: Cosine

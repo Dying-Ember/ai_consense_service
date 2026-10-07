@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.util.Collections;
 import java.util.List;
@@ -12,6 +14,8 @@ import java.util.Map;
 public final class JsonUtils {
 
     private static final ObjectMapper MAPPER = new ObjectMapper()
+            .registerModule(new JavaTimeModule())
+            .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     private JsonUtils() {
@@ -107,7 +111,14 @@ public final class JsonUtils {
      * 从混合文本中截取第一个完整的 JSON 对象或数组。
      */
     public static String extractJson(String raw) {
-        String text = stripCodeFence(raw);
+        // Reasoning may itself contain examples of JSON. Only parse the final answer.
+        String answer = raw == null ? "" : raw.trim();
+        while (answer.startsWith("<think>")) {
+            int end = answer.indexOf("</think>");
+            if (end < 0) throw new BizException("模型思考内容未结束，缺少最终 JSON 答案");
+            answer = answer.substring(end + "</think>".length()).trim();
+        }
+        String text = stripCodeFence(answer);
         int objStart = text.indexOf('{');
         int arrStart = text.indexOf('[');
         int start;

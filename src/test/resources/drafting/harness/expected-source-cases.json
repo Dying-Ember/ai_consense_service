@@ -1,0 +1,53 @@
+{
+  "version": "drafting-source-cases-20261006.1",
+  "scope": "Bounded manually reviewed facts in the eight SIMULATED correspondence sources; not full competition semantic acceptance. Expected values are written from source text, not model output.",
+  "unevaluated": "Other catalogue inputs; Bill type/purpose/trade/placement metadata; legal interpretation and final drafting wording.",
+  "facts": {
+    "contractTitle": {"number":"20250101","title":"Construction of Public Housing Development at Tung Chung Area 98"},
+    "domesticBlocks": true,
+    "foundationIncluded": null,
+    "periodAtLeast39Months": false,
+    "contractPeriodMonths": null,
+    "subcontractArrangement": "BSSSC",
+    "subcontractors": ["Electrical","Fire services and water pump","Lift"],
+    "twoEnvelopeTendering": true,
+    "electronicTendering": "L10Pro",
+    "billNos": [
+      {"number":"1","description":"Preliminaries"},
+      {"number":"2","description":"Preambles"},
+      {"number":"3","description":"Substructure"},
+      {"number":"4","description":"Superstructure for Podium"},
+      {"number":"5","description":"Superstructure for Domestic Block"},
+      {"number":"6","description":"Plumbing Works for Podium and Domestic Block"},
+      {"number":"7","description":"Drainage"},
+      {"number":"8","description":"External Works"},
+      {"number":"9","description":"Electrical Works"},
+      {"number":"10","description":"Fire Services and Water Pump Works"},
+      {"number":"11","description":"Lift Works"},
+      {"number":"12","description":"Site Safety; Environmental Management and Other Sundry Requirements (All Provisional)"},
+      {"number":"13","description":"Provisional Sums"}
+    ]
+  },
+  "sourceCases": [
+    {"id":"request-is-not-answer","sourcePrefix":"01_","key":"*","expect":"unknown","sourceQuote":"No value is confirmed by this request."},
+    {"id":"sim02-contract-identity","sourcePrefix":"02_","key":"contractTitle","fact":"contractTitle","sourceQuote":"Contract No. 20250101"},
+    {"id":"sim02-domestic-block","sourcePrefix":"02_","key":"domesticBlocks","fact":"domesticBlocks","sourceQuote":"PRE.B2.010 describes a 31-storey domestic block over a six-storey podium."},
+    {"id":"sim02-foundation-pending","sourcePrefix":"02_","key":"foundationIncluded","expect":"unknown","sourceQuote":"Decision: leave that classification pending."},
+    {"id":"sim03-threshold","sourcePrefix":"03_","key":"periodAtLeast39Months","fact":"periodAtLeast39Months","sourceQuote":"Note 3(a) requires the proposed time in Column (B) not to exceed the 31-month base time."},
+    {"id":"sim03-accepted-period-unknown","sourcePrefix":"03_","key":"contractPeriodMonths","expect":"unknown","sourceQuote":"exact accepted contract period = not supplied"},
+    {"id":"sim04-exact-bills","sourcePrefix":"04_","key":"billNos","fact":"billNos","sourceQuote":"The bill schedule in SCT1 contains the following 13 bill numbers and descriptions."},
+    {"id":"sim05-arrangement","sourcePrefix":"05_","key":"subcontractArrangement","fact":"subcontractArrangement","sourceQuote":"BSSSC"},
+    {"id":"sim05-trades","sourcePrefix":"05_","key":"subcontractors","fact":"subcontractors","sourceQuote":"electrical works, fire services and water pump works, and lift works"},
+    {"id":"sim06-two-envelope","sourcePrefix":"06_","key":"twoEnvelopeTendering","fact":"twoEnvelopeTendering","sourceQuote":"two-envelope"},
+    {"id":"sim06-l10pro","sourcePrefix":"06_","key":"electronicTendering","fact":"electronicTendering","sourceQuote":"select the L10Pro option for the preparation and pricing workflow."},
+    {"id":"sim08-contract-identity","sourcePrefix":"08_","key":"contractTitle","fact":"contractTitle","sourceQuote":"Contract title | Construction of Public Housing Development at Tung Chung Area 98 | SIM02"},
+    {"id":"sim08-foundation-pending","sourcePrefix":"08_","key":"foundationIncluded","expect":"unknown","sourceQuote":"Pending scope classification; no Boolean confirmed"},
+    {"id":"sim08-threshold","sourcePrefix":"08_","key":"periodAtLeast39Months","fact":"periodAtLeast39Months","sourceQuote":"No; proposed-period ceiling is 31 months"},
+    {"id":"sim08-accepted-period-unknown","sourcePrefix":"08_","key":"contractPeriodMonths","expect":"unknown","sourceQuote":"Not supplied; Column B is blank"},
+    {"id":"sim08-arrangement","sourcePrefix":"08_","key":"subcontractArrangement","fact":"subcontractArrangement","sourceQuote":"Building services arrangement | BSSSC | SIM05"},
+    {"id":"sim08-trades","sourcePrefix":"08_","key":"subcontractors","fact":"subcontractors","sourceQuote":"Building services trades | Electrical; Fire services and water pump; Lift | SIM05"},
+    {"id":"sim08-two-envelope","sourcePrefix":"08_","key":"twoEnvelopeTendering","fact":"twoEnvelopeTendering","sourceQuote":"Two-envelope Tendering System | Yes | SIM06"},
+    {"id":"sim08-l10pro","sourcePrefix":"08_","key":"electronicTendering","fact":"electronicTendering","sourceQuote":"Tendering preparation option | L10Pro | SIM06"},
+    {"id":"sim08-bill-reference-not-detail","sourcePrefix":"08_","key":"billNos","expect":"unknown","sourceQuote":"Bill numbers and descriptions | 13 entries; see SIM04 | SIM04"}
+  ]
+}
