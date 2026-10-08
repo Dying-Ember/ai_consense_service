@@ -612,6 +612,9 @@ public class DraftingService {
             if("subcontractors".equals(v.getVarKey())) {
                 merged=DraftTradeCandidates.merge(DraftBlueprint.find(v.getVarKey()),latest);
                 conflict=merged==null;
+            } else if("billNos".equals(v.getVarKey())) {
+                merged=DraftBillCandidates.merge(DraftBlueprint.find(v.getVarKey()),latest);
+                conflict=merged==null;
             } else for(CandidateVO candidate:latest) {
                 if(merged.isEmpty()){merged=candidate.getValue();continue;}
                 if(merged.equals(candidate.getValue()))continue;
@@ -711,13 +714,7 @@ public class DraftingService {
             return DraftInputRules.normalize(spec, JsonUtils.write(values));
         }
         if ("billNos".equals(spec.key)||"bills".equals(spec.kind)) {
-            Map<String,com.fasterxml.jackson.databind.JsonNode> rows = new LinkedHashMap<>();
-            for (String text : Arrays.asList(left,right)) for (com.fasterxml.jackson.databind.JsonNode row : JsonUtils.parse(text)) {
-                String key = row.path("type").asText()+":"+row.path("number").asText().trim().toLowerCase(Locale.ROOT);
-                if (rows.containsKey(key) && !rows.get(key).equals(row)) return null;
-                rows.put(key,row);
-            }
-            return DraftInputRules.normalize(spec, JsonUtils.write(rows.values()));
+            return DraftBillCandidates.merge(spec,left,right);
         }
         return null;
     }

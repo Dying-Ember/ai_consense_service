@@ -1,0 +1,114 @@
+Warranty scope review meeting
+
+SIMULATED TEST MATERIAL - not an actual email, meeting record or contractual instruction. All senders, dates and proceedings are fictional. Case-backed values are checked against the supplied 2b documents. SIM14 contains separately labelled scenario-only drafting decisions, not 2b facts or real business approval.
+
+Record ID: SIM11
+Scenario date: 2024-12-23 (fictional)
+Type: Simulated minutes
+Fixture version: 20261006
+
+Participants and recorder: fictional project roles only. No meeting took place.
+
+Dear project team, these are the additional case-backed answers for this simulated drafting exercise. Please retain their scope and source qualifications.
+
+Project in Tin Shui Wai
+
+Project in Tin Shui Wai: No
+
+Case-derived negative location: explicit project identity is Tung Chung Area 98, not a default from the standard template.
+
+Roofing installation included
+
+Roofing installation included: Yes
+
+Roofing and associated waterproofing systems are actual project items within design responsibility and the specified warranty scope.
+
+Roofing warranty required
+
+Roofing warranty required: Yes
+
+Actual case SCC7.304 expressly warrants the roofing installation for ten years.
+
+Other waterproofing warranty required
+
+Other waterproofing warranty required: Yes
+
+Actual case SCC7.304 expressly warrants other specified waterproofing installations; the PRE enumerates the areas.
+
+Other waterproofing areas specified in Specification
+
+Other waterproofing areas specified in Specification: 1.Kitchens;
+
+2.Bathrooms, toilets, lavatories;
+
+3.Refuse storage and material recovery rooms (RS&MRR), refuse storage and material recovery chambers (RS&MRC), refuse collection points (RCP), refuse storage and Junk Collection Points (JCP);
+
+4.Lift pits, sump pits and lift pit floors;
+
+5. External tankings of maintenance access for lift pits;
+
+6.External tankings of car park and car ramp connecting to car park;
+
+7.Internal tankings;
+
+8.Planters and landscaped decks at podium floors (including zero irrigation system planters), podium garden, structures associated with vertical greening and green roof;
+
+9.All roof areas over domestic flats and non-domestic premises (including green roofs, flat roofs, main roofs, upper roofs, canopies, covered walkways, podium deck, dog houses, smoke vents and duct shafts etc.);
+
+10. Water pump rooms, associated drain pits and water meter rooms / cabinet / cupboards;
+
+11.Fresh, flush and fire services water pump rooms and associated drain pits for overflow pipes, master water meter rooms, water meter rooms, electrical plant / services rooms adjacent to water meter rooms / cabinets / water pump rooms;
+
+12.Suspended manholes and suspended cable trenches / chambers and draw pits;
+
+13.G/F level slabs;
+
+14.Walls of pipe ducts and water pump rooms adjoining transformer rooms, electrical meter/ switch rooms, TBE Room, emergency generator room and electrical plant rooms;
+
+15.Services platform for pipework installation above common areas, back of house, service corridors, plant rooms, domestic and non-domestic area;
+
+16.Service platform for Building Services installation such as fans, air conditioners and pipeworks etc.;
+
+17.Potable, flushing and fire services pump rooms, including associated drain pits for overflow pipes; and
+
+18. All areas with waterproofing membranes, waterproofing layers or waterproofing systems.
+
+Full 18 area list copied from PRE.B6.590; retain actual numbering, wording and catch-all item 18.
+
+Acrylic paint warranty required
+
+Acrylic paint warranty required: Yes
+
+Actual case SCC7.305 contains the seven-year warranty; this records an adopted project provision.
+
+Wall tiling warranty required
+
+Wall tiling warranty required: Yes
+
+Actual case SCC7.306 warrants Wall Tiling Works; period is five years commencing two years after completion, not an invented immediately-starting warranty.
+
+Play equipment included
+
+Play equipment included: Yes
+
+Actual case SCC requires design, supply and installation of play equipment, and PRE includes play/fitness equipment in the material scope.
+
+IASM included
+
+IASM included: Yes
+
+Actual case requires IASM design/supply/installation; PRE identifies EXT10 IASM and associated works.
+
+Epoxy coated cast iron pipes / fittings warranty required
+
+Epoxy coated cast iron pipes / fittings warranty required: Yes
+
+Actual case SCC7.308 unconditionally warrants material/workmanship of epoxy-coated cast iron pipework; start/duration distinctions remain in the quote.
+
+The checked case does not separately establish the refuge-floor installation branch. An absent statement is not No. The areas of other waterproofing above are retained in full, including the catch-all eighteenth item.
+
+Document basis: 02 Cover.docx - Cover; 25 - Specification - PRE (base tender).docx - PRE.B1.010, PRE.B6.085 design responsibility item, PRE.B6.590(9), PRE.B6.590, PRE.B6.590(1)-(18), PRE.B6 material scope, PRE phased contractor design item; 10 - SCC.docx - SCC7.304(1)(a), SCC7.304(1)(b), SCC7.305(1), SCC7.306(1)-(2), SCC7.307(3)(a), SCC7.307(2)-(3), SCC7.308(1)-(2)
+
+ConSense simulated drafting correspondence 20261006
+
+Fictional correspondence for testing only |

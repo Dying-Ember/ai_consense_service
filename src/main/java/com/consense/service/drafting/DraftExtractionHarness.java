@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 /** Drafting-local request/intake boundary. Accepted intake never certifies business truth. */
 @Service @RequiredArgsConstructor
 public class DraftExtractionHarness {
-    public static final String VERSION="draft-extraction-20261007.18-sections-explicit-empty";
+    public static final String VERSION="draft-extraction-20261008.20-formal-bill-identities";
     private static final String PROTOCOL="DRAFTING EXTRACTION PROTOCOL. Return only a JSON array of supported items {key,value,sourceQuote,reason,confidence}. "
             +"Use native JSON values: object, array, boolean, number, string or null, according to the single catalogue below. "
             +"Example contract value: {\"number\":\"C-2026/10\",\"title\":\"Works A\"}. A supported partial contract may omit its missing sibling. "
@@ -24,7 +24,7 @@ public class DraftExtractionHarness {
             +"Collections have three states: source-confirmed absence is []; pending, missing information or insufficient facts are null; explicitly provided applicable items are a concrete list. [] requires an exact quote and complete original context establishing absence for this field and scope. A failed search is not absence. "
             +"Examples: 'No additional tender requirements apply to this project.' -> value []; 'Additional tender requirements remain pending.' or 'No requirement can be established from the available facts.' -> value null; 'Provide a signed plan with the tender.' -> value [{\"text\":\"Provide a signed plan with the tender.\"}]. "
             +"Only text inside correspondence-part establishes values; templates, filenames, metadata and catalogue labels are not evidence. "
-            +"Quotes must be short contiguous source passages, copied exactly including punctuation. Confidence must be between 0 and 1. "
+            +"Quotes must be contiguous source passages, copied exactly including punctuation. Use a short passage for scalar values; for a collection or numbered list, quote the complete defining list/table and its governing heading. Return every supplied applicable item in original order and retain its numbering and wording, including the final catch-all item. Never return only the prefix or tail of one complete source list. Confidence must be between 0 and 1. "
             +"Preserve formal English names. Type/purpose classifications are separate from literal Bill descriptions. "
             +"Bill type, purpose, trade and issue placement are optional: omit unknown cells. Each classification requires explicit evidence for that exact row; a schedule heading or the name Preliminaries does not classify every Bill. "
             +"L10Pro pricing preparation is independent of paper/DVD return. NSC/BSSSC arrangement is independent of trade scope. "
@@ -101,7 +101,7 @@ public class DraftExtractionHarness {
             // An unsupported absence needs original context, not a repair of the same empty answer.
             if(decision.getCodes().contains("unsupported_empty_list"))continue;
             if(decision.getCodes().contains("confidence_missing")||decision.getCodes().contains("confidence_out_of_range")||decision.getCodes().contains("confidence_below_threshold"))continue;
-            if(!Collections.disjoint(decision.getCodes(),Arrays.asList("invalid_value_shape","quote_missing","quote_not_in_part","lexical_support_missing","quote_value_mismatch")))
+            if(!Collections.disjoint(decision.getCodes(),Arrays.asList("invalid_value_shape","quote_missing","quote_not_in_part","lexical_support_missing","quote_value_mismatch","source_list_incomplete","source_list_value_mismatch")))
                 failed.computeIfAbsent(decision.getKey(),key->new ArrayList<>()).addAll(decision.getCodes());
         }
         accepted.forEach(failed::remove);
@@ -326,6 +326,11 @@ public class DraftExtractionHarness {
         }
         try{
             if(!shapeValid(spec,parsed))throw new IllegalArgumentException("Invalid candidate shape");
+            boolean canRecover=confidence!=null&&Double.isFinite(confidence)&&confidence>=0.70&&confidence<=1;
+            DraftCandidateEvidenceRecovery.Result evidence=DraftCandidateEvidenceRecovery.assess(spec,parsed,quote,supplied,originalSource,canRecover);
+            parsed=evidence.value;quote=evidence.quote;
+            decision.setSourceQuote(quote);decision.getCodes().addAll(evidence.codes);
+            value=parsed instanceof String?(String)parsed:JsonUtils.write(parsed);
             Object supported="billNos".equals(spec.key)?supportedBillMetadata(parsed,supplied,decision):parsed;
             decision.setNormalizedValue(DraftInputRules.normalizeSuggestion(spec,"billNos".equals(spec.key)?JsonUtils.write(supported):value));
         }
@@ -347,7 +352,7 @@ public class DraftExtractionHarness {
         if(("list".equals(spec.kind)||"multiselect".equals(spec.kind))&&parsed instanceof List&&((List<?>)parsed).isEmpty()&&
                 !confirmedEmptyListSupported(spec,supplied,quote))decision.getCodes().add("unsupported_empty_list");
         if(attempt.getContext()!=null&&!DraftSourceContext.completeQuote(originalSource,attempt.getContext(),quote,spec.kind))decision.getCodes().add("context_incomplete_source");
-        if(decision.getCodes().stream().allMatch(code->code.startsWith("bill_metadata_unsupported:")))decision.setStatus("accepted");
+        if(decision.getCodes().stream().allMatch(code->code.startsWith("bill_metadata_unsupported:")||DraftCandidateEvidenceRecovery.diagnostic(code)))decision.setStatus("accepted");
         return decision;
     }
 

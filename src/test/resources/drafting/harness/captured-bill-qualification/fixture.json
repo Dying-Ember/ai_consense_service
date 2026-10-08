@@ -1,0 +1,165 @@
+{
+  "schemaVersion": 1,
+  "scope": "True browser exam captured Bill-only replay, no new model input or application write.",
+  "cases": [
+    {
+      "name": "formal-thirteen-bill-table",
+      "provenance": {
+        "runId": "c5635b58-f36d-4dea-b4cb-4cd00bd5d763",
+        "partId": "61:0",
+        "attemptIndex": 1,
+        "itemIndex": 0,
+        "capturedStatus": "accepted",
+        "capturedCodes": [
+          "bill_metadata_unsupported:1:purpose",
+          "bill_metadata_unsupported:2:purpose",
+          "bill_metadata_unsupported:9:trade",
+          "bill_metadata_unsupported:10:trade",
+          "bill_metadata_unsupported:11:trade",
+          "bill_metadata_unsupported:12:purpose"
+        ]
+      },
+      "fileName": "04_2024-12-12_email_bill_numbers_and_descriptions_for_drafting.docx",
+      "sourceHash": "243c0025f9692f49cc947b4e2e7d3058ad86bea96cb6318c6253dd7b45eb6d9c",
+      "originalSource": "Bill numbers and descriptions for drafting\n\nSIMULATED TEST MATERIAL - not an actual email, meeting record or contractual instruction. All senders, dates and proceedings are fictional. Case-backed values are checked against the supplied 2b documents. SIM14 contains separately labelled scenario-only drafting decisions, not 2b facts or real business approval.\n\nRecord ID: SIM04\nScenario date: 2024-12-12 (fictional)\nType: Simulated email\nFixture version: 20261006\n\nFrom: Simulated QS <qs@consense-test.invalid>\nTo: Simulated Architect; Simulated Building Services Engineer\nSubject: [SIMULATED] Bill numbers and descriptions for drafting\n\nDear all,\n\nThe bill schedule in SCT1 contains the following 13 bill numbers and descriptions. Please use this list for drafting; it is a bill identity list and does not imply that every bill is a measured BQ bill.\n\nBill No. | Exact description | Pricing type\n\n1 | Preliminaries | BQ\n\n2 | Preambles | BQ\n\n3 | Substructure | BQ\n\n4 | Superstructure for Podium | BQ\n\n5 | Superstructure for Domestic Block | BQ\n\n6 | Plumbing Works for Podium and Domestic Block | BQ\n\n7 | Drainage | BQ\n\n8 | External Works | BQ\n\n9 | Electrical Works | SOR\n\n10 | Fire Services and Water Pump Works | SOR\n\n11 | Lift Works | SOR\n\n12 | Site Safety; Environmental Management and Other Sundry Requirements (All Provisional) | BQ\n\n13 | Provisional Sums | BQ\n\nBills 9 to 11 are schedules of rates. The issue of collection and summary pages separately does not create additional bill identities. Bill 12 includes the “All Provisional” qualification shown above.\n\nBill 12 is the parent Bill. Its safety, environmental management and site hygiene components include sub-numbers 12.2 to 12.4, which must be recorded as usage references rather than invented additional parent Bills. Their trade mapping and issue placement will be addressed in a later pricing reply.\n\nPlease keep the building services subcontract arrangement pending until the Building Services Engineer confirms the procurement model. The presence of the three services bills identifies work categories but is not, by itself, proof of NSC or BSSSC.\n\nRegards,\n\nSimulated QS\n\nDocument basis: R05: 05 - SCT.docx - SCT1 bill schedule\n\nConSense simulated drafting correspondence 20261006\n\nFictional correspondence for testing only |",
+      "context": {
+        "trigger": "original_neighbors",
+        "keys": [],
+        "sourceStart": 0,
+        "sourceEnd": 2296,
+        "sourceText": "Bill numbers and descriptions for drafting\n\nSIMULATED TEST MATERIAL - not an actual email, meeting record or contractual instruction. All senders, dates and proceedings are fictional. Case-backed values are checked against the supplied 2b documents. SIM14 contains separately labelled scenario-only drafting decisions, not 2b facts or real business approval.\n\nRecord ID: SIM04\nScenario date: 2024-12-12 (fictional)\nType: Simulated email\nFixture version: 20261006\n\nFrom: Simulated QS <qs@consense-test.invalid>\nTo: Simulated Architect; Simulated Building Services Engineer\nSubject: [SIMULATED] Bill numbers and descriptions for drafting\n\nDear all,\n\nThe bill schedule in SCT1 contains the following 13 bill numbers and descriptions. Please use this list for drafting; it is a bill identity list and does not imply that every bill is a measured BQ bill.\n\nBill No. | Exact description | Pricing type\n\n1 | Preliminaries | BQ\n\n2 | Preambles | BQ\n\n3 | Substructure | BQ\n\n4 | Superstructure for Podium | BQ\n\n5 | Superstructure for Domestic Block | BQ\n\n6 | Plumbing Works for Podium and Domestic Block | BQ\n\n7 | Drainage | BQ\n\n8 | External Works | BQ\n\n9 | Electrical Works | SOR\n\n10 | Fire Services and Water Pump Works | SOR\n\n11 | Lift Works | SOR\n\n12 | Site Safety; Environmental Management and Other Sundry Requirements (All Provisional) | BQ\n\n13 | Provisional Sums | BQ\n\nBills 9 to 11 are schedules of rates. The issue of collection and summary pages separately does not create additional bill identities. Bill 12 includes the “All Provisional” qualification shown above.\n\nBill 12 is the parent Bill. Its safety, environmental management and site hygiene components include sub-numbers 12.2 to 12.4, which must be recorded as usage references rather than invented additional parent Bills. Their trade mapping and issue placement will be addressed in a later pricing reply.\n\nPlease keep the building services subcontract arrangement pending until the Building Services Engineer confirms the procurement model. The presence of the three services bills identifies work categories but is not, by itself, proof of NSC or BSSSC.\n\nRegards,\n\nSimulated QS\n\nDocument basis: R05: 05 - SCT.docx - SCT1 bill schedule\n\nConSense simulated drafting correspondence 20261006\n\nFictional correspondence for testing only |"
+      },
+      "item": {
+        "key": "billNos",
+        "value": [
+          {
+            "id": "1",
+            "number": "1",
+            "description": "Preliminaries",
+            "type": "BQ",
+            "purpose": "preliminaries"
+          },
+          {
+            "id": "2",
+            "number": "2",
+            "description": "Preambles",
+            "type": "BQ",
+            "purpose": "preambles"
+          },
+          {
+            "id": "3",
+            "number": "3",
+            "description": "Substructure",
+            "type": "BQ"
+          },
+          {
+            "id": "4",
+            "number": "4",
+            "description": "Superstructure for Podium",
+            "type": "BQ"
+          },
+          {
+            "id": "5",
+            "number": "5",
+            "description": "Superstructure for Domestic Block",
+            "type": "BQ"
+          },
+          {
+            "id": "6",
+            "number": "6",
+            "description": "Plumbing Works for Podium and Domestic Block",
+            "type": "BQ"
+          },
+          {
+            "id": "7",
+            "number": "7",
+            "description": "Drainage",
+            "type": "BQ"
+          },
+          {
+            "id": "8",
+            "number": "8",
+            "description": "External Works",
+            "type": "BQ"
+          },
+          {
+            "id": "9",
+            "number": "9",
+            "description": "Electrical Works",
+            "type": "SOR",
+            "trade": "Electrical"
+          },
+          {
+            "id": "10",
+            "number": "10",
+            "description": "Fire Services and Water Pump Works",
+            "type": "SOR",
+            "trade": "Fire services and water pump"
+          },
+          {
+            "id": "11",
+            "number": "11",
+            "description": "Lift Works",
+            "type": "SOR",
+            "trade": "Lift"
+          },
+          {
+            "id": "12",
+            "number": "12",
+            "description": "Site Safety; Environmental Management and Other Sundry Requirements (All Provisional)",
+            "type": "BQ",
+            "purpose": "bsSafety"
+          },
+          {
+            "id": "13",
+            "number": "13",
+            "description": "Provisional Sums",
+            "type": "BQ"
+          }
+        ],
+        "sourceQuote": "Bill No. | Exact description | Pricing type\n\n1 | Preliminaries | BQ\n\n2 | Preambles | BQ\n\n3 | Substructure | BQ\n\n4 | Superstructure for Podium | BQ\n\n5 | Superstructure for Domestic Block | BQ\n\n6 | Plumbing Works for Podium and Domestic Block | BQ\n\n7 | Drainage | BQ\n\n8 | External Works | BQ\n\n9 | Electrical Works | SOR\n\n10 | Fire Services and Water Pump Works | SOR\n\n11 | Lift Works | SOR\n\n12 | Site Safety; Environmental Management and Other Sundry Requirements (All Provisional) | BQ\n\n13 | Provisional Sums | BQ",
+        "reason": "The correspondence explicitly provides a 13-row bill schedule table with Bill No., Exact description, and Pricing type columns. Bills 9-11 are identified as SOR and Bills 1-8, 12-13 as BQ. Trade and purpose mappings are drawn directly from the exact descriptions matching catalogue options.",
+        "confidence": 0.98
+      },
+      "docxRelativePath": "Ref/simulated_2b_correspondence/03_missing_evidence_test/01_upload_documents/04_2024-12-12_email_bill_numbers_and_descriptions_for_drafting.docx",
+      "docxSha256": "c9364fc2c6ef4acbcbc2beb291d5c2ae36648958151d54294f14f0fe6f250576",
+      "originalUtf8Sha256": "e6481951c8f0464c779ca38af85095d1e66d68bcb1b091a6c6107fe22c543a5b"
+    },
+    {
+      "name": "qualification-misread-as-formal-description",
+      "provenance": {
+        "runId": "c5635b58-f36d-4dea-b4cb-4cd00bd5d763",
+        "partId": "67:0",
+        "attemptIndex": 2,
+        "itemIndex": 1,
+        "capturedStatus": "accepted",
+        "capturedCodes": []
+      },
+      "fileName": "10_2024-12-20_email_pricing_bill_uses_and_photocopy_rates_reply.docx",
+      "sourceHash": "5a37eabac537dd8aba01a5df2d9e534264dfb04ec279d2b940b328cf3226a56e",
+      "originalSource": "Pricing Bill uses and photocopy rates reply\n\nSIMULATED TEST MATERIAL - not an actual email, meeting record or contractual instruction. All senders, dates and proceedings are fictional. Case-backed values are checked against the supplied 2b documents. SIM14 contains separately labelled scenario-only drafting decisions, not 2b facts or real business approval.\n\nRecord ID: SIM10\nScenario date: 2024-12-20 (fictional)\nType: Simulated email\nFixture version: 20261006\n\nFrom: Simulated QS <drafting@consense-test.invalid>\nTo: Simulated Project Team\nSubject: [SIMULATED] Pricing Bill uses and photocopy rates reply\n\nDear project team, these are the additional case-backed answers for this simulated drafting exercise. Please retain their scope and source qualifications.\n\nContract pricing scheme\n\nContract pricing scheme: BQ_SOR\n\nNTT includes Bills of Quantities plus SOR for BS Specialist Sub-contract Works, not a SOR-only contract.\n\nHK$ per page up to A3\n\nHK$ per page up to A3: 9.3\n\nCase rate is HK$9.3 per page at or below A3; it is a case value rather than a present-day rate assertion.\n\nQuestion about the photocopy charge for larger pages\n\nWhat photocopy charge per page applies to document pages exceeding A3? The supplied communication does not give a project value. Leave this input unanswered for a person to determine.\n\nDetailed SOR issue arrangement\n\nFor Bills 9, 10 and 11, detailed SOR excluding Master Collection Pages and Summary Pages are issued on Disc A only in the original tender documents. Original hard copies of those detailed SOR are issued in tender addendum or addenda. Electronic versions are reference copies. This is the specific SCT1(4)(d) arrangement; it is not a generic switch of all pages to Disc A or to hardcopy.\n\nSafety environmental management and site hygiene\n\nThe shared exclusion refers to sub-numbers 12.2 to 12.4 of parent Bill 12. Electrical uses 12.2; Fire services and water pump uses 12.3. These two mappings are expressly quoted in the case SCC. Lift maps to the remaining 12.4 when the three-trade set is reconciled with the range; this last mapping is a documented inference, not an independent standalone quote.\n\nKeep the thirteen formal parent Bill descriptions exactly as supplied in SIM04. Do not rename them with safety classifications, add a fourteenth parent Bill, or use Bill 12 for every specific trade sub-number. The parent list and sub-number usage links are separate records.\n\nBill 12 being labelled All Provisional, and Bill 13 being Provisional Sums, do not establish that all BQ quantities are provisional. The latter global question remains unanswered in the case-only checkpoint.\n\nDocument basis: 03 - NTT.docx - NTT1(a), (f); 10 - SCC.docx - SCC11.302(1); 05 - SCT.docx - SCT5(8)(b)\n\nConSense simulated drafting correspondence 20261006\n\nFictional correspondence for testing only |",
+      "context": {
+        "trigger": "original_neighbors",
+        "keys": [],
+        "sourceStart": 0,
+        "sourceEnd": 2846,
+        "sourceText": "Pricing Bill uses and photocopy rates reply\n\nSIMULATED TEST MATERIAL - not an actual email, meeting record or contractual instruction. All senders, dates and proceedings are fictional. Case-backed values are checked against the supplied 2b documents. SIM14 contains separately labelled scenario-only drafting decisions, not 2b facts or real business approval.\n\nRecord ID: SIM10\nScenario date: 2024-12-20 (fictional)\nType: Simulated email\nFixture version: 20261006\n\nFrom: Simulated QS <drafting@consense-test.invalid>\nTo: Simulated Project Team\nSubject: [SIMULATED] Pricing Bill uses and photocopy rates reply\n\nDear project team, these are the additional case-backed answers for this simulated drafting exercise. Please retain their scope and source qualifications.\n\nContract pricing scheme\n\nContract pricing scheme: BQ_SOR\n\nNTT includes Bills of Quantities plus SOR for BS Specialist Sub-contract Works, not a SOR-only contract.\n\nHK$ per page up to A3\n\nHK$ per page up to A3: 9.3\n\nCase rate is HK$9.3 per page at or below A3; it is a case value rather than a present-day rate assertion.\n\nQuestion about the photocopy charge for larger pages\n\nWhat photocopy charge per page applies to document pages exceeding A3? The supplied communication does not give a project value. Leave this input unanswered for a person to determine.\n\nDetailed SOR issue arrangement\n\nFor Bills 9, 10 and 11, detailed SOR excluding Master Collection Pages and Summary Pages are issued on Disc A only in the original tender documents. Original hard copies of those detailed SOR are issued in tender addendum or addenda. Electronic versions are reference copies. This is the specific SCT1(4)(d) arrangement; it is not a generic switch of all pages to Disc A or to hardcopy.\n\nSafety environmental management and site hygiene\n\nThe shared exclusion refers to sub-numbers 12.2 to 12.4 of parent Bill 12. Electrical uses 12.2; Fire services and water pump uses 12.3. These two mappings are expressly quoted in the case SCC. Lift maps to the remaining 12.4 when the three-trade set is reconciled with the range; this last mapping is a documented inference, not an independent standalone quote.\n\nKeep the thirteen formal parent Bill descriptions exactly as supplied in SIM04. Do not rename them with safety classifications, add a fourteenth parent Bill, or use Bill 12 for every specific trade sub-number. The parent list and sub-number usage links are separate records.\n\nBill 12 being labelled All Provisional, and Bill 13 being Provisional Sums, do not establish that all BQ quantities are provisional. The latter global question remains unanswered in the case-only checkpoint.\n\nDocument basis: 03 - NTT.docx - NTT1(a), (f); 10 - SCC.docx - SCC11.302(1); 05 - SCT.docx - SCT5(8)(b)\n\nConSense simulated drafting correspondence 20261006\n\nFictional correspondence for testing only |"
+      },
+      "item": {
+        "key": "billNos",
+        "value": [
+          {
+            "number": "12",
+            "description": "All Provisional"
+          }
+        ],
+        "sourceQuote": "Bill 12 being labelled All Provisional, and Bill 13 being Provisional Sums, do not establish that all BQ quantities are provisional.",
+        "reason": "The correspondence explicitly states Bill 12 is labelled 'All Provisional', supporting its number and description. No type, purpose, trade, or placement is explicitly assigned to Bill 12 as a whole in this part, so those optional fields are omitted. Bills 9, 10, and 11 are mentioned only by number without formal descriptions, and the protocol prohibits inventing missing descriptions.",
+        "confidence": 0.85
+      },
+      "docxRelativePath": "Ref/simulated_2b_correspondence/03_missing_evidence_test/01_upload_documents/10_2024-12-20_email_pricing_bill_uses_and_photocopy_rates_reply.docx",
+      "docxSha256": "6ce95421d52b19fb5a4f1bfbbcfa7fe1a21e8dcac20c77f198db456c5c9a71fb",
+      "originalUtf8Sha256": "2d28219cce37ccd1e7295fc690c9074a79186b84f089777ec1ce9c717c2bfc64"
+    }
+  ]
+}

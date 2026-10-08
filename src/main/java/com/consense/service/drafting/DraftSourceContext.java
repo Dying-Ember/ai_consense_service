@@ -38,6 +38,12 @@ final class DraftSourceContext {
             if(candidate-end>EDGE_BUDGET||candidate-left>WINDOW_BUDGET){blocked|=nonblank==0;break;}
             right=candidate;if(!following.isEmpty())nonblank++;
         }
+        // A numbered list is one logical source unit, even when its items are separate paragraphs.
+        for(DraftOrderedSourceLists.Unit unit:DraftOrderedSourceLists.units(source))if(unit.listStart<end&&unit.listEnd>start) {
+            int candidateLeft=Math.min(left,unit.start),candidateRight=Math.max(right,unit.end);
+            if(candidateRight-candidateLeft<=WINDOW_BUDGET){left=candidateLeft;right=candidateRight;}
+            else blocked=true;
+        }
         // A parsed table is a contiguous run of header/rows; all rows travel with the header if the unit fits.
         int tableStart=-1,tableEnd=-1,offset=0;
         for(String line:source.split("\\n",-1)) {
@@ -91,6 +97,9 @@ final class DraftSourceContext {
         String normalized=quote.replace('\u201c','"').replace('\u201d','"').replace('\u2018','\'').replace('\u2019','\'').replace('\u00a0',' ').trim().replaceAll("\\s+"," ");
         int at=canonical.indexOf(normalized);if(at<0||normalized.isEmpty())return true; // Existing quote intake handles absent quotes.
         int quoteStart=context.getSourceStart()+offsets.get(at),quoteEnd=context.getSourceStart()+offsets.get(at+normalized.length()-1)+1;
+        for(DraftOrderedSourceLists.Unit unit:DraftOrderedSourceLists.units(original))
+            if(unit.listStart<quoteEnd&&unit.listEnd>quoteStart&&
+                    (unit.listStart<context.getSourceStart()||unit.listEnd>context.getSourceEnd()))return false;
         int paragraphStart=original.lastIndexOf('\n',Math.max(0,quoteStart-1))+1;
         int next=original.indexOf('\n',quoteEnd),paragraphEnd=next<0?original.length():next;
         if(paragraphStart<context.getSourceStart()||paragraphEnd>context.getSourceEnd())return false;
@@ -116,6 +125,7 @@ final class DraftSourceContext {
         int start=source.lastIndexOf('\n',Math.max(0,cue-1))+1;
         int newline=source.indexOf('\n',cue),end=newline<0?source.length():newline+1;
         int lines=0;boolean table=source.substring(start,end).contains("|");boolean insufficient=end-start>WINDOW_BUDGET;
+        if(insufficient)end=start+WINDOW_BUDGET;
         while(end<source.length()) {
             int next=source.indexOf('\n',end),candidate=next<0?source.length():next+1;
             String line=source.substring(end,candidate).trim();
@@ -131,6 +141,11 @@ final class DraftSourceContext {
             String line=source.substring(previous,left).trim();
             if(end-previous>WINDOW_BUDGET)break;
             left=previous;if(heading(line))break;
+        }
+        for(DraftOrderedSourceLists.Unit unit:DraftOrderedSourceLists.units(source))if(unit.listStart<end&&unit.listEnd>start) {
+            int candidateLeft=Math.min(left,unit.start),candidateRight=Math.max(end,unit.end);
+            if(candidateRight-candidateLeft<=WINDOW_BUDGET){left=candidateLeft;end=candidateRight;}
+            else insufficient=true;
         }
         return new ExtractionContextVO(trigger,keys,left,end,source.substring(left,end),insufficient?"context_insufficient":null);
     }

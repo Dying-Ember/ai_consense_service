@@ -140,7 +140,7 @@ final class DraftCandidateGrounding {
                 String line=canonical(rawLine);int cursor=0;
                 for(String entry:line.split(separator)) {
                     int position=line.indexOf(entry,cursor);cursor=position+entry.length();Matcher anchor=identity.matcher(entry);
-                    if(anchor.find()&&answerAt(line,position+anchor.start())&&literalPresent(entry.substring(anchor.end()),description)&&literalInAnswer(entry,description,BILL_PASSAGES)) {
+                    if(anchor.find()&&answerAt(line,position+anchor.start())&&billDescriptionSlot(entry.substring(anchor.end()),description)&&literalInAnswer(entry,description,BILL_PASSAGES)) {
                         found=true;break;
                     }
                 }
@@ -149,6 +149,38 @@ final class DraftCandidateGrounding {
             if(!found)return false;
         }
         return true;
+    }
+
+    /** A description occupies the name slot; a later qualification is not a new formal identity. */
+    private static boolean billDescriptionSlot(String tail,Object description) {
+        if(!DraftBusinessRules.answered(description))return true;
+        String name=canonical(String.valueOf(description));
+        String slot=canonical(tail).replaceFirst("^[|:=\\-]\\s*","");
+        // Explicit naming statements are also valid, but 'being labelled/classified' alone is not a title.
+        slot=slot.replaceFirst("(?i)^(?:(?:is\\s+)?(?:formally\\s+)?(?:named|titled|called)|(?:formal\\s+)?(?:description|title|name)\\s*(?:is|[:=]))\\s+","");
+        if(slot.startsWith("\"")) {
+            int end=slot.indexOf('"',1);
+            return end>0&&slot.substring(1,end).equals(name);
+        }
+        if(slot.startsWith("'")) {
+            int end=slot.indexOf('\'',1);
+            return end>0&&slot.substring(1,end).equals(name);
+        }
+        int pipe=slot.indexOf('|');
+        if(pipe>=0) {
+            String cell=slot.substring(0,pipe).trim();
+            return cell.equals(name)||trimNameEnd(cell).equals(name);
+        }
+        if(!slot.startsWith(name))return false;
+        String remaining=slot.substring(name.length()).trim();
+        return remaining.isEmpty()||remaining.matches("[.!]")
+                ||remaining.matches("(?is)^(?:is|are|has|will)\\b.*")
+                ||remaining.matches("(?is)^[:=]\\s*(?:type|purpose|trade|issue placement)\\s*[:=].*")
+                ||remaining.matches("(?is)^:\\s*(?:is|are|does|do)\\b.*\\b(?:BQ|SOR|type|pricing|classification)\\b.*\\?");
+    }
+
+    private static String trimNameEnd(String text) {
+        return text.trim().replaceFirst("[.!]$","").trim();
     }
 
     /** Evaluate the anchored occurrence in its original passage, preserving request prefixes before Bill markers. */
