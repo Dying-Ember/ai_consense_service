@@ -1,0 +1,20 @@
+[
+  {
+    "value": "[{\"component\":\"piling\",\"design\":true,\"execution\":true},{\"component\":\"pilecaps\",\"design\":true,\"execution\":true},{\"component\":\"footings\",\"design\":true,\"execution\":true}]",
+    "sourceDocumentId": 95,
+    "fileName": "02_2026-04-07_minutes_contract_identity_and_combined_foundation_scope.docx",
+    "sourceHash": "7c61314c6d4705a1ff1af078ddf73121541a0e4b4eebe5041fd3e8feb73b5636",
+    "sourceQuote": "The appointed Contractor will design and construct the piles, pile caps and shallow footings for the buildings within the same contract, together with the building works.",
+    "reason": "The Contractor is stated to both design and construct piles, pile caps and shallow footings.",
+    "confidence": 0.97
+  },
+  {
+    "value": "[{\"component\":\"piling\",\"design\":true,\"execution\":true,\"scope\":\"Bored piles for the community hall and library\"},{\"component\":\"pilecaps\",\"design\":true,\"execution\":true,\"scope\":\"Pile caps for the community hall and library\"},{\"component\":\"footings\",\"design\":true,\"execution\":true,\"scope\":\"Shallow footings for the sports building and entrance canopy\"},{\"component\":\"other\",\"design\":false,\"execution\":true,\"scope\":\"Architect designed internal partitions\"}]",
+    "sourceDocumentId": 100,
+    "fileName": "07_2026-04-14_email_foundation_design_and_submission_requirements.docx",
+    "sourceHash": "34908394f7f5bda3c75186435ac95f9f570528153c4b2aa75784b8eb37da676b",
+    "sourceQuote": "The complete component responsibility schedule is:\nComponent | Actual work scope | Contractor designs | Contractor executes\npiling | Bored piles for the community hall and library | Yes | Yes\npilecaps | Pile caps for the community hall and library | Yes | Yes\nfootings | Shallow footings for the sports building and entrance canopy | Yes | Yes\nother | Architect designed internal partitions | No | Yes",
+    "reason": "The correspondence provides a complete four-row component responsibility schedule with explicit design and execution values for each component.",
+    "confidence": 0.98
+  }
+]

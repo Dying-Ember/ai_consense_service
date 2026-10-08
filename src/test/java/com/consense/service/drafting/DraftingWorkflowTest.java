@@ -167,9 +167,13 @@ class DraftingWorkflowTest {
         DraftingService.DiscoveredVariable item=new DraftingService.DiscoveredVariable();item.setKey("contractTitle");item.setValue("{\"number\":\"EMAIL-123\",\"title\":\"\"}");item.setConfidence(.95);item.setSourceQuote("Contract number EMAIL-123.");
         when(externalModel.chat(anyList())).thenReturn(JsonUtils.write(Collections.singletonList(item)));
         VariableVO suggestion=service.extractVariables(id).stream().filter(v->v.getKey().equals("contractTitle")).findFirst().get();assertTrue(suggestion.getValue().contains("EMAIL-123"));assertFalse(suggestion.isConfirmed());
-        assertTrue(service.updateVariable(id,"contractTitle",new VariablePatch(null,null,true,null,null)).isConfirmed());
+        VariablePatch adoptShown=new VariablePatch(null,null,true,null,null);
+        adoptShown.setSuggestionSnapshot(new SuggestionSnapshot(suggestion.getValue(),suggestion.getSource(),suggestion.getCandidates(),suggestion.isReviewRequired()));
+        assertTrue(service.updateVariable(id,"contractTitle",adoptShown).isConfirmed());
         VariableVO confirmed=service.updateVariable(id,"contractTitle",new VariablePatch("{\"number\":\"EMAIL-123\",\"title\":\"Human supplied title\"}",null,true,null,null));assertTrue(confirmed.isConfirmed());
         VariableVO edited=service.updateVariable(id,"contractTitle",new VariablePatch("{\"number\":\"EMAIL-123\",\"title\":\"Adjusted title\"}",null,null,null,null));assertTrue(edited.isConfirmed());assertTrue(edited.isManuallyEdited());
-        assertTrue(service.updateVariable(id,"contractTitle",new VariablePatch(null,null,true,null,null)).isConfirmed());
+        VariablePatch confirmShownEdit=new VariablePatch(null,null,true,null,null);
+        confirmShownEdit.setSuggestionSnapshot(new SuggestionSnapshot(edited.getValue(),edited.getSource(),edited.getCandidates(),edited.isReviewRequired()));
+        assertTrue(service.updateVariable(id,"contractTitle",confirmShownEdit).isConfirmed());
     }
 }

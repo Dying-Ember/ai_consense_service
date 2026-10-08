@@ -124,10 +124,23 @@ public final class DraftingDtos {
         private String note;
         private String result;
         private Integer candidateIndex;
+        private CandidateVO candidateSnapshot;
+        private SuggestionSnapshot suggestionSnapshot;
         private Boolean reviewed;
         public VariablePatch(String value, String choice, Boolean confirmed, String note, String result) {
             this.value=value; this.choice=choice; this.confirmed=confirmed; this.note=note; this.result=result;
         }
+    }
+
+    /** Read-before-adopt identity supplied by the current view; never a new project value. */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class SuggestionSnapshot {
+        private String value;
+        private String source;
+        private List<CandidateVO> candidates;
+        private Boolean reviewRequired;
     }
 
     @Data

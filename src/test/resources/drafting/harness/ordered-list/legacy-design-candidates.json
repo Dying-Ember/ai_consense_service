@@ -1,0 +1,11 @@
+[
+  {
+    "value": "[{\"component\":\"other\",\"design\":true,\"execution\":true,\"scope\":\"Roofing and associated waterproofing systems\"},{\"component\":\"other\",\"design\":true,\"execution\":true,\"scope\":\"Precast concrete facades and CON8 volumetric precast concrete components\"},{\"component\":\"other\",\"design\":true,\"execution\":true,\"scope\":\"Play equipment and Impact Absorbing Surfacing Materials (IASM)\"}]",
+    "sourceDocumentId": 89,
+    "fileName": "14_2024-12-30_minutes_scenario_only_supplementary_drafting_decisions.docx",
+    "sourceHash": "9a2cb19425a30f7c334929be4a22faae5a6ef4fa7ad6872083bfe0b85cdc344b",
+    "sourceQuote": "For this scenario only, the following is the complete adopted Contractor design and execution matrix. Each listed specialist component requires both design and execution. No piling, pilecaps or footings component is added. This authored matrix is not claimed to be an exhaustive transcription of the original PRE.\n\ncomponent: other; design: Yes; execution: Yes; scope: Roofing and associated waterproofing systems\n\ncomponent: other; design: Yes; execution: Yes; scope: Precast concrete facades and CON8 volumetric precast concrete components\n\ncomponent: other; design: Yes; execution: Yes; scope: Play equipment and Impact Absorbing Surfacing Materials (IASM)",
+    "reason": "Complete adopted design and execution matrix with three components, each requiring both design and execution.",
+    "confidence": 0.95
+  }
+]

@@ -42,6 +42,7 @@ class DraftingCorrespondenceRemovalIntegrationTest {
         registry.add("consense.storage-root",()->STORAGE.toString());
     }
     @Autowired MockMvc mvc;
+    @Autowired DraftingService service;
     @MockBean LlmClient externalModel;
     @BeforeEach void modelAvailable() {
         when(externalModel.available()).thenReturn(true);
@@ -66,7 +67,7 @@ class DraftingCorrespondenceRemovalIntegrationTest {
         assertEquals("2026-10-17",unrelated.path("value").asText());assertFalse(unrelated.path("reviewRequired").asBoolean());
         assertArrayEquals(ORIGINAL,Files.readAllBytes(stored),"Removal preserves the originally stored correspondence bytes.");
         mvc.perform(put("/api/drafting/{id}/variables/photocopyRateUpToA3",id)
-                .contentType(MediaType.APPLICATION_JSON).content("{\"candidateIndex\":0}"))
+                .contentType(MediaType.APPLICATION_JSON).content(DraftAdoptionTestPayload.candidate(service,id,"photocopyRateUpToA3",0)))
                 .andExpect(jsonPath("$.code").value(4007));
     }
 
@@ -96,7 +97,7 @@ class DraftingCorrespondenceRemovalIntegrationTest {
         assertEquals("test-only-rates.txt",inputs.get(0).path("fileName").asText());
         mvc.perform(post("/api/drafting/{id}/variables/extract",id)).andExpect(jsonPath("$.code").value(0));
         mvc.perform(put("/api/drafting/{id}/variables/photocopyRateUpToA3",id)
-                .contentType(MediaType.APPLICATION_JSON).content("{\"candidateIndex\":0}"))
+                .contentType(MediaType.APPLICATION_JSON).content(DraftAdoptionTestPayload.candidate(service,id,"photocopyRateUpToA3",0)))
                 .andExpect(jsonPath("$.code").value(0));
         mvc.perform(put("/api/drafting/{id}/variables/siteInspectionStartDate",id)
                 .contentType(MediaType.APPLICATION_JSON).content("{\"value\":\"2026-10-17\"}"))

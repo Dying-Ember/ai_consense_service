@@ -170,7 +170,7 @@ class DraftingAdoptionIntegrationTest {
         putValue(id,"siteVisitRestrictions","[{\"text\":\"Arrive before 10:00.\"}]");
         assertTrue(variable(id,"siteInspectionStartDate").isReviewRequired());assertTrue(variable(id,"siteInspectionEndDate").isReviewRequired());
         putValue(id,"siteInspectionStartDate","2026-10-10");assertFalse(variable(id,"siteInspectionStartDate").isReviewRequired());assertTrue(variable(id,"siteInspectionEndDate").isReviewRequired());
-        mvc.perform(put("/api/drafting/{id}/variables/siteInspectionEndDate",id).contentType(MediaType.APPLICATION_JSON).content("{\"candidateIndex\":1}"))
+        mvc.perform(put("/api/drafting/{id}/variables/siteInspectionEndDate",id).contentType(MediaType.APPLICATION_JSON).content(DraftAdoptionTestPayload.candidate(service,id,"siteInspectionEndDate",1)))
                 .andExpect(jsonPath("$.data.value").value("2026-10-17")).andExpect(jsonPath("$.data.reviewRequired").value(false));
         service.extractVariables(id);assertFalse(variable(id,"siteInspectionEndDate").isReviewRequired(),"Unchanged sources must not re-open a completed review.");
         assertEquals("2026-10-17",variable(id,"siteInspectionEndDate").getValue());
@@ -246,17 +246,17 @@ class DraftingAdoptionIntegrationTest {
     }
 
     @Test void multipartSourceChangesReviewOnlyLinkedValuesAndRejectDeletedCandidates() throws Exception {
-        String id=project();SourceDocument initial=source(id,SourceDocument.CATEGORY_PROJECT_INPUT,null,"rates.docx","The photocopy rate is 1.50.");
-        DraftingService.DiscoveredVariable item=new DraftingService.DiscoveredVariable();item.setKey("photocopyRateUpToA3");item.setValue("1.50");item.setSourceQuote("The photocopy rate is 1.50.");item.setConfidence(.95);
+        String id=project();SourceDocument initial=source(id,SourceDocument.CATEGORY_PROJECT_INPUT,null,"rates.docx","The photocopy rate per page up to A3 is HK$1.50.");
+        DraftingService.DiscoveredVariable item=new DraftingService.DiscoveredVariable();item.setKey("photocopyRateUpToA3");item.setValue("1.50");item.setSourceQuote("The photocopy rate per page up to A3 is HK$1.50.");item.setConfidence(.95);
         when(externalModel.chat(anyList())).thenReturn(JsonUtils.write(Collections.singletonList(item)));
         service.extractVariables(id);putValue(id,"photocopyRateUpToA3","1.50");putValue(id,"siteInspectionStartDate","2026-10-10");
-        byte[] bytes;try(XWPFDocument word=new XWPFDocument();ByteArrayOutputStream out=new ByteArrayOutputStream()) {word.createParagraph().createRun().setText("The photocopy rate is 2.00.");word.write(out);bytes=out.toByteArray();}
+        byte[] bytes;try(XWPFDocument word=new XWPFDocument();ByteArrayOutputStream out=new ByteArrayOutputStream()) {word.createParagraph().createRun().setText("The photocopy rate per page up to A3 is HK$2.00.");word.write(out);bytes=out.toByteArray();}
         mvc.perform(multipart("/api/drafting/{id}/inputs/upload",id).file(new MockMultipartFile("files","rates.docx","application/vnd.openxmlformats-officedocument.wordprocessingml.document",bytes)))
                 .andExpect(jsonPath("$.code").value(0)).andExpect(jsonPath("$.data.parsed").value(1));
         assertEquals("1.5",variable(id,"photocopyRateUpToA3").getValue());assertTrue(variable(id,"photocopyRateUpToA3").isReviewRequired());
         assertFalse(variable(id,"siteInspectionStartDate").isReviewRequired());
         mvc.perform(delete("/api/drafting/{id}/inputs/{source}",id,initial.getId())).andExpect(jsonPath("$.code").value(0));
-        mvc.perform(put("/api/drafting/{id}/variables/photocopyRateUpToA3",id).contentType(MediaType.APPLICATION_JSON).content("{\"candidateIndex\":0}"))
+        mvc.perform(put("/api/drafting/{id}/variables/photocopyRateUpToA3",id).contentType(MediaType.APPLICATION_JSON).content(DraftAdoptionTestPayload.candidate(service,id,"photocopyRateUpToA3",0)))
                 .andExpect(jsonPath("$.code").value(4007));
         assertFalse(variable(id,"siteInspectionStartDate").isReviewRequired());
     }
@@ -290,8 +290,8 @@ class DraftingAdoptionIntegrationTest {
     }
 
     @Test void aHumanEditCommittedWhileTheModelIsRunningWinsOverItsCandidate() throws Exception {
-        String id=project();source(id,SourceDocument.CATEGORY_PROJECT_INPUT,null,"fees.docx","The photocopy rate is 1.50.");
-        DraftingService.DiscoveredVariable item=new DraftingService.DiscoveredVariable();item.setKey("photocopyRateUpToA3");item.setValue("1.50");item.setSourceQuote("The photocopy rate is 1.50.");item.setConfidence(.95);
+        String id=project();source(id,SourceDocument.CATEGORY_PROJECT_INPUT,null,"fees.docx","The photocopy rate per page up to A3 is HK$1.50.");
+        DraftingService.DiscoveredVariable item=new DraftingService.DiscoveredVariable();item.setKey("photocopyRateUpToA3");item.setValue("1.50");item.setSourceQuote("The photocopy rate per page up to A3 is HK$1.50.");item.setConfidence(.95);
         ExecutorService human=Executors.newSingleThreadExecutor();
         try {
             when(externalModel.chat(anyList())).thenAnswer(call->{
@@ -308,11 +308,11 @@ class DraftingAdoptionIntegrationTest {
     }
 
     @Test void explicitAdoptionAndReviewOfTheCurrentSuggestionPreservesModelProvenance() throws Exception {
-        String id=project();source(id,SourceDocument.CATEGORY_PROJECT_INPUT,null,"fees.docx","The photocopy rate is 1.50.");
-        DraftingService.DiscoveredVariable item=new DraftingService.DiscoveredVariable();item.setKey("photocopyRateUpToA3");item.setValue("1.50");item.setSourceQuote("The photocopy rate is 1.50.");item.setConfidence(.95);
+        String id=project();source(id,SourceDocument.CATEGORY_PROJECT_INPUT,null,"fees.docx","The photocopy rate per page up to A3 is HK$1.50.");
+        DraftingService.DiscoveredVariable item=new DraftingService.DiscoveredVariable();item.setKey("photocopyRateUpToA3");item.setValue("1.50");item.setSourceQuote("The photocopy rate per page up to A3 is HK$1.50.");item.setConfidence(.95);
         when(externalModel.chat(anyList())).thenReturn(JsonUtils.write(Collections.singletonList(item)));
         service.extractVariables(id);assertFalse(effective(id).containsKey("photocopyRateUpToA3"));
-        mvc.perform(put("/api/drafting/{id}/variables/photocopyRateUpToA3",id).contentType(MediaType.APPLICATION_JSON).content("{\"reviewed\":true,\"confirmed\":true}"))
+        mvc.perform(put("/api/drafting/{id}/variables/photocopyRateUpToA3",id).contentType(MediaType.APPLICATION_JSON).content(DraftAdoptionTestPayload.reviewed(service,id,"photocopyRateUpToA3",true)))
                 .andExpect(jsonPath("$.data.confirmed").value(true)).andExpect(jsonPath("$.data.manuallyEdited").value(false));
         assertEquals(1.5,((Number)effective(id).get("photocopyRateUpToA3")).doubleValue());
         assertFalse(DraftAdoption.adoptedSources(variables.findByProjectIdAndVarKey(id,"photocopyRateUpToA3").get()).isEmpty());
@@ -339,13 +339,13 @@ class DraftingAdoptionIntegrationTest {
     }
 
     @Test void changedEvidenceDuringTheModelCallRejectsItsStaleWriteBackWithoutOverridingHumanInput() throws Exception {
-        String id=project();SourceDocument original=source(id,SourceDocument.CATEGORY_PROJECT_INPUT,null,"fees.docx","The photocopy rate is 1.50.");
+        String id=project();SourceDocument original=source(id,SourceDocument.CATEGORY_PROJECT_INPUT,null,"fees.docx","The photocopy rate per page up to A3 is HK$1.50.");
         putValue(id,"photocopyRateUpToA3","2.75");
         ExecutorService editor=Executors.newSingleThreadExecutor();
         try {
             when(externalModel.chat(anyList())).thenAnswer(call->{
-                editor.submit(()->{SourceDocument latest=sources.findById(original.getId()).get();latest.setTextContent("The photocopy rate is 2.00.");return sources.save(latest);}).get(15,TimeUnit.SECONDS);
-                DraftingService.DiscoveredVariable item=new DraftingService.DiscoveredVariable();item.setKey("photocopyRateUpToA3");item.setValue("1.50");item.setSourceQuote("The photocopy rate is 1.50.");item.setConfidence(.95);return JsonUtils.write(Collections.singletonList(item));
+                editor.submit(()->{SourceDocument latest=sources.findById(original.getId()).get();latest.setTextContent("The photocopy rate per page up to A3 is HK$2.00.");return sources.save(latest);}).get(15,TimeUnit.SECONDS);
+                DraftingService.DiscoveredVariable item=new DraftingService.DiscoveredVariable();item.setKey("photocopyRateUpToA3");item.setValue("1.50");item.setSourceQuote("The photocopy rate per page up to A3 is HK$1.50.");item.setConfidence(.95);return JsonUtils.write(Collections.singletonList(item));
             });
             assertEquals(4007,assertThrows(BizException.class,()->service.extractVariables(id)).getCode());
             assertEquals("2.75",variable(id,"photocopyRateUpToA3").getValue());

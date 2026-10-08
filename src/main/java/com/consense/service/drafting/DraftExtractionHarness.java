@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 /** Drafting-local request/intake boundary. Accepted intake never certifies business truth. */
 @Service @RequiredArgsConstructor
 public class DraftExtractionHarness {
-    public static final String VERSION="draft-extraction-20261008.20-formal-bill-identities";
+    public static final String VERSION="draft-extraction-20261009.25-native-tables-and-scoped-negation";
     private static final String PROTOCOL="DRAFTING EXTRACTION PROTOCOL. Return only a JSON array of supported items {key,value,sourceQuote,reason,confidence}. "
             +"Use native JSON values: object, array, boolean, number, string or null, according to the single catalogue below. "
             +"Example contract value: {\"number\":\"C-2026/10\",\"title\":\"Works A\"}. A supported partial contract may omit its missing sibling. "
@@ -27,6 +27,9 @@ public class DraftExtractionHarness {
             +"Quotes must be contiguous source passages, copied exactly including punctuation. Use a short passage for scalar values; for a collection or numbered list, quote the complete defining list/table and its governing heading. Return every supplied applicable item in original order and retain its numbering and wording, including the final catch-all item. Never return only the prefix or tail of one complete source list. Confidence must be between 0 and 1. "
             +"Preserve formal English names. Type/purpose classifications are separate from literal Bill descriptions. "
             +"Bill type, purpose, trade and issue placement are optional: omit unknown cells. Each classification requires explicit evidence for that exact row; a schedule heading or the name Preliminaries does not classify every Bill. "
+            +"Bill rows may put pricing type before or after the number/description. Use the actual header to bind columns. BQ1 and SOR1 are different identities. A description containing '(All Provisional)' is a formal name, not evidence about every BQ quantity. "
+            +"Keep numeric roles separate: a repayment period in months is not its first payment-certificate number. English number words and ordinals denote the same numbers. "
+            +"An input whose catalogue condition is false is not applicable: return null, never false as a substitute. Known contractorLegalForm makes the two fallback clause-adoption inputs unnecessary; the business rules derive clause treatment from the known form. "
             +"L10Pro pricing preparation is independent of paper/DVD return. NSC/BSSSC arrangement is independent of trade scope. "
             +"otherTenderingArrangement is only an explicitly adopted alternative to the two-envelope tender procedure or replacement SCT5 wording. Hardcopy plus DVD-ROM submission under the existing two-envelope procedure is return media, not an alternative tender procedure; do not map it to this input. "
             +"A selected-trades quote must explicitly cover every selected trade. Cite a contiguous selected-trade table or the sentence defining the list, not only the NSC/BSSSC arrangement. Do not select No/excluded rows or duplicate combined Fire services and water pump or Lift and escalator with their shorter options. "
@@ -266,6 +269,31 @@ public class DraftExtractionHarness {
         conflicts.forEach(values::remove);values.putAll(adopted);return values;
     }
 
+    /** Apply the same current-run catalogue conditions to intake and recall, before candidate persistence. */
+    public void rejectInactiveSuggestions(ExtractTraceVO trace,Map<String,Object> adopted) {
+        Map<String,Object> conditions=recallConditions(trace,adopted);
+        Set<String> observedKnown=new HashSet<>();
+        for(ExtractionDecisionVO decision:trace.getDecisions())if("accepted".equals(decision.getStatus())&&
+                DraftBusinessRules.answered(DraftAdoption.decode(DraftBlueprint.find(decision.getKey()),decision.getNormalizedValue())))
+            observedKnown.add(decision.getKey());
+        for(ExtractionDecisionVO decision:trace.getDecisions()) {
+            if(!"accepted".equals(decision.getStatus()))continue;
+            DraftBlueprint.InputSpec spec=DraftBlueprint.find(decision.getKey());
+            boolean conflictedKnownParent=false;
+            for(Object clause:DraftBusinessRules.list(DraftBusinessRules.asMap(spec.schema.get("condition")).get("all"))) {
+                Map<String,Object> rule=DraftBusinessRules.asMap(clause);String parent=String.valueOf(rule.get("field"));
+                if("unknown".equals(rule.get("operator"))&&!adopted.containsKey(parent)&&!conditions.containsKey(parent)&&observedKnown.contains(parent))
+                    conflictedKnownParent=true;
+            }
+            if(conflictedKnownParent) {
+                decision.setStatus("rejected");decision.getCodes().add("input_applicability_conflict");continue;
+            }
+            if(Boolean.FALSE.equals(DraftBusinessRules.condition(spec.schema.get("condition"),conditions))) {
+                decision.setStatus("rejected");decision.getCodes().add("input_not_applicable");
+            }
+        }
+    }
+
     private boolean pendingCue(String passage,List<ExtractionDecisionVO> local) {
         return passage.toLowerCase(Locale.ROOT).matches("(?s).*\\b(pending|not supplied|not provided|blank|outstanding|unknown|unresolved|undetermined)\\b.*")&&
                 local.stream().anyMatch(decision->decision.getCodes().contains("source_unresolved")&&DraftEvidenceQuotes.present(decision.getSourceQuote(),passage));
@@ -332,7 +360,7 @@ public class DraftExtractionHarness {
             decision.setSourceQuote(quote);decision.getCodes().addAll(evidence.codes);
             value=parsed instanceof String?(String)parsed:JsonUtils.write(parsed);
             Object supported="billNos".equals(spec.key)?supportedBillMetadata(parsed,supplied,decision):parsed;
-            decision.setNormalizedValue(DraftInputRules.normalizeSuggestion(spec,"billNos".equals(spec.key)?JsonUtils.write(supported):value));
+            decision.setNormalizedValue(DraftInputRules.normalizeSuggestion(spec,"billNos".equals(spec.key)?JsonUtils.write(supported):value,quote,supplied,originalSource));
         }
         catch(RuntimeException invalid){decision.getCodes().add("invalid_value_shape");}
         if(decision.getNormalizedValue()!=null&&!literalIdentifiersPresent(spec,parsed,supplied))decision.getCodes().add("lexical_support_missing");
@@ -341,13 +369,15 @@ public class DraftExtractionHarness {
         else if(confidence<0.70)decision.getCodes().add("confidence_below_threshold");
         if(JsonUtils.isBlankText(quote))decision.getCodes().add("quote_missing");
         else if(!DraftEvidenceQuotes.present(supplied,quote))decision.getCodes().add("quote_not_in_part");
+        else if(!DraftArchitectContactEvidence.supported(spec.key,quote,supplied,originalSource))decision.getCodes().add("quote_value_mismatch");
         else if("billNos".equals(spec.key)&&parsed instanceof List&&((List<?>)parsed).isEmpty()&&!noBillsSupported(quote))decision.getCodes().add("quote_value_mismatch");
-        else if("subcontractors".equals(spec.key)&&parsed instanceof List&&!selectedTradesSupported((List<?>)parsed,quote))decision.getCodes().add("quote_value_mismatch");
+        else if("subcontractors".equals(spec.key)&&parsed instanceof List&&!selectedTradesSupported((List<?>)parsed,quote,supplied,originalSource))decision.getCodes().add("quote_value_mismatch");
         else if("domesticBlocks".equals(spec.key)&&!Objects.equals(DraftBusinessRules.truth(parsed),domesticScope(quote)))decision.getCodes().add("quote_value_mismatch");
+        else if("allBqQuantitiesProvisional".equals(spec.key)&&!DraftBooleanEvidence.allBqSupported(parsed,quote,supplied,originalSource))decision.getCodes().add("quote_value_mismatch");
         else if("volumetricPrecastComponents".equals(spec.key)&&DraftCandidateGrounding.con8Contradicted(parsed,quote))decision.getCodes().add("quote_value_mismatch");
         else if("date".equals(spec.kind)&&!DraftCandidateGrounding.dateSupported(spec.key,String.valueOf(parsed),quote))decision.getCodes().add("quote_value_mismatch");
         else if("projectArchitectPhone".equals(spec.key)&&!DraftCandidateGrounding.phoneSupported(String.valueOf(parsed),quote))decision.getCodes().add("quote_value_mismatch");
-        else if(!"projectArchitectPhone".equals(spec.key)&&!DraftCandidateGrounding.directLiteralSupported(spec,parsed,quote))decision.getCodes().add("quote_value_mismatch");
+        else if(!"projectArchitectPhone".equals(spec.key)&&!DraftCandidateGrounding.directLiteralSupported(spec,parsed,quote,supplied,originalSource))decision.getCodes().add("quote_value_mismatch");
         else if("otherTenderingArrangement".equals(spec.key)&&returnMediaForExistingTender(quote))decision.getCodes().add("quote_value_mismatch");
         if(("list".equals(spec.kind)||"multiselect".equals(spec.kind))&&parsed instanceof List&&((List<?>)parsed).isEmpty()&&
                 !confirmedEmptyListSupported(spec,supplied,quote))decision.getCodes().add("unsupported_empty_list");
@@ -462,35 +492,29 @@ public class DraftExtractionHarness {
 
     /** Bounded guard for direct residential scope, not a general Boolean entailment checker. */
     private Boolean domesticScope(String quote) {
-        Boolean supported=null;
-        for(String clause:quote.toLowerCase(Locale.ROOT).split("\\R|(?<=[.!?])\\s+")) {
-            if(!java.util.regex.Pattern.compile("\\b(domestic|residential)\\s+(blocks?|buildings?)\\b").matcher(clause).find())continue;
-            if(clause.contains("?")||clause.matches("(?s).*\\b(whether|please confirm|if|would|could|might|option|pending|unconfirmed|template|adjacent|neighbouring|neighboring|existing)\\b.*"))continue;
-            boolean no=clause.matches("(?s).*\\b(no|not|without|exclude|excluded)\\b.{0,80}\\b(domestic|residential)\\b.*")||
-                    clause.matches("(?s).*\\b(domestic|residential)\\s+(?:blocks?|buildings?).{0,50}\\b(no|not included|excluded|outside)\\b.*");
-            boolean yes=clause.matches("(?s).*\\b(describes|includes?|comprises?|comprise|consists of|construction of|constructs?)\\b.*")||
-                    clause.matches("(?s).*\\b(domestic|residential)\\s+blocks?\\s+(?:construction\\s*)?[:|=]\\s*yes\\b.*");
-            if(!no&&!yes)continue;
-            boolean answer=!no;
-            if(supported!=null&&supported!=answer)return null;
-            supported=answer;
-        }
-        return supported;
+        return DraftBooleanEvidence.domesticScope(quote);
+    }
+
+    private boolean selectedTradesSupported(List<?> selected,String quote,String supplied,String original) {
+        String scope=DraftScopeEvidence.assertedCollectionScope(quote,supplied,original,"(?:trades?|trade selection|sub[- ]?contracts?|sub[- ]?contractors?)");
+        return scope!=null&&selectedTradesSupported(selected,quote)&&selectedTradesSupported(selected,scope);
     }
 
     private boolean selectedTradesSupported(List<?> selected,String quote) {
         String text=quote.toLowerCase(Locale.ROOT);
-        if(text.contains("?")||text.matches("(?s).*\\b(please confirm|whether|not selected|pending confirmation)\\b.*"))return false;
+        if(text.contains("?")||text.matches("(?s).*\\b(please confirm|whether|pending confirmation)\\b.*"))return false;
         if(selected.isEmpty())return java.util.regex.Pattern.compile("(?i)\\b"+explicitEmptyList("(?:selected|nominated|specialist|subcontract)\\s+(?:subcontract\\s+)?trades?|subcontractors")+"\\b").matcher(quote).find()||
                 text.matches("(?s).*\\bno\\s+(?:specialist\\s+)?(?:subcontract\\s+)?trades?\\b.*")||
                 text.matches("(?s).*\\bselected\\s+(?:subcontract\\s+)?(?:trade\\s+)?list\\s*[:|=]\\s*none\\b.*");
-        boolean listContext=java.util.regex.Pattern.compile("(?i)\\b(?:selected trades|building services trades|specialist\\s+sub[- ]?contract(?:ors?|s?)|sub[- ]?contract\\s+list|selection option\\s*[|:]\\s*selected)\\b").matcher(quote).find();
+        boolean listContext=java.util.regex.Pattern.compile("(?i)\\b(?:selected(?:\\s+specialist)? trades|building services trades|specialist\\s+sub[- ]?contract(?:ors?|s?)|sub[- ]?contract\\s+list|selection option\\s*[|:]\\s*selected)\\b").matcher(quote).find();
         for(Object item:selected) {
             String trade=String.valueOf(item);
             String suffix="Fire services".equals(trade)?"(?!\\s+and\\s+water\\s+pump)":"Lift".equals(trade)?"(?!\\s+and\\s+escalator)":"";
-            java.util.regex.Pattern pattern=java.util.regex.Pattern.compile("(?i)\\b"+java.util.regex.Pattern.quote(trade)+"\\b"+suffix);
+            String literal="Air-conditioning and mechanical ventilation".equals(trade)?"Air[- ]conditioning\\s+and\\s+mechanical\\s+ventilation":java.util.regex.Pattern.quote(trade);
+            java.util.regex.Pattern pattern=java.util.regex.Pattern.compile("(?i)\\b"+literal+"\\b"+suffix);
             boolean supported=false;
-            for(String clause:quote.split("\\R|;|\\.\\s+")) {
+            for(String clause:DraftScopeEvidence.sourcePassages(quote)) {
+                if(java.util.regex.Pattern.compile("(?i)\\b(?:do not (?:use|adopt|accept)|pending|unconfirmed|unknown|proposed|(?:another|other|different|previous|former)\\s+(?:project|contract))\\b").matcher(clause).find())continue;
                 java.util.regex.Matcher match=pattern.matcher(clause);
                 while(match.find()) {
                     String before=clause.substring(0,match.start()).toLowerCase(Locale.ROOT);
@@ -512,8 +536,9 @@ public class DraftExtractionHarness {
         for(Object item:DraftBusinessRules.list(value)) {
             Map<String,Object> row=new LinkedHashMap<>(DraftBusinessRules.asMap(item));
             String number=String.valueOf(row.get("number")),description=String.valueOf(row.get("description"));
+            String metadataSource=DraftBillSourceTables.metadataSource(row,source,decision.getSourceQuote());
             List<String> contexts=new ArrayList<>();
-            for(String line:source.split("\\R|(?i)(?=\\bBill\\s*(?:No\\.?\\s*)?\\d+\\b)")) {
+            for(String line:metadataSource.split("\\R|(?i)(?=\\bBill\\s*(?:No\\.?\\s*)?\\d+\\b)")) {
                 if(line.contains("?")||line.toLowerCase(Locale.ROOT).matches("(?s).*\\b(if|whether|please confirm|would|could)\\b.*"))continue;
                 String rowStart="(?i)^\\s*"+java.util.regex.Pattern.quote(number)+"\\s*[|:]";
                 String billNumber="(?i)\\bBill\\s*(?:No\\.?\\s*)?"+java.util.regex.Pattern.quote(number)+"\\b";
@@ -526,7 +551,10 @@ public class DraftExtractionHarness {
             for(String field:Arrays.asList("type","purpose","trade","placement","placementText")) {
                 if(!DraftBusinessRules.answered(row.get(field)))continue;
                 String cell=String.valueOf(row.get(field));
-                if(contexts.stream().noneMatch(context->billMetadataSupported(field,cell,context))) {
+                Boolean tableType="type".equals(field)?DraftBillSourceTables.typeSupport(row,metadataSource):null;
+                if(Boolean.FALSE.equals(tableType))decision.getCodes().add("bill_type_unsupported");
+                boolean supportedCell=tableType!=null?tableType:contexts.stream().anyMatch(context->billMetadataSupported(field,cell,context));
+                if(!supportedCell) {
                     row.remove(field);decision.getCodes().add("bill_metadata_unsupported:"+number+":"+field);
                 }
             }
