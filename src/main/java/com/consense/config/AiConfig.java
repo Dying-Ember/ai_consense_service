@@ -12,6 +12,7 @@ import com.consense.vector.VectorStore;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 /**
  * 本地 AI 依赖装配：大模型 / OCR / 向量库的 provider 由 application.yml 决定。
@@ -20,7 +21,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AiConfig {
 
-    @Bean
+    @Bean @Primary
     public LlmClient llmClient(ConsenseProperties props, HttpSupport http) {
         ConsenseProperties.Llm llm = props.getLlm();
         if ("openai".equalsIgnoreCase(llm.getProvider())) {
@@ -30,6 +31,11 @@ public class AiConfig {
         log.info("LLM provider = ollama, baseUrl={}, chatModel={}, embedModel={}",
                 llm.getBaseUrl(), llm.getChatModel(), llm.getEmbedModel());
         return new OllamaLlmClient(llm, http);
+    }
+
+    @Bean public LlmClient miniMaxChatClient(ConsenseProperties props,HttpSupport http) {
+        ConsenseProperties.Llm copied=new ConsenseProperties.Llm();org.springframework.beans.BeanUtils.copyProperties(props.getMinimaxCn(),copied);
+        return new com.consense.ai.MiniMaxChatClient(copied,http);
     }
 
     @Bean

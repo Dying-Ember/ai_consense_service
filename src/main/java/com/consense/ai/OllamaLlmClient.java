@@ -32,6 +32,19 @@ public class OllamaLlmClient implements LlmClient {
 
     @Override
     public String chat(List<ChatTurn> turns) {
+        return chat(turns, null);
+    }
+
+    @Override
+    public String chatStructured(List<ChatTurn> turns, JsonNode schema) {
+        if (schema == null || !schema.isObject()) throw new IllegalArgumentException("A JSON schema object is required");
+        return chat(turns, schema);
+    }
+
+    private String chat(List<ChatTurn> turns, JsonNode schema) {
+        if (schema != null && cfg.getStructuredMaxTokens() <= 0) {
+            throw new IllegalArgumentException("Structured output budget must be positive");
+        }
         ObjectNode body = JsonUtils.mapper().createObjectNode();
         body.put("model", cfg.getChatModel());
         body.put("stream", false);
@@ -44,11 +57,22 @@ public class OllamaLlmClient implements LlmClient {
         ObjectNode options = body.putObject("options");
         options.put("temperature", cfg.getTemperature());
         options.put("num_ctx", cfg.getNumCtx());
+        if (schema != null) {
+            body.set("format", schema);
+            Boolean thinking = cfg.getStructuredThinking();
+            if (thinking != null) body.put("think", thinking);
+            // Vetting must fail visibly rather than generate an unbounded quotation/list loop.
+            options.put("num_predict", cfg.getStructuredMaxTokens());
+        }
 
         String raw = http.postJson(trim(cfg.getBaseUrl()) + "/api/chat",
-                JsonUtils.write(body), cfg.getTimeoutMs(), null, cfg.getMaxRetry());
+                JsonUtils.write(body), cfg.getTimeoutMs(), null, schema == null ? cfg.getMaxRetry() : 0);
 
         JsonNode root = JsonUtils.parse(raw);
+        if (schema != null && "length".equals(root.path("done_reason").asText())) {
+            throw new IncompleteModelResponseException("Structured model response exhausted its output budget; semantic review is incomplete",
+                    raw, root.path("message").path("content"));
+        }
         JsonNode content = root.path("message").path("content");
         if (content.isMissingNode() || JsonUtils.isBlankText(content.asText())) {
             throw new BizException("Ollama 未返回内容，请确认模型 " + cfg.getChatModel() + " 已 pull");

@@ -1,6 +1,7 @@
 package com.consense.web.dto;
 
 import com.consense.common.LocalizedText;
+import com.consense.ai.ModelIdentity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,7 @@ public final class AdviceDtos {
         private List<String> citations;
         private String evidenceId;
         private List<CitationVO> sources;
+        private ModelIdentity modelIdentity;
     }
 
     @Data
@@ -57,6 +59,7 @@ public final class AdviceDtos {
         private String evidenceId;
         private List<CitationVO> sources;
         private String model;
+        private ModelIdentity modelIdentity;
     }
 
     @Data

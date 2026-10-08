@@ -1,0 +1,43 @@
+# Run with --spring.profiles.active=h2,vetting-local.
+# Separate local evaluation data from any existing working database.
+server:
+  port: 18080
+spring:
+  datasource:
+    url: "${CONSENSE_VETTING_LOCAL_JDBC_URL:jdbc:h2:file:./data/vetting-local;AUTO_SERVER=TRUE;MODE=MySQL;DATABASE_TO_LOWER=TRUE;CASE_INSENSITIVE_IDENTIFIERS=TRUE}"
+consense:
+  storage-root: "${CONSENSE_STORAGE_ROOT:./data/uploads}"
+  llm:
+    provider: ollama
+    base-url: "${CONSENSE_LLM_BASE_URL:}"
+    chat-model: qwen2.5:3b
+    temperature: 0.2
+    num-ctx: 8192
+    timeout-ms: 180000
+    max-retry: 0
+  ocr:
+    mode: local
+    base-url: "${CONSENSE_OCR_BASE_URL:}"
+    ocr-path: /ocr
+    timeout-ms: 180000
+  vector:
+    provider: memory
+  vetting:
+    retrieval-url: "${CONSENSE_RETRIEVAL_URL:}"
+    require-hybrid-retrieval: true
+    expected-retrieval-contract: source-bound-window-points-full-parent-results-v1
+    expected-retrieval-signature-version: 3
+    expected-embedding-window-max-tokens: 512
+    expected-rerank-window-max-tokens: 512
+    expected-window-overlap-tokens: 64
+    semantic-enabled: true
+    semantic-topics: 16
+    semantic-context-chars: 10000
+    project-reference-comparisons: 16
+    project-reference-context-chars: 12000
+    retrieval-timeout-ms: 180000
+    retrieval-index-timeout-ms: 1800000
+logging:
+  level:
+    com.consense.ai.AiGateway: WARN
+    com.consense.document: INFO

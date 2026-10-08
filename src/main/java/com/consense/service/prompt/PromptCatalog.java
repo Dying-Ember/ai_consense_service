@@ -60,14 +60,14 @@ public final class PromptCatalog {
             new Spec(
                     KEY_DISCOVER, PromptTemplate.GROUP_DRAFTING,
                     "变量识别", "變量識別", "Variable Discovery",
-                    "通读标准模板与项目证据，识别 BASE / FILE 变量并给出建议取值。system 里含固定的 BASE 变量清单占位符 %s。",
-                    "通讀標準模板與項目證據，識別 BASE / FILE 變量並給出建議取值。",
-                    "Reads the standard templates and project evidence, then discovers BASE / FILE variables.",
+                    "从资料中识别六组八项固定输入，附原文依据；未知留空。",
+                    "從資料中識別六組八項固定輸入，附原文依據；未知留空。",
+                    "Extracts eight fixed inputs in six groups, with evidence; unknown values remain empty.",
                     DraftPrompts.DISCOVER_SYSTEM, DraftPrompts.DISCOVER_USER_TEMPLATE, 10),
             new Spec(
                     KEY_CLAUSE, PromptTemplate.GROUP_DRAFTING,
                     "文稿起草", "文稿起草", "Document Drafting",
-                    "基于已确认变量起草 NTT / SCT / SCC 正文。运行时会在 system 末尾追加输出语言。",
+                    "基于已确认变量起草 NTT / SCT / SCC 正文。按完整模板分段起草，并应用派生条款规则。",
                     "基於已確認變量起草 NTT / SCT / SCC 正文。",
                     "Drafts the NTT / SCT / SCC documents from confirmed variables.",
                     DraftPrompts.CLAUSE_SYSTEM, DraftPrompts.CLAUSE_USER_TEMPLATE, 20),

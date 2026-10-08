@@ -24,6 +24,7 @@ import java.util.List;
  * 兼容两种常见部署形态：
  *  classic    —— POST {base}{ocrPath}，body {"images":["<base64>"]}，返回 results 二维数组
  *  hubserving —— POST {base}{structurePath}，multipart 字段名 image
+ *  local      —— POST {base}/ocr，multipart 字段名 file；GET /health
  *
  * 返回体结构在不同版本间差异较大，这里做宽松解析：只要能拿到 text 字段就收集。
  */
@@ -38,6 +39,9 @@ public class PaddleOcrClient implements OcrClient {
     public OcrResult recognize(byte[] imageBytes) {
         if (imageBytes == null || imageBytes.length == 0) {
             return new OcrResult("", 0.0, Collections.emptyList());
+        }
+        if ("local".equalsIgnoreCase(cfg.getMode())) {
+            return recognizeLocal(imageBytes);
         }
         String raw = "hubserving".equalsIgnoreCase(cfg.getMode())
                 ? callHubServing(imageBytes)
@@ -61,7 +65,8 @@ public class PaddleOcrClient implements OcrClient {
     @Override
     public boolean available() {
         try {
-            String ping = http.get(trim(cfg.getBaseUrl()) + "/", 3000);
+            String ping = http.get(trim(cfg.getBaseUrl())
+                    + ("local".equalsIgnoreCase(cfg.getMode()) ? "/health" : "/"), 3000);
             return ping != null;
         } catch (Exception e) {
             log.debug("OCR 服务不可达: {}", e.getMessage());
@@ -87,6 +92,30 @@ public class PaddleOcrClient implements OcrClient {
                 body, cfg.getTimeoutMs());
     }
 
+    private OcrResult recognizeLocal(byte[] imageBytes) {
+        MultipartBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("file", "page.png",
+                        RequestBody.create(imageBytes, MediaType.get("image/png"))).build();
+        JsonNode response = JsonUtils.parse(http.postMultipart(trim(cfg.getBaseUrl()) + "/ocr",
+                body, cfg.getTimeoutMs()));
+        List<OcrLine> lines = new ArrayList<>();
+        double confidence = 0;
+        StringBuilder text = new StringBuilder();
+        for (JsonNode line : response.path("lines")) {
+            if (JsonUtils.isBlankText(line.path("text").asText())) continue;
+            JsonNode box = line.path("bbox");
+            double[] bbox = box.isArray() && box.size() == 4
+                    ? new double[]{box.get(0).asDouble(), box.get(1).asDouble(),
+                    box.get(2).asDouble(), box.get(3).asDouble()} : null;
+            double score = line.path("confidence").asDouble(0);
+            lines.add(new OcrLine(line.path("text").asText(), score, bbox));
+            text.append(line.path("text").asText()).append('\n');
+            confidence += score;
+        }
+        String fullText = response.path("text").asText(text.toString()).trim();
+        return new OcrResult(fullText, lines.isEmpty() ? 0 : confidence / lines.size(), lines);
+    }
+
     /**
      * 递归收集 {text, confidence} 节点，兼容 results 的多种嵌套形态。
      */
@@ -105,6 +134,14 @@ public class PaddleOcrClient implements OcrClient {
             return;
         }
         if (node.isArray()) {
+            // Paddle's [polygon, [text, confidence]] line form.
+            if (node.size() == 2 && node.get(0).isArray() && node.get(1).isArray()
+                    && node.get(1).size() >= 2 && node.get(1).get(0).isTextual()) {
+                ObjectNode region = JsonUtils.mapper().createObjectNode();
+                region.set("points", node.get(0));
+                out.add(new OcrLine(node.get(1).get(0).asText(), node.get(1).get(1).asDouble(), extractBbox(region)));
+                return;
+            }
             node.forEach(child -> walk(child, out, depth + 1));
             return;
         }
@@ -136,6 +173,13 @@ public class PaddleOcrClient implements OcrClient {
     private double[] extractBbox(JsonNode node) {
         JsonNode region = firstPresent(node, "text_region", "text_box", "bbox", "points", "poly");
         if (region == null || !region.isArray()) return null;
+        // PP-Structure flat rectangles use x1, y1, x2, y2; local mode is parsed separately as x,y,w,h.
+        if (region.size() == 4 && region.get(0).isNumber() && region.get(1).isNumber()
+                && region.get(2).isNumber() && region.get(3).isNumber()) {
+            double x = region.get(0).asDouble(), y = region.get(1).asDouble();
+            return new double[]{x, y, Math.max(0, region.get(2).asDouble() - x),
+                    Math.max(0, region.get(3).asDouble() - y)};
+        }
         double minX = Double.POSITIVE_INFINITY, minY = Double.POSITIVE_INFINITY;
         double maxX = Double.NEGATIVE_INFINITY, maxY = Double.NEGATIVE_INFINITY;
         for (JsonNode p : region) {

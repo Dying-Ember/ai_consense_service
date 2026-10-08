@@ -44,6 +44,11 @@ public class ChatMessage {
     @Column(name = "evidence_id", length = 64)
     private String evidenceId;
 
+    /** Frozen configured chat identity; absent for legacy and deterministic no-basis messages. */
+    @Lob
+    @Column(name = "model_identity_json", columnDefinition = "LONGTEXT")
+    private String modelIdentityJson;
+
     @Column(name = "created_at", nullable = false)
     private Instant createdAt = Instant.now();
 }
