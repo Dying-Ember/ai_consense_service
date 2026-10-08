@@ -53,6 +53,22 @@ public class VettingFinding {
     @Column(length = 32, nullable = false)
     private String status = STATUS_OPEN;
 
+    /** Human-owned records; generated finding refreshes must never overwrite them. */
+    @Lob
+    @Column(name = "review_remarks", columnDefinition = "TEXT")
+    private String reviewRemarks;
+
+    @Lob
+    @Column(name = "action_taken", columnDefinition = "TEXT")
+    private String actionTaken;
+
+    /** null: not decided; true: amendment required; false: amendment not required. */
+    @Column(name = "addendum_required")
+    private Boolean addendumRequired;
+
+    @Column(name = "review_updated_at")
+    private Instant reviewUpdatedAt;
+
     @Lob
     @Column(name = "title_zh_hans", columnDefinition = "TEXT")
     private String titleZhHans;
@@ -125,6 +141,25 @@ public class VettingFinding {
     /** 三栏定位器第二栏的分组键（变量 / 错误类别 / 页码） */
     @Column(name = "bucket_key", length = 64)
     private String bucketKey;
+
+    @Column(length = 64)
+    private String fingerprint;
+
+    @Column(name = "run_id", length = 64)
+    private String runId;
+
+    @Column(length = 16)
+    private String source;
+
+    @Column(length = 16)
+    private String verification;
+
+    @Lob
+    @Column(name = "evidence_json", columnDefinition = "LONGTEXT")
+    private String evidenceJson;
+
+    @Column(name = "active", nullable = false)
+    private Boolean active = true;
 
     @Column(name = "created_at", nullable = false)
     private Instant createdAt = Instant.now();

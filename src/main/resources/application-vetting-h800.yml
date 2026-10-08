@@ -1,0 +1,17 @@
+# Shared competition-sized evaluation budget; model choice does not enable a provider.
+# GPT-OSS-120B MXFP4 / Qwen approximately 120B MoE candidates, one review sequence.
+# Complete input (instructions + materials + schema) <= 98,304 provider-estimated tokens.
+consense:
+  vetting:
+    responses:
+      enabled: false
+      configured-context-tokens: 131072
+      max-output-tokens: 16384
+      safety-margin-tokens: 16384
+      counter-timeout-ms: 45000
+      generation-timeout-ms: 300000
+      estimate-policy: bound_provider_estimate_with_absolute_margin_v1
+    # Candidate observations are complete; the bound token counter gates dispatch.
+    semantic-context-chars: 2147483647
+    semantic-context-expansion-chars: 2147483647
+    project-reference-context-chars: 2147483647

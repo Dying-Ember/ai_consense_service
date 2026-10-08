@@ -1,0 +1,3 @@
+# Frozen original bytes must not be changed by core.autocrlf on another checkout.
+trace.json -text
+sources/*.docx -text

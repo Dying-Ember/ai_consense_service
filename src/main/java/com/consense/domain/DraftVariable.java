@@ -7,7 +7,7 @@ import lombok.Setter;
 import java.time.Instant;
 
 /**
- * 起草变量：基础变量（scope=BASE，如 B01/B02/billNos）与分文件变量（scope=FILE，如 V01/B04/M01）。
+ * Fixed drafting inputs use INPUT. BASE / FILE remain for preserved legacy records.
  */
 @Getter
 @Setter
@@ -16,6 +16,7 @@ import java.time.Instant;
         name = "uk_draft_var", columnNames = {"project_id", "var_key"}))
 public class DraftVariable {
 
+    public static final String SCOPE_INPUT = "INPUT";
     public static final String SCOPE_BASE = "BASE";
     public static final String SCOPE_FILE = "FILE";
 
@@ -75,6 +76,24 @@ public class DraftVariable {
     @Lob
     @Column(name = "note_text", columnDefinition = "TEXT")
     private String noteText;
+
+    /** Editing a value adopts it for this draft, independently of a confirm button. */
+    @Column(name = "manually_edited", nullable = false)
+    @org.hibernate.annotations.ColumnDefault("0")
+    private Boolean manuallyEdited = false;
+
+    @Column(name = "review_required", nullable = false)
+    @org.hibernate.annotations.ColumnDefault("0")
+    private Boolean reviewRequired = false;
+
+    /** Model candidates never replace a manually adopted value. */
+    @Lob
+    @Column(name = "candidates_json", columnDefinition = "TEXT")
+    private String candidatesJson;
+
+    @Lob
+    @Column(name = "adopted_sources_json", columnDefinition = "TEXT")
+    private String adoptedSourcesJson;
 
     /** 链式变量：确认一次即同步到关联变量 */
     @Column(name = "linked_base", length = 64)

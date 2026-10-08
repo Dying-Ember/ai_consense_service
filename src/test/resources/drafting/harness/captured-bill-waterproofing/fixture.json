@@ -1,0 +1,362 @@
+{
+  "schemaVersion": 1,
+  "scope": "Offline captured candidate intake and original-source context only; no model, HTTP, adoption or user DB.",
+  "sources": {
+    "bill": {
+      "fileName": "04_2024-12-12_email_bill_numbers_and_descriptions_for_drafting.docx",
+      "sourceHash": "243c0025f9692f49cc947b4e2e7d3058ad86bea96cb6318c6253dd7b45eb6d9c",
+      "originalSource": "Bill numbers and descriptions for drafting\n\nSIMULATED TEST MATERIAL - not an actual email, meeting record or contractual instruction. All senders, dates and proceedings are fictional. Case-backed values are checked against the supplied 2b documents. SIM14 contains separately labelled scenario-only drafting decisions, not 2b facts or real business approval.\n\nRecord ID: SIM04\nScenario date: 2024-12-12 (fictional)\nType: Simulated email\nFixture version: 20261006\n\nFrom: Simulated QS <qs@consense-test.invalid>\nTo: Simulated Architect; Simulated Building Services Engineer\nSubject: [SIMULATED] Bill numbers and descriptions for drafting\n\nDear all,\n\nThe bill schedule in SCT1 contains the following 13 bill numbers and descriptions. Please use this list for drafting; it is a bill identity list and does not imply that every bill is a measured BQ bill.\n\nBill No. | Exact description | Pricing type\n\n1 | Preliminaries | BQ\n\n2 | Preambles | BQ\n\n3 | Substructure | BQ\n\n4 | Superstructure for Podium | BQ\n\n5 | Superstructure for Domestic Block | BQ\n\n6 | Plumbing Works for Podium and Domestic Block | BQ\n\n7 | Drainage | BQ\n\n8 | External Works | BQ\n\n9 | Electrical Works | SOR\n\n10 | Fire Services and Water Pump Works | SOR\n\n11 | Lift Works | SOR\n\n12 | Site Safety; Environmental Management and Other Sundry Requirements (All Provisional) | BQ\n\n13 | Provisional Sums | BQ\n\nBills 9 to 11 are schedules of rates. The issue of collection and summary pages separately does not create additional bill identities. Bill 12 includes the “All Provisional” qualification shown above.\n\nBill 12 is the parent Bill. Its safety, environmental management and site hygiene components include sub-numbers 12.2 to 12.4, which must be recorded as usage references rather than invented additional parent Bills. Their trade mapping and issue placement will be addressed in a later pricing reply.\n\nPlease keep the building services subcontract arrangement pending until the Building Services Engineer confirms the procurement model. The presence of the three services bills identifies work categories but is not, by itself, proof of NSC or BSSSC.\n\nRegards,\n\nSimulated QS\n\nDocument basis: R05: 05 - SCT.docx - SCT1 bill schedule\n\nConSense simulated drafting correspondence 20261006\n\nFictional correspondence for testing only |",
+      "utf8Sha256": "e6481951c8f0464c779ca38af85095d1e66d68bcb1b091a6c6107fe22c543a5b",
+      "docxRelativePath": "Ref/simulated_2b_correspondence/03_missing_evidence_test/01_upload_documents/04_2024-12-12_email_bill_numbers_and_descriptions_for_drafting.docx",
+      "docxSha256": "c9364fc2c6ef4acbcbc2beb291d5c2ae36648958151d54294f14f0fe6f250576"
+    },
+    "water": {
+      "fileName": "11_2024-12-23_minutes_warranty_scope_review_meeting.docx",
+      "sourceHash": "2159fbcd4051954cce007f3885a4bd4b38e16fade5e6515eb54b88ba33744ba2",
+      "originalSource": "Warranty scope review meeting\n\nSIMULATED TEST MATERIAL - not an actual email, meeting record or contractual instruction. All senders, dates and proceedings are fictional. Case-backed values are checked against the supplied 2b documents. SIM14 contains separately labelled scenario-only drafting decisions, not 2b facts or real business approval.\n\nRecord ID: SIM11\nScenario date: 2024-12-23 (fictional)\nType: Simulated minutes\nFixture version: 20261006\n\nParticipants and recorder: fictional project roles only. No meeting took place.\n\nDear project team, these are the additional case-backed answers for this simulated drafting exercise. Please retain their scope and source qualifications.\n\nProject in Tin Shui Wai\n\nProject in Tin Shui Wai: No\n\nCase-derived negative location: explicit project identity is Tung Chung Area 98, not a default from the standard template.\n\nRoofing installation included\n\nRoofing installation included: Yes\n\nRoofing and associated waterproofing systems are actual project items within design responsibility and the specified warranty scope.\n\nRoofing warranty required\n\nRoofing warranty required: Yes\n\nActual case SCC7.304 expressly warrants the roofing installation for ten years.\n\nOther waterproofing warranty required\n\nOther waterproofing warranty required: Yes\n\nActual case SCC7.304 expressly warrants other specified waterproofing installations; the PRE enumerates the areas.\n\nOther waterproofing areas specified in Specification\n\nOther waterproofing areas specified in Specification: 1.Kitchens;\n\n2.Bathrooms, toilets, lavatories;\n\n3.Refuse storage and material recovery rooms (RS&MRR), refuse storage and material recovery chambers (RS&MRC), refuse collection points (RCP), refuse storage and Junk Collection Points (JCP);\n\n4.Lift pits, sump pits and lift pit floors;\n\n5. External tankings of maintenance access for lift pits;\n\n6.External tankings of car park and car ramp connecting to car park;\n\n7.Internal tankings;\n\n8.Planters and landscaped decks at podium floors (including zero irrigation system planters), podium garden, structures associated with vertical greening and green roof;\n\n9.All roof areas over domestic flats and non-domestic premises (including green roofs, flat roofs, main roofs, upper roofs, canopies, covered walkways, podium deck, dog houses, smoke vents and duct shafts etc.);\n\n10. Water pump rooms, associated drain pits and water meter rooms / cabinet / cupboards;\n\n11.Fresh, flush and fire services water pump rooms and associated drain pits for overflow pipes, master water meter rooms, water meter rooms, electrical plant / services rooms adjacent to water meter rooms / cabinets / water pump rooms;\n\n12.Suspended manholes and suspended cable trenches / chambers and draw pits;\n\n13.G/F level slabs;\n\n14.Walls of pipe ducts and water pump rooms adjoining transformer rooms, electrical meter/ switch rooms, TBE Room, emergency generator room and electrical plant rooms;\n\n15.Services platform for pipework installation above common areas, back of house, service corridors, plant rooms, domestic and non-domestic area;\n\n16.Service platform for Building Services installation such as fans, air conditioners and pipeworks etc.;\n\n17.Potable, flushing and fire services pump rooms, including associated drain pits for overflow pipes; and\n\n18. All areas with waterproofing membranes, waterproofing layers or waterproofing systems.\n\nFull 18 area list copied from PRE.B6.590; retain actual numbering, wording and catch-all item 18.\n\nAcrylic paint warranty required\n\nAcrylic paint warranty required: Yes\n\nActual case SCC7.305 contains the seven-year warranty; this records an adopted project provision.\n\nWall tiling warranty required\n\nWall tiling warranty required: Yes\n\nActual case SCC7.306 warrants Wall Tiling Works; period is five years commencing two years after completion, not an invented immediately-starting warranty.\n\nPlay equipment included\n\nPlay equipment included: Yes\n\nActual case SCC requires design, supply and installation of play equipment, and PRE includes play/fitness equipment in the material scope.\n\nIASM included\n\nIASM included: Yes\n\nActual case requires IASM design/supply/installation; PRE identifies EXT10 IASM and associated works.\n\nEpoxy coated cast iron pipes / fittings warranty required\n\nEpoxy coated cast iron pipes / fittings warranty required: Yes\n\nActual case SCC7.308 unconditionally warrants material/workmanship of epoxy-coated cast iron pipework; start/duration distinctions remain in the quote.\n\nThe checked case does not separately establish the refuge-floor installation branch. An absent statement is not No. The areas of other waterproofing above are retained in full, including the catch-all eighteenth item.\n\nDocument basis: 02 Cover.docx - Cover; 25 - Specification - PRE (base tender).docx - PRE.B1.010, PRE.B6.085 design responsibility item, PRE.B6.590(9), PRE.B6.590, PRE.B6.590(1)-(18), PRE.B6 material scope, PRE phased contractor design item; 10 - SCC.docx - SCC7.304(1)(a), SCC7.304(1)(b), SCC7.305(1), SCC7.306(1)-(2), SCC7.307(3)(a), SCC7.307(2)-(3), SCC7.308(1)-(2)\n\nConSense simulated drafting correspondence 20261006\n\nFictional correspondence for testing only |",
+      "utf8Sha256": "0fb63fffd67aeb42a8c60d8302e1dd6b31e1db31d65f7e406ea87be2158f9874",
+      "docxRelativePath": "Ref/simulated_2b_correspondence/03_missing_evidence_test/01_upload_documents/11_2024-12-23_minutes_warranty_scope_review_meeting.docx",
+      "docxSha256": "5c496c02627e70dbccc8a38e8d3eadade35a2be76e722c4e8868cf9d4fbb3934"
+    }
+  },
+  "cases": [
+    {
+      "name": "bill-introduction",
+      "source": "bill",
+      "provenance": {
+        "runId": "e93fc9a3-cebc-4557-b2a9-8c7d777bde8f",
+        "partId": "7:0",
+        "attemptIndex": 1,
+        "itemIndex": 0,
+        "capturedStatus": "rejected",
+        "capturedCodes": [
+          "bill_metadata_unsupported:1:purpose",
+          "bill_metadata_unsupported:2:purpose",
+          "bill_metadata_unsupported:9:trade",
+          "bill_metadata_unsupported:10:trade",
+          "bill_metadata_unsupported:11:trade",
+          "bill_metadata_unsupported:12:purpose",
+          "quote_value_mismatch"
+        ]
+      },
+      "partIndex": 0,
+      "context": {
+        "trigger": "original_neighbors",
+        "keys": [],
+        "sourceStart": 0,
+        "sourceEnd": 2296
+      },
+      "item": {
+        "key": "billNos",
+        "value": [
+          {
+            "number": "1",
+            "description": "Preliminaries",
+            "type": "BQ",
+            "purpose": "preliminaries"
+          },
+          {
+            "number": "2",
+            "description": "Preambles",
+            "type": "BQ",
+            "purpose": "preambles"
+          },
+          {
+            "number": "3",
+            "description": "Substructure",
+            "type": "BQ"
+          },
+          {
+            "number": "4",
+            "description": "Superstructure for Podium",
+            "type": "BQ"
+          },
+          {
+            "number": "5",
+            "description": "Superstructure for Domestic Block",
+            "type": "BQ"
+          },
+          {
+            "number": "6",
+            "description": "Plumbing Works for Podium and Domestic Block",
+            "type": "BQ"
+          },
+          {
+            "number": "7",
+            "description": "Drainage",
+            "type": "BQ"
+          },
+          {
+            "number": "8",
+            "description": "External Works",
+            "type": "BQ"
+          },
+          {
+            "number": "9",
+            "description": "Electrical Works",
+            "type": "SOR",
+            "trade": "Electrical"
+          },
+          {
+            "number": "10",
+            "description": "Fire Services and Water Pump Works",
+            "type": "SOR",
+            "trade": "Fire services and water pump"
+          },
+          {
+            "number": "11",
+            "description": "Lift Works",
+            "type": "SOR",
+            "trade": "Lift"
+          },
+          {
+            "number": "12",
+            "description": "Site Safety; Environmental Management and Other Sundry Requirements (All Provisional)",
+            "type": "BQ",
+            "purpose": "bsSafety"
+          },
+          {
+            "number": "13",
+            "description": "Provisional Sums",
+            "type": "BQ"
+          }
+        ],
+        "sourceQuote": "The bill schedule in SCT1 contains the following 13 bill numbers and descriptions. Please use this list for drafting; it is a bill identity list and does not imply that every bill is a measured BQ bill.",
+        "reason": "The correspondence explicitly provides the 13 bill numbers and exact descriptions, and identifies Bills 9 to 11 as schedules of rates. Bill 12 is identified as the parent Bill with the “All Provisional” qualification. The purpose for Bill 12 is inferred from its description containing “Site Safety” and “Environmental Management”, which maps to the “bsSafety” option. The trade mappings for Bills 9, 10, and 11 are explicitly stated in the descriptions and confirmed by the context of them being service bills.",
+        "confidence": 0.95
+      },
+      "coreStart": 0,
+      "coreEnd": 2296
+    },
+    {
+      "name": "bill-exact-table",
+      "source": "bill",
+      "provenance": {
+        "runId": "339ac1ae-eca6-48d1-b805-517fa4768aa5",
+        "partId": "25:0",
+        "attemptIndex": 2,
+        "itemIndex": 0,
+        "capturedStatus": "accepted",
+        "capturedCodes": [
+          "bill_metadata_unsupported:9:trade",
+          "bill_metadata_unsupported:10:trade",
+          "bill_metadata_unsupported:11:trade"
+        ]
+      },
+      "partIndex": 0,
+      "context": {
+        "trigger": "original_neighbors",
+        "keys": [],
+        "sourceStart": 0,
+        "sourceEnd": 2296
+      },
+      "item": {
+        "key": "billNos",
+        "value": [
+          {
+            "number": "1",
+            "description": "Preliminaries",
+            "type": "BQ"
+          },
+          {
+            "number": "2",
+            "description": "Preambles",
+            "type": "BQ"
+          },
+          {
+            "number": "3",
+            "description": "Substructure",
+            "type": "BQ"
+          },
+          {
+            "number": "4",
+            "description": "Superstructure for Podium",
+            "type": "BQ"
+          },
+          {
+            "number": "5",
+            "description": "Superstructure for Domestic Block",
+            "type": "BQ"
+          },
+          {
+            "number": "6",
+            "description": "Plumbing Works for Podium and Domestic Block",
+            "type": "BQ"
+          },
+          {
+            "number": "7",
+            "description": "Drainage",
+            "type": "BQ"
+          },
+          {
+            "number": "8",
+            "description": "External Works",
+            "type": "BQ"
+          },
+          {
+            "number": "9",
+            "description": "Electrical Works",
+            "type": "SOR",
+            "trade": "Electrical"
+          },
+          {
+            "number": "10",
+            "description": "Fire Services and Water Pump Works",
+            "type": "SOR",
+            "trade": "Fire services and water pump"
+          },
+          {
+            "number": "11",
+            "description": "Lift Works",
+            "type": "SOR",
+            "trade": "Lift"
+          },
+          {
+            "number": "12",
+            "description": "Site Safety; Environmental Management and Other Sundry Requirements (All Provisional)",
+            "type": "BQ"
+          },
+          {
+            "number": "13",
+            "description": "Provisional Sums",
+            "type": "BQ"
+          }
+        ],
+        "sourceQuote": "1 | Preliminaries | BQ\n2 | Preambles | BQ\n3 | Substructure | BQ\n4 | Superstructure for Podium | BQ\n5 | Superstructure for Domestic Block | BQ\n6 | Plumbing Works for Podium and Domestic Block | BQ\n7 | Drainage | BQ\n8 | External Works | BQ\n9 | Electrical Works | SOR\n10 | Fire Services and Water Pump Works | SOR\n11 | Lift Works | SOR\n12 | Site Safety; Environmental Management and Other Sundry Requirements (All Provisional) | BQ\n13 | Provisional Sums | BQ",
+        "reason": "The correspondence provides a complete table of 13 bill numbers with exact descriptions and pricing types (BQ/SOR). Bills 9, 10 and 11 descriptions explicitly identify their trades. No purpose, placement, or id is explicitly assigned in the source, so those optional fields are omitted.",
+        "confidence": 0.95
+      },
+      "coreStart": 0,
+      "coreEnd": 2296
+    },
+    {
+      "name": "water-prefix-typo",
+      "source": "water",
+      "provenance": {
+        "runId": "339ac1ae-eca6-48d1-b805-517fa4768aa5",
+        "partId": "32:0",
+        "attemptIndex": 1,
+        "itemIndex": 4,
+        "capturedStatus": "rejected",
+        "capturedCodes": [
+          "quote_not_in_part"
+        ]
+      },
+      "partIndex": 0,
+      "context": {
+        "trigger": "original_neighbors",
+        "keys": [],
+        "sourceStart": 0,
+        "sourceEnd": 3186
+      },
+      "item": {
+        "key": "otherWaterproofingSpecificationAreas",
+        "value": "1.Kitchens;\n\n2.Bathrooms, toilets, lavatories;\n\n3.Refuse storage and material recovery rooms (RS&MRR), refuse storage and material recovery chambers (RS&MRC), refuse collection points (RCP), refuse storage and Junk Collection Points (JCP);\n\n4.Lift pits, sump pits and lift pit floors;\n\n5. External tankings of maintenance access for lift pits;\n\n6.External tankings of car park and car ramp connecting to car park;\n\n7Internal tankings;\n\n8.Planters and landscaped decks at podium floors (including zero irrigation system planters), podium garden, structures associated with vertical greening and green roof;\n\n9.All roof areas over domestic flats and non-domestic premises (including green roofs, flat roofs, main roofs, upper roofs, canopies, covered walkways, podium deck, dog houses, smoke vents and duct shafts etc.);\n\n10. Water pump rooms, associated drain pits and water meter rooms / cabinet / cupboards;\n\n11.Fresh, flush and fire services water pump rooms and associated drain pits for overflow pipes, master water meter rooms, water meter rooms, electrical plant / services rooms adjacent to water meter rooms / cabinets / water pump rooms;\n\n12.Suspended manholes and suspended cable trenches / chambers and draw pits;\n\n13.G/F level slabs;\n\n14.Walls of pipe ducts and water pump rooms adjoining transformer rooms, electrical meter/ switch rooms, TBE Room, emergency generator room and electrical plant rooms;\n\n15.Services platform for pipework installation above common areas, back of house, service corridors, plant rooms, domestic and non-domestic area;\n\n16.Service platform for Building Services installation such as fans, air conditioners and pipeworks etc.;",
+        "sourceQuote": "Other waterproofing areas specified in Specification: 1.Kitchens;\n\n2.Bathrooms, toilets, lavatories;\n\n3.Refuse storage and material recovery rooms (RS&MRR), refuse storage and material recovery chambers (RS&MRC), refuse collection points (RCP), refuse storage and Junk Collection Points (JCP);\n\n4.Lift pits, sump pits and lift pit floors;\n\n5. External tankings of maintenance access for lift pits;\n\n6.External tankings of car park and car ramp connecting to car park;\n\n7Internal tankings;\n\n8.Planters and landscaped decks at podium floors (including zero irrigation system planters), podium garden, structures associated with vertical greening and green roof;\n\n9.All roof areas over domestic flats and non-domestic premises (including green roofs, flat roofs, main roofs, upper roofs, canopies, covered walkways, podium deck, dog houses, smoke vents and duct shafts etc.);\n\n10. Water pump rooms, associated drain pits and water meter rooms / cabinet / cupboards;\n\n11.Fresh, flush and fire services water pump rooms and associated drain pits for overflow pipes, master water meter rooms, water meter rooms, electrical plant / services rooms adjacent to water meter rooms / cabinets / water pump rooms;\n\n12.Suspended manholes and suspended cable trenches / chambers and draw pits;\n\n13.G/F level slabs;\n\n14.Walls of pipe ducts and water pump rooms adjoining transformer rooms, electrical meter/ switch rooms, TBE Room, emergency generator room and electrical plant rooms;\n\n15.Services platform for pipework installation above common areas, back of house, service corridors, plant rooms, domestic and non-domestic area;\n\n16.Service platform for Building Services installation such as fans, air conditioners and pipeworks etc.;",
+        "reason": "The correspondence enumerates sixteen specific areas for other waterproofing warranty as specified in the Specification.",
+        "confidence": 0.95
+      },
+      "coreStart": 0,
+      "coreEnd": 2933
+    },
+    {
+      "name": "water-prefix-short-quote",
+      "source": "water",
+      "provenance": {
+        "runId": "339ac1ae-eca6-48d1-b805-517fa4768aa5",
+        "partId": "32:0",
+        "attemptIndex": 2,
+        "itemIndex": 0,
+        "capturedStatus": "rejected",
+        "capturedCodes": [
+          "quote_value_mismatch"
+        ]
+      },
+      "partIndex": 0,
+      "context": {
+        "trigger": "original_neighbors",
+        "keys": [],
+        "sourceStart": 0,
+        "sourceEnd": 3186
+      },
+      "item": {
+        "key": "otherWaterproofingSpecificationAreas",
+        "value": "1.Kitchens;\n2.Bathrooms, toilets, lavatories;\n3.Refuse storage and material recovery rooms (RS&MRR), refuse storage and material recovery chambers (RS&MRC), refuse collection points (RCP), refuse storage and Junk Collection Points (JCP);\n4.Lift pits, sump pits and lift pit floors;\n5. External tankings of maintenance access for lift pits;\n6.External tankings of car park and car ramp connecting to car park;\n7Internal tankings;\n8.Planters and landscaped decks at podium floors (including zero irrigation system planters), podium garden, structures associated with vertical greening and green roof;\n9.All roof areas over domestic flats and non-domestic premises (including green roofs, flat roofs, main roofs, upper roofs, canopies, covered walkways, podium deck, dog houses, smoke vents and duct shafts etc.);\n10. Water pump rooms, associated drain pits and water meter rooms / cabinet / cupboards;\n11.Fresh, flush and fire services water pump rooms and associated drain pits for overflow pipes, master water meter rooms, water meter rooms, electrical plant / services rooms adjacent to water meter rooms / cabinets / water pump rooms;\n12.Suspended manholes and suspended cable trenches / chambers and draw pits;\n13.G/F level slabs;\n14.Walls of pipe ducts and water pump rooms adjoining transformer rooms, electrical meter/ switch rooms, TBE Room, emergency generator room and electrical plant rooms;\n15.Services platform for pipework installation above common areas, back of house, service corridors, plant rooms, domestic and non-domestic area;\n16.Service platform for Building Services installation such as fans, air conditioners and pipeworks etc.;",
+        "sourceQuote": "Other waterproofing areas specified in Specification: 1.Kitchens;",
+        "reason": "The correspondence part explicitly labels the field and enumerates the specified other waterproofing areas, beginning with Kitchens and continuing through item 16.",
+        "confidence": 0.98
+      },
+      "coreStart": 0,
+      "coreEnd": 2933
+    },
+    {
+      "name": "water-tail-introduction",
+      "source": "water",
+      "provenance": {
+        "runId": "339ac1ae-eca6-48d1-b805-517fa4768aa5",
+        "partId": "32:1",
+        "attemptIndex": 1,
+        "itemIndex": 0,
+        "capturedStatus": "rejected",
+        "capturedCodes": [
+          "quote_value_mismatch"
+        ]
+      },
+      "partIndex": 1,
+      "context": {
+        "trigger": "original_neighbors",
+        "keys": [],
+        "sourceStart": 2665,
+        "sourceEnd": 5173
+      },
+      "item": {
+        "key": "otherWaterproofingSpecificationAreas",
+        "value": "12.Suspended manholes and suspended cable trenches / chambers and draw pits; 13.G/F level slabs; 14.Walls of pipe ducts and water pump rooms adjoining transformer rooms, electrical meter/ switch rooms, TBE Room, emergency generator room and electrical plant rooms; 15.Services platform for pipework installation above common areas, back of house, service corridors, plant rooms, domestic and non-domestic area; 16.Service platform for Building Services installation such as fans, air conditioners and pipeworks etc.; 17.Potable, flushing and fire services pump rooms, including associated drain pits for overflow pipes; and 18. All areas with waterproofing membranes, waterproofing layers or waterproofing systems.",
+        "sourceQuote": "Full 18 area list copied from PRE.B6.590; retain actual numbering, wording and catch-all item 18.",
+        "reason": "The correspondence explicitly lists areas 12 through 18 as the waterproofing specification areas and instructs to retain the actual numbering, wording and catch-all item 18.",
+        "confidence": 0.95
+      },
+      "coreStart": 2933,
+      "coreEnd": 5173
+    },
+    {
+      "name": "water-tail-wrong-shape",
+      "source": "water",
+      "provenance": {
+        "runId": "339ac1ae-eca6-48d1-b805-517fa4768aa5",
+        "partId": "32:1",
+        "attemptIndex": 2,
+        "itemIndex": 0,
+        "capturedStatus": "rejected",
+        "capturedCodes": [
+          "invalid_value_shape",
+          "quote_value_mismatch"
+        ]
+      },
+      "partIndex": 1,
+      "context": {
+        "trigger": "original_neighbors",
+        "keys": [],
+        "sourceStart": 2665,
+        "sourceEnd": 5173
+      },
+      "item": {
+        "key": "otherWaterproofingSpecificationAreas",
+        "value": [
+          "12.Suspended manholes and suspended cable trenches / chambers and draw pits;",
+          "13.G/F level slabs;",
+          "14.Walls of pipe ducts and water pump rooms adjoining transformer rooms, electrical meter/ switch rooms, TBE Room, emergency generator room and electrical plant rooms;",
+          "15.Services platform for pipework installation above common areas, back of house, service corridors, plant rooms, domestic and non-domestic area;",
+          "16.Service platform for Building Services installation such as fans, air conditioners and pipeworks etc.;",
+          "17.Potable, flushing and fire services pump rooms, including associated drain pits for overflow pipes; and",
+          "18. All areas with waterproofing membranes, waterproofing layers or waterproofing systems."
+        ],
+        "sourceQuote": "12.Suspended manholes and suspended cable trenches / chambers and draw pits;\n\n13.G/F level slabs;\n\n14.Walls of pipe ducts and water pump rooms adjoining transformer rooms, electrical meter/ switch rooms, TBE Room, emergency generator room and electrical plant rooms;\n\n15.Services platform for pipework installation above common areas, back of house, service corridors, plant rooms, domestic and non-domestic area;\n\n16.Service platform for Building Services installation such as fans, air conditioners and pipeworks etc.;\n\n17.Potable, flushing and fire services pump rooms, including associated drain pits for overflow pipes; and\n\n18. All areas with waterproofing membranes, waterproofing layers or waterproofing systems.",
+        "reason": "The correspondence explicitly provides the numbered waterproofing specification areas and instructs retention of the actual numbering, wording, and catch-all item 18.",
+        "confidence": 0.95
+      },
+      "coreStart": 2933,
+      "coreEnd": 5173
+    }
+  ]
+}

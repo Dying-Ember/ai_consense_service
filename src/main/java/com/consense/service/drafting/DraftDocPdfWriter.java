@@ -229,6 +229,8 @@ public class DraftDocPdfWriter {
 
         private final PDDocument document;
         private final PDFont font;
+        private final PDFont latinFont;
+        private final java.util.Map<Integer, PDFont> glyphFonts = new java.util.HashMap<>();
         private final List<PDPage> pages = new ArrayList<>();
         private PDPageContentStream stream;
         private float y;
@@ -236,6 +238,8 @@ public class DraftDocPdfWriter {
         Cursor(PDDocument document, PDFont font) throws IOException {
             this.document = document;
             this.font = font;
+            File latin = new File("C:/Windows/Fonts/arial.ttf");
+            this.latinFont = latin.exists() ? PDType0Font.load(document, latin) : PDType1Font.HELVETICA;
             newPage();
         }
 
@@ -280,6 +284,7 @@ public class DraftDocPdfWriter {
             ensure(size + LINE_GAP);
             y -= size;
             textAt(MARGIN, y, size, value, bold, false);
+            y -= LINE_GAP;
         }
 
         void textWhite(float size, String value) throws IOException {
@@ -297,10 +302,21 @@ public class DraftDocPdfWriter {
                 stream.setNonStrokingColor(0.29f, 0.31f, 0.35f);
             }
             stream.newLineAtOffset(x, baseline);
-            try {
-                stream.showText(sanitize(value));
-            } catch (IllegalArgumentException e) {
-                log.debug("PDF 文本含不可编码字符，已跳过: {}", e.getMessage());
+            PDFont active = null;
+            StringBuilder run = new StringBuilder();
+            for (int point : sanitize(value).codePoints().toArray()) {
+                PDFont selected = fontFor(point);
+                if (active != null && selected != active) {
+                    stream.setFont(active, size);
+                    stream.showText(run.toString());
+                    run.setLength(0);
+                }
+                active = selected;
+                run.appendCodePoint(point);
+            }
+            if (active != null) {
+                stream.setFont(active, size);
+                stream.showText(run.toString());
             }
             stream.endText();
         }
@@ -312,14 +328,27 @@ public class DraftDocPdfWriter {
             }
             for (String paragraph : text.split("\n")) {
                 StringBuilder current = new StringBuilder();
-                for (int i = 0; i < paragraph.length(); i++) {
-                    char c = paragraph.charAt(i);
-                    current.append(c);
-                    if (width(current.toString(), size) > maxWidth) {
-                        current.deleteCharAt(current.length() - 1);
-                        lines.add(current.toString());
-                        current = new StringBuilder().append(c);
+                float currentWidth = 0;
+                for (int point : sanitize(paragraph).codePoints().toArray()) {
+                    String character = new String(Character.toChars(point));
+                    float characterWidth = width(character, size);
+                    if (current.length() > 0 && currentWidth + characterWidth > maxWidth) {
+                        int boundary = current.lastIndexOf(" ");
+                        if (boundary > 0 && point < 0x2e80 && !Character.isWhitespace(point)) {
+                            lines.add(current.substring(0, boundary));
+                            String remainder = current.substring(boundary + 1);
+                            current.setLength(0);
+                            current.append(remainder);
+                            currentWidth = width(remainder, size);
+                        } else {
+                            lines.add(current.toString().stripTrailing());
+                            current.setLength(0);
+                            currentWidth = 0;
+                        }
                     }
+                    if (current.length() == 0 && Character.isWhitespace(point)) continue;
+                    current.append(character);
+                    currentWidth += characterWidth;
                 }
                 lines.add(current.toString());
             }
@@ -328,10 +357,26 @@ public class DraftDocPdfWriter {
 
         private float width(String text, float size) {
             try {
-                return font.getStringWidth(sanitize(text)) / 1000 * size;
+                float total = 0;
+                for (int point : sanitize(text).codePoints().toArray())
+                    total += fontFor(point).getStringWidth(new String(Character.toChars(point))) / 1000 * size;
+                return total;
             } catch (IOException e) {
                 return text.length() * size * 0.5f;
             }
+        }
+
+        private PDFont fontFor(int point) {
+            return glyphFonts.computeIfAbsent(point, value -> {
+                String character = new String(Character.toChars(value));
+                PDFont first = value < 0x2e80 ? latinFont : font;
+                PDFont second = first == font ? latinFont : font;
+                for (PDFont candidate : new PDFont[]{first, second}) {
+                    try { candidate.encode(character); return candidate; }
+                    catch (IllegalArgumentException | IOException unavailable) { }
+                }
+                throw new BizException(4100, "PDF字体不支持字符 U+" + Integer.toHexString(value).toUpperCase());
+            });
         }
 
         private String sanitize(String text) {

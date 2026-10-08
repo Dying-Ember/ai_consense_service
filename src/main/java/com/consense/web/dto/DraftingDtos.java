@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Map;
 
 public final class DraftingDtos {
 
@@ -34,6 +35,24 @@ public final class DraftingDtos {
         private String text;
     }
 
+    /** Current uploaded source identity and native main-document paragraph order. */
+    @Data @NoArgsConstructor @AllArgsConstructor
+    public static class TemplateReadingVO {
+        private String fileKey;
+        private String fileName;
+        private String sourceHash;
+        private String format;
+        private boolean catalogueSourceVerified;
+        private List<TemplateParagraphVO> paragraphs;
+    }
+
+    @Data @NoArgsConstructor @AllArgsConstructor
+    public static class TemplateParagraphVO {
+        private String id;
+        private int ordinal;
+        private String text;
+    }
+
     /** 项目沟通证据条目（第 1 步下半区） */
     @Data
     @NoArgsConstructor
@@ -57,7 +76,6 @@ public final class DraftingDtos {
     /** 起草变量 */
     @Data
     @NoArgsConstructor
-    @AllArgsConstructor
     public static class VariableVO {
         private String key;
         private String scope;
@@ -76,18 +94,60 @@ public final class DraftingDtos {
         private List<String> derivedFrom;
         private List<String> affects;
         private String note;
+        private boolean manuallyEdited;
+        private boolean reviewRequired;
+        private List<CandidateVO> candidates;
+        private String adoptionState;
+        private String validationIssue;
+        public VariableVO(String key, String scope, String fileKey, LocalizedText label, String action,
+                          String value, List<LocalizedText> options, boolean confirmed, String confirmedFrom,
+                          String source, String result, String kind, List<String> cols, String linkedBase,
+                          List<String> derivedFrom, List<String> affects, String note) {
+            this.key=key; this.scope=scope; this.fileKey=fileKey; this.label=label; this.action=action;
+            this.value=value; this.options=options; this.confirmed=confirmed; this.confirmedFrom=confirmedFrom;
+            this.source=source; this.result=result; this.kind=kind; this.cols=cols; this.linkedBase=linkedBase;
+            this.derivedFrom=derivedFrom; this.affects=affects; this.note=note;
+        }
+        public String getGroup() {
+            com.consense.service.drafting.DraftBlueprint.InputSpec spec = com.consense.service.drafting.DraftBlueprint.find(key);
+            return spec == null ? null : spec.group;
+        }
     }
 
     /** 变量局部更新 */
     @Data
     @NoArgsConstructor
-    @AllArgsConstructor
     public static class VariablePatch {
         private String value;
         private String choice;
         private Boolean confirmed;
         private String note;
         private String result;
+        private Integer candidateIndex;
+        private Boolean reviewed;
+        public VariablePatch(String value, String choice, Boolean confirmed, String note, String result) {
+            this.value=value; this.choice=choice; this.confirmed=confirmed; this.note=note; this.result=result;
+        }
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class CandidateVO {
+        private String value;
+        private Long sourceDocumentId;
+        private String fileName;
+        private String sourceHash;
+        private String sourceQuote;
+        private String reason;
+        private Double confidence;
+    }
+
+    /** A plan preview does not mutate saved project inputs. */
+    @Data
+    @NoArgsConstructor
+    public static class PlanPreview {
+        private Map<String,String> values;
     }
 
     /** 手工新增 FILE 变量（仅用于 QS 补录：模型识别没覆盖到的 Guidance Note / 编辑目标） */
@@ -115,6 +175,35 @@ public final class DraftingDtos {
     @AllArgsConstructor
     public static class DocumentPatch {
         private String content;
+        private String revisionId;
+        private String docxSha256;
+        private List<BlockPatch> blocks;
+        public DocumentPatch(String content) { this.content=content; }
+    }
+
+    @Data
+    @NoArgsConstructor
+    public static class BlockPatch {
+        private String id;
+        private String bindingId;
+        private String expectedTextHash;
+        private String text;
+        private List<String> insertAfter;
+    }
+
+    /** Revision-bound template targets; evidence anchors remain separate source references. */
+    @Data @NoArgsConstructor
+    public static class DocumentBindingsVO {
+        private String fileKey;
+        private String view;
+        private String sourceSha256;
+        private String revisionId;
+        private String docxSha256;
+        private String pdfSha256;
+        private String renderProfileHash;
+        private String geometryStatus;
+        private List<Map<String,Object>> bindings;
+        private Map<String,Object> nativeLayout;
     }
 
     /** 最近一次变量识别的过程留痕（提示词 + 模型原始返回），供前端展示模型思路 */
@@ -122,11 +211,147 @@ public final class DraftingDtos {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class ExtractTraceVO {
+        private com.consense.ai.ModelIdentity modelIdentity;
         private String model;
         private String finishedAt;
         private String systemPrompt;
         private String userPrompt;
         private List<String> rawResponses;
+        private String runId;
+        private String harnessVersion;
+        private String evidenceRevision;
+        private String status;
+        private String startedAt;
+        private String failureCode;
+        private String failureMessage;
+        private boolean stale;
+        private List<ExtractionPartVO> parts = new java.util.ArrayList<>();
+        private List<ExtractionDecisionVO> decisions = new java.util.ArrayList<>();
+        private List<ExtractionFieldVO> fields = new java.util.ArrayList<>();
+        private List<ExtractionRelationVO> relations = new java.util.ArrayList<>();
+
+        public ExtractTraceVO(String model,String finishedAt,String systemPrompt,String userPrompt,List<String> rawResponses) {
+            this.model=model;this.finishedAt=finishedAt;this.systemPrompt=systemPrompt;this.userPrompt=userPrompt;this.rawResponses=rawResponses;
+        }
+    }
+
+    /** Proposed source relations never change candidates or the value adopted for this draft. */
+    @Data @NoArgsConstructor
+    public static class ExtractionRelationVO {
+        private String key;
+        private String relation;
+        private String status;
+        private List<String> codes = new java.util.ArrayList<>();
+        private List<Integer> decisionRefs;
+        private List<JointEvidenceVO> evidence;
+        private String systemPrompt;
+        private String userPrompt;
+        @com.fasterxml.jackson.annotation.JsonInclude(com.fasterxml.jackson.annotation.JsonInclude.Include.ALWAYS)
+        private String rawResponse;
+        private Object rawProposal;
+        private String scopeQuote;
+        private Integer fromDecisionRef;
+        private Integer toDecisionRef;
+        private String reason;
+        private Double confidence;
+    }
+
+    @Data @NoArgsConstructor @AllArgsConstructor
+    public static class JointEvidenceVO {
+        private int decisionRef;
+        private String partId;
+        private Long sourceDocumentId;
+        private String fileName;
+        private String sourceHash;
+        private String value;
+        private String sourceQuote;
+        private ExtractionContextVO context;
+    }
+
+    @Data @NoArgsConstructor @AllArgsConstructor
+    public static class ExtractionPartVO {
+        private String partId;
+        private Long sourceDocumentId;
+        private String fileName;
+        private String sourceHash;
+        private int partIndex;
+        private String sourceText;
+        private List<ExtractionAttemptVO> attempts;
+        private ExtractionContextVO context;
+        public ExtractionPartVO(String partId,Long sourceDocumentId,String fileName,String sourceHash,int partIndex,String sourceText,List<ExtractionAttemptVO> attempts) {
+            this.partId=partId;this.sourceDocumentId=sourceDocumentId;this.fileName=fileName;this.sourceHash=sourceHash;
+            this.partIndex=partIndex;this.sourceText=sourceText;this.attempts=attempts;
+        }
+    }
+
+    @Data @NoArgsConstructor @AllArgsConstructor
+    public static class ExtractionAttemptVO {
+        private int attemptIndex;
+        private String kind;
+        private String systemPrompt;
+        private String userPrompt;
+        private String rawResponse;
+        private String status;
+        private String errorCode;
+        private ExtractionContextVO context;
+        public ExtractionAttemptVO(int attemptIndex,String kind,String systemPrompt,String userPrompt,String rawResponse,String status,String errorCode) {
+            this.attemptIndex=attemptIndex;this.kind=kind;this.systemPrompt=systemPrompt;this.userPrompt=userPrompt;
+            this.rawResponse=rawResponse;this.status=status;this.errorCode=errorCode;
+        }
+    }
+
+    @Data @NoArgsConstructor @AllArgsConstructor
+    public static class ExtractionContextVO {
+        private String trigger;
+        private List<String> keys;
+        private int sourceStart;
+        private int sourceEnd;
+        private String sourceText;
+        private String stopReason;
+    }
+
+    @Data @NoArgsConstructor @AllArgsConstructor
+    public static class ExtractionDecisionVO {
+        private String partId;
+        private int attemptIndex;
+        private int itemIndex;
+        private String key;
+        @com.fasterxml.jackson.annotation.JsonInclude(com.fasterxml.jackson.annotation.JsonInclude.Include.ALWAYS)
+        private Object rawValue;
+        private String normalizedValue;
+        private String sourceQuote;
+        private String reason;
+        private Double confidence;
+        private String status;
+        private List<String> codes;
+    }
+
+    @Data @NoArgsConstructor @AllArgsConstructor
+    public static class ExtractionFieldVO {
+        private String key;
+        private String status;
+        private int candidateCount;
+        private int rejectionCount;
+        private int unansweredCount;
+        private List<Integer> decisionRefs;
+    }
+
+    @Data @NoArgsConstructor @AllArgsConstructor
+    public static class ExtractRunSummaryVO {
+        private String runId;
+        private String harnessVersion;
+        private String model;
+        private String status;
+        private String startedAt;
+        private String finishedAt;
+        private String evidenceRevision;
+        private String failureCode;
+        private String failureMessage;
+        private boolean stale;
+        private com.consense.ai.ModelIdentity modelIdentity;
+        public ExtractRunSummaryVO(String runId,String harnessVersion,String model,String status,String startedAt,String finishedAt,String evidenceRevision,String failureCode,String failureMessage,boolean stale){
+            this.runId=runId;this.harnessVersion=harnessVersion;this.model=model;this.status=status;this.startedAt=startedAt;this.finishedAt=finishedAt;this.evidenceRevision=evidenceRevision;this.failureCode=failureCode;this.failureMessage=failureMessage;this.stale=stale;
+        }
     }
 
     /** 向导进度 */
@@ -143,17 +368,36 @@ public final class DraftingDtos {
         private boolean baseReady;
         private boolean allReady;
         private List<String> generatedFiles;
+        public int getInputTotal() { return baseTotal; }
+        public int getInputConfirmed() { return baseConfirmed; }
+        public boolean isInputsReady() { return allReady; }
     }
 
     /** 生成的文稿 */
     @Data
     @NoArgsConstructor
-    @AllArgsConstructor
     public static class DraftDocumentVO {
         private String fileKey;
         private String title;
         private String content;
         private boolean generated;
+        private String snapshotId;
+        private String ruleVersion;
+        private boolean stale;
+        private boolean contentEdited;
+        private String revisionId;
+        private String docxSha256;
+        private String sourceSha256;
+        private List<Map<String,Object>> blocks;
+        private String fieldStatus;
+        private List<Map<String,Object>> fieldImpacts;
+        private String pdfSha256;
+        private String renderProfileHash;
+        private List<Map<String,Object>> unresolved;
+        private Map<String,Object> nativeLayout;
+        public DraftDocumentVO(String fileKey, String title, String content, boolean generated) {
+            this.fileKey=fileKey; this.title=title; this.content=content; this.generated=generated;
+        }
     }
 
     /** 文件上传结果 */

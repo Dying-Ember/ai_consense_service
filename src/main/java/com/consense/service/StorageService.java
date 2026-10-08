@@ -53,20 +53,6 @@ public class StorageService {
         }
     }
 
-    /**
-     * 删除磁盘文件（不存在或删除失败仅记日志，不阻断业务）。
-     */
-    public void delete(String storagePath) {
-        if (storagePath == null || storagePath.isEmpty()) {
-            return;
-        }
-        try {
-            Files.deleteIfExists(Paths.get(storagePath));
-        } catch (IOException e) {
-            log.warn("删除文件失败: {}: {}", storagePath, e.getMessage());
-        }
-    }
-
     public byte[] read(String storagePath) {
         try {
             return Files.readAllBytes(Paths.get(storagePath));
