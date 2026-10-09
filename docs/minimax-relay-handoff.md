@@ -2,6 +2,40 @@
 
 开发同事可以在自己的机器上运行本仓库后端，用独立的中继 token 调用 MiniMax-M3。官方 API key 只保留在中继主机；后端接入、变量识别测试和代码建议都不需要官方 key。本文的代码建议接口是非流式文本聊天，生成补丁后仍需开发者审阅、应用和运行测试。
 
+## 合并拉取后，使用已收到的 relay-client.env
+
+将负责人私下提供的 `relay-client.env` 重命名为 `.env.relay`，放到 **后端仓库根目录，与 `pom.xml` 同级**。新代码会忽略 `.env.relay`；保留文件原有三项 `OPENAI_BASE_URL`、`OPENAI_API_KEY`、`OPENAI_MODEL` 即可。前端仓库无需此文件。
+
+Spring Boot 不会自动读取这个文件。在后端根目录的 PowerShell 中执行以下命令，从文件读取字面配置，转换为后端需要的变量，并启动独立 H2 测试实例。脚本不显示 token，也不修改系统环境变量。
+
+```powershell
+$relay = @{}
+foreach ($line in Get-Content -LiteralPath '.env.relay') {
+  if ($line.Trim().StartsWith('#') -or -not $line.Contains('=')) { continue }
+  $pair = $line.Split('=', 2)
+  $name = $pair[0].Trim()
+  if ($name -in @('OPENAI_BASE_URL', 'OPENAI_API_KEY', 'OPENAI_MODEL')) {
+    $relay[$name] = $pair[1].Trim()
+  }
+}
+if (-not $relay['OPENAI_BASE_URL'] -or -not $relay['OPENAI_API_KEY'] -or $relay['OPENAI_MODEL'] -ne 'MiniMax-M3') {
+  throw '中继配置缺少地址、token，或模型名称不是 MiniMax-M3'
+}
+$env:SPRING_PROFILES_ACTIVE = 'h2,minimax-relay'
+$env:CONSENSE_MINIMAX_ENABLED = 'true'
+$env:CONSENSE_MINIMAX_BASE_URL = $relay['OPENAI_BASE_URL'].TrimEnd('/') -replace '/v1$', ''
+$env:CONSENSE_MINIMAX_RELAY_API_KEY = $relay['OPENAI_API_KEY']
+$env:CONSENSE_H2_JDBC_URL = 'jdbc:h2:file:./data/teammate-consense;MODE=MySQL;DATABASE_TO_LOWER=TRUE;CASE_INSENSITIVE_IDENTIFIERS=TRUE'
+$env:CONSENSE_ALLOWED_ORIGINS = 'http://localhost:5173,http://127.0.0.1:5173'
+mvn -DskipTests package
+if ($LASTEXITCODE -ne 0) { throw '后端构建失败' }
+java -jar target/consense-service-1.0.0.jar
+```
+
+`OPENAI_BASE_URL` 的末尾 `/v1` 会在映射到 Java 配置时移除；文件里的独立 `OPENAI_API_KEY` 会映射到 `CONSENSE_MINIMAX_RELAY_API_KEY`。SDK 开发工具则可直接使用同一个文件：`python tools/minimax_relay/client.py --env-file .env.relay --prompt-file review-prompt.txt --source src/main/java/com/consense/ai/MiniMaxChatClient.java`，先按后文安装依赖并创建问题文件。
+
+启动前端时在前端仓库的另一个 PowerShell 窗口设置 `CONSENSE_API_TARGET=http://127.0.0.1:8080`，按前端 README 启动，选择“MiniMax 国内 Token Plan”。下面的 `.env.example` / `.env.local` 配置方式供需要自行填写配置或使用现有 MySQL 部署的同事参考。
+
 ## 地址和凭据
 
 截至 2026-10-09，中继地址为 `http://10.149.131.175:8092`。同一局域网的设备需要能访问这个 IP；处在同一个已授权 Tailscale 网络中的设备也可使用 `100.81.17.113`。IP 或 token 更换后更新本机配置。
