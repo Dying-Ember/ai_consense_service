@@ -1,0 +1,102 @@
+{
+  "replayOnly": true,
+  "description": "Exact electronic candidate intake from the real .21 baseline; no expected-values oracle",
+  "runId": "bca1b3bc-b75b-4fb6-a8cc-7862d3b94166",
+  "harnessVersion": "draft-extraction-20261008.21-source-scope-and-applicability+joint-evidence-20261007.2",
+  "traceSha256": "a86b9100415ed9469782ec96ad4136233758361327493459b49d34900da39ec6",
+  "cases": [
+    {
+      "part": {
+        "partId": "117:0",
+        "sourceDocumentId": 117,
+        "fileName": "06_2026-04-13_email_two_envelope_procedure_and_hardcopy_issue.docx",
+        "sourceHash": "3e0ae890e2d5b8bc2ad174f01d44944157941c9067bbb4342c21ef41b980f370",
+        "partIndex": 0,
+        "sourceText": "Two envelope procedure and hardcopy issue\n\nThis is a fictional tender coordination exercise. All persons, organisations, proceedings and project decisions in this correspondence are invented. It has no contractual effect.\n\nRecord SIM06 Date 2026-04-13 Email reply\n\nFrom: Fictional Quantity Surveyor <qs@consense-scenario.invalid>\nTo: Fictional Coordination Team <team@consense-scenario.invalid>\n\nUse the two-envelope tendering system. The technical submission and the priced offer are to be returned in separate sealed envelopes for this tender.\n\nThe BQ issue format is Hardcopy. Tender documents are issued as printed originals; L10Pro electronic issue is not used. A reference PDF is a convenience copy and does not change the adopted hardcopy BQ issue format.\n\nNo alternative tendering procedure is adopted. The photocopy rates for missing return copies will follow in the pricing reply.\n\nRegards,\nFictional Quantity Surveyor",
+        "context": {
+          "trigger": "ordinary_null",
+          "keys": [
+            "otherTenderingArrangement"
+          ],
+          "sourceStart": 547,
+          "sourceEnd": 901,
+          "sourceText": "The BQ issue format is Hardcopy. Tender documents are issued as printed originals; L10Pro electronic issue is not used. A reference PDF is a convenience copy and does not change the adopted hardcopy BQ issue format.\n\nNo alternative tendering procedure is adopted. The photocopy rates for missing return copies will follow in the pricing reply.\n\nRegards,\n",
+          "stopReason": "inactive"
+        }
+      },
+      "attempt": {
+        "attemptIndex": 1,
+        "kind": "primary",
+        "rawResponse": "```json\n[\n  {\n    \"key\": \"twoEnvelopeTendering\",\n    \"value\": true,\n    \"sourceQuote\": \"Use the two-envelope tendering system. The technical submission and the priced offer are to be returned in separate sealed envelopes for this tender.\",\n    \"reason\": \"Explicitly states the two-envelope tendering system is to be used for this tender.\",\n    \"confidence\": 0.99\n  },\n  {\n    \"key\": \"electronicTendering\",\n    \"value\": \"Hardcopy\",\n    \"sourceQuote\": \"The BQ issue format is Hardcopy. Tender documents are issued as printed originals; L10Pro electronic issue is not used.\",\n    \"reason\": \"Explicitly states the BQ issue format is Hardcopy and L10Pro electronic issue is not used.\",\n    \"confidence\": 0.99\n  },\n  {\n    \"key\": \"otherTenderingArrangement\",\n    \"value\": null,\n    \"sourceQuote\": \"No alternative tendering procedure is adopted.\",\n    \"reason\": \"No alternative tendering procedure is adopted, so this input is not applicable.\",\n    \"confidence\": 0.99\n  },\n  {\n    \"key\": \"photocopyRateUpToA3\",\n    \"value\": null,\n    \"sourceQuote\": \"The photocopy rates for missing return copies will follow in the pricing reply.\",\n    \"reason\": \"Photocopy rates are pending and will be provided in a subsequent pricing reply.\",\n    \"confidence\": 0.95\n  },\n  {\n    \"key\": \"photocopyRateAboveA3\",\n    \"value\": null,\n    \"sourceQuote\": \"The photocopy rates for missing return copies will follow in the pricing reply.\",\n    \"reason\": \"Photocopy rates are pending and will be provided in a subsequent pricing reply.\",\n    \"confidence\": 0.95\n  }\n]\n```",
+        "status": "completed",
+        "context": {
+          "trigger": "original_neighbors",
+          "keys": [],
+          "sourceStart": 0,
+          "sourceEnd": 928,
+          "sourceText": "Two envelope procedure and hardcopy issue\n\nThis is a fictional tender coordination exercise. All persons, organisations, proceedings and project decisions in this correspondence are invented. It has no contractual effect.\n\nRecord SIM06 Date 2026-04-13 Email reply\n\nFrom: Fictional Quantity Surveyor <qs@consense-scenario.invalid>\nTo: Fictional Coordination Team <team@consense-scenario.invalid>\n\nUse the two-envelope tendering system. The technical submission and the priced offer are to be returned in separate sealed envelopes for this tender.\n\nThe BQ issue format is Hardcopy. Tender documents are issued as printed originals; L10Pro electronic issue is not used. A reference PDF is a convenience copy and does not change the adopted hardcopy BQ issue format.\n\nNo alternative tendering procedure is adopted. The photocopy rates for missing return copies will follow in the pricing reply.\n\nRegards,\nFictional Quantity Surveyor"
+        }
+      },
+      "itemIndex": 1,
+      "originalSource": "Two envelope procedure and hardcopy issue\n\nThis is a fictional tender coordination exercise. All persons, organisations, proceedings and project decisions in this correspondence are invented. It has no contractual effect.\n\nRecord SIM06 Date 2026-04-13 Email reply\n\nFrom: Fictional Quantity Surveyor <qs@consense-scenario.invalid>\nTo: Fictional Coordination Team <team@consense-scenario.invalid>\n\nUse the two-envelope tendering system. The technical submission and the priced offer are to be returned in separate sealed envelopes for this tender.\n\nThe BQ issue format is Hardcopy. Tender documents are issued as printed originals; L10Pro electronic issue is not used. A reference PDF is a convenience copy and does not change the adopted hardcopy BQ issue format.\n\nNo alternative tendering procedure is adopted. The photocopy rates for missing return copies will follow in the pricing reply.\n\nRegards,\nFictional Quantity Surveyor",
+      "recordedDecision": {
+        "partId": "117:0",
+        "attemptIndex": 1,
+        "itemIndex": 1,
+        "key": "electronicTendering",
+        "rawValue": "Hardcopy",
+        "normalizedValue": "Hardcopy",
+        "sourceQuote": "The BQ issue format is Hardcopy. Tender documents are issued as printed originals; L10Pro electronic issue is not used.",
+        "reason": "Explicitly states the BQ issue format is Hardcopy and L10Pro electronic issue is not used.",
+        "confidence": 0.99,
+        "status": "accepted",
+        "codes": []
+      }
+    },
+    {
+      "part": {
+        "partId": "121:0",
+        "sourceDocumentId": 121,
+        "fileName": "10_2026-04-17_email_pricing_basis_and_photocopy_charge_reply.docx",
+        "sourceHash": "c0d73d142d7b63c4e29cc1ba795fbce12212ecab1ecb0c394ec48a2ea5a685fe",
+        "partIndex": 0,
+        "sourceText": "Pricing basis and photocopy charge reply\n\nThis is a fictional tender coordination exercise. All persons, organisations, proceedings and project decisions in this correspondence are invented. It has no contractual effect.\n\nRecord SIM10 Date 2026-04-17 Email reply\n\nFrom: Fictional Quantity Surveyor <qs@consense-scenario.invalid>\nTo: Fictional Coordination Team <team@consense-scenario.invalid>\n\nThe adopted pricing scheme combines Bills of Quantities and Schedules of Rates (BQ plus SOR). All quantities in the BQ Bills are provisional. The two SOR Bills remain rate schedules, not measured BQ Bills.\n\nThe seven formal Bill identities are the schedule already supplied. BQ and SOR numbering are separate. Do not collapse identically numbered Bills across those pricing types.\n\nWhere the required number of tender copies is missing, the photocopy charge for each document page of or below A3 size is HK$12.8.\n\nWhat photocopy charge per page applies above A3? No project rate for pages exceeding A3 has been authorised in the supplied communications. Leave the rate for the reviewer to determine.\n\nBoth SOR detailed schedules and subsequent addenda are issued in hardcopy. The reference PDF does not create an additional Bill identity.\n\nRegards,\nFictional Quantity Surveyor",
+        "context": {
+          "trigger": "original_neighbors",
+          "keys": [],
+          "sourceStart": 0,
+          "sourceEnd": 1271,
+          "sourceText": "Pricing basis and photocopy charge reply\n\nThis is a fictional tender coordination exercise. All persons, organisations, proceedings and project decisions in this correspondence are invented. It has no contractual effect.\n\nRecord SIM10 Date 2026-04-17 Email reply\n\nFrom: Fictional Quantity Surveyor <qs@consense-scenario.invalid>\nTo: Fictional Coordination Team <team@consense-scenario.invalid>\n\nThe adopted pricing scheme combines Bills of Quantities and Schedules of Rates (BQ plus SOR). All quantities in the BQ Bills are provisional. The two SOR Bills remain rate schedules, not measured BQ Bills.\n\nThe seven formal Bill identities are the schedule already supplied. BQ and SOR numbering are separate. Do not collapse identically numbered Bills across those pricing types.\n\nWhere the required number of tender copies is missing, the photocopy charge for each document page of or below A3 size is HK$12.8.\n\nWhat photocopy charge per page applies above A3? No project rate for pages exceeding A3 has been authorised in the supplied communications. Leave the rate for the reviewer to determine.\n\nBoth SOR detailed schedules and subsequent addenda are issued in hardcopy. The reference PDF does not create an additional Bill identity.\n\nRegards,\nFictional Quantity Surveyor"
+        }
+      },
+      "attempt": {
+        "attemptIndex": 1,
+        "kind": "primary",
+        "rawResponse": "[\n  {\n    \"key\": \"pricingScheme\",\n    \"value\": \"BQ_SOR\",\n    \"sourceQuote\": \"The adopted pricing scheme combines Bills of Quantities and Schedules of Rates (BQ plus SOR).\",\n    \"reason\": \"The correspondence explicitly states the pricing scheme combines BQ and SOR, matching the BQ_SOR option.\",\n    \"confidence\": 0.95\n  },\n  {\n    \"key\": \"allBqQuantitiesProvisional\",\n    \"value\": true,\n    \"sourceQuote\": \"All quantities in the BQ Bills are provisional.\",\n    \"reason\": \"Explicitly states that all BQ quantities are provisional.\",\n    \"confidence\": 0.95\n  },\n  {\n    \"key\": \"electronicTendering\",\n    \"value\": \"Hardcopy\",\n    \"sourceQuote\": \"Both SOR detailed schedules and subsequent addenda are issued in hardcopy.\",\n    \"reason\": \"The correspondence confirms documents are issued in hardcopy format, and the photocopy charge discussion confirms physical tender documents.\",\n    \"confidence\": 0.9\n  },\n  {\n    \"key\": \"photocopyRateUpToA3\",\n    \"value\": 12.8,\n    \"sourceQuote\": \"the photocopy charge for each document page of or below A3 size is HK$12.8.\",\n    \"reason\": \"Explicitly states the photocopy rate for pages of or below A3 size.\",\n    \"confidence\": 0.95\n  },\n  {\n    \"key\": \"photocopyRateAboveA3\",\n    \"value\": null,\n    \"sourceQuote\": \"No project rate for pages exceeding A3 has been authorised in the supplied communications. Leave the rate for the reviewer to determine.\",\n    \"reason\": \"The correspondence explicitly states no rate has been authorised and leaves it for the reviewer to determine, indicating the input is pending.\",\n    \"confidence\": 0.95\n  }\n]",
+        "status": "completed",
+        "context": {
+          "trigger": "original_neighbors",
+          "keys": [],
+          "sourceStart": 0,
+          "sourceEnd": 1271,
+          "sourceText": "Pricing basis and photocopy charge reply\n\nThis is a fictional tender coordination exercise. All persons, organisations, proceedings and project decisions in this correspondence are invented. It has no contractual effect.\n\nRecord SIM10 Date 2026-04-17 Email reply\n\nFrom: Fictional Quantity Surveyor <qs@consense-scenario.invalid>\nTo: Fictional Coordination Team <team@consense-scenario.invalid>\n\nThe adopted pricing scheme combines Bills of Quantities and Schedules of Rates (BQ plus SOR). All quantities in the BQ Bills are provisional. The two SOR Bills remain rate schedules, not measured BQ Bills.\n\nThe seven formal Bill identities are the schedule already supplied. BQ and SOR numbering are separate. Do not collapse identically numbered Bills across those pricing types.\n\nWhere the required number of tender copies is missing, the photocopy charge for each document page of or below A3 size is HK$12.8.\n\nWhat photocopy charge per page applies above A3? No project rate for pages exceeding A3 has been authorised in the supplied communications. Leave the rate for the reviewer to determine.\n\nBoth SOR detailed schedules and subsequent addenda are issued in hardcopy. The reference PDF does not create an additional Bill identity.\n\nRegards,\nFictional Quantity Surveyor"
+        }
+      },
+      "itemIndex": 2,
+      "originalSource": "Pricing basis and photocopy charge reply\n\nThis is a fictional tender coordination exercise. All persons, organisations, proceedings and project decisions in this correspondence are invented. It has no contractual effect.\n\nRecord SIM10 Date 2026-04-17 Email reply\n\nFrom: Fictional Quantity Surveyor <qs@consense-scenario.invalid>\nTo: Fictional Coordination Team <team@consense-scenario.invalid>\n\nThe adopted pricing scheme combines Bills of Quantities and Schedules of Rates (BQ plus SOR). All quantities in the BQ Bills are provisional. The two SOR Bills remain rate schedules, not measured BQ Bills.\n\nThe seven formal Bill identities are the schedule already supplied. BQ and SOR numbering are separate. Do not collapse identically numbered Bills across those pricing types.\n\nWhere the required number of tender copies is missing, the photocopy charge for each document page of or below A3 size is HK$12.8.\n\nWhat photocopy charge per page applies above A3? No project rate for pages exceeding A3 has been authorised in the supplied communications. Leave the rate for the reviewer to determine.\n\nBoth SOR detailed schedules and subsequent addenda are issued in hardcopy. The reference PDF does not create an additional Bill identity.\n\nRegards,\nFictional Quantity Surveyor",
+      "recordedDecision": {
+        "partId": "121:0",
+        "attemptIndex": 1,
+        "itemIndex": 2,
+        "key": "electronicTendering",
+        "rawValue": "Hardcopy",
+        "normalizedValue": "Hardcopy",
+        "sourceQuote": "Both SOR detailed schedules and subsequent addenda are issued in hardcopy.",
+        "reason": "The correspondence confirms documents are issued in hardcopy format, and the photocopy charge discussion confirms physical tender documents.",
+        "confidence": 0.9,
+        "status": "accepted",
+        "codes": []
+      }
+    }
+  ]
+}

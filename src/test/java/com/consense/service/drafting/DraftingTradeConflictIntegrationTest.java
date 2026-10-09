@@ -35,6 +35,7 @@ class DraftingTradeConflictIntegrationTest {
         registry.add("consense.storage-root",()->Paths.get("target","drafting-trade-conflict-uploads",DB).toAbsolutePath().toString());
     }
     @Autowired MockMvc mvc;
+    @Autowired DraftingService service;
     @MockBean LlmClient externalModel;
     @BeforeEach void modelAvailable() {
         when(externalModel.available()).thenReturn(true);
@@ -59,7 +60,7 @@ class DraftingTradeConflictIntegrationTest {
         assertCandidate(input.path("candidates").get(0),"[\"Electrical\"]",electrical,"test-only-complete-electrical.txt");
         assertCandidate(input.path("candidates").get(1),"[\"Lift\"]",lift,"test-only-complete-lift.txt");
         assertEquals("candidate_conflict",find(trace(project).path("fields"),"subcontractors").path("status").asText());
-        JsonNode adopted=response(put("/api/drafting/{id}/variables/subcontractors",project).contentType(MediaType.APPLICATION_JSON).content("{\"candidateIndex\":1}"));
+        JsonNode adopted=response(put("/api/drafting/{id}/variables/subcontractors",project).contentType(MediaType.APPLICATION_JSON).content(DraftAdoptionTestPayload.candidate(service,project,"subcontractors",1)));
         assertEquals("[\"Lift\"]",adopted.path("value").asText());
         assertTrue(adopted.path("confirmed").asBoolean());
         assertEquals("adopted",adopted.path("adoptionState").asText());
@@ -130,7 +131,7 @@ class DraftingTradeConflictIntegrationTest {
             assertEquals(2,input.path("candidates").size());
             assertEquals("candidate_conflict",find(trace(project).path("fields"),"subcontractors").path("status").asText());
             JsonNode adopted=response(put("/api/drafting/{id}/variables/subcontractors",project).contentType(MediaType.APPLICATION_JSON)
-                    .content("{\"candidateIndex\":"+(noneFirst?0:1)+"}"));
+                    .content(DraftAdoptionTestPayload.candidate(service,project,"subcontractors",noneFirst?0:1)));
             assertEquals("[]",adopted.path("value").asText());
             assertTrue(adopted.path("confirmed").asBoolean());
             assertEquals("adopted",adopted.path("adoptionState").asText());
@@ -147,9 +148,16 @@ class DraftingTradeConflictIntegrationTest {
         assertEquals("[\"Electrical\",\"Lift and escalator\"]",input.path("value").asText());
         assertEquals("suggested",input.path("adoptionState").asText());
         assertFalse(input.path("confirmed").asBoolean());
-        assertEquals(2,input.path("candidates").size());
-        assertEquals(input.path("candidates").get(0).path("value"),input.path("candidates").get(1).path("value"));
-        assertEquals("suggested",find(trace(project).path("fields"),"subcontractors").path("status").asText());
+        assertEquals(1,input.path("candidates").size(),"Repeated normalized answers from the same source and source hash are one candidate, not independent evidence.");
+        assertCandidate(input.path("candidates").get(0),"[\"Electrical\",\"Lift and escalator\"]",quote,"test-only-same-complete-set.txt");
+        JsonNode report=trace(project);
+        assertEquals(2,report.path("decisions").size(),"Keep both original model items in the immutable diagnostics.");
+        for(JsonNode decision:report.path("decisions")) {
+            assertEquals("accepted",decision.path("status").asText());
+            assertEquals(input.path("value").asText(),decision.path("normalizedValue").asText());
+        }
+        assertNotEquals(report.path("decisions").get(0).path("rawValue"),report.path("decisions").get(1).path("rawValue"),"Original option orders remain auditable.");
+        assertEquals("suggested",find(report.path("fields"),"subcontractors").path("status").asText());
     }
 
     @Test void conflictingReextractionPreservesManualAdoptionAndImmutableReportUntilSourceResolution() throws Exception {
@@ -182,7 +190,7 @@ class DraftingTradeConflictIntegrationTest {
         assertEquals(conflictTrace.path("decisions"),historic.path("decisions"));
         assertEquals(conflictTrace.path("rawResponses"),historic.path("rawResponses"));
         assertTrue(historic.path("stale").asBoolean());
-        JsonNode reviewed=response(put("/api/drafting/{id}/variables/subcontractors",project).contentType(MediaType.APPLICATION_JSON).content("{\"reviewed\":true}"));
+        JsonNode reviewed=response(put("/api/drafting/{id}/variables/subcontractors",project).contentType(MediaType.APPLICATION_JSON).content(DraftAdoptionTestPayload.reviewed(service,project,"subcontractors",null)));
         assertEquals("adopted",reviewed.path("adoptionState").asText());
         assertFalse(reviewed.path("reviewRequired").asBoolean());
         assertEquals("[\"Fire services and water pump\"]",reviewed.path("value").asText());

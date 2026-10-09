@@ -3,7 +3,6 @@ package com.consense.service.drafting;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.math.BigDecimal;
 import java.text.Normalizer;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -86,21 +85,25 @@ final class DraftCandidateGrounding {
     }
 
     static boolean directLiteralSupported(DraftBlueprint.InputSpec spec,Object value,String quote) {
+        return directLiteralSupported(spec,value,quote,quote,quote);
+    }
+
+    static boolean directLiteralSupported(DraftBlueprint.InputSpec spec,Object value,String quote,String supplied,String originalSource) {
+        if("specificationInspectionBlock".equals(spec.key)||"drawingsInspectionBlock".equals(spec.key))
+            return DraftInspectionLocationEvidence.supported(spec.key,value,quote,supplied,originalSource);
         if("text".equals(spec.kind))return literalInAnswer(quote,value);
         if("billNos".equals(spec.key))return billIdentitiesSupported(value,quote);
+        if("designResponsibilities".equals(spec.key))return DraftDesignEvidence.supported(value,quote);
+        if("electronicTendering".equals(spec.key))return DraftTenderMediaEvidence.supported(value,quote,supplied,originalSource);
+        if("footingsServeBuildingsOrMajorExternalStructures".equals(spec.key))return DraftScopeEvidence.footingsSupported(value,quote,supplied,originalSource);
+        if("domesticBlocks".equals(spec.key))return DraftBooleanEvidence.domesticSupported(value,quote,supplied,originalSource);
+        if("buildingDemolitionSitesSeparated".equals(spec.key))return DraftScopeEvidence.buildingDemolitionSeparationSupported(value,quote,supplied,originalSource);
+        if("projectInTinShuiWai".equals(spec.key))return DraftScopeEvidence.tinShuiWaiSupported(value,quote,supplied,originalSource);
+        if("sections".equals(spec.key))return DraftSectionEvidence.supported(value,quote);
         if("contract".equals(spec.kind)) {
             for(String key:Arrays.asList("number","title"))if(!literalInAnswer(quote,DraftBusinessRules.asMap(value).get(key)))return false;
         }
-        if("number".equals(spec.kind)) {
-            BigDecimal candidate;
-            try{candidate=new BigDecimal(String.valueOf(value));}catch(NumberFormatException invalid){return false;}
-            for(String passage:quote.split("\\R|\\||;|(?<=[.!?])\\s+(?=[A-Z])")) {
-                if(nonAnswer(passage))continue;
-                Matcher numbers=Pattern.compile("(?<![\\p{L}\\p{N}.])\\d+(?:,\\d{3})*(?:\\.\\d+)?(?![\\p{L}\\p{N}]|\\.\\d)").matcher(canonical(passage));
-                while(numbers.find())if(candidate.compareTo(new BigDecimal(numbers.group().replace(",","")))==0)return true;
-            }
-            return false;
-        }
+        if("number".equals(spec.kind))return DraftNumberEvidence.supported(spec.key,value,quote);
         return true;
     }
 
@@ -124,6 +127,9 @@ final class DraftCandidateGrounding {
     static boolean billIdentitiesSupported(Object value,String source) {
         for(Object item:DraftBusinessRules.list(value)) {
             Map<String,Object> row=DraftBusinessRules.asMap(item);
+            Boolean tabular=DraftBillSourceTables.identitySupported(row,source);
+            if(Boolean.FALSE.equals(tabular))return false;
+            if(Boolean.TRUE.equals(tabular))continue;
             Object number=row.get("number"),description=row.get("description");
             if(!DraftBusinessRules.answered(number)) {
                 if(!literalInAnswer(source,description,BILL_PASSAGES))return false;

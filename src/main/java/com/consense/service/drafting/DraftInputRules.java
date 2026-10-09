@@ -9,7 +9,23 @@ import java.util.regex.Pattern;
 /** Input type validation is separate from applicability, source completeness and adoption. */
 public final class DraftInputRules {
  private DraftInputRules() { }
- public static String normalizeSuggestion(DraftBlueprint.InputSpec spec,String value){return normalize(spec,value);}
+ public static String normalizeSuggestion(DraftBlueprint.InputSpec spec,String value){
+  return normalizeSuggestion(spec,value,null);
+ }
+ public static String normalizeSuggestion(DraftBlueprint.InputSpec spec,String value,String quote){
+  return normalizeSuggestion(spec,value,quote,quote,quote);
+ }
+ public static String normalizeSuggestion(DraftBlueprint.InputSpec spec,String value,String quote,String supplied,String original){
+  if(spec!=null)value=DraftArchitectContactEvidence.suggestion(spec.key,value,quote,supplied,original);
+  if(spec!=null&&Arrays.asList("specificationInspectionBlock","drawingsInspectionBlock").contains(spec.key))value=blockIdentifier(value);
+  if(spec!=null&&"sections".equals(spec.key)&&DraftBusinessRules.parse(value) instanceof List){
+   List<Object> rows=new ArrayList<>();for(Object item:DraftBusinessRules.list(DraftBusinessRules.parse(value))){
+    if(!(item instanceof Map)){rows.add(item);continue;}Map<String,Object> row=new LinkedHashMap<>(DraftBusinessRules.asMap(item));row.remove("id");rows.add(row);
+   }value=JsonUtils.write(rows);
+  }
+  return normalize(spec,value);
+ }
+ static String blockIdentifier(String value){return value==null?null:value.replaceFirst("(?i)^\\s*Block\\s+","").trim();}
  public static String normalize(DraftBlueprint.InputSpec spec,String value){
   if(spec==null)throw new BizException(4007,"Unknown drafting input");if(value==null||value.trim().isEmpty())return "";
   if("text".equals(spec.kind)||"date".equals(spec.kind))return value;

@@ -1,0 +1,3 @@
+# Third novel exam: frozen fictional capture
+
+Offline regression data from browser run `a8f32dc6-0c01-4a1d-8d14-58e37882a540` on harness .24. All 15 sources and 33 responses are unchanged; the original 9 missing suggestions remain in capturedVariables. The sourceHash, response digests and original context offsets are retained. The 79-input oracle is assertion-only. Runtime metadata is sanitized for reproducibility; no credentials, deployable runtime settings, model weights or official templates are included. Replay fixes do not alter the original failed model exam or establish fresh model generalization.

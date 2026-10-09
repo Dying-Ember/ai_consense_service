@@ -1,6 +1,7 @@
 package com.consense.service.drafting;
 
 import com.consense.ai.LlmClient;
+import com.consense.ai.LlmProfiles;
 import com.consense.common.JsonUtils;
 import com.fasterxml.jackson.databind.JsonNode;
 import java.nio.charset.StandardCharsets;
@@ -26,7 +27,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 /** Public upload, extraction, input and immutable-report seams; only external model calls are doubled. */
 @SpringBootTest(properties={"spring.jpa.hibernate.ddl-auto=create-drop","spring.flyway.enabled=false",
-        "consense.ocr.enabled=false","consense.vector.provider=memory"})
+        "consense.ocr.enabled=false","consense.vector.provider=memory",
+        "consense.llm.enabled=true","consense.llm.base-url=http://test-only-adapter.invalid",
+        "consense.llm.chat-model=test-only-external-model"})
 @ActiveProfiles("h2") @AutoConfigureMockMvc
 class DraftingExtractionHotfixIntegrationTest {
     private static final String DB=UUID.randomUUID().toString();
@@ -35,8 +38,13 @@ class DraftingExtractionHotfixIntegrationTest {
         registry.add("consense.storage-root",()->Paths.get("target","drafting-hotfix-uploads",DB).toAbsolutePath().toString());
     }
     @Autowired MockMvc mvc;
-    @MockBean LlmClient externalModel;
+    @Autowired LlmProfiles profiles;
+    @MockBean(name="llmClient") LlmClient externalModel;
     @BeforeEach void modelAvailable() {
+        // Explicit-profile failures must occur at the mocked provider attempt,
+        // rather than before dispatch because ambient profile config is blank.
+        assertSame(externalModel,profiles.resolve("local").getClient());
+        assertNull(profiles.resolve("local").getUnavailableReason());
         when(externalModel.available()).thenReturn(true);
         when(externalModel.chatModel()).thenReturn("test-only-external-model");
     }

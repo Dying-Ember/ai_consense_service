@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 final class DraftCandidateEvidenceRecovery {
     private static final Pattern CANDIDATE_MARKER=Pattern.compile("(?m)(?:^[\\t ]*|(?<=[;:])[\\t ]*)(\\d{1,4})(?:[.)][\\t ]*|(?=[\\p{L}]))");
     private static final Pattern UNASSERTED=Pattern.compile("(?i)\\b(?:pending|unknown|unconfirmed|undetermined|not supplied|not provided|to be confirmed|please confirm|please provide|whether|proposed|unselected|alternatives?|options?|if|unless|subject to|not adopted|not selected|not confirmed|not applicable|not required|excluded|do not (?:use|adopt|apply)|does not apply)\\b|\\?");
+    private static final Pattern NEGATED_ORDERED_SCOPE=Pattern.compile("(?i)\\b(?:no|none of|neither)\\b[^.;\\n]*\\b(?:required|adopted|included|specified|selected|applicable|apply|applies)\\b|\\bnot\\s+(?:included|specified)\\b");
     private DraftCandidateEvidenceRecovery() { }
 
     static final class Result {
@@ -23,6 +24,22 @@ final class DraftCandidateEvidenceRecovery {
             return ordered(spec,(String)value,quote,supplied,original,canRecover);
         if("billNos".equals(spec.key)&&value instanceof List&&!((List<?>)value).isEmpty())
             return bills(value,quote,supplied,original,canRecover);
+        if("designResponsibilities".equals(spec.key)&&value instanceof List&&!((List<?>)value).isEmpty()) {
+            String scope=DraftDesignEvidence.quotedTableScope(quote,original);
+            if(scope!=null&&!scope.equals(quote)) {
+                if(!DraftEvidenceQuotes.present(supplied,scope))return new Result(value,quote,"context_incomplete_source");
+                if(!DraftDesignEvidence.supported(value,scope))return new Result(value,quote,"quote_value_mismatch");
+                if(canRecover)return new Result(value,scope,"evidence_quote_reanchored");
+            }
+        }
+        if("sections".equals(spec.key)&&value instanceof List&&!((List<?>)value).isEmpty()) {
+            String scope=DraftSectionEvidence.quotedTableScope(quote,original);
+            if(scope!=null&&!scope.equals(quote)) {
+                if(!DraftEvidenceQuotes.present(supplied,scope))return new Result(value,quote,"context_incomplete_source");
+                if(!DraftSectionEvidence.supported(value,scope))return new Result(value,quote,"quote_value_mismatch");
+                if(canRecover)return new Result(value,scope,"evidence_quote_reanchored");
+            }
+        }
         return new Result(value,quote);
     }
 
@@ -48,15 +65,14 @@ final class DraftCandidateEvidenceRecovery {
         if(candidate.size()!=unit.entries.size())return new Result(value,quote,"source_list_incomplete");
         String candidateLead=value.substring(0,candidate.get(0).start).trim();
         String sourceLead=original.substring(unit.start,unit.listStart);
-        if(!candidateLead.isEmpty()&&(UNASSERTED.matcher(candidateLead).find()||!DraftEvidenceQuotes.present(sourceLead,candidateLead)))
+        if(!candidateLead.isEmpty()&&(unassertedOrderedScope(candidateLead)||!DraftEvidenceQuotes.present(sourceLead,candidateLead)))
             return new Result(value,quote,"source_list_value_mismatch");
         for(int i=0;i<candidate.size();i++) {
             Item item=candidate.get(i);DraftOrderedSourceLists.Entry entry=unit.entries.get(i);
             if(item.number!=entry.number)return new Result(value,quote,"source_list_incomplete");
             if(!itemIdentity(item.text).equals(itemIdentity(entry.text)))return new Result(value,quote,"source_list_value_mismatch");
         }
-        String governing=original.substring(unit.start,unit.listStart)+"\n"+original.substring(unit.listEnd,unit.end);
-        if(UNASSERTED.matcher(governing).find())return new Result(value,quote,"source_list_unresolved");
+        if(unit.foreignProject||unassertedOrderedScope(unit.governingText))return new Result(value,quote,"source_list_unresolved");
         String sourceValue=original.substring(unit.listStart,unit.listEnd).trim();
         String scope=original.substring(unit.start,unit.end);
         if(!DraftEvidenceQuotes.present(supplied,scope))return new Result(value,quote,"context_incomplete_source");
@@ -66,6 +82,10 @@ final class DraftCandidateEvidenceRecovery {
         // Only the list marker may differ. All item bodies and their ordered identifiers already matched.
         if(!exactValue)return new Result(sourceValue,scope,"source_value_typography_restored","evidence_quote_reanchored");
         return new Result(value,scope,"evidence_quote_reanchored");
+    }
+
+    private static boolean unassertedOrderedScope(String governing) {
+        return UNASSERTED.matcher(governing).find()||NEGATED_ORDERED_SCOPE.matcher(governing).find();
     }
 
 
@@ -113,70 +133,28 @@ final class DraftCandidateEvidenceRecovery {
         return identity.endsWith(";")?identity.substring(0,identity.length()-1).trim():identity;
     }
 
-    private static final class BillTable {
-        final int start,end;final String prefix;final List<Map<String,Object>> rows;
-        BillTable(int start,int end,String prefix,List<Map<String,Object>> rows){this.start=start;this.end=end;this.prefix=prefix;this.rows=rows;}
-    }
-
     private static Result bills(Object value,String quote,String supplied,String original,boolean canRecover) {
-        List<BillTable> matches=new ArrayList<>();
-        for(BillTable table:billTables(original))if(DraftCandidateGrounding.billIdentitiesSupported(value,original.substring(table.start,table.end)))matches.add(table);
+        List<DraftBillSourceTables.Table> matches=new ArrayList<>();
+        int quotedLogicalUnits=0;
+        for(DraftBillSourceTables.Table table:DraftBillSourceTables.tables(original)) {
+            String scope=original.substring(table.start,table.end);
+            // Adoption cannot disambiguate a repeated literal introduction or table quotation.
+            // Resolve its logical source occurrence before filtering which roles can support values.
+            if(quote!=null&&DraftBillSourceTables.identityRowsSupported(value,table)&&
+                    (DraftEvidenceQuotes.present(scope,quote)||DraftEvidenceQuotes.present(quote,scope)))quotedLogicalUnits++;
+            if(DraftCandidateGrounding.billIdentitiesSupported(value,scope))matches.add(table);
+        }
+        if(quotedLogicalUnits>1)return new Result(value,quote,"source_list_ambiguous");
         if(matches.size()>1)return new Result(value,quote,"source_list_ambiguous");
         if(matches.isEmpty())return new Result(value,quote);
-        BillTable table=matches.get(0);String scope=original.substring(table.start,table.end);
-        boolean complete=completeBills(value,table.rows);
-        boolean declaredComplete=Pattern.compile("(?i)\\bbill identity list\\b|\\bcomplete\\s+(?:bill\\s+)?(?:list|schedule)\\b|\\bfollowing\\s+\\d+\\s+bill\\b|\\ball\\s+bill\\b").matcher(table.prefix).find();
+        DraftBillSourceTables.Table table=matches.get(0);String scope=original.substring(table.start,table.end);
+        boolean complete=DraftBillSourceTables.complete(value,table);
+        boolean declaredComplete=table.declaredComplete;
         if(declaredComplete&&!complete)return new Result(value,quote,"source_list_incomplete");
         if(UNASSERTED.matcher(table.prefix).find())return new Result(value,quote,"source_list_unresolved");
         if(DraftEvidenceQuotes.present(supplied,quote)&&DraftCandidateGrounding.billIdentitiesSupported(value,quote))return new Result(value,quote);
         if(!canRecover||!complete||quote==null||UNASSERTED.matcher(quote).find()||
                 !DraftEvidenceQuotes.present(scope,quote)||!DraftEvidenceQuotes.present(supplied,scope))return new Result(value,quote);
         return new Result(value,scope,"evidence_quote_reanchored");
-    }
-
-    private static boolean completeBills(Object value,List<Map<String,Object>> source) {
-        List<Object> candidate=DraftBusinessRules.list(value);if(candidate.size()!=source.size())return false;
-        Set<String> identities=new HashSet<>();
-        for(Object raw:candidate) {
-            Map<String,Object> row=DraftBusinessRules.asMap(raw);String number=String.valueOf(row.get("number"));
-            if(!identities.add(number))return false;
-            boolean matched=false;
-            for(Map<String,Object> original:source)if(Objects.equals(number,original.get("number"))&&
-                    DraftEvidenceQuotes.textIdentity(String.valueOf(row.get("description"))).equals(DraftEvidenceQuotes.textIdentity(String.valueOf(original.get("description")))))matched=true;
-            if(!matched)return false;
-        }
-        return true;
-    }
-
-    /** Pipe tables are bounded original units, with only their immediately preceding introduction. */
-    private static List<BillTable> billTables(String source) {
-        List<BillTable> result=new ArrayList<>();int start=-1,end=-1,offset=0;List<Map<String,Object>> rows=new ArrayList<>();
-        for(String line:source.split("\\n",-1)) {
-            int lineEnd=Math.min(source.length(),offset+line.length()+1);
-            if(line.contains("|")) {
-                if(start<0&&Pattern.compile("(?i)\\bbill\\s*(?:no\\.?|number)?\\b").matcher(line).find()){start=offset;rows=new ArrayList<>();}
-                if(start>=0) {
-                    end=lineEnd;String[] columns=line.split("\\|",-1);
-                    if(columns.length>=2&&columns[0].trim().matches("[0-9]+[A-Za-z]?(?:\\.[0-9]+)?")&&!columns[1].trim().isEmpty()) {
-                        Map<String,Object> row=new LinkedHashMap<>();row.put("number",columns[0].trim());row.put("description",columns[1].trim());rows.add(row);
-                    }
-                }
-            } else if(!line.trim().isEmpty()||lineEnd==source.length()) {
-                addBillTable(source,start,end,rows,result);start=-1;end=-1;
-            }
-            offset=lineEnd;
-        }
-        addBillTable(source,start,end,rows,result);return result;
-    }
-
-    private static void addBillTable(String source,int start,int end,List<Map<String,Object>> rows,List<BillTable> result) {
-        if(start<0||end<start||rows.isEmpty())return;
-        int left=start;
-        for(int count=0,nonblank=0;count<6&&nonblank<2&&left>0;count++) {
-            int previous=source.lastIndexOf('\n',Math.max(0,left-2))+1;String line=source.substring(previous,left).trim();
-            if(start-previous>800||line.contains("|"))break;
-            left=previous;if(!line.isEmpty())nonblank++;
-        }
-        result.add(new BillTable(left,end,source.substring(left,start),new ArrayList<>(rows)));
     }
 }

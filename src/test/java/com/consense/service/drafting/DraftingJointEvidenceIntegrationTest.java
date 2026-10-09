@@ -37,6 +37,7 @@ class DraftingJointEvidenceIntegrationTest {
         r.add("consense.storage-root",()->Paths.get("target","joint-evidence-uploads",DB).toAbsolutePath().toString());
     }
     @Autowired MockMvc mvc;
+    @Autowired DraftingService service;
     @MockBean LlmClient model;
     private final List<String> jointReplies=new ArrayList<>();
     private String secondaryQuote=SUPPLEMENT,relationChoice="supplement";
@@ -118,7 +119,7 @@ class DraftingJointEvidenceIntegrationTest {
     @Test void sameDayExplicitCorrectionRecordsItsDirectionAndRetainsTheAdoptedEarlierValue()throws Exception {
         relationChoice="explicit_replacement";secondaryQuote="For the Zone A tender, this explicitly replaces the signed environmental management plan requirement: provide a construction method statement as the sole additional tender submission.";
         String project=project();upload(project,"test-only-z-last-file.docx","TEST ONLY original correspondence\nDate: 2026-10-06\nScope: Zone A tender.\n"+ORIGINAL);
-        extract(project);JsonNode earlier=trace(project);mvc.perform(put("/api/drafting/{id}/variables/{key}",project,KEY).contentType(MediaType.APPLICATION_JSON).content("{\"candidateIndex\":0}")).andExpect(jsonPath("$.code").value(0));
+        extract(project);JsonNode earlier=trace(project);mvc.perform(put("/api/drafting/{id}/variables/{key}",project,KEY).contentType(MediaType.APPLICATION_JSON).content(DraftAdoptionTestPayload.candidate(service,project,KEY,0))).andExpect(jsonPath("$.code").value(0));
         JsonNode adopted=variable(project);upload(project,"test-only-a-first-file.docx","TEST ONLY explicit correction\nDate: 2026-10-06\nScope: Zone A tender.\n"+secondaryQuote);
         extract(project);JsonNode currentTrace=trace(project),input=variable(project);retain("same-day-correction",currentTrace,input);
         assertEquals(adopted.path("value"),input.path("value"));assertEquals(adopted.path("source"),input.path("source"));assertTrue(input.path("confirmed").asBoolean());assertTrue(input.path("reviewRequired").asBoolean());assertEquals(2,input.path("candidates").size());
@@ -250,7 +251,7 @@ class DraftingJointEvidenceIntegrationTest {
         };
         String project=project();upload(project,"test-only-original.docx","Scope: Zone A tender.\n"+ORIGINAL);
         extract(project);
-        mvc.perform(put("/api/drafting/{id}/variables/{key}",project,KEY).contentType(MediaType.APPLICATION_JSON).content("{\"candidateIndex\":0}"))
+        mvc.perform(put("/api/drafting/{id}/variables/{key}",project,KEY).contentType(MediaType.APPLICATION_JSON).content(DraftAdoptionTestPayload.candidate(service,project,KEY,0)))
                 .andExpect(jsonPath("$.code").value(0));
         JsonNode adopted=variable(project);
         StringBuilder source=new StringBuilder("Scope: Zone A tender.\nAdditional tender submissions\n");
@@ -305,7 +306,7 @@ class DraftingJointEvidenceIntegrationTest {
         String project=project();upload(project,"test-only-original.docx","TEST ONLY original correspondence\nDate: 2026-10-06\nScope: Zone A tender.\n"+ORIGINAL);
         extract(project);JsonNode originalTrace=trace(project),originalInput=variable(project);
         assertEquals(1,originalInput.path("candidates").size());
-        mvc.perform(put("/api/drafting/{id}/variables/{key}",project,KEY).contentType(MediaType.APPLICATION_JSON).content("{\"candidateIndex\":0}"))
+        mvc.perform(put("/api/drafting/{id}/variables/{key}",project,KEY).contentType(MediaType.APPLICATION_JSON).content(DraftAdoptionTestPayload.candidate(service,project,KEY,0)))
                 .andExpect(jsonPath("$.code").value(0));
         JsonNode adopted=variable(project);assertTrue(adopted.path("confirmed").asBoolean());
         upload(project,"test-only-supplement.docx","TEST ONLY supplementary correspondence\nDate: 2026-10-07\nScope: Zone A tender.\n"+SUPPLEMENT);

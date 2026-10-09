@@ -1,0 +1,2319 @@
+{
+  "assertionsOnly": true,
+  "provenanceSha256": "680a094d9cf967cd9737eb05e58bec42b17237279a0bb1d6194d9403307ead26",
+  "expectedInputs": {
+    "contractTitle": {
+      "value": {
+        "number": "20250101",
+        "title": "Construction of Public Housing Development at Tung Chung Area 98"
+      },
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "Cover identity; project identity is preserved verbatim apart from display casing.",
+      "firstDisclosure": "SIM02",
+      "sourceReferences": [
+        {
+          "file": "02 Cover.docx",
+          "clause": "Cover",
+          "paragraphs": [
+            {
+              "index": 10,
+              "quote": "CONSTRUCTION OF PUBLIC HOUSING DEVELOPMENT AT TUNG CHUNG AREA 98 "
+            },
+            {
+              "index": 13,
+              "quote": "CONTRACT NO. 20250101"
+            }
+          ]
+        },
+        {
+          "file": "25 - Specification - PRE (base tender).docx",
+          "clause": "PRE.B1.010",
+          "paragraphs": [
+            {
+              "index": 710,
+              "quote": "The Project is the Construction of Public Housing Development at Tung Chung Area 98 for the Hong Kong Housing Authority."
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM02",
+        "file": "02_2024-12-10_minutes_project_identity_and_foundation_scope_meeting.docx",
+        "nativeParagraph": 6,
+        "quote": "The Architect reported that the cover gives Contract No. 20250101 and the title Construction of Public Housing Development at Tung Chung Area 98. These are the identifiers to use consistently in the drafting exercise.",
+        "sha256": "e2e8b35c77a4985a9f1e9b0349d87fcb75542ddb52e39a676ab79f7b7fe4a976"
+      }
+    },
+    "foundationIncluded": {
+      "value": false,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "rationale": "For this test scenario only, classify the tender as not a combined contract with foundation works. This is the simulated QS adoption resolving SIM02, not a conclusion extracted from the original 2b scope.",
+      "firstDisclosure": "SIM14",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM14",
+        "file": "14_2024-12-30_minutes_scenario_only_supplementary_drafting_decisions.docx",
+        "nativeParagraph": 7,
+        "quote": "For this test scenario only, classify the tender as not a combined contract with foundation works. This is the simulated QS adoption resolving SIM02, not a conclusion extracted from the original 2b scope.",
+        "sha256": "ce83d01d4341aea810e900069b05be85edac46099dae5e9d770c9837976642b9"
+      }
+    },
+    "periodAtLeast39Months": {
+      "value": false,
+      "status": "derived",
+      "origin": "derived_from_simulated_months",
+      "rationale": "31 >= 39 is false. The earlier case-source threshold uses the allowed tender-period ceiling; exact month 31 comes only from SIM14.",
+      "firstDisclosure": "SIM03",
+      "sourceReferences": [
+        {
+          "file": "05 - SCT.docx",
+          "clause": "Appendix G Columns A/B; Notes 3(a) and 5",
+          "paragraphs": [
+            {
+              "index": 1113,
+              "quote": "Base time for completion (as abstracted from Specification clause PRE.B4.070)"
+            },
+            {
+              "index": 1115,
+              "quote": "Time for completion proposed by Tenderer Note 3"
+            },
+            {
+              "index": 1121,
+              "quote": "31 months"
+            },
+            {
+              "index": 1124,
+              "quote": ".......... months and"
+            },
+            {
+              "index": 1125,
+              "quote": ".......... day(s)"
+            },
+            {
+              "index": 1160,
+              "quote": "a. The time for completion of the Works proposed by the tenderer under Column (B) shall not exceed the base time for completion as stated under Column (A); and the time for completion of the Works to be proposed by the tenderer under Column (B) shall not be left blank.  Otherwise, it may cause the tender to be disqualified. "
+            },
+            {
+              "index": 1164,
+              "quote": "In the event of the tender being accepted, the proposed time for completion of the Works under Column (B) of this Appendix shall form part of the Contract and shall be the time for completion of the Works as referred to in GCC Clause 8.3 accordingly.  For the avoidance of doubt, the base time for completion of the Works under Column (A) of this Appendix does not form part of the Contract."
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "dependencies": [
+        "contractPeriodMonths"
+      ],
+      "derivationDisclosure": "SIM14",
+      "inputEvidence": {
+        "recordId": "SIM03",
+        "file": "03_2024-12-11_email_programme_threshold_confirmed_from_appendix_g.docx",
+        "nativeParagraph": 7,
+        "quote": "Note 3(a) requires the proposed time in Column (B) not to exceed the 31-month base time. For this tender drafting exercise, the answer to “Is the contract period 39 months or more?” is therefore No, based on the permitted proposed-period ceiling. This is not a confirmation that an awarded contract has a period of exactly 31 months.",
+        "sha256": "f3f6cef97e753e3cca4ff1b4eabfbd0fd5cf269097987bf7e44f5b8a1c0ea978"
+      }
+    },
+    "contractPeriodMonths": {
+      "value": 31,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "rationale": "For this test draft only, use a period of 31 months. It is a newly adopted simulated drafting assumption compatible with the source tender ceiling, not evidence of an awarded or accepted contract period. Derive the inclusive 39-month test from this one value.",
+      "firstDisclosure": "SIM14",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM14",
+        "file": "14_2024-12-30_minutes_scenario_only_supplementary_drafting_decisions.docx",
+        "nativeParagraph": 10,
+        "quote": "For this test draft only, use a period of 31 months. It is a newly adopted simulated drafting assumption compatible with the source tender ceiling, not evidence of an awarded or accepted contract period. Derive the inclusive 39-month test from this one value.",
+        "sha256": "ce83d01d4341aea810e900069b05be85edac46099dae5e9d770c9837976642b9"
+      }
+    },
+    "subcontractArrangement": {
+      "value": "BSSSC",
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "The case defines building services Specialist Sub-contractors and removes NSC definitions; this is a trade arrangement, not identified contractor companies.",
+      "firstDisclosure": "SIM05",
+      "sourceReferences": [
+        {
+          "file": "10 - SCC.docx",
+          "clause": "SCC1.302",
+          "paragraphs": [
+            {
+              "index": 135,
+              "quote": "SCC1.302Definitions (related to “BS Specialist Sub-contractors”)"
+            },
+            {
+              "index": 139,
+              "quote": "“BS Specialist Sub-contractors” means Specialist Sub-contractor for electrical works, Specialist Sub-contractor for fire services and water pump works and Specialist Sub-contractor for lift works."
+            },
+            {
+              "index": 151,
+              "quote": "(3)Clause 1.1 of the General Conditions of Contract is amended by deleting the following definitions:-"
+            },
+            {
+              "index": 153,
+              "quote": "“Nominated Sub-contract”."
+            },
+            {
+              "index": 155,
+              "quote": "“Nominated Sub-contract Works”."
+            },
+            {
+              "index": 157,
+              "quote": "“Nominated Sub-contractor”."
+            },
+            {
+              "index": 159,
+              "quote": "“Prime Cost Sum”."
+            },
+            {
+              "index": 161,
+              "quote": "“Retention Money Held in respect of the Nominated Sub-contractor”."
+            }
+          ]
+        },
+        {
+          "file": "25 - Specification - PRE (base tender).docx",
+          "clause": "PRE.B6.720",
+          "paragraphs": [
+            {
+              "index": 4394,
+              "quote": "pre.b6.720.PSCC14.304 - SPECIALIST SUB-CONTRACTOR"
+            },
+            {
+              "index": 4395,
+              "quote": "1.In accordance with GCC Clause 3.2(6), the following part(s) of the Works are to be executed by Specialist Sub-contractors selected by the Contractor from the relevant list given or referred to in the Specification:"
+            },
+            {
+              "index": 4396,
+              "quote": "a.electrical Specialist Sub-contract Works;"
+            },
+            {
+              "index": 4397,
+              "quote": "b.fire services and water pump Specialist Sub-contract Works;"
+            },
+            {
+              "index": 4398,
+              "quote": "c.lift Specialist Sub-contract Works;"
+            },
+            {
+              "index": 4399,
+              "quote": "2.For the avoidance of doubt, without prejudice to Clause SCC4.302(2), the Contractor shall employ a single Specialist Sub-contractor selected from the relevant list given or referred to in the Specification to undertake each of the Specialist Sub-contract Works as referred to in sub-clause (1) above. "
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM05",
+        "file": "05_2024-12-13_minutes_building_services_subcontract_coordination_meeting.docx",
+        "nativeParagraph": 7,
+        "quote": "Decision: select Building Services Specialist Sub-Contracts (BSSSC) in the user’s variable list. This is the application label mapped from the source wording “BS Specialist Sub-contractors”; it is not a claim that the source uses the acronym BSSSC.",
+        "sha256": "5371128c42a1629916cf86d9d95e326c6b54e04d57129aaaebd5a35d8d6bcbc1"
+      }
+    },
+    "subcontractors": {
+      "value": [
+        "Electrical",
+        "Fire services and water pump",
+        "Lift"
+      ],
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "Exact shared trade scope; do not split Fire Services and Water Pump into an invented standalone Fire Services trade.",
+      "firstDisclosure": "SIM05",
+      "sourceReferences": [
+        {
+          "file": "10 - SCC.docx",
+          "clause": "SCC1.302",
+          "paragraphs": [
+            {
+              "index": 139,
+              "quote": "“BS Specialist Sub-contractors” means Specialist Sub-contractor for electrical works, Specialist Sub-contractor for fire services and water pump works and Specialist Sub-contractor for lift works."
+            }
+          ]
+        },
+        {
+          "file": "25 - Specification - PRE (base tender).docx",
+          "clause": "PRE.B6.720",
+          "paragraphs": [
+            {
+              "index": 4396,
+              "quote": "a.electrical Specialist Sub-contract Works;"
+            },
+            {
+              "index": 4397,
+              "quote": "b.fire services and water pump Specialist Sub-contract Works;"
+            },
+            {
+              "index": 4398,
+              "quote": "c.lift Specialist Sub-contract Works;"
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM05",
+        "file": "05_2024-12-13_minutes_building_services_subcontract_coordination_meeting.docx",
+        "nativeParagraph": 23,
+        "quote": "Use the combined Fire services and water pump option and the Lift option. Do not duplicate those selections with Fire services or Lift and escalator. The unselected options concern this defined subcontract list and do not assert that no such activity exists anywhere in the project.",
+        "sha256": "5371128c42a1629916cf86d9d95e326c6b54e04d57129aaaebd5a35d8d6bcbc1"
+      }
+    },
+    "nscAlternativeText": {
+      "value": "The tenderer’s attention is drawn to GCC Clause 3.2 (as amended by SCC Clause SCC3.1) regarding the engagement of sub-contractors as stated in his submission of particulars of the sub-contractors that are registered under the relevant trades available in the Registered Specialist Trade Contractors Scheme administered by the Construction Industry Council. Such requirement does not apply to engagement of works contractor selected by the Contractor from the relevant list given or referred to in the Specification, but it shall apply to the engagement of sub-contractor of the works contractor selected by the Contractor from the relevant list given or referred to in the Specification.",
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "rationale": "For this test scenario only, use the following adopted replacement text at the current standard-template NTT13 amendment position under BSSSC. Remove only the NSC-specific exception, the corresponding NSC downstream reference and the editing star from the current standard paragraph; preserve the other GCC/SCC, CIC registration and works-contractor obligations. It is a test drafting decision, not universally approved contract wording and not a quotation from the different 2b clause edition.",
+      "firstDisclosure": "SIM14",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM14",
+        "file": "14_2024-12-30_minutes_scenario_only_supplementary_drafting_decisions.docx",
+        "nativeParagraph": 59,
+        "quote": "For this test scenario only, use the following adopted replacement text at the current standard-template NTT13 amendment position under BSSSC. Remove only the NSC-specific exception, the corresponding NSC downstream reference and the editing star from the current standard paragraph; preserve the other GCC/SCC, CIC registration and works-contractor obligations. It is a test drafting decision, not universally approved contract wording and not a quotation from the different 2b clause edition.",
+        "sha256": "ce83d01d4341aea810e900069b05be85edac46099dae5e9d770c9837976642b9"
+      }
+    },
+    "twoEnvelopeTendering": {
+      "value": true,
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "Explicit requirement for Envelope 1 and Envelope 2.",
+      "firstDisclosure": "SIM06",
+      "sourceReferences": [
+        {
+          "file": "05 - SCT.docx",
+          "clause": "SCT5(2)-(4)",
+          "paragraphs": [
+            {
+              "index": 299,
+              "quote": "(2)The tender shall be submitted in two envelopes: Technical Proposals, Conviction and Serious Accident Records, and Other Submissions shall be submitted in Envelope 1 as scheduled in Condition SCT5(3) below, and Tender Price Documents shall be submitted in Envelope 2 as scheduled in Condition SCT5(4) below.   "
+            },
+            {
+              "index": 307,
+              "quote": "(3)Envelope 1 shall comprise Envelope 1a, Envelope 1b and Envelope 1c, each shall contain respectively the following documents and information:"
+            },
+            {
+              "index": 346,
+              "quote": "(4)Envelope 2 shall contain the Form of Tender, the Bills of Quantities, the schedules of rates and other pricing documents as follows:   "
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM06",
+        "file": "06_2024-12-16_email_two_envelope_tender_and_l10pro_return_requirements.docx",
+        "nativeParagraph": 6,
+        "quote": "SCT5(2) requires two envelopes. Envelope 1 contains technical proposals, conviction and serious accident records, and other submissions; Envelope 2 contains tender price documents. Record Two-envelope Tendering System = Yes. Envelope 1a, 1b and 1c are subdivisions of Envelope 1 and do not change this into a three-envelope system.",
+        "sha256": "9d85ba819544bc27c0ca89eae04c4888dac211aa7f00069902e9d37f9b79507d"
+      }
+    },
+    "otherTenderingArrangement": {
+      "value": null,
+      "status": "not_applicable",
+      "origin": "not_supplied",
+      "rationale": "No verified adopted project answer for this conditional or project-specific field in this audit. Not supplied is not False or an explicit empty list. Check parent dependency before soliciting or synthesizing a separate decision.",
+      "firstDisclosure": null,
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "applicability": "inactive"
+    },
+    "electronicTendering": {
+      "value": "L10Pro",
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "Preparation and issue/pricing format. Actual tender return includes hard copy and DVD-ROM; this is not an online portal submission.",
+      "firstDisclosure": "SIM06",
+      "sourceReferences": [
+        {
+          "file": "05 - SCT.docx",
+          "clause": "SCT3(1)(a), SCT3(4), SCT3(5)(a)",
+          "paragraphs": [
+            {
+              "index": 250,
+              "quote": "(1)(a)Tenderers are required to install the L10Pro program provided in Disc C and use it to price the items in the Bills of Quantities, Master Collection Pages and Summary Pages of the schedules of rates provided in Disc B."
+            },
+            {
+              "index": 271,
+              "quote": "(4)Tenderers shall print out a hard copy of the priced Bills of Quantities (including the Collection Pages and Summary Pages of Bill No. 1), schedules of rates (Master Collection Pages and Summary Pages of Bill Nos. 9 to 11) and General Summary using the L10Pro program for tender submission.  The total of the General Summary must agree with the tendered sum shown on the Form of Tender.  "
+            },
+            {
+              "index": 273,
+              "quote": "(5)(a)Tenderers shall use the L10Pro program to write on a DVD-ROM in encrypted format the electronic files of the priced Bills of Quantities, Master Collection Pages and Summary Pages of Bill Nos. 9 to 11 and the General Summary (without signing).  The DVD-ROM so generated shall be submitted with the hard copy of the Bills of Quantities and schedules of rates as referred to in Condition SCT3(2)(a), SCT3(3)(a) and SCT3(4) above (electronic certificate for submission is not required)."
+            }
+          ]
+        },
+        {
+          "file": "03 - NTT.docx",
+          "clause": "NTT3(c)",
+          "paragraphs": [
+            {
+              "index": 132,
+              "quote": "(c)The Bills of Quantities, Summary Pages of Bill Nos. 9 to 11 of the schedules of rates and General Summary generated by the L10Pro program and printed out in hard copy shall be submitted in Envelope 2 as detailed in Condition SCT5(4).  The tenderer shall also include a DVD-ROM containing the electronic files of the priced Bills of Quantities, Summary Pages of Bill Nos. 9 to 11 of the schedules of rates and General Summary as detailed in Conditions SCT3(5) and SCT3(6). The DVD-ROM shall not form part of the Contract in the event of the tender being accepted.   "
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM06",
+        "file": "06_2024-12-16_email_two_envelope_tender_and_l10pro_return_requirements.docx",
+        "nativeParagraph": 1,
+        "quote": "Two envelope tender and L10Pro return requirements",
+        "sha256": "9d85ba819544bc27c0ca89eae04c4888dac211aa7f00069902e9d37f9b79507d"
+      }
+    },
+    "worksSubjectToExcision": {
+      "value": false,
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "The project Specification expressly states no parts of the Works are subject to excision.",
+      "firstDisclosure": "SIM09",
+      "sourceReferences": [
+        {
+          "file": "25 - Specification - PRE (base tender).docx",
+          "clause": "PRE.B6.200",
+          "paragraphs": [
+            {
+              "index": 2750,
+              "quote": "pre.b6.200.9GCC 9.1 - WORKS SUBJECT TO EXCISION"
+            },
+            {
+              "index": 2751,
+              "quote": "There are no parts of the Works subject to excision."
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM09",
+        "file": "09_2024-12-19_email_works_scope_and_precast_construction_reply.docx",
+        "nativeParagraph": 7,
+        "quote": "Works Subject to Excision specified: No",
+        "sha256": "cfd7fa219489872cc90483ada5e5588e7facaa5308e8da6ae3df26cfd121b51d"
+      }
+    },
+    "siteFormationWorks": {
+      "value": false,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "rationale": "For this scenario only, no site formation works are included.",
+      "firstDisclosure": "SIM14",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM14",
+        "file": "14_2024-12-30_minutes_scenario_only_supplementary_drafting_decisions.docx",
+        "nativeParagraph": 13,
+        "quote": "For this scenario only, no site formation works are included.",
+        "sha256": "ce83d01d4341aea810e900069b05be85edac46099dae5e9d770c9837976642b9"
+      }
+    },
+    "excavationPermitRequired": {
+      "value": false,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "rationale": "For this scenario only, an Excavation Permit is not required.",
+      "firstDisclosure": "SIM14",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM14",
+        "file": "14_2024-12-30_minutes_scenario_only_supplementary_drafting_decisions.docx",
+        "nativeParagraph": 16,
+        "quote": "For this scenario only, an Excavation Permit is not required.",
+        "sha256": "ce83d01d4341aea810e900069b05be85edac46099dae5e9d770c9837976642b9"
+      }
+    },
+    "subsidisedSaleFlatsProduction": {
+      "value": false,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "rationale": "For this scenario only, classify the production as not Subsidised Sale Flats production.",
+      "firstDisclosure": "SIM14",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM14",
+        "file": "14_2024-12-30_minutes_scenario_only_supplementary_drafting_decisions.docx",
+        "nativeParagraph": 19,
+        "quote": "For this scenario only, classify the production as not Subsidised Sale Flats production.",
+        "sha256": "ce83d01d4341aea810e900069b05be85edac46099dae5e9d770c9837976642b9"
+      }
+    },
+    "showFlatsRequirement": {
+      "value": "none",
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "rationale": "For this scenario only, neither Exhibition Flats nor Show Flats are required.",
+      "firstDisclosure": "SIM14",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM14",
+        "file": "14_2024-12-30_minutes_scenario_only_supplementary_drafting_decisions.docx",
+        "nativeParagraph": 22,
+        "quote": "For this scenario only, neither Exhibition Flats nor Show Flats are required.",
+        "sha256": "ce83d01d4341aea810e900069b05be85edac46099dae5e9d770c9837976642b9"
+      }
+    },
+    "domesticBlocks": {
+      "value": true,
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "One domestic block with 250 domestic flats expressly specified.",
+      "firstDisclosure": "SIM09",
+      "sourceReferences": [
+        {
+          "file": "25 - Specification - PRE (base tender).docx",
+          "clause": "PRE.B2.010(1)",
+          "paragraphs": [
+            {
+              "index": 717,
+              "quote": "pre.b2.010.P GENERAL DESCRIPTION OF THE WORKS"
+            },
+            {
+              "index": 718,
+              "quote": "The Works to be executed under this Contract include the construction of the following major items:"
+            },
+            {
+              "index": 719,
+              "quote": "1.One 31-storey domestic block with 250 domestic flats. This block is approximately 80 x 20 m overall on plan, including a 6-storey podium and approximately 105 m high from ground floor to main roof level;   "
+            },
+            {
+              "index": 720,
+              "quote": "The domestic block contains 75 No. of Type B, 125 No. of Type C and 50 No. of Type D domestic units in 25 domestic upper floors; "
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM09",
+        "file": "09_2024-12-19_email_works_scope_and_precast_construction_reply.docx",
+        "nativeParagraph": 10,
+        "quote": "Construction of domestic blocks included: Yes",
+        "sha256": "cfd7fa219489872cc90483ada5e5588e7facaa5308e8da6ae3df26cfd121b51d"
+      }
+    },
+    "volumetricPrecastComponents": {
+      "value": true,
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "Case expressly requires MiC-BK for the domestic flats and includes MiC-BK in the component list referring to CON8. Not inferred merely from facade precasting.",
+      "firstDisclosure": "SIM09",
+      "sourceReferences": [
+        {
+          "file": "25 - Specification - PRE (base tender).docx",
+          "clause": "PRE.B2.010(2), (5)",
+          "paragraphs": [
+            {
+              "index": 721,
+              "quote": "2.The external facades of the domestic units to the entire building are to be constructed in precast concrete panels by the Contractor in accordance with the Drawings and Specification; Domestic flats are to be constructed by Modular Integrated Construction – Bathroom and Kitchen (MiC-BK); Acoustic windows and acoustic balconies are adopted for domestic units along 16 Tung Chung Road from 6/F to 30/F where applicable, particular attention is drawn to Worksections CON5 and CON7;"
+            },
+            {
+              "index": 729,
+              "quote": "5.The following precast concrete components  to domestic block are to be constructed with associated electrical services concealed conduits, accessories and services openings in accordance with the Drawings and Specification; particular attention is drawn to Worksections CON4, CON7 and CON8:"
+            },
+            {
+              "index": 738,
+              "quote": "i.    Modular Integrated Construction - Bathroom and Kitchen completed with fixtures, fittings and finishes; and"
+            }
+          ]
+        },
+        {
+          "file": "25 - Specification - PRE (base tender).docx",
+          "clause": "PRE.B6 material control component reference",
+          "paragraphs": [
+            {
+              "index": 4189,
+              "quote": "b.Precast concrete components and volumetric precast concrete components including MiC-BK as specified in Worksections CON7 and CON8 respectively;"
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM09",
+        "file": "09_2024-12-19_email_works_scope_and_precast_construction_reply.docx",
+        "nativeParagraph": 13,
+        "quote": "CON8 volumetric precast components used: Yes",
+        "sha256": "cfd7fa219489872cc90483ada5e5588e7facaa5308e8da6ae3df26cfd121b51d"
+      }
+    },
+    "precastFacadeTenderBasis": {
+      "value": true,
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "NTT tender basis expressly requires precast concrete facades for domestic flat units, qualified by the Specification and Drawings.",
+      "firstDisclosure": "SIM09",
+      "sourceReferences": [
+        {
+          "file": "03 - NTT.docx",
+          "clause": "NTT1(e)",
+          "paragraphs": [
+            {
+              "index": 86,
+              "quote": "(e)The tender shall be based on the use of precast concrete facades for constructing the external facades to the domestic flat units unless otherwise specified in the Specification or shown on the Drawings."
+            }
+          ]
+        },
+        {
+          "file": "25 - Specification - PRE (base tender).docx",
+          "clause": "PRE.B2.010(2)",
+          "paragraphs": [
+            {
+              "index": 721,
+              "quote": "2.The external facades of the domestic units to the entire building are to be constructed in precast concrete panels by the Contractor in accordance with the Drawings and Specification; Domestic flats are to be constructed by Modular Integrated Construction – Bathroom and Kitchen (MiC-BK); Acoustic windows and acoustic balconies are adopted for domestic units along 16 Tung Chung Road from 6/F to 30/F where applicable, particular attention is drawn to Worksections CON5 and CON7;"
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM09",
+        "file": "09_2024-12-19_email_works_scope_and_precast_construction_reply.docx",
+        "nativeParagraph": 16,
+        "quote": "Tender based on precast concrete facades: Yes",
+        "sha256": "cfd7fa219489872cc90483ada5e5588e7facaa5308e8da6ae3df26cfd121b51d"
+      }
+    },
+    "precastFacadePermission": {
+      "value": true,
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "SCT6 and SCT10 expressly provide required/proposed facades under APE2.A410 and special terms of payment. This is distinct from the tender basis.",
+      "firstDisclosure": "SIM09",
+      "sourceReferences": [
+        {
+          "file": "05 - SCT.docx",
+          "clause": "SCT6(2)(b); SCT10(1)",
+          "paragraphs": [
+            {
+              "index": 464,
+              "quote": "(b)Proposal for special terms of payment for precast concrete facades in accordance with the requirements of Condition SCT10 and Specification clause APE2.A410.  "
+            },
+            {
+              "index": 519,
+              "quote": "SCT10Special terms of payment for precast concrete facade construction"
+            },
+            {
+              "index": 521,
+              "quote": "(1) Where precast concrete facades are required or proposed in accordance with Specification clause APE2.A410, the tenderer may submit, in a separate letter with his tender and enclose it in Envelope 1c as described in Condition SCT5(3)(f), proposals for special terms of payment in respect of on-site plant and equipment that are used primarily with the precast concrete facade construction."
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM09",
+        "file": "09_2024-12-19_email_works_scope_and_precast_construction_reply.docx",
+        "nativeParagraph": 19,
+        "quote": "Precast facades required or proposed under APE2.A410: Yes",
+        "sha256": "cfd7fa219489872cc90483ada5e5588e7facaa5308e8da6ae3df26cfd121b51d"
+      }
+    },
+    "contractorDesignedFoundations": {
+      "value": false,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "rationale": "For this scenario only, the Contractor does not design the foundations. This classification is distinct from the specialist design responsibilities below.",
+      "firstDisclosure": "SIM14",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM14",
+        "file": "14_2024-12-30_minutes_scenario_only_supplementary_drafting_decisions.docx",
+        "nativeParagraph": 25,
+        "quote": "For this scenario only, the Contractor does not design the foundations. This classification is distinct from the specialist design responsibilities below.",
+        "sha256": "ce83d01d4341aea810e900069b05be85edac46099dae5e9d770c9837976642b9"
+      }
+    },
+    "designResponsibilities": {
+      "value": [
+        {
+          "component": "other",
+          "design": true,
+          "execution": true,
+          "scope": "Roofing and associated waterproofing systems"
+        },
+        {
+          "component": "other",
+          "design": true,
+          "execution": true,
+          "scope": "Precast concrete facades and CON8 volumetric precast concrete components"
+        },
+        {
+          "component": "other",
+          "design": true,
+          "execution": true,
+          "scope": "Play equipment and Impact Absorbing Surfacing Materials (IASM)"
+        }
+      ],
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "rationale": "For this scenario only, the following is the complete adopted Contractor design and execution matrix. Each listed specialist component requires both design and execution. No piling, pilecaps or footings component is added. This authored matrix is not claimed to be an exhaustive transcription of the original PRE.",
+      "firstDisclosure": "SIM14",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM14",
+        "file": "14_2024-12-30_minutes_scenario_only_supplementary_drafting_decisions.docx",
+        "nativeParagraph": 28,
+        "quote": "For this scenario only, the following is the complete adopted Contractor design and execution matrix. Each listed specialist component requires both design and execution. No piling, pilecaps or footings component is added. This authored matrix is not claimed to be an exhaustive transcription of the original PRE.",
+        "sha256": "ce83d01d4341aea810e900069b05be85edac46099dae5e9d770c9837976642b9"
+      }
+    },
+    "footingsServeBuildingsOrMajorExternalStructures": {
+      "value": null,
+      "status": "not_applicable",
+      "origin": "not_supplied",
+      "rationale": "No verified adopted project answer for this conditional or project-specific field in this audit. Not supplied is not False or an explicit empty list. Check parent dependency before soliciting or synthesizing a separate decision.",
+      "firstDisclosure": null,
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "applicability": "inactive"
+    },
+    "designEstablishedAtTenderAcceptance": {
+      "value": true,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "rationale": "For this scenario only, assume the design for those adopted specialist components is established at tender acceptance.",
+      "firstDisclosure": "SIM14",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM14",
+        "file": "14_2024-12-30_minutes_scenario_only_supplementary_drafting_decisions.docx",
+        "nativeParagraph": 33,
+        "quote": "For this scenario only, assume the design for those adopted specialist components is established at tender acceptance.",
+        "sha256": "ce83d01d4341aea810e900069b05be85edac46099dae5e9d770c9837976642b9"
+      }
+    },
+    "foundationDesignSubmittedWithTender": {
+      "value": false,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "rationale": "For this scenario only, no Contractor foundation design is to be submitted with the Tender.",
+      "firstDisclosure": "SIM14",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM14",
+        "file": "14_2024-12-30_minutes_scenario_only_supplementary_drafting_decisions.docx",
+        "nativeParagraph": 36,
+        "quote": "For this scenario only, no Contractor foundation design is to be submitted with the Tender.",
+        "sha256": "ce83d01d4341aea810e900069b05be85edac46099dae5e9d770c9837976642b9"
+      }
+    },
+    "quotationBeforeVariation": {
+      "value": null,
+      "status": "unknown",
+      "origin": "deliberately_withheld",
+      "rationale": "The upload communication deliberately withholds the project value; an active unanswered input must remain available for human determination.",
+      "firstDisclosure": null,
+      "humanAdoptedInApplication": false,
+      "applicability": "active"
+    },
+    "wtoGpaApplies": {
+      "value": true,
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "Both the case NTT and SCT expressly apply WTO GPA; no monetary-threshold calculation used.",
+      "firstDisclosure": "SIM09",
+      "sourceReferences": [
+        {
+          "file": "03 - NTT.docx",
+          "clause": "NTT9(a)",
+          "paragraphs": [
+            {
+              "index": 335,
+              "quote": "(a)This tender is covered by the Agreement on Government Procurement of the World Trade Organization (WTO GPA) and the provisions of the WTO GPA will apply to this tender. "
+            }
+          ]
+        },
+        {
+          "file": "05 - SCT.docx",
+          "clause": "SCT14(1)",
+          "paragraphs": [
+            {
+              "index": 568,
+              "quote": "(1)The provisions of the Agreement on Government Procurement of the World Trade Organisation (WTO GPA) apply to the procurement of this Contract.  In the event of a bid challenge by a tenderer to the Review Body on Bid Challenges of alleged breaches of WTO GPA in respect of this procurement, the Employer may be requested by the panel (the Panel) appointed in accordance with the Rules of Operation of the Review Body on Bid Challenges (the Rules) to disclose information submitted by other tenderers."
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM09",
+        "file": "09_2024-12-19_email_works_scope_and_precast_construction_reply.docx",
+        "nativeParagraph": 22,
+        "quote": "Contract subject to WTO GPA: Yes",
+        "sha256": "cfd7fa219489872cc90483ada5e5588e7facaa5308e8da6ae3df26cfd121b51d"
+      }
+    },
+    "railwayProtectionAreaWorks": {
+      "value": false,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "rationale": "For this scenario only, no part of the Works is within the MTRCL Railway Protection Area. This is an explicitly authored site-scope assumption, not an inference from a Not used clause.",
+      "firstDisclosure": "SIM14",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM14",
+        "file": "14_2024-12-30_minutes_scenario_only_supplementary_drafting_decisions.docx",
+        "nativeParagraph": 41,
+        "quote": "For this scenario only, no part of the Works is within the MTRCL Railway Protection Area. This is an explicitly authored site-scope assumption, not an inference from a Not used clause.",
+        "sha256": "ce83d01d4341aea810e900069b05be85edac46099dae5e9d770c9837976642b9"
+      }
+    },
+    "railwayProtectionPlansAvailable": {
+      "value": null,
+      "status": "not_applicable",
+      "origin": "not_supplied",
+      "rationale": "No project railway protection plans or explicit availability answer found in the checked 2b sources. Conditional question remains unestablished.",
+      "firstDisclosure": null,
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "applicability": "inactive"
+    },
+    "oldValuableTrees": {
+      "value": [],
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "rationale": "For this scenario only, the adopted list of Old and Valuable Trees to be preserved is explicitly empty. Do not treat an unknown tree list as this empty list. No registry serial number is invented.",
+      "firstDisclosure": "SIM14",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM14",
+        "file": "14_2024-12-30_minutes_scenario_only_supplementary_drafting_decisions.docx",
+        "nativeParagraph": 44,
+        "quote": "For this scenario only, the adopted list of Old and Valuable Trees to be preserved is explicitly empty. Do not treat an unknown tree list as this empty list. No registry serial number is invented.",
+        "sha256": "ce83d01d4341aea810e900069b05be85edac46099dae5e9d770c9837976642b9"
+      }
+    },
+    "ovtProjectSpecificText": {
+      "value": null,
+      "status": "not_applicable",
+      "origin": "not_supplied",
+      "rationale": "No verified adopted project answer for this conditional or project-specific field in this audit. Not supplied is not False or an explicit empty list. Check parent dependency before soliciting or synthesizing a separate decision.",
+      "firstDisclosure": null,
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "applicability": "inactive"
+    },
+    "pricingScheme": {
+      "value": "BQ_SOR",
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "NTT includes Bills of Quantities plus SOR for BS Specialist Sub-contract Works, not a SOR-only contract.",
+      "firstDisclosure": "SIM10",
+      "sourceReferences": [
+        {
+          "file": "03 - NTT.docx",
+          "clause": "NTT1(a), (f)",
+          "paragraphs": [
+            {
+              "index": 78,
+              "quote": "The tender shall be “Lump Sum” for executing the Works in accordance with the Contract.  Bills of Quantities are included in the Contract."
+            },
+            {
+              "index": 88,
+              "quote": "(f)To supplement sub-clause (a) above, schedules of rates are included in the Contract for building services Specialist Sub-contract Works except for their respective Site Safety, Environmental Management and Site Hygiene included in Bills Nos. 12.2 to 12.4. Tenderers are to complete the schedules of rates with approximate quantities showing the build-up of the total amount of the works carried out by the respective BS Specialist Sub-contractors in the following schedules:"
+            },
+            {
+              "index": 90,
+              "quote": "Bill No. 9 - Electrical Works (Schedule of Rates);"
+            },
+            {
+              "index": 91,
+              "quote": "Bill No. 10 - Fire Services and Water Pump Works (Schedule of Rates); and"
+            },
+            {
+              "index": 92,
+              "quote": "Bill No. 11 - Lift Works (Schedule of Rates)."
+            }
+          ]
+        },
+        {
+          "file": "10 - SCC.docx",
+          "clause": "SCC11.302(1)",
+          "paragraphs": [
+            {
+              "index": 817,
+              "quote": "SCC11.302Schedule of rates (for part of the Works)"
+            },
+            {
+              "index": 819,
+              "quote": "(1)Clause 11.1(5) of the General Conditions of Contract is amended by substituting with the following:-"
+            },
+            {
+              "index": 821,
+              "quote": "(5)Where the Contract specifies that schedule of rates for a part of the Works are included in the Contract, the quality and quantity of the part of the Works the value of which is included in the Contract Sum shall be deemed to be those which are shown on the Drawings and/or described in the Specification. The Contractor shall submit a fully priced and detailed schedule of rates with approximate quantities showing the build-up of the Tender for the part of the Works. When any provisional quantity is included in the schedule of rates by the Employer the item shall be valued at the rate in the schedule of rates. Variations to such part of the Works shall be valued based on the rates included in the schedule of rates in accordance with Clause 11.3."
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM10",
+        "file": "10_2024-12-20_email_pricing_bill_uses_and_photocopy_rates_reply.docx",
+        "nativeParagraph": 7,
+        "quote": "Contract pricing scheme: BQ_SOR",
+        "sha256": "6ce95421d52b19fb5a4f1bfbbcfa7fe1a21e8dcac20c77f198db456c5c9a71fb"
+      }
+    },
+    "allBqQuantitiesProvisional": {
+      "value": false,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "rationale": "For this scenario only, not all BQ quantities are provisional. Bill 12 and Bill 13 keep their original descriptions; this global decision is not inferred merely from their names.",
+      "firstDisclosure": "SIM14",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM14",
+        "file": "14_2024-12-30_minutes_scenario_only_supplementary_drafting_decisions.docx",
+        "nativeParagraph": 47,
+        "quote": "For this scenario only, not all BQ quantities are provisional. Bill 12 and Bill 13 keep their original descriptions; this global decision is not inferred merely from their names.",
+        "sha256": "ce83d01d4341aea810e900069b05be85edac46099dae5e9d770c9837976642b9"
+      }
+    },
+    "billNos": {
+      "value": [
+        {
+          "number": "1",
+          "description": "Preliminaries",
+          "type": "BQ"
+        },
+        {
+          "number": "2",
+          "description": "Preambles",
+          "type": "BQ"
+        },
+        {
+          "number": "3",
+          "description": "Substructure",
+          "type": "BQ"
+        },
+        {
+          "number": "4",
+          "description": "Superstructure for Podium",
+          "type": "BQ"
+        },
+        {
+          "number": "5",
+          "description": "Superstructure for Domestic Block",
+          "type": "BQ"
+        },
+        {
+          "number": "6",
+          "description": "Plumbing Works for Podium and Domestic Block",
+          "type": "BQ"
+        },
+        {
+          "number": "7",
+          "description": "Drainage",
+          "type": "BQ"
+        },
+        {
+          "number": "8",
+          "description": "External Works",
+          "type": "BQ"
+        },
+        {
+          "number": "9",
+          "description": "Electrical Works",
+          "type": "SOR"
+        },
+        {
+          "number": "10",
+          "description": "Fire Services and Water Pump Works",
+          "type": "SOR"
+        },
+        {
+          "number": "11",
+          "description": "Lift Works",
+          "type": "SOR"
+        },
+        {
+          "number": "12",
+          "description": "Site Safety; Environmental Management and Other Sundry Requirements (All Provisional)",
+          "type": "BQ"
+        },
+        {
+          "number": "13",
+          "description": "Provisional Sums",
+          "type": "BQ"
+        }
+      ],
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "13 formal Bill/Schedule titles verified from SCT1 and NTT. Detailed page roles and issue placements are separate from the title and require the explicit SCT1(4)(d) addenda arrangement.",
+      "firstDisclosure": "SIM04",
+      "sourceReferences": [
+        {
+          "file": "05 - SCT.docx",
+          "clause": "SCT1(4)(a)-(d)",
+          "paragraphs": [
+            {
+              "index": 153,
+              "quote": "Bill No. 1 – Preliminaries (excluding Collection Pages and Summary Page)"
+            },
+            {
+              "index": 155,
+              "quote": "Bill No. 2 – Preambles (excluding Collection Page and Summary Page)"
+            },
+            {
+              "index": 175,
+              "quote": "Bill No. 3 – Substructure"
+            },
+            {
+              "index": 177,
+              "quote": "Bill No. 4 – Superstructure for Podium"
+            },
+            {
+              "index": 179,
+              "quote": "Bill No. 5 – Superstructure for Domestic Block"
+            },
+            {
+              "index": 181,
+              "quote": "Bill No. 6 – Plumbing Works for Podium and Domestic Block"
+            },
+            {
+              "index": 183,
+              "quote": "Bill No. 7 – Drainage"
+            },
+            {
+              "index": 185,
+              "quote": "Bill No. 8 – External Works"
+            },
+            {
+              "index": 187,
+              "quote": "Bill No. 12 – Site Safety; Environmental Management and Other Sundry Requirements (All Provisional)"
+            },
+            {
+              "index": 189,
+              "quote": "Bill No. 13 – Provisional Sums"
+            },
+            {
+              "index": 193,
+              "quote": "Bill No. 9 – Electrical Works (Master Collection Page and Summary Page only, the other parts are provided in hard copy)"
+            },
+            {
+              "index": 195,
+              "quote": "Bill No. 10 – Fire Services and Water Pump Works (Master Collection Page and Summary Page only, the other parts are provided in hard copy)"
+            },
+            {
+              "index": 197,
+              "quote": "Bill No. 11 – Lift Works (Master Collection Page and Summary Page only, the other parts are provided in hard copy)"
+            },
+            {
+              "index": 211,
+              "quote": "Bill No. 9 – Electrical Works (excluding Master Collection Page and Summary Page)"
+            },
+            {
+              "index": 213,
+              "quote": "Bill No. 10 – Fire Services and Water Pump Works (excluding Master Collection Page and Summary Page)"
+            },
+            {
+              "index": 215,
+              "quote": "Bill No. 11 – Lift Works (excluding Master Collection Page and Summary Page)"
+            },
+            {
+              "index": 217,
+              "quote": "(4)(d)Notwithstanding Condition SCT1(2)(a) that Bill Nos. 9 to 11 of schedules of rates (excluding Master Collection Pages and Summary Pages) are issued in hard copy, Bill Nos. 9 to 11 of schedules of rates (excluding Master Collection Pages and Summary Pages) are issued in DVD-ROM (Disc A) only in tender documents, and are issued in hard copy in tender addendum/addenda.  Any electronic files of such schedules of rates are issued for tenderers’ reference only without any assurance that they are the same as the original hard copy."
+            }
+          ]
+        },
+        {
+          "file": "03 - NTT.docx",
+          "clause": "NTT1(f) safety exclusion",
+          "paragraphs": [
+            {
+              "index": 88,
+              "quote": "(f)To supplement sub-clause (a) above, schedules of rates are included in the Contract for building services Specialist Sub-contract Works except for their respective Site Safety, Environmental Management and Site Hygiene included in Bills Nos. 12.2 to 12.4. Tenderers are to complete the schedules of rates with approximate quantities showing the build-up of the total amount of the works carried out by the respective BS Specialist Sub-contractors in the following schedules:"
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM04",
+        "file": "04_2024-12-12_email_bill_numbers_and_descriptions_for_drafting.docx",
+        "nativeParagraph": 11,
+        "quote": "Preliminaries",
+        "sha256": "c9364fc2c6ef4acbcbc2beb291d5c2ae36648958151d54294f14f0fe6f250576"
+      }
+    },
+    "photocopyRateUpToA3": {
+      "value": 9.3,
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "Case rate is HK$9.3 per page at or below A3; it is a case value rather than a present-day rate assertion.",
+      "firstDisclosure": "SIM10",
+      "sourceReferences": [
+        {
+          "file": "05 - SCT.docx",
+          "clause": "SCT5(8)(b)",
+          "paragraphs": [
+            {
+              "index": 390,
+              "quote": "(b)In the event of the tenderer failing to submit the required number of copies for the technical proposals, conviction and serious accident records and other submissions, photocopies will be made and the tenderer shall be required to meet the cost of photocopying which shall be assessed at the rate of $9.3 per page for any document page of or below A3 size, and at the rate of $45 per page for any document page exceeding A3 size. "
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM10",
+        "file": "10_2024-12-20_email_pricing_bill_uses_and_photocopy_rates_reply.docx",
+        "nativeParagraph": 10,
+        "quote": "HK$ per page up to A3: 9.3",
+        "sha256": "6ce95421d52b19fb5a4f1bfbbcfa7fe1a21e8dcac20c77f198db456c5c9a71fb"
+      }
+    },
+    "photocopyRateAboveA3": {
+      "value": null,
+      "status": "unknown",
+      "origin": "deliberately_withheld",
+      "rationale": "The upload communication deliberately withholds the project value; an active unanswered input must remain available for human determination.",
+      "firstDisclosure": null,
+      "humanAdoptedInApplication": false,
+      "applicability": "active"
+    },
+    "rseSubmissionsRequired": {
+      "value": true,
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "All specified structural drawings, layouts, details and calculations must be prepared/signed by RSE as required by the Specification. Do not turn this into a submission of all drawings without its scope qualification.",
+      "firstDisclosure": "SIM09",
+      "sourceReferences": [
+        {
+          "file": "05 - SCT.docx",
+          "clause": "SCT6(3)(d)",
+          "paragraphs": [
+            {
+              "index": 474,
+              "quote": "(d)All submissions of structural drawings, layouts, details and calculations are to be prepared and signed by a Registered Structural Engineer as required by the Specification."
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM09",
+        "file": "09_2024-12-19_email_works_scope_and_precast_construction_reply.docx",
+        "nativeParagraph": 25,
+        "quote": "Specific structural submissions require preparation/signature by RSE: Yes",
+        "sha256": "cfd7fa219489872cc90483ada5e5588e7facaa5308e8da6ae3df26cfd121b51d"
+      }
+    },
+    "additionalSubmissions": {
+      "value": [],
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "rationale": "For this scenario only, the list of additional project-specific general tender submission requirements is explicitly empty. Retained standard requirements and existing case Appendix H context remain separate; no extra obligation is invented by an unanswered list.",
+      "firstDisclosure": "SIM14",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM14",
+        "file": "14_2024-12-30_minutes_scenario_only_supplementary_drafting_decisions.docx",
+        "nativeParagraph": 53,
+        "quote": "For this scenario only, the list of additional project-specific general tender submission requirements is explicitly empty. Retained standard requirements and existing case Appendix H context remain separate; no extra obligation is invented by an unanswered list.",
+        "sha256": "ce83d01d4341aea810e900069b05be85edac46099dae5e9d770c9837976642b9"
+      }
+    },
+    "pseSubmissions": {
+      "value": [
+        {
+          "text": "Submit a PSE-endorsed design statement for the proposed CON8 volumetric precast concrete components together with the Tender."
+        }
+      ],
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "rationale": "For this test scenario only, adopt the following additional PSE tender submission wording for the positively established domestic CON8 scope. This is a newly authored test instruction, not a quotation from the case documents.",
+      "firstDisclosure": "SIM14",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM14",
+        "file": "14_2024-12-30_minutes_scenario_only_supplementary_drafting_decisions.docx",
+        "nativeParagraph": 56,
+        "quote": "For this test scenario only, adopt the following additional PSE tender submission wording for the positively established domestic CON8 scope. This is a newly authored test instruction, not a quotation from the case documents.",
+        "sha256": "ce83d01d4341aea810e900069b05be85edac46099dae5e9d770c9837976642b9"
+      }
+    },
+    "projectInTinShuiWai": {
+      "value": false,
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "Case-derived negative location: explicit project identity is Tung Chung Area 98, not a default from the standard template.",
+      "firstDisclosure": "SIM11",
+      "sourceReferences": [
+        {
+          "file": "02 Cover.docx",
+          "clause": "Cover",
+          "paragraphs": [
+            {
+              "index": 10,
+              "quote": "CONSTRUCTION OF PUBLIC HOUSING DEVELOPMENT AT TUNG CHUNG AREA 98 "
+            }
+          ]
+        },
+        {
+          "file": "25 - Specification - PRE (base tender).docx",
+          "clause": "PRE.B1.010",
+          "paragraphs": [
+            {
+              "index": 710,
+              "quote": "The Project is the Construction of Public Housing Development at Tung Chung Area 98 for the Hong Kong Housing Authority."
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM11",
+        "file": "11_2024-12-23_minutes_warranty_scope_review_meeting.docx",
+        "nativeParagraph": 7,
+        "quote": "Project in Tin Shui Wai: No",
+        "sha256": "5c496c02627e70dbccc8a38e8d3eadade35a2be76e722c4e8868cf9d4fbb3934"
+      }
+    },
+    "roofingInstallationIncluded": {
+      "value": true,
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "Roofing and associated waterproofing systems are actual project items within design responsibility and the specified warranty scope.",
+      "firstDisclosure": "SIM11",
+      "sourceReferences": [
+        {
+          "file": "25 - Specification - PRE (base tender).docx",
+          "clause": "PRE.B6.085 design responsibility item",
+          "paragraphs": [
+            {
+              "index": 2447,
+              "quote": "Tanking and waterproofing systems for lift pits, hardened concrete, canopies, roofing, curbs and various rooms/ areas with fire protection fixing details. Proprietary waterproofing system, including all waterproofing membrane, water resistant concrete system and tanking with associated junction details"
+            }
+          ]
+        },
+        {
+          "file": "25 - Specification - PRE (base tender).docx",
+          "clause": "PRE.B6.590(9)",
+          "paragraphs": [
+            {
+              "index": 4338,
+              "quote": "9.All roof areas over domestic flats and non-domestic premises (including green roofs, flat roofs, main roofs, upper roofs, canopies, covered walkways, podium deck, dog houses, smoke vents and duct shafts etc.);"
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM11",
+        "file": "11_2024-12-23_minutes_warranty_scope_review_meeting.docx",
+        "nativeParagraph": 10,
+        "quote": "Roofing installation included: Yes",
+        "sha256": "5c496c02627e70dbccc8a38e8d3eadade35a2be76e722c4e8868cf9d4fbb3934"
+      }
+    },
+    "roofingWarrantyRequired": {
+      "value": true,
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "Actual case SCC7.304 expressly warrants the roofing installation for ten years.",
+      "firstDisclosure": "SIM11",
+      "sourceReferences": [
+        {
+          "file": "10 - SCC.docx",
+          "clause": "SCC7.304(1)(a)",
+          "paragraphs": [
+            {
+              "index": 568,
+              "quote": "SCC7.304Warranty and deed of warranty (roofing installation and/or other waterproofing system installation)"
+            },
+            {
+              "index": 570,
+              "quote": " (1)The Contractor shall unconditionally warrant to the Employer that:-"
+            },
+            {
+              "index": 572,
+              "quote": "(a)the roofing installation including that of the waterproofing membrane, insulation, screeding, roofing tiles, and expansion joints and fittings and accessories (hereinafter referred to as “Roofing Installation”), and"
+            },
+            {
+              "index": 576,
+              "quote": "shall remain watertight and free from leakage or defect for a period of ten years from the date of completion certified by the Contract Manager in the certificate of completion issued under Clause 8.7 of the General Conditions of Contract. Where the Works are phased for completion in Sections, the expression “certificate of completion” shall, for the purposes of this Clause SCC7.304 of the Special Conditions of Contract, mean the certificate of completion issued in respect of the Section in which the Roofing Installation or the Waterproofing System Installation, as the case may be, are certified completed."
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM11",
+        "file": "11_2024-12-23_minutes_warranty_scope_review_meeting.docx",
+        "nativeParagraph": 13,
+        "quote": "Roofing warranty required: Yes",
+        "sha256": "5c496c02627e70dbccc8a38e8d3eadade35a2be76e722c4e8868cf9d4fbb3934"
+      }
+    },
+    "refugeFloorInstallationIncluded": {
+      "value": false,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "rationale": "For this scenario only, no refuge-floor installation is included. Its dependent warranty question is inactive, not an independently answered No.",
+      "firstDisclosure": "SIM14",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM14",
+        "file": "14_2024-12-30_minutes_scenario_only_supplementary_drafting_decisions.docx",
+        "nativeParagraph": 50,
+        "quote": "For this scenario only, no refuge-floor installation is included. Its dependent warranty question is inactive, not an independently answered No.",
+        "sha256": "ce83d01d4341aea810e900069b05be85edac46099dae5e9d770c9837976642b9"
+      }
+    },
+    "refugeFloorWarrantyRequired": {
+      "value": null,
+      "status": "not_applicable",
+      "origin": "not_supplied",
+      "rationale": "SCC7.304 case wording covers roofing and other specified waterproofing without an independently confirmed refuge-floor branch.",
+      "firstDisclosure": null,
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "applicability": "inactive"
+    },
+    "otherWaterproofingWarrantyRequired": {
+      "value": true,
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "Actual case SCC7.304 expressly warrants other specified waterproofing installations; the PRE enumerates the areas.",
+      "firstDisclosure": "SIM11",
+      "sourceReferences": [
+        {
+          "file": "10 - SCC.docx",
+          "clause": "SCC7.304(1)(b)",
+          "paragraphs": [
+            {
+              "index": 574,
+              "quote": "(b)other waterproofing system installation to the areas as specified in the Contract comprising, as the case may be, the waterproofing membrane (whether liquid, sheet or other forms of application), screeding (with or without waterproofing additives), insulation, tiles, joints, fittings and accessories (hereinafter referred to as “Waterproofing System Installation”)"
+            },
+            {
+              "index": 576,
+              "quote": "shall remain watertight and free from leakage or defect for a period of ten years from the date of completion certified by the Contract Manager in the certificate of completion issued under Clause 8.7 of the General Conditions of Contract. Where the Works are phased for completion in Sections, the expression “certificate of completion” shall, for the purposes of this Clause SCC7.304 of the Special Conditions of Contract, mean the certificate of completion issued in respect of the Section in which the Roofing Installation or the Waterproofing System Installation, as the case may be, are certified completed."
+            }
+          ]
+        },
+        {
+          "file": "25 - Specification - PRE (base tender).docx",
+          "clause": "PRE.B6.590",
+          "paragraphs": [
+            {
+              "index": 4327,
+              "quote": "PRE.b6.590.p SCC7.304 - WARRANTY AND DEED OF WARRANTY (roofing installation and / or other Waterproofing system installation)"
+            },
+            {
+              "index": 4328,
+              "quote": "Pursuant to Clause SCC7.304, warrant the Waterproofing System Installation in the following areas:"
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM11",
+        "file": "11_2024-12-23_minutes_warranty_scope_review_meeting.docx",
+        "nativeParagraph": 16,
+        "quote": "Other waterproofing warranty required: Yes",
+        "sha256": "5c496c02627e70dbccc8a38e8d3eadade35a2be76e722c4e8868cf9d4fbb3934"
+      }
+    },
+    "otherWaterproofingSpecificationAreas": {
+      "value": "1.Kitchens;\n2.Bathrooms, toilets, lavatories;\n3.Refuse storage and material recovery rooms (RS&MRR), refuse storage and material recovery chambers (RS&MRC), refuse collection points (RCP), refuse storage and Junk Collection Points (JCP);\n4.Lift pits, sump pits and lift pit floors;\n5. External tankings of maintenance access for lift pits;\n6.External tankings of car park and car ramp connecting to car park;\n7.Internal tankings;\n8.Planters and landscaped decks at podium floors (including zero irrigation system planters), podium garden, structures associated with vertical greening and green roof;\n9.All roof areas over domestic flats and non-domestic premises (including green roofs, flat roofs, main roofs, upper roofs, canopies, covered walkways, podium deck, dog houses, smoke vents and duct shafts etc.);\n10.  Water pump rooms, associated drain pits and water meter rooms / cabinet / cupboards;\n11.Fresh, flush and fire services water pump rooms and associated drain pits for overflow pipes, master water meter rooms, water meter rooms, electrical plant / services rooms adjacent to water meter rooms / cabinets / water pump rooms;\n12.Suspended manholes and suspended cable trenches / chambers and draw pits;\n13.G/F level slabs;\n14.Walls of pipe ducts and water pump rooms adjoining transformer rooms, electrical meter/ switch rooms, TBE Room, emergency generator room and electrical plant rooms; \n15.Services platform for pipework installation above common areas, back of house, service corridors, plant rooms, domestic and non-domestic area;\n16.Service platform for Building Services installation such as fans, air conditioners and pipeworks etc.; \n17.Potable, flushing and fire services pump rooms, including associated drain pits for overflow pipes; and\n18. All areas with waterproofing membranes, waterproofing layers or waterproofing systems.",
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "Full 18 area list copied from PRE.B6.590; retain actual numbering, wording and catch-all item 18.",
+      "firstDisclosure": "SIM11",
+      "sourceReferences": [
+        {
+          "file": "25 - Specification - PRE (base tender).docx",
+          "clause": "PRE.B6.590(1)-(18)",
+          "paragraphs": [
+            {
+              "index": 4327,
+              "quote": "PRE.b6.590.p SCC7.304 - WARRANTY AND DEED OF WARRANTY (roofing installation and / or other Waterproofing system installation)"
+            },
+            {
+              "index": 4328,
+              "quote": "Pursuant to Clause SCC7.304, warrant the Waterproofing System Installation in the following areas:"
+            },
+            {
+              "index": 4329,
+              "quote": "1.Kitchens;"
+            },
+            {
+              "index": 4330,
+              "quote": "2.Bathrooms, toilets, lavatories;"
+            },
+            {
+              "index": 4331,
+              "quote": "3.Refuse storage and material recovery rooms (RS&MRR), refuse storage and material recovery chambers (RS&MRC), refuse collection points (RCP), refuse storage and Junk Collection Points (JCP);"
+            },
+            {
+              "index": 4332,
+              "quote": "4.Lift pits, sump pits and lift pit floors;"
+            },
+            {
+              "index": 4333,
+              "quote": "5. External tankings of maintenance access for lift pits;"
+            },
+            {
+              "index": 4335,
+              "quote": "6.External tankings of car park and car ramp connecting to car park;"
+            },
+            {
+              "index": 4336,
+              "quote": "7.Internal tankings;"
+            },
+            {
+              "index": 4337,
+              "quote": "8.Planters and landscaped decks at podium floors (including zero irrigation system planters), podium garden, structures associated with vertical greening and green roof;"
+            },
+            {
+              "index": 4338,
+              "quote": "9.All roof areas over domestic flats and non-domestic premises (including green roofs, flat roofs, main roofs, upper roofs, canopies, covered walkways, podium deck, dog houses, smoke vents and duct shafts etc.);"
+            },
+            {
+              "index": 4339,
+              "quote": "10.  Water pump rooms, associated drain pits and water meter rooms / cabinet / cupboards;"
+            },
+            {
+              "index": 4340,
+              "quote": "11.Fresh, flush and fire services water pump rooms and associated drain pits for overflow pipes, master water meter rooms, water meter rooms, electrical plant / services rooms adjacent to water meter rooms / cabinets / water pump rooms;"
+            },
+            {
+              "index": 4341,
+              "quote": "12.Suspended manholes and suspended cable trenches / chambers and draw pits;"
+            },
+            {
+              "index": 4342,
+              "quote": "13.G/F level slabs;"
+            },
+            {
+              "index": 4343,
+              "quote": "14.Walls of pipe ducts and water pump rooms adjoining transformer rooms, electrical meter/ switch rooms, TBE Room, emergency generator room and electrical plant rooms; "
+            },
+            {
+              "index": 4344,
+              "quote": "15.Services platform for pipework installation above common areas, back of house, service corridors, plant rooms, domestic and non-domestic area;"
+            },
+            {
+              "index": 4345,
+              "quote": "16.Service platform for Building Services installation such as fans, air conditioners and pipeworks etc.; "
+            },
+            {
+              "index": 4346,
+              "quote": "17.Potable, flushing and fire services pump rooms, including associated drain pits for overflow pipes; and"
+            },
+            {
+              "index": 4347,
+              "quote": "18. All areas with waterproofing membranes, waterproofing layers or waterproofing systems."
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM11",
+        "file": "11_2024-12-23_minutes_warranty_scope_review_meeting.docx",
+        "nativeParagraph": 19,
+        "quote": "Other waterproofing areas specified in Specification: 1.Kitchens;",
+        "sha256": "5c496c02627e70dbccc8a38e8d3eadade35a2be76e722c4e8868cf9d4fbb3934"
+      }
+    },
+    "acrylicPaintWarrantyRequired": {
+      "value": true,
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "Actual case SCC7.305 contains the seven-year warranty; this records an adopted project provision.",
+      "firstDisclosure": "SIM11",
+      "sourceReferences": [
+        {
+          "file": "10 - SCC.docx",
+          "clause": "SCC7.305(1)",
+          "paragraphs": [
+            {
+              "index": 608,
+              "quote": "SCC7.305Warranty (multi-layer acrylic paint)"
+            },
+            {
+              "index": 610,
+              "quote": "(1)The Contractor shall unconditionally warrant to the Employer that the multi-layer acrylic paint finish (including any backing, concrete or the blockwork surfaces, as the case may be, to receive the backing or the multi-layer acrylic paint finish), to be free from peeling, cracking or discoloration for a warranty period of seven years from the date of completion certified by the Contract Manager in the certificate of completion issued under Clause 8.7 of the General Conditions of Contract. Where the Works are phased for completion in Sections, the expression “certificate of completion” shall, for the purpose of this Clause SCC7.305 of the Special Conditions of Contract, mean the certificate of completion issued under Clause 8.7 of the General Conditions of Contract in which the multi-layer acrylic paint finish is certified completed."
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM11",
+        "file": "11_2024-12-23_minutes_warranty_scope_review_meeting.docx",
+        "nativeParagraph": 39,
+        "quote": "Acrylic paint warranty required: Yes",
+        "sha256": "5c496c02627e70dbccc8a38e8d3eadade35a2be76e722c4e8868cf9d4fbb3934"
+      }
+    },
+    "wallTilingWarrantyRequired": {
+      "value": true,
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "Actual case SCC7.306 warrants Wall Tiling Works; period is five years commencing two years after completion, not an invented immediately-starting warranty.",
+      "firstDisclosure": "SIM11",
+      "sourceReferences": [
+        {
+          "file": "10 - SCC.docx",
+          "clause": "SCC7.306(1)-(2)",
+          "paragraphs": [
+            {
+              "index": 620,
+              "quote": "SCC7.306Warranty (wall tiling works)"
+            },
+            {
+              "index": 622,
+              "quote": "(1)For the purpose of this Clause SCC7.306 of the Special Conditions of Contract, “Wall Tiling Works” means tiles and tile fixing systems fixed or installed to or on walls and columns of any buildings or structures, including such associated fins, projections, recesses, beams, features, skirting and the like and such other areas, surfaces or locations as shown on the Drawings with tile fixing systems designed by the Contractor. The tile fixing systems shall include but not be limited to all necessary preparatory works, spatterdash, beds, screeds, renderings, grouting, slurries, adhesives, bonding agents, fixings and the like for the fixing or installation of the tiles."
+            },
+            {
+              "index": 624,
+              "quote": "(2)The Contractor shall unconditionally warrant to the Employer that he shall at his own expense repair, rectify, or make good any defect of the Wall Tiling Works as may be identified to him for a period of five years commencing from the day which is two years from the date of completion stated in the certificate of completion issued under Clause 8.7 of the General Conditions of Contract. Where there is more than one such certificate of completion, the 5-year period of warranty for the Wall Tiling Works of or in the buildings or structures shall commence from the day which is two years from the date of completion stated in the certificate of completion in respect of such buildings or structures. The Contractor shall, at his own expense, carry out such work of repair or rectification, or make good any defect of the Wall Tiling Works as soon as practicable upon notification by the Employer."
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM11",
+        "file": "11_2024-12-23_minutes_warranty_scope_review_meeting.docx",
+        "nativeParagraph": 42,
+        "quote": "Wall tiling warranty required: Yes",
+        "sha256": "5c496c02627e70dbccc8a38e8d3eadade35a2be76e722c4e8868cf9d4fbb3934"
+      }
+    },
+    "playEquipmentIncluded": {
+      "value": true,
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "Actual case SCC requires design, supply and installation of play equipment, and PRE includes play/fitness equipment in the material scope.",
+      "firstDisclosure": "SIM11",
+      "sourceReferences": [
+        {
+          "file": "10 - SCC.docx",
+          "clause": "SCC7.307(3)(a)",
+          "paragraphs": [
+            {
+              "index": 648,
+              "quote": "SCC7.307Warranty and deed of warranty for play equipment and IASM"
+            },
+            {
+              "index": 650,
+              "quote": "(1)For the purpose of this Clause SCC7.307 of the Special Conditions of Contract, “Play Equipment” means the proprietary play equipment including fitness equipment as specified in and/or required under the Contract."
+            },
+            {
+              "index": 654,
+              "quote": "(3)The Contractor shall unconditionally warrant to the Employer that he shall:-"
+            },
+            {
+              "index": 656,
+              "quote": "(a)execute and complete the design, supply and installation of the Play Equipment and the Impact Absorbing Surfacing Materials (IASM) and carry out each and all of the obligations, duties and undertakings of the Contractor in relation thereto, in accordance with the Contract and the warranty under this Clause SCC7.307 of the Special Conditions of Contract, and"
+            }
+          ]
+        },
+        {
+          "file": "25 - Specification - PRE (base tender).docx",
+          "clause": "PRE.B6 material scope",
+          "paragraphs": [
+            {
+              "index": 4203,
+              "quote": "e.Play/fitness equipment;"
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM11",
+        "file": "11_2024-12-23_minutes_warranty_scope_review_meeting.docx",
+        "nativeParagraph": 45,
+        "quote": "Play equipment included: Yes",
+        "sha256": "5c496c02627e70dbccc8a38e8d3eadade35a2be76e722c4e8868cf9d4fbb3934"
+      }
+    },
+    "iasmIncluded": {
+      "value": true,
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "Actual case requires IASM design/supply/installation; PRE identifies EXT10 IASM and associated works.",
+      "firstDisclosure": "SIM11",
+      "sourceReferences": [
+        {
+          "file": "10 - SCC.docx",
+          "clause": "SCC7.307(2)-(3)",
+          "paragraphs": [
+            {
+              "index": 652,
+              "quote": "(2)For the purpose of this Clause SCC7.307 of the Special Conditions of Contract, “Impact Absorbing Surfacing Materials” or “IASM” means the proprietary all-weather permeable synthetic layer to the ground of designated play/fitness area, as specified in and/or required under the Contract."
+            },
+            {
+              "index": 654,
+              "quote": "(3)The Contractor shall unconditionally warrant to the Employer that he shall:-"
+            },
+            {
+              "index": 656,
+              "quote": "(a)execute and complete the design, supply and installation of the Play Equipment and the Impact Absorbing Surfacing Materials (IASM) and carry out each and all of the obligations, duties and undertakings of the Contractor in relation thereto, in accordance with the Contract and the warranty under this Clause SCC7.307 of the Special Conditions of Contract, and"
+            }
+          ]
+        },
+        {
+          "file": "25 - Specification - PRE (base tender).docx",
+          "clause": "PRE phased contractor design item",
+          "paragraphs": [
+            {
+              "index": 1213,
+              "quote": "Play and fitness equipment impact absorbing surfacing materials (IASM) as per EXT10, ethylenepropylene-diene-monomer (EPDM) system and signage including footings, supporting structures, foundations, cast-in anchors/ brackets and fixing details"
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM11",
+        "file": "11_2024-12-23_minutes_warranty_scope_review_meeting.docx",
+        "nativeParagraph": 48,
+        "quote": "IASM included: Yes",
+        "sha256": "5c496c02627e70dbccc8a38e8d3eadade35a2be76e722c4e8868cf9d4fbb3934"
+      }
+    },
+    "epoxyCastIronPipeWarrantyRequired": {
+      "value": true,
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "Actual case SCC7.308 unconditionally warrants material/workmanship of epoxy-coated cast iron pipework; start/duration distinctions remain in the quote.",
+      "firstDisclosure": "SIM11",
+      "sourceReferences": [
+        {
+          "file": "10 - SCC.docx",
+          "clause": "SCC7.308(1)-(2)",
+          "paragraphs": [
+            {
+              "index": 717,
+              "quote": "SCC7.308Warranty (epoxy coated cast iron pipework)"
+            },
+            {
+              "index": 719,
+              "quote": "For the purpose of this Clause SCC7.308 of the Special Conditions of Contract, “epoxy coated cast iron pipework” shall comprise epoxy coated cast iron pipes and fittings including coupling and grip collar joints of the Works."
+            },
+            {
+              "index": 721,
+              "quote": "(2)The Contractor shall, subject to the provisos of this Clause SCC7.308(2) of the Special Conditions of Contract, unconditionally warrant to the Employer that the material and workmanship of the epoxy coated cast iron pipework of the Works shall conform to the requirements as specified in the Contract and be fit for the purposes intended by the Employer without :-"
+            },
+            {
+              "index": 737,
+              "quote": "for a period of three years commencing from the day which is two years from the date of completion stated in the certificate of completion issued under Clause 8.7 of the General Conditions of Contract. Where the Works are phased for completion in Sections and there is more than one such certificate of completion, the three-year period of warranty for the epoxy coated cast iron pipework of the relevant Section shall respectively commence from the day which is two years from the date of completion stated in the certificate of completion in respect of such relevant Section."
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM11",
+        "file": "11_2024-12-23_minutes_warranty_scope_review_meeting.docx",
+        "nativeParagraph": 51,
+        "quote": "Epoxy coated cast iron pipes / fittings warranty required: Yes",
+        "sha256": "5c496c02627e70dbccc8a38e8d3eadade35a2be76e722c4e8868cf9d4fbb3934"
+      }
+    },
+    "sections": {
+      "value": [],
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "No special requirements for phased completion in Sections are expressly specified; do not invent a Section A from the one domestic block or treat generic Section wording elsewhere as a numbered Section schedule.",
+      "firstDisclosure": "SIM13",
+      "sourceReferences": [
+        {
+          "file": "25 - Specification - PRE (base tender).docx",
+          "clause": "PRE.B4.080(1)",
+          "paragraphs": [
+            {
+              "index": 1283,
+              "quote": "PRe.b4.080.PSECTIONS FOR PHASED COMPLETION"
+            },
+            {
+              "index": 1284,
+              "quote": "1. There are no special requirements for phased completion of the Works in Sections for this Contract;"
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM13",
+        "file": "13_2024-12-27_minutes_sections_special_clauses_and_advance_payment_review.docx",
+        "nativeParagraph": 7,
+        "quote": "Sections: Works type and location: Explicitly none",
+        "sha256": "871b17041920fab36b874d4ee06e409d599bd53868bfd423a220fc6ccf5ae1aa"
+      }
+    },
+    "buildingDemolitionSitesSeparated": {
+      "value": false,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "rationale": "For this scenario only, the building and demolition sites do not form the separate, detached arrangement needed for SCC8.303. No demolition-only Section is invented; SIM13 already states there are no phased-completion Sections.",
+      "firstDisclosure": "SIM14",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM14",
+        "file": "14_2024-12-30_minutes_scenario_only_supplementary_drafting_decisions.docx",
+        "nativeParagraph": 62,
+        "quote": "For this scenario only, the building and demolition sites do not form the separate, detached arrangement needed for SCC8.303. No demolition-only Section is invented; SIM13 already states there are no phased-completion Sections.",
+        "sha256": "ce83d01d4341aea810e900069b05be85edac46099dae5e9d770c9837976642b9"
+      }
+    },
+    "weatherEotClause": {
+      "value": "SCC8.302",
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "Actual case adopts SCC8.302; the neighboring optional SCC8.303 is Not used.",
+      "firstDisclosure": "SIM13",
+      "sourceReferences": [
+        {
+          "file": "10 - SCC.docx",
+          "clause": "SCC8.302; SCC8.303",
+          "paragraphs": [
+            {
+              "index": 765,
+              "quote": "SCC8.302Extension of time for completion"
+            },
+            {
+              "index": 767,
+              "quote": "Clause 8.4(2)(b)(xii) of the General Conditions of Contract is deleted and replaced by “Not used”."
+            },
+            {
+              "index": 769,
+              "quote": "SCC8.303Not used "
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM13",
+        "file": "13_2024-12-27_minutes_sections_special_clauses_and_advance_payment_review.docx",
+        "nativeParagraph": 10,
+        "quote": "Adopted weather / EOT arrangement: SCC8.302",
+        "sha256": "871b17041920fab36b874d4ee06e409d599bd53868bfd423a220fc6ccf5ae1aa"
+      }
+    },
+    "demolitionOnlySection": {
+      "value": null,
+      "status": "not_applicable",
+      "origin": "not_supplied",
+      "rationale": "No verified adopted project answer for this conditional or project-specific field in this audit. Not supplied is not False or an explicit empty list. Check parent dependency before soliciting or synthesizing a separate decision.",
+      "firstDisclosure": null,
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "applicability": "inactive"
+    },
+    "latePossessionAdopted": {
+      "value": false,
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "Case adoption decision is explicitly Not used at SCC8.301; it is not a claim that actual site handover occurred on time.",
+      "firstDisclosure": "SIM13",
+      "sourceReferences": [
+        {
+          "file": "10 - SCC.docx",
+          "clause": "SCC8.301",
+          "paragraphs": [
+            {
+              "index": 763,
+              "quote": "SCC8.301Not used"
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM13",
+        "file": "13_2024-12-27_minutes_sections_special_clauses_and_advance_payment_review.docx",
+        "nativeParagraph": 13,
+        "quote": "Adopt special late site possession provision (SCC8.301): No",
+        "sha256": "871b17041920fab36b874d4ee06e409d599bd53868bfd423a220fc6ccf5ae1aa"
+      }
+    },
+    "additionalLossAdopted": {
+      "value": false,
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "Case adoption decision is explicitly Not used at SCC8.305; it is not a finding on actual loss events.",
+      "firstDisclosure": "SIM13",
+      "sourceReferences": [
+        {
+          "file": "10 - SCC.docx",
+          "clause": "SCC8.305",
+          "paragraphs": [
+            {
+              "index": 773,
+              "quote": "SCC8.305Not used"
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM13",
+        "file": "13_2024-12-27_minutes_sections_special_clauses_and_advance_payment_review.docx",
+        "nativeParagraph": 16,
+        "quote": "Adopt special additional losses provision (SCC8.305): No",
+        "sha256": "871b17041920fab36b874d4ee06e409d599bd53868bfd423a220fc6ccf5ae1aa"
+      }
+    },
+    "additionalLossSpecifiedSections": {
+      "value": null,
+      "status": "not_applicable",
+      "origin": "not_supplied",
+      "rationale": "No verified adopted project answer for this conditional or project-specific field in this audit. Not supplied is not False or an explicit empty list. Check parent dependency before soliciting or synthesizing a separate decision.",
+      "firstDisclosure": null,
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "applicability": "inactive"
+    },
+    "additionalLossRelevantSection": {
+      "value": null,
+      "status": "not_applicable",
+      "origin": "not_supplied",
+      "rationale": "No verified adopted project answer for this conditional or project-specific field in this audit. Not supplied is not False or an explicit empty list. Check parent dependency before soliciting or synthesizing a separate decision.",
+      "firstDisclosure": null,
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "applicability": "inactive"
+    },
+    "policeTrainingAdopted": {
+      "value": false,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "rationale": "For this scenario only, do not adopt the optional police-training provision. The associated demolition-building and first-month suitability details are inactive.",
+      "firstDisclosure": "SIM14",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM14",
+        "file": "14_2024-12-30_minutes_scenario_only_supplementary_drafting_decisions.docx",
+        "nativeParagraph": 65,
+        "quote": "For this scenario only, do not adopt the optional police-training provision. The associated demolition-building and first-month suitability details are inactive.",
+        "sha256": "ce83d01d4341aea810e900069b05be85edac46099dae5e9d770c9837976642b9"
+      }
+    },
+    "demolitionStandaloneBuilding": {
+      "value": null,
+      "status": "not_applicable",
+      "origin": "not_supplied",
+      "rationale": "No verified adopted project answer for this conditional or project-specific field in this audit. Not supplied is not False or an explicit empty list. Check parent dependency before soliciting or synthesizing a separate decision.",
+      "firstDisclosure": null,
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "applicability": "inactive"
+    },
+    "siteSuitableForTrainingFirstMonth": {
+      "value": null,
+      "status": "not_applicable",
+      "origin": "not_supplied",
+      "rationale": "No verified adopted project answer for this conditional or project-specific field in this audit. Not supplied is not False or an explicit empty list. Check parent dependency before soliciting or synthesizing a separate decision.",
+      "firstDisclosure": null,
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "applicability": "inactive"
+    },
+    "contractorLegalForm": {
+      "value": null,
+      "status": "intentionally_unknown",
+      "origin": "not_supplied",
+      "rationale": "The eventual contractor form is not known at tender drafting; do not fabricate future tenderer identity.",
+      "firstDisclosure": null,
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "applicability": "active"
+    },
+    "partnershipClauseAdopted": {
+      "value": false,
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "Actual case SCC22.308 is Not used; contractor legal form remains unknown.",
+      "firstDisclosure": "SIM13",
+      "sourceReferences": [
+        {
+          "file": "10 - SCC.docx",
+          "clause": "SCC22.308",
+          "paragraphs": [
+            {
+              "index": 1500,
+              "quote": "SCC22.308Not used"
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM13",
+        "file": "13_2024-12-27_minutes_sections_special_clauses_and_advance_payment_review.docx",
+        "nativeParagraph": 19,
+        "quote": "This draft: adopt SCC22.308 if form is unknown: No",
+        "sha256": "871b17041920fab36b874d4ee06e409d599bd53868bfd423a220fc6ccf5ae1aa"
+      }
+    },
+    "jointVentureClauseAdopted": {
+      "value": false,
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "Actual case SCC22.309 is Not used; contractor legal form remains unknown.",
+      "firstDisclosure": "SIM13",
+      "sourceReferences": [
+        {
+          "file": "10 - SCC.docx",
+          "clause": "SCC22.309",
+          "paragraphs": [
+            {
+              "index": 1502,
+              "quote": "SCC22.309Not used"
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM13",
+        "file": "13_2024-12-27_minutes_sections_special_clauses_and_advance_payment_review.docx",
+        "nativeParagraph": 22,
+        "quote": "This draft: adopt SCC22.309 if form is unknown: No",
+        "sha256": "871b17041920fab36b874d4ee06e409d599bd53868bfd423a220fc6ccf5ae1aa"
+      }
+    },
+    "projectArchitectPost": {
+      "value": "A/T1",
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "The case names the Housing Department officer for GCT7/GCT8 at SCT7(1). Retain exact post/name/salutation; do not invent a personal title or change to a company.",
+      "firstDisclosure": "SIM12",
+      "sourceReferences": [
+        {
+          "file": "05 - SCT.docx",
+          "clause": "SCT7(1)",
+          "paragraphs": [
+            {
+              "index": 481,
+              "quote": "(1)For the purpose of GCT Conditions 7 and 8, the Housing Department officer is A/T1 (Ms Emily T.L. WONG), telephone 2761 6161.          ."
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM12",
+        "file": "12_2024-12-24_email_project_architect_and_inspection_arrangements_reply.docx",
+        "nativeParagraph": 7,
+        "quote": "Project Architect post: A/T1",
+        "sha256": "5f9a166d06038d9c9c5a248f7eda8d8f23a7702d9338e746346be28094ecf9ed"
+      }
+    },
+    "projectArchitectSalutation": {
+      "value": "Ms",
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "The case names the Housing Department officer for GCT7/GCT8 at SCT7(1). Retain exact post/name/salutation; do not invent a personal title or change to a company.",
+      "firstDisclosure": "SIM12",
+      "sourceReferences": [
+        {
+          "file": "05 - SCT.docx",
+          "clause": "SCT7(1)",
+          "paragraphs": [
+            {
+              "index": 481,
+              "quote": "(1)For the purpose of GCT Conditions 7 and 8, the Housing Department officer is A/T1 (Ms Emily T.L. WONG), telephone 2761 6161.          ."
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM12",
+        "file": "12_2024-12-24_email_project_architect_and_inspection_arrangements_reply.docx",
+        "nativeParagraph": 10,
+        "quote": "Salutation: Ms",
+        "sha256": "5f9a166d06038d9c9c5a248f7eda8d8f23a7702d9338e746346be28094ecf9ed"
+      }
+    },
+    "projectArchitectOtherTitle": {
+      "value": null,
+      "status": "not_applicable",
+      "origin": "not_supplied",
+      "rationale": "No verified adopted project answer for this conditional or project-specific field in this audit. Not supplied is not False or an explicit empty list. Check parent dependency before soliciting or synthesizing a separate decision.",
+      "firstDisclosure": null,
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "applicability": "inactive"
+    },
+    "projectArchitectName": {
+      "value": "Emily T.L. WONG",
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "The case names the Housing Department officer for GCT7/GCT8 at SCT7(1). Retain exact post/name/salutation; do not invent a personal title or change to a company.",
+      "firstDisclosure": "SIM12",
+      "sourceReferences": [
+        {
+          "file": "05 - SCT.docx",
+          "clause": "SCT7(1)",
+          "paragraphs": [
+            {
+              "index": 481,
+              "quote": "(1)For the purpose of GCT Conditions 7 and 8, the Housing Department officer is A/T1 (Ms Emily T.L. WONG), telephone 2761 6161.          ."
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM12",
+        "file": "12_2024-12-24_email_project_architect_and_inspection_arrangements_reply.docx",
+        "nativeParagraph": 13,
+        "quote": "Project Architect name: Emily T.L. WONG",
+        "sha256": "5f9a166d06038d9c9c5a248f7eda8d8f23a7702d9338e746346be28094ecf9ed"
+      }
+    },
+    "projectArchitectPhone": {
+      "value": null,
+      "status": "unknown",
+      "origin": "deliberately_withheld",
+      "rationale": "The upload communication deliberately withholds the project value; an active unanswered input must remain available for human determination.",
+      "firstDisclosure": null,
+      "humanAdoptedInApplication": false,
+      "applicability": "active"
+    },
+    "specificationInspectionFloor": {
+      "value": "B1",
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "Actual case inspection location is B1 floor, Block 2, Housing Authority Headquarters; not the separate PTSS/Contract Officer locations.",
+      "firstDisclosure": "SIM12",
+      "sourceReferences": [
+        {
+          "file": "05 - SCT.docx",
+          "clause": "SCT7(2)",
+          "paragraphs": [
+            {
+              "index": 483,
+              "quote": "(2)For the purpose of GCT Condition 2(a), the Hong Kong Housing Authority Specification Library 2022 Edition may be inspected at the B1 floor, Block 2, Housing Authority Headquarters."
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM12",
+        "file": "12_2024-12-24_email_project_architect_and_inspection_arrangements_reply.docx",
+        "nativeParagraph": 18,
+        "quote": "Specification Library inspection floor: B1",
+        "sha256": "5f9a166d06038d9c9c5a248f7eda8d8f23a7702d9338e746346be28094ecf9ed"
+      }
+    },
+    "specificationInspectionBlock": {
+      "value": "2",
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "Actual case inspection location is B1 floor, Block 2, Housing Authority Headquarters; not the separate PTSS/Contract Officer locations.",
+      "firstDisclosure": "SIM12",
+      "sourceReferences": [
+        {
+          "file": "05 - SCT.docx",
+          "clause": "SCT7(2)",
+          "paragraphs": [
+            {
+              "index": 483,
+              "quote": "(2)For the purpose of GCT Condition 2(a), the Hong Kong Housing Authority Specification Library 2022 Edition may be inspected at the B1 floor, Block 2, Housing Authority Headquarters."
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM12",
+        "file": "12_2024-12-24_email_project_architect_and_inspection_arrangements_reply.docx",
+        "nativeParagraph": 21,
+        "quote": "Specification Library inspection block: 2",
+        "sha256": "5f9a166d06038d9c9c5a248f7eda8d8f23a7702d9338e746346be28094ecf9ed"
+      }
+    },
+    "drawingsInspectionFloor": {
+      "value": "B1",
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "Actual case inspection location is B1 floor, Block 2, Housing Authority Headquarters; not the separate PTSS/Contract Officer locations.",
+      "firstDisclosure": "SIM12",
+      "sourceReferences": [
+        {
+          "file": "05 - SCT.docx",
+          "clause": "SCT7(3)",
+          "paragraphs": [
+            {
+              "index": 485,
+              "quote": "(3)For the purpose of Conditions SCT1(5)(b) and SCT1(3)(b) above, the drawings may be inspected at the B1 floor, Block 2, Housing Authority Headquarters."
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM12",
+        "file": "12_2024-12-24_email_project_architect_and_inspection_arrangements_reply.docx",
+        "nativeParagraph": 24,
+        "quote": "Drawings inspection floor: B1",
+        "sha256": "5f9a166d06038d9c9c5a248f7eda8d8f23a7702d9338e746346be28094ecf9ed"
+      }
+    },
+    "drawingsInspectionBlock": {
+      "value": "2",
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "Actual case inspection location is B1 floor, Block 2, Housing Authority Headquarters; not the separate PTSS/Contract Officer locations.",
+      "firstDisclosure": "SIM12",
+      "sourceReferences": [
+        {
+          "file": "05 - SCT.docx",
+          "clause": "SCT7(3)",
+          "paragraphs": [
+            {
+              "index": 485,
+              "quote": "(3)For the purpose of Conditions SCT1(5)(b) and SCT1(3)(b) above, the drawings may be inspected at the B1 floor, Block 2, Housing Authority Headquarters."
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM12",
+        "file": "12_2024-12-24_email_project_architect_and_inspection_arrangements_reply.docx",
+        "nativeParagraph": 27,
+        "quote": "Drawings inspection block: 2",
+        "sha256": "5f9a166d06038d9c9c5a248f7eda8d8f23a7702d9338e746346be28094ecf9ed"
+      }
+    },
+    "siteInspectionStartDate": {
+      "value": "2025-02-17",
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "ISO date from the explicitly scheduled case inspection window.",
+      "firstDisclosure": "SIM12",
+      "sourceReferences": [
+        {
+          "file": "05 - SCT.docx",
+          "clause": "SCT8",
+          "paragraphs": [
+            {
+              "index": 503,
+              "quote": "SCT8Inspection of the Site"
+            },
+            {
+              "index": 505,
+              "quote": "The period for carrying out site investigation by the tenderer is scheduled to be between 17th and 21st February 2025 and by written application to the Housing Department officer referred to in Condition SCT7(1) above at least seven days in advance."
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM12",
+        "file": "12_2024-12-24_email_project_architect_and_inspection_arrangements_reply.docx",
+        "nativeParagraph": 30,
+        "quote": "Inspection start date: 2025-02-17",
+        "sha256": "5f9a166d06038d9c9c5a248f7eda8d8f23a7702d9338e746346be28094ecf9ed"
+      }
+    },
+    "siteInspectionEndDate": {
+      "value": null,
+      "status": "unknown",
+      "origin": "deliberately_withheld",
+      "rationale": "The upload communication deliberately withholds the project value; an active unanswered input must remain available for human determination.",
+      "firstDisclosure": null,
+      "humanAdoptedInApplication": false,
+      "applicability": "active"
+    },
+    "siteVisitRestrictions": {
+      "value": [
+        {
+          "text": "by written application to the Housing Department officer referred to in Condition SCT7(1) above at least seven days in advance."
+        }
+      ],
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "The actual case advance written application restriction is retained; no inspection completion or permission is asserted.",
+      "firstDisclosure": "SIM12",
+      "sourceReferences": [
+        {
+          "file": "05 - SCT.docx",
+          "clause": "SCT8",
+          "paragraphs": [
+            {
+              "index": 505,
+              "quote": "The period for carrying out site investigation by the tenderer is scheduled to be between 17th and 21st February 2025 and by written application to the Housing Department officer referred to in Condition SCT7(1) above at least seven days in advance."
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM12",
+        "file": "12_2024-12-24_email_project_architect_and_inspection_arrangements_reply.docx",
+        "nativeParagraph": 35,
+        "quote": "Actual inspection restrictions: text: by written application to the Housing Department officer referred to in Condition SCT7(1) above at least seven days in advance.",
+        "sha256": "5f9a166d06038d9c9c5a248f7eda8d8f23a7702d9338e746346be28094ecf9ed"
+      }
+    },
+    "advancePaymentAdopted": {
+      "value": true,
+      "status": "provided",
+      "origin": "case_source",
+      "rationale": "The actual case adopts SCC14.305 allowing the Contractor to apply for one-off advance payment; not a record that payment has actually been requested or made.",
+      "firstDisclosure": "SIM13",
+      "sourceReferences": [
+        {
+          "file": "03 - NTT.docx",
+          "clause": "NTT18",
+          "paragraphs": [
+            {
+              "index": 460,
+              "quote": "Advance Payment and Repayment Arrangement"
+            },
+            {
+              "index": 464,
+              "quote": "The tenderer’s attention is drawn to SCC Clause SCC14.305 on advance payment to the Contractor and the repayment arrangements."
+            }
+          ]
+        },
+        {
+          "file": "10 - SCC.docx",
+          "clause": "SCC14.305(1)",
+          "paragraphs": [
+            {
+              "index": 960,
+              "quote": "SCC14.305Advance payment and repayment arrangement"
+            },
+            {
+              "index": 962,
+              "quote": "(1)The Contractor may apply for a one-off advance payment in accordance with the provisions of this Clause SCC14.305 of the Special Conditions of Contract. The amount of advance payment shall be (i) an amount equal to two percent (2%) of the Contract Sum after deduction of all Provisional Sums and Contingency Sum(s), rounded to the nearest thousand, or (ii) HK$30,000,000, whichever is the less. The amount of advance payment shall not be subject to a deduction of retention money under Clause 14.2 of the General Conditions of Contract or adjustments for fluctuation under Clause 20.2 of the General Conditions of Contract, Clause SCC20.302 and Clause SCC20.304 of the Special Conditions of Contract."
+            }
+          ]
+        }
+      ],
+      "humanAdoptedInApplication": false,
+      "applicability": "active",
+      "inputEvidence": {
+        "recordId": "SIM13",
+        "file": "13_2024-12-27_minutes_sections_special_clauses_and_advance_payment_review.docx",
+        "nativeParagraph": 25,
+        "quote": "Adopt advance payment for this draft: Yes",
+        "sha256": "871b17041920fab36b874d4ee06e409d599bd53868bfd423a220fc6ccf5ae1aa"
+      }
+    },
+    "advanceRepaymentMonths": {
+      "value": null,
+      "status": "optional_unchanged",
+      "origin": "retained_standard_parameter",
+      "rationale": "No project-specific override instruction. The existing 2b clause effective term is recorded separately under effectiveTerms. Optional override is unfilled, not a mandatory missing input.",
+      "firstDisclosure": null,
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "applicability": "active"
+    },
+    "advanceRepaymentFirstCertificate": {
+      "value": null,
+      "status": "optional_unchanged",
+      "origin": "retained_standard_parameter",
+      "rationale": "No project-specific override instruction. The existing 2b clause effective term is recorded separately under effectiveTerms. Optional override is unfilled, not a mandatory missing input.",
+      "firstDisclosure": null,
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "applicability": "active"
+    }
+  }
+}

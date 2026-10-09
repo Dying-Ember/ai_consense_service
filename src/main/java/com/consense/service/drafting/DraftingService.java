@@ -50,6 +50,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -578,6 +579,7 @@ public class DraftingService {
             if(Boolean.TRUE.equals(variable.getManuallyEdited())||Boolean.TRUE.equals(variable.getConfirmed()))
                 conditions.put(variable.getVarKey(),DraftAdoption.decode(DraftBlueprint.find(variable.getVarKey()),variable.getValueText()));
         extractionHarness.recall(trace,system,configuredUser,sourceTexts,conditions);
+        extractionHarness.rejectInactiveSuggestions(trace,conditions);
         for(ExtractionPartVO part:trace.getParts()) {
             for(ExtractionDecisionVO item:trace.getDecisions()) {
                 if(!part.getPartId().equals(item.getPartId()))continue;
@@ -615,6 +617,9 @@ public class DraftingService {
             } else if("billNos".equals(v.getVarKey())) {
                 merged=DraftBillCandidates.merge(DraftBlueprint.find(v.getVarKey()),latest);
                 conflict=merged==null;
+            } else if("designResponsibilities".equals(v.getVarKey())) {
+                merged=DraftDesignCandidates.merge(DraftBlueprint.find(v.getVarKey()),latest);
+                conflict=merged==null;
             } else for(CandidateVO candidate:latest) {
                 if(merged.isEmpty()){merged=candidate.getValue();continue;}
                 if(merged.equals(candidate.getValue()))continue;
@@ -627,9 +632,12 @@ public class DraftingService {
             } else {
                 v.setValueText(conflict?"":merged);v.setChoice(null);v.setConfirmed(false);v.setReviewRequired(false);
                 ExtractionDecisionVO unanswered=latest.isEmpty()?unansweredDecision(trace,v.getVarKey()):null;
-                v.setSourceRef(latest.isEmpty()?unanswered==null?null:unansweredSourceQuote(trace,unanswered):truncate(latest.get(0).getSourceQuote(),480));
+                CandidateVO displaySource=latest.isEmpty()?null:latest.get(0);
+                if("designResponsibilities".equals(v.getVarKey())&&!conflict)
+                    for(CandidateVO candidate:latest)if(Objects.equals(candidate.getValue(),merged)){displaySource=candidate;break;}
+                v.setSourceRef(latest.isEmpty()?unanswered==null?null:unansweredSourceQuote(trace,unanswered):truncate(displaySource.getSourceQuote(),480));
                 v.setNoteText(conflict?"Candidate values disagree. Select the value to adopt for this draft.":latest.isEmpty()?unanswered==null?
-                        "No usable suggestion returned. The input remains editable.":unansweredNote(trace,unanswered):latest.get(0).getReason());
+                        "No usable suggestion returned. The input remains editable.":unansweredNote(trace,unanswered):displaySource.getReason());
             }
             v.setUpdatedAt(Instant.now());variableRepository.save(v);
         }
@@ -733,10 +741,20 @@ public class DraftingService {
             List<CandidateVO> candidates=DraftAdoption.candidates(v);int index=patch.getCandidateIndex();
             if(index<0||index>=candidates.size())throw new BizException(4007,"Candidate no longer exists. Refresh the input.");
             CandidateVO candidate=candidates.get(index);
+            if(patch.getCandidateSnapshot()==null||!DraftAdoption.candidateIdentity(Collections.singletonList(candidate)).equals(
+                    DraftAdoption.candidateIdentity(Collections.singletonList(patch.getCandidateSnapshot()))))
+                throw new BizException(4007,"Candidate changed since it was displayed. Refresh the input before adopting it.");
             SourceDocument source=sourceDocumentRepository.findById(candidate.getSourceDocumentId()).orElseThrow(()->new BizException(4007,"Candidate source no longer exists."));
             if(!projectId.equals(source.getProjectId())||!candidate.getSourceHash().equals(DraftAdoption.sourceHash(source)))throw new BizException(4007,"Candidate source has changed. Extract it again.");
             raw=candidate.getValue();v.setSourceRef(truncate(candidate.getSourceQuote(),480));v.setAdoptedSourcesJson(JsonUtils.write(Collections.singletonList(candidate)));v.setManuallyEdited(false);
         } else if(raw!=null) {v.setManuallyEdited(true);v.setSourceRef(null);v.setAdoptedSourcesJson(JsonUtils.write(DraftAdoption.candidates(v)));}
+        else if(Boolean.TRUE.equals(patch.getReviewed())||Boolean.TRUE.equals(patch.getConfirmed())) {
+            SuggestionSnapshot snapshot=patch.getSuggestionSnapshot();
+            if(snapshot==null||snapshot.getCandidates()==null||snapshot.getCandidates().stream().anyMatch(Objects::isNull)||
+                    snapshot.getReviewRequired()==null||!Objects.equals(Boolean.TRUE.equals(v.getReviewRequired()),snapshot.getReviewRequired())||!Objects.equals(nvl(v.getValueText()),snapshot.getValue())||
+                    !Objects.equals(v.getSourceRef(),snapshot.getSource())||!DraftAdoption.candidateIdentity(DraftAdoption.candidates(v)).equals(DraftAdoption.candidateIdentity(snapshot.getCandidates())))
+                throw new BizException(4007,"Suggestion or evidence changed since it was displayed. Refresh the input before adopting it.");
+        }
         if(raw!=null) {
             if("targetOverrides".equals(spec.key))raw=bindTargetSources(projectId,v.getValueText(),raw);
             v.setValueText(DraftInputRules.normalize(spec,raw));v.setChoice(null);v.setReviewRequired(false);
