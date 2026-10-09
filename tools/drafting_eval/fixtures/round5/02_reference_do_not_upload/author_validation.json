@@ -1,0 +1,136 @@
+{
+  "verdict": "PASS",
+  "validationScope": "author self audit only, not independent acceptance",
+  "fixtureVersion": "20261009-novel-round5-library-1",
+  "documents": 15,
+  "inputs": 79,
+  "nativeTables": 3,
+  "providedOrDerivedCount": 58,
+  "expectedNullCount": 21,
+  "statusCounts": {
+    "provided": 57,
+    "derived": 1,
+    "not_applicable": 17,
+    "unknown": 4
+  },
+  "applicabilityCounts": {
+    "active": 62,
+    "inactive": 17
+  },
+  "activeHoldouts": [
+    "photocopyRateAboveA3",
+    "projectArchitectPhone",
+    "siteInspectionEndDate",
+    "quotationBeforeVariation"
+  ],
+  "inactiveInputs": [
+    "subcontractors",
+    "nscAlternativeText",
+    "otherTenderingArrangement",
+    "volumetricPrecastComponents",
+    "railwayProtectionPlansAvailable",
+    "ovtProjectSpecificText",
+    "pseSubmissions",
+    "projectInTinShuiWai",
+    "additionalLossSpecifiedSections",
+    "additionalLossRelevantSection",
+    "demolitionStandaloneBuilding",
+    "siteSuitableForTrainingFirstMonth",
+    "partnershipClauseAdopted",
+    "jointVentureClauseAdopted",
+    "projectArchitectOtherTitle",
+    "advanceRepaymentMonths",
+    "advanceRepaymentFirstCertificate"
+  ],
+  "changes": {
+    "04": {
+      "changedBusinessValues": 47,
+      "booleanFlips": 15,
+      "changedApplicability": 11
+    },
+    "05": {
+      "changedBusinessValues": 51,
+      "booleanFlips": 18,
+      "changedApplicability": 12
+    },
+    "06": {
+      "changedBusinessValues": 39,
+      "booleanFlips": 10,
+      "changedApplicability": 8
+    },
+    "07": {
+      "changedBusinessValues": 65,
+      "booleanFlips": 26,
+      "changedApplicability": 15
+    }
+  },
+  "all79NativeProofsChecked": true,
+  "all15IncrementalStagesChecked": true,
+  "priorFixturesUnchanged": true,
+  "errors": [],
+  "sourceFiles": [
+    {
+      "file": "01_2026-11-02_email_request_for_library_and_sports_centre_tender_decisions.docx",
+      "sha256": "4c13835ae9e09a450140a016251dfaaf4a43550d39181e55bf480899b07c7aa4"
+    },
+    {
+      "file": "02_2026-11-03_minutes_contract_identity_programme_and_accommodation.docx",
+      "sha256": "b646e62071ce4fa197605850c57febda1c59bb265ddb48465f191346fb4b6218"
+    },
+    {
+      "file": "03_2026-11-04_email_adopted_bills_of_quantities_register.docx",
+      "sha256": "920fbe5f1dddaf27e973bd80453fcbc4b535c132e103df798bf9a9879170b60a"
+    },
+    {
+      "file": "04_2026-11-05_email_work_package_excavation_and_facade_decisions.docx",
+      "sha256": "106d7c704c146cc9e84f0643ce06191295407fb124f1daefc6fc22ba06174d91"
+    },
+    {
+      "file": "05_2026-11-06_minutes_foundation_design_and_tender_acceptance.docx",
+      "sha256": "0ca125b1f0d2e5b80611b76875dfbfa89f22094f9f542e570eeef482ed17992a"
+    },
+    {
+      "file": "06_2026-11-09_email_tender_procedure_hardcopy_issue_and_photocopy_charge.docx",
+      "sha256": "83230506caf39e5424a2b2e679ca2bc39225dae53565fb7036a332c1897d5918"
+    },
+    {
+      "file": "07_2026-11-10_email_nominated_subcontract_procurement_coverage.docx",
+      "sha256": "18d7609fb08535dfa4cc85815f778386c90bacde710440fc0ef9ccfdb06cf61f"
+    },
+    {
+      "file": "08_2026-11-11_email_railway_boundary_and_tree_register.docx",
+      "sha256": "49bc7fa08c40c185c8884220559c82422d82d293fd187a91e2ba1d79ea7df1b6"
+    },
+    {
+      "file": "09_2026-11-12_email_complete_component_design_and_execution_register.docx",
+      "sha256": "c5f4297b86f565b3f002e90d3666f7e74b34cc2b67ada673592862e45bb29a10"
+    },
+    {
+      "file": "10_2026-11-13_email_structural_endorsement_and_additional_tender_submissions.docx",
+      "sha256": "69bbb58e3abea590542f7d0f2d747d861192bd3aa23b6cbd753bc2dfeaee60b1"
+    },
+    {
+      "file": "11_2026-11-16_email_other_waterproofing_installation_warranty_areas.docx",
+      "sha256": "b55862e2bbeb1c359b3153115df75ec7f33e4169c808c123c660bd33866dcc67"
+    },
+    {
+      "file": "12_2026-11-17_minutes_sections_weather_provisions_and_possession.docx",
+      "sha256": "6e4d46814730f157210752c4a4aebd65d623209811e8f83454f3ee3511f4bd22"
+    },
+    {
+      "file": "13_2026-11-18_email_architect_appointment_inspection_offices_and_site_visits.docx",
+      "sha256": "ea2df1d7a261e5d277e6a6d0d5ef8594f4599ae8b62a167fb03307e2403b955a"
+    },
+    {
+      "file": "14_2026-11-19_minutes_finishes_legal_form_training_and_payment_decisions.docx",
+      "sha256": "ac040eec5787c2e3887e80234f6240ffb6328fb1c1f34d1ba9d14bc31a008e17"
+    },
+    {
+      "file": "15_2026-11-20_email_final_outstanding_decisions_and_document_register.docx",
+      "sha256": "030390363d6291d3e9b9fd8703e3a7297bbd9dde5f0f7044ab4551a4e8fcd1a6"
+    }
+  ],
+  "oracleSha256": "5ed34460003d20e0864a9e8a9bdc68e820fe7ae4004ad29baf68f23742287e89",
+  "scenarioSha256": "0c17f1683e478e46bf4ecc9b4e9f6674df7df7a595a0a915273e17ec379ed58b",
+  "ledgerSha256": "7f2c6d15ff911053eef14cc267ea461f8ace71d16468d03581b6be99ad1803bb"
+}

@@ -16,12 +16,13 @@ final class DraftScopeEvidence {
     private static final String PASSAGES="\\R|;|(?<=[.!?])\\s+(?=[A-Z])";
     private static final String CLAUSES="(?i)(?:,\\s*)?\\b(?:and|but|whereas|while)\\s+(?=(?:the|a|an|this|that|another|other|our|no)\\s+[^,;.!?\\r\\n]{0,80}\\b(?:is|are|will|shall|serves?|supports?|provides?|inspects?|has|have|requires?|required|remains)\\b)";
     private static final Pattern FOOTING_LABEL=Pattern.compile("(?i)\\bfootings\\s+(?:serve|serving|service)\\s+(?:buildings\\s+or\\s+major\\s+external\\s+structures|classification)\\s*[:=]\\s*(yes|true|no|false)\\b");
-    private static final Pattern FOOTING_OBJECT=Pattern.compile("(?i)\\bfootings\\s+(?:(?:will|shall|must)\\s+)?(?:(?:are|be)\\s+(?:(?:designed|constructed|used)\\s+)?)?(?:serve|serves|serving|for|support|supports|supporting)\\s+(?:the\\s+)?(?:(?!(?:and|or|provides?|supplies?|inspects?)\\b)[a-z-]+\\s+){0,8}(?:buildings?|major\\s+external\\s+structures?)\\b");
+    private static final String FOOTING_POSTMODIFIER="(?:\\s+(?:(?:listed|recorded|identified|shown)\\s+)?(?:in|on)\\s+(?:(?:this|the|our)\\s+)?(?:(?:approved|current|project|contract)\\s+){0,2}(?:register|schedule|list|drawing|table))?";
+    private static final Pattern FOOTING_OBJECT=Pattern.compile("(?i)\\bfootings"+FOOTING_POSTMODIFIER+"\\s+(?:therefore\\s+)?(?:(?:will|shall|must)\\s+)?(?:(?:are|be)\\s+(?:(?:designed|constructed|used)\\s+)?)?(?:serve|serves|serving|for|support|supports|supporting)\\s+(?:the\\s+)?(?:(?!(?:and|or|provides?|supplies?|inspects?)\\b)[a-z-]+\\s+){0,8}(?:buildings?|major\\s+external\\s+structures?)\\b");
     private static final Pattern FOOTING_NEGATIVE=Pattern.compile("(?i)\\bfootings\\s+(?:(?:do\\s+not|will\\s+not|shall\\s+not|never)\\s+serve\\s+(?:(?:a|any|the)\\s+)?buildings?\\s+(?:or|and)|(?:will\\s+|shall\\s+)?serve\\s+neither\\s+(?:(?:a|any|the)\\s+)?buildings?\\s+nor)\\s+(?:(?:a|any|the)\\s+)?major\\s+external\\s+structures?\\b");
-    private static final String FOOTING_POSTMODIFIER="(?:\\s+(?:listed|recorded|identified|shown)\\s+(?:in|on)\\s+(?:(?:this|the|our)\\s+)?(?:(?:approved|current|project|contract)\\s+){0,2}(?:register|schedule|list|drawing|table))?";
-    private static final Pattern FOOTING_SUBJECT=Pattern.compile("(?i)^\\s*(?:for\\s+(?:this|our|the current)\\s+(?:project|contract),\\s*)?(?:the\\s+)?(?:(?:listed|shallow|pad|strip|reinforced|concrete|new|project)\\s+){0,3}footings"+FOOTING_POSTMODIFIER+"\\s+(?:are|were|will\\s+be|shall\\s+be|serve|support|do\\s+not|will\\s+not|shall\\s+not)\\b");
+    private static final Pattern FOOTING_SUBJECT=Pattern.compile("(?i)^\\s*(?:for\\s+(?:this|our|the current)\\s+(?:project|contract),\\s*)?(?:the\\s+)?(?:(?:listed|shallow|pad|strip|reinforced|concrete|new|project)\\s+){0,3}footings"+FOOTING_POSTMODIFIER+"\\s+(?:therefore\\s+)?(?:are|were|will\\s+be|shall\\s+be|serve|support|do\\s+not|will\\s+not|shall\\s+not)\\b");
     private static final Pattern COMPETING_ANTECEDENT=Pattern.compile("(?i)\\b(?:architects?|contractors?|engineers?|piles|pile\\s*caps|walls|columns|temporary supports)\\b|[,;]\\s*(?:who|which|whose)\\b");
-    private static final String SITE_PAIR="(?:building\\s+(?:sites?\\s+)?and\\s+(?:the\\s+)?demolition\\s+sites?|demolition\\s+(?:sites?\\s+)?and\\s+(?:the\\s+)?building\\s+sites?)";
+    private static final String SITE_POSITION="(?:(?:north|south|east|west)\\s+)?";
+    private static final String SITE_PAIR="(?:"+SITE_POSITION+"building\\s+(?:sites?\\s+)?and\\s+(?:the\\s+)?"+SITE_POSITION+"demolition\\s+sites?|"+SITE_POSITION+"demolition\\s+(?:sites?\\s+)?and\\s+(?:the\\s+)?"+SITE_POSITION+"building\\s+sites?)";
     private static final Pattern SITES_POSITIVE=Pattern.compile("(?i)\\b"+SITE_PAIR+"\\s+(?:(?:is|are|remain|will\\s+be)\\s+(?:physically\\s+)?(?:separate|separated|detached)|(?:form|forms|will\\s+form)\\s+(?:a\\s+)?(?:separate|detached))\\b");
     private static final Pattern SITES_NEGATIVE=Pattern.compile("(?i)\\b"+SITE_PAIR+"\\s+(?:(?:is|are|remain|will\\s+be)\\s+not\\s+(?:physically\\s+)?(?:separate|separated|detached)|(?:do|does|will)\\s+not\\s+form\\s+(?:a\\s+|the\\s+)?(?:separate|detached))\\b");
     private static final Pattern SITE_FROM_SITE=Pattern.compile("(?i)\\b(?:building|demolition)\\s+sites?\\s+(?:is|are|will\\s+be)\\s+(not\\s+)?(?:physically\\s+)?(?:separated|detached)\\s+from\\s+(?:the\\s+)?(building|demolition)\\s+sites?\\b");
@@ -97,7 +98,31 @@ final class DraftScopeEvidence {
     static boolean buildingDemolitionSeparationSupported(Object value,String quote,String supplied,String original) {
         Boolean requested=DraftBusinessRules.truth(value);
         String scope=assertedScope(quote,supplied,original,"(?:building|demolition|sites?|parcels?)");
-        return requested!=null&&scope!=null&&requested.equals(separationAnswer(quote))&&requested.equals(separationAnswer(scope));
+        return requested!=null&&scope!=null&&!adjacentSeparationClassificationPending(scope,original)&&
+                requested.equals(separationAnswer(quote))&&requested.equals(separationAnswer(scope));
+    }
+
+    /** An immediately following qualification belongs to this explicit separation assertion. */
+    private static boolean adjacentSeparationClassificationPending(String scope,String original) {
+        boolean previousSeparation=false;
+        for(String passage:sourcePassages(scope)) {
+            if(previousSeparation&&pendingSeparationClassification(passage))return true;
+            previousSeparation=separationAnswer(passage)!=null;
+        }
+        if(previousSeparation) {
+            String[] paragraphs=original.split("\\R[\\t ]*\\R");
+            for(int index=0;index+1<paragraphs.length;index++)
+                if(DraftEvidenceQuotes.textIdentity(paragraphs[index]).equals(DraftEvidenceQuotes.textIdentity(scope))) {
+                    List<String> next=sourcePassages(paragraphs[index+1]);
+                    if(!next.isEmpty()&&pendingSeparationClassification(next.get(0)))return true;
+                }
+        }
+        return false;
+    }
+
+    private static boolean pendingSeparationClassification(String passage) {
+        return passage.trim().matches("(?is)(?:the\\s+)?separation\\s+classification\\s+(?:is|remains)\\b.*")&&
+                UNSETTLED.matcher(passage).find();
     }
 
     private static Boolean separationAnswer(String text) {
@@ -292,7 +317,7 @@ final class DraftScopeEvidence {
         for(String paragraph:text.split("\\R[\\t ]*\\R")) {
             if(governingHeading(paragraph)) {precedingHeading=paragraph;if(headingBoundaries)passages.add("\u0000"+paragraph);continue;}
             String heading=precedingHeading;boolean hasBody=false;
-            for(String passage:paragraph.split(PASSAGES+"|"+CLAUSES)) {
+            for(String passage:scopePassages(paragraph)) {
                 if(passage.trim().isEmpty())continue;
                 if(passage.trim().endsWith(":")) {
                     if(headingBoundaries)passages.add("\u0000"+passage);
@@ -308,6 +333,19 @@ final class DraftScopeEvidence {
             precedingHeading=hasBody?null:heading;
         }
         return passages;
+    }
+
+    /** The conjunction inside an explicit two-site subject does not start a new assertion. */
+    private static List<String> scopePassages(String paragraph) {
+        List<String> passages=new ArrayList<>();int start=0;
+        Matcher boundary=Pattern.compile(PASSAGES+"|"+CLAUSES).matcher(paragraph);
+        while(boundary.find()) {
+            Matcher pair=Pattern.compile("(?i)\\b"+SITE_PAIR+"\\b").matcher(paragraph);boolean compound=false;
+            while(pair.find())if(pair.start()<=boundary.start()&&boundary.end()<=pair.end()) {compound=true;break;}
+            if(compound)continue;
+            passages.add(paragraph.substring(start,boundary.start()));start=boundary.end();
+        }
+        passages.add(paragraph.substring(start));return passages;
     }
 
     private static boolean governingHeadingChain(String[] paragraphs,int bodyIndex) {

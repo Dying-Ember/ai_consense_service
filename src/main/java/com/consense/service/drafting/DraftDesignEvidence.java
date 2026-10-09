@@ -194,7 +194,7 @@ final class DraftDesignEvidence {
             String name=identity(cells.get(i));
             if(name.matches("(?:(?:foundation|works) )?component(?: class)?")) {
                 if(header.component>=0)header.ambiguous=true;header.component=i;
-            } else if(name.matches("(?:actual )?(?:work )?scope|(?:actual )?component or scope")) {
+            } else if(name.matches("(?:actual )?(?:work )?scope|scope of work|(?:actual )?component or scope")) {
                 if(header.scope>=0)header.ambiguous=true;header.scope=i;
             } else if(name.matches("(?:contractor(?:'s)? )?(?:designs?|design responsibility)")) {
                 if(header.design>=0)header.ambiguous=true;header.design=i;header.contractorDesign=name.startsWith("contractor");

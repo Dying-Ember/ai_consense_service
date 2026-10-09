@@ -1,0 +1,37 @@
+{
+  "independentCasesSha256": "6199edc3bb00fe0b219601607d04487020870f70567a9635ce81153ff5f61e9e",
+  "cases": [
+    {
+      "name": "media_compound_reference_only_heading",
+      "key": "electronicTendering",
+      "value": "Hardcopy",
+      "quote": "The official issue format of the BQ original and BQ addenda is Hardcopy.",
+      "source": "For reference only:\n\nThe official issue format of the BQ original and BQ addenda is Hardcopy.",
+      "expectedStatus": "rejected"
+    },
+    {
+      "name": "media_compound_sample_heading",
+      "key": "electronicTendering",
+      "value": "Hardcopy",
+      "quote": "The official issue format of the BQ original and BQ addenda is Hardcopy.",
+      "source": "Illustrative sample:\n\nThe official issue format of the BQ original and BQ addenda is Hardcopy.",
+      "expectedStatus": "rejected"
+    },
+    {
+      "name": "media_compound_unselected_heading",
+      "key": "electronicTendering",
+      "value": "Hardcopy",
+      "quote": "The official issue format of the BQ original and BQ addenda is Hardcopy.",
+      "source": "Unselected draft:\n\nThe official issue format of the BQ original and BQ addenda is Hardcopy.",
+      "expectedStatus": "rejected"
+    },
+    {
+      "name": "sites_paired_subject_and_independent_pending",
+      "key": "buildingDemolitionSitesSeparated",
+      "value": true,
+      "quote": "The east building site and the west demolition site are separate fenced sites with separate entrances. The separation classification remains pending.",
+      "source": "The east building site and the west demolition site are separate fenced sites with separate entrances. The separation classification remains pending.",
+      "expectedStatus": "rejected"
+    }
+  ]
+}

@@ -1,0 +1,3422 @@
+{
+  "code": 0,
+  "message": "ok",
+  "data": {
+    "ruleVersion": "drafting-20261006.8-docx",
+    "groups": [
+      {
+        "id": "identity",
+        "label": {
+          "en": "Contract identity",
+          "zhHans": "合约身份",
+          "zhHant": "合約身份"
+        },
+        "fields": [
+          {
+            "key": "contractTitle",
+            "label": {
+              "en": "Contract number and title",
+              "zhHans": "合约编号与名称",
+              "zhHant": "合約編號與名稱"
+            },
+            "kind": "contract",
+            "optional": false,
+            "columnFields": [
+              {
+                "key": "number",
+                "label": {
+                  "en": "Contract number",
+                  "zhHans": "合约编号",
+                  "zhHant": "合約編號"
+                },
+                "kind": "text",
+                "optional": false,
+                "affects": []
+              },
+              {
+                "key": "title",
+                "label": {
+                  "en": "Contract title",
+                  "zhHans": "合约名称",
+                  "zhHant": "合約名稱"
+                },
+                "kind": "text",
+                "optional": false,
+                "affects": []
+              }
+            ],
+            "affects": []
+          }
+        ]
+      },
+      {
+        "id": "contractType",
+        "label": {
+          "en": "Contract type and duration",
+          "zhHans": "投标合约类型及工期",
+          "zhHant": "投標合約類型及工期"
+        },
+        "fields": [
+          {
+            "key": "foundationIncluded",
+            "label": {
+              "en": "Combined contract with foundation works",
+              "zhHans": "包含基础工程的合并合约",
+              "zhHant": "包含基礎工程的合并合約"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": [
+              {
+                "document": "NTT",
+                "clause": "10",
+                "paragraphs": "P484/P486"
+              }
+            ]
+          },
+          {
+            "key": "periodAtLeast39Months",
+            "label": {
+              "en": "Contract period of 39 months or more",
+              "zhHans": "工期39个月或以上",
+              "zhHant": "工期39個月或以上"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": [
+              {
+                "document": "NTT",
+                "clause": "10",
+                "paragraphs": "P484/P486"
+              }
+            ]
+          },
+          {
+            "key": "contractPeriodMonths",
+            "label": {
+              "en": "Contract period in months (optional)",
+              "zhHans": "合约期月数（可选）",
+              "zhHant": "合約期月數（可選）"
+            },
+            "kind": "number",
+            "optional": true,
+            "affects": []
+          }
+        ]
+      },
+      {
+        "id": "services",
+        "label": {
+          "en": "Building services subcontract arrangement",
+          "zhHans": "机电分包安排",
+          "zhHant": "機電分包安排"
+        },
+        "fields": [
+          {
+            "key": "subcontractArrangement",
+            "label": {
+              "en": "Subcontract arrangement",
+              "zhHans": "分包安排",
+              "zhHant": "分包安排"
+            },
+            "kind": "choice",
+            "optional": false,
+            "affects": [
+              {
+                "document": "NTT",
+                "clause": "13",
+                "paragraphs": "P546/P547"
+              },
+              {
+                "document": "SCC",
+                "clause": "1.302/20.301–20.304",
+                "paragraphs": "P130–142/P1334–1777"
+              }
+            ],
+            "options": [
+              {
+                "value": "NSC",
+                "label": {
+                  "en": "Nominated Sub-contracts (NSC)",
+                  "zhHans": "指定分包（NSC）",
+                  "zhHant": "指定分包（NSC）"
+                }
+              },
+              {
+                "value": "BSSSC",
+                "label": {
+                  "en": "Building Services Specialist Sub-contracts (BSSSC)",
+                  "zhHans": "机电专业分包（BSSSC）",
+                  "zhHant": "機電專業分包（BSSSC）"
+                }
+              }
+            ]
+          },
+          {
+            "key": "subcontractors",
+            "label": {
+              "en": "BSSSC specialist subcontract names (trades)",
+              "zhHans": "BSSSC专业分包名称（工种）",
+              "zhHant": "BSSSC專業分包名稱（工種）"
+            },
+            "kind": "multiselect",
+            "optional": false,
+            "affects": [],
+            "condition": {
+              "all": [
+                {
+                  "field": "subcontractArrangement",
+                  "operator": "eq",
+                  "value": "BSSSC"
+                }
+              ]
+            },
+            "options": [
+              {
+                "value": "Electrical",
+                "label": {
+                  "en": "Electrical",
+                  "zhHans": "电气工程",
+                  "zhHant": "電氣工程"
+                }
+              },
+              {
+                "value": "Fire services",
+                "label": {
+                  "en": "Fire services",
+                  "zhHans": "消防工程",
+                  "zhHant": "消防工程"
+                }
+              },
+              {
+                "value": "Fire services and water pump",
+                "label": {
+                  "en": "Fire services and water pump",
+                  "zhHans": "消防及水泵工程",
+                  "zhHant": "消防及水泵工程"
+                }
+              },
+              {
+                "value": "Air-conditioning and mechanical ventilation",
+                "label": {
+                  "en": "Air-conditioning and mechanical ventilation",
+                  "zhHans": "空调及机械通风工程",
+                  "zhHant": "空調及機械通風工程"
+                }
+              },
+              {
+                "value": "Lift",
+                "label": {
+                  "en": "Lift",
+                  "zhHans": "升降机工程",
+                  "zhHant": "升降機工程"
+                }
+              },
+              {
+                "value": "Lift and escalator",
+                "label": {
+                  "en": "Lift and escalator",
+                  "zhHans": "升降机及自动扶梯工程",
+                  "zhHant": "升降機及自動扶梯工程"
+                }
+              }
+            ]
+          },
+          {
+            "key": "nscAlternativeText",
+            "label": {
+              "en": "Adopted replacement wording for NTT13 under BSSSC",
+              "zhHans": "BSSSC下NTT13本次采用替换文字",
+              "zhHant": "BSSSC下NTT13本次采用替換文字"
+            },
+            "kind": "text",
+            "optional": false,
+            "affects": [
+              {
+                "document": "NTT",
+                "clause": "13",
+                "paragraphs": "P546"
+              }
+            ],
+            "condition": {
+              "all": [
+                {
+                  "field": "subcontractArrangement",
+                  "operator": "eq",
+                  "value": "BSSSC"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "envelopes",
+        "label": {
+          "en": "Tendering procedure",
+          "zhHans": "投标制度",
+          "zhHant": "投標制度"
+        },
+        "fields": [
+          {
+            "key": "twoEnvelopeTendering",
+            "label": {
+              "en": "Two-envelope tendering system",
+              "zhHans": "双信封投标制度",
+              "zhHant": "雙信封投標制度"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": [
+              {
+                "document": "NTT",
+                "clause": "3/4/5/6/7",
+                "paragraphs": "P140–381"
+              },
+              {
+                "document": "SCT",
+                "clause": "5/7/10/16/17",
+                "paragraphs": "P582–755/P946–1201"
+              }
+            ]
+          },
+          {
+            "key": "otherTenderingArrangement",
+            "label": {
+              "en": "Adopted alternative tender procedure and SCT5 wording",
+              "zhHans": "其他投标程序及SCT5采用文字",
+              "zhHant": "其他投標程序及SCT5采用文字"
+            },
+            "kind": "text",
+            "optional": false,
+            "affects": [],
+            "condition": {
+              "all": [
+                {
+                  "field": "twoEnvelopeTendering",
+                  "operator": "eq",
+                  "value": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "method",
+        "label": {
+          "en": "BQ issue and pricing format",
+          "zhHans": "BQ发放及计价格式",
+          "zhHant": "BQ發放及計價格式"
+        },
+        "fields": [
+          {
+            "key": "electronicTendering",
+            "label": {
+              "en": "BQ issue format",
+              "zhHans": "BQ发放格式",
+              "zhHant": "BQ發放格式"
+            },
+            "kind": "choice",
+            "optional": false,
+            "affects": [
+              {
+                "document": "NTT",
+                "clause": "2/3(c)",
+                "paragraphs": "P97–178"
+              },
+              {
+                "document": "SCT",
+                "clause": "1/3/5",
+                "paragraphs": "P55–387/P476–755"
+              }
+            ],
+            "options": [
+              {
+                "value": "L10Pro",
+                "label": {
+                  "en": "L10Pro electronic issue",
+                  "zhHans": "L10Pro电子发放",
+                  "zhHant": "L10Pro電子發放"
+                }
+              },
+              {
+                "value": "Hardcopy",
+                "label": {
+                  "en": "Hardcopy issue",
+                  "zhHans": "纸本发放",
+                  "zhHant": "紙本發放"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "worksScope",
+        "label": {
+          "en": "Works scope and special requirements",
+          "zhHans": "工程范围及特殊要求",
+          "zhHant": "工程范圍及特殊要求"
+        },
+        "fields": [
+          {
+            "key": "worksSubjectToExcision",
+            "label": {
+              "en": "Works Subject to Excision specified",
+              "zhHans": "指定可剔除工程",
+              "zhHant": "指定可剔除工程"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": [
+              {
+                "document": "NTT",
+                "clause": "5(f)",
+                "paragraphs": "P243–244"
+              },
+              {
+                "document": "SCC",
+                "clause": "9.301",
+                "paragraphs": "P953–955"
+              }
+            ]
+          },
+          {
+            "key": "siteFormationWorks",
+            "label": {
+              "en": "Site formation works included",
+              "zhHans": "包含场地平整工程",
+              "zhHant": "包含場地平整工程"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": [
+              {
+                "document": "SCT",
+                "clause": "5(3)/6(1)(c)",
+                "paragraphs": "P630–637/P849–856"
+              }
+            ]
+          },
+          {
+            "key": "excavationPermitRequired",
+            "label": {
+              "en": "Works require an Excavation Permit",
+              "zhHans": "工程需要开挖许可证",
+              "zhHant": "工程需要開挖許可證"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": [
+              {
+                "document": "SCC",
+                "clause": "1.306/22.303",
+                "paragraphs": "P180/P1823"
+              }
+            ]
+          },
+          {
+            "key": "subsidisedSaleFlatsProduction",
+            "label": {
+              "en": "Subsidised Sale Flats (SSF) production",
+              "zhHans": "资助出售房屋（SSF）生产",
+              "zhHant": "資助出售房屋（SSF）生產"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": [
+              {
+                "document": "SCC",
+                "clause": "8.306",
+                "paragraphs": "P910"
+              }
+            ]
+          },
+          {
+            "key": "showFlatsRequirement",
+            "label": {
+              "en": "Exhibition flats / show flats required",
+              "zhHans": "展览单位／示范单位要求",
+              "zhHant": "展覽單位／示范單位要求"
+            },
+            "kind": "choice",
+            "optional": false,
+            "affects": [
+              {
+                "document": "SCC",
+                "clause": "22.306",
+                "paragraphs": "P1941"
+              }
+            ],
+            "options": [
+              {
+                "value": "none",
+                "label": {
+                  "en": "Neither required",
+                  "zhHans": "均不需要",
+                  "zhHant": "均不需要"
+                }
+              },
+              {
+                "value": "exhibition",
+                "label": {
+                  "en": "Exhibition flats",
+                  "zhHans": "展览单位",
+                  "zhHant": "展覽單位"
+                }
+              },
+              {
+                "value": "show",
+                "label": {
+                  "en": "Show flats",
+                  "zhHans": "示范单位",
+                  "zhHant": "示范單位"
+                }
+              },
+              {
+                "value": "both",
+                "label": {
+                  "en": "Both",
+                  "zhHans": "两者均需要",
+                  "zhHant": "兩者均需要"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "domestic",
+        "label": {
+          "en": "Domestic blocks and CON8",
+          "zhHans": "住宅楼及CON8",
+          "zhHant": "住宅樓及CON8"
+        },
+        "fields": [
+          {
+            "key": "domesticBlocks",
+            "label": {
+              "en": "Construction of domestic blocks included",
+              "zhHans": "包括住宅楼建造",
+              "zhHant": "包括住宅樓建造"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": [
+              {
+                "document": "SCT",
+                "clause": "6(2)/6(3)(c)",
+                "paragraphs": "P859/P895"
+              },
+              {
+                "document": "SCC",
+                "clause": "7.303",
+                "paragraphs": "P554"
+              }
+            ]
+          },
+          {
+            "key": "volumetricPrecastComponents",
+            "label": {
+              "en": "CON8 volumetric precast components used",
+              "zhHans": "使用CON8体积预制构件",
+              "zhHant": "使用CON8體積預制構件"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": [
+              {
+                "document": "SCT",
+                "clause": "6",
+                "paragraphs": "P907"
+              }
+            ],
+            "condition": {
+              "all": [
+                {
+                  "field": "domesticBlocks",
+                  "operator": "eq",
+                  "value": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "facades",
+        "label": {
+          "en": "Precast concrete facades",
+          "zhHans": "预制混凝土外墙",
+          "zhHant": "預制混凝土外墻"
+        },
+        "fields": [
+          {
+            "key": "precastFacadeTenderBasis",
+            "label": {
+              "en": "Tender based on precast concrete facades",
+              "zhHans": "投标以预制混凝土外墙为基础",
+              "zhHant": "投標以預制混凝土外墻為基礎"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": [
+              {
+                "document": "NTT",
+                "clause": "1(e)",
+                "paragraphs": "P75/P96"
+              }
+            ]
+          },
+          {
+            "key": "precastFacadePermission",
+            "label": {
+              "en": "Precast facades required or proposed under APE2.A410",
+              "zhHans": "APE2.A410要求或允许提出预制外墙",
+              "zhHant": "APE2.A410要求或允許提出預制外墻"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": [
+              {
+                "document": "SCT",
+                "clause": "6(2)(b)/10",
+                "paragraphs": "P871/P1017"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "contractorDesign",
+        "label": {
+          "en": "Contractor design and execution",
+          "zhHans": "承包人设计及施工责任",
+          "zhHant": "承包人設計及施工責任"
+        },
+        "fields": [
+          {
+            "key": "contractorDesignedFoundations",
+            "label": {
+              "en": "Foundations designed by Contractor",
+              "zhHans": "基础由承包人设计",
+              "zhHant": "基礎由承包人設計"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": [
+              {
+                "document": "SCT",
+                "clause": "5(3)(e)/6(1)(b)",
+                "paragraphs": "P627–629/P848"
+              }
+            ]
+          },
+          {
+            "key": "designResponsibilities",
+            "label": {
+              "en": "Design and execution responsibility by component",
+              "zhHans": "构件设计及施工责任",
+              "zhHant": "構件設計及施工責任"
+            },
+            "kind": "list",
+            "optional": false,
+            "affects": [
+              {
+                "document": "SCC",
+                "clause": "5.308/7.302/8.304/22.305",
+                "paragraphs": "P469/P546/P882/P1925"
+              }
+            ],
+            "columnFields": [
+              {
+                "key": "component",
+                "label": {
+                  "en": "Component",
+                  "zhHans": "构件",
+                  "zhHant": "構件"
+                },
+                "kind": "choice",
+                "optional": false,
+                "affects": [],
+                "options": [
+                  {
+                    "value": "piling",
+                    "label": {
+                      "en": "piling",
+                      "zhHans": "桩基",
+                      "zhHant": "樁基"
+                    }
+                  },
+                  {
+                    "value": "pilecaps",
+                    "label": {
+                      "en": "pilecaps",
+                      "zhHans": "承台",
+                      "zhHant": "承臺"
+                    }
+                  },
+                  {
+                    "value": "footings",
+                    "label": {
+                      "en": "footings",
+                      "zhHans": "基脚",
+                      "zhHant": "基腳"
+                    }
+                  },
+                  {
+                    "value": "other",
+                    "label": {
+                      "en": "other",
+                      "zhHans": "其他工程",
+                      "zhHant": "其他工程"
+                    }
+                  }
+                ]
+              },
+              {
+                "key": "design",
+                "label": {
+                  "en": "Contractor designs",
+                  "zhHans": "承包人设计",
+                  "zhHant": "承包人設計"
+                },
+                "kind": "boolean",
+                "optional": false,
+                "options": [
+                  {
+                    "value": true,
+                    "label": {
+                      "en": "Yes",
+                      "zhHans": "是",
+                      "zhHant": "是"
+                    }
+                  },
+                  {
+                    "value": false,
+                    "label": {
+                      "en": "No",
+                      "zhHans": "否",
+                      "zhHant": "否"
+                    }
+                  }
+                ],
+                "affects": []
+              },
+              {
+                "key": "execution",
+                "label": {
+                  "en": "Contractor executes",
+                  "zhHans": "承包人施工",
+                  "zhHant": "承包人施工"
+                },
+                "kind": "boolean",
+                "optional": false,
+                "options": [
+                  {
+                    "value": true,
+                    "label": {
+                      "en": "Yes",
+                      "zhHans": "是",
+                      "zhHant": "是"
+                    }
+                  },
+                  {
+                    "value": false,
+                    "label": {
+                      "en": "No",
+                      "zhHans": "否",
+                      "zhHant": "否"
+                    }
+                  }
+                ],
+                "affects": []
+              },
+              {
+                "key": "scope",
+                "label": {
+                  "en": "Actual component / Works scope",
+                  "zhHans": "实际构件／工程范围",
+                  "zhHant": "實際構件／工程范圍"
+                },
+                "kind": "text",
+                "optional": true,
+                "affects": []
+              }
+            ]
+          },
+          {
+            "key": "footingsServeBuildingsOrMajorExternalStructures",
+            "label": {
+              "en": "Footings serve buildings or major external structures",
+              "zhHans": "基脚服务建筑楼或主要外部结构",
+              "zhHant": "基腳服務建筑樓或主要外部結構"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": [
+              {
+                "document": "SCC",
+                "clause": "7.302/22.305",
+                "paragraphs": "P546/P1925"
+              }
+            ],
+            "condition": {
+              "all": [
+                {
+                  "field": "designResponsibilities",
+                  "operator": "includesComponent",
+                  "value": "footings"
+                }
+              ]
+            }
+          },
+          {
+            "key": "designEstablishedAtTenderAcceptance",
+            "label": {
+              "en": "Contractor design established at Tender acceptance",
+              "zhHans": "承包人设计在接纳投标时确立",
+              "zhHant": "承包人設計在接納投標時確立"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": [
+              {
+                "document": "SCC",
+                "clause": "5.308",
+                "paragraphs": "P469"
+              }
+            ]
+          },
+          {
+            "key": "foundationDesignSubmittedWithTender",
+            "label": {
+              "en": "Foundation design submitted with tender",
+              "zhHans": "随投标提交基础设计",
+              "zhHant": "隨投標提交基礎設計"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": [
+              {
+                "document": "SCC",
+                "clause": "5.308",
+                "paragraphs": "P469"
+              }
+            ]
+          },
+          {
+            "key": "quotationBeforeVariation",
+            "label": {
+              "en": "CM requires quotation before design-related Variation (SCC11.305)",
+              "zhHans": "CM要求设计相关变更前取得报价（SCC11.305）",
+              "zhHant": "CM要求設計相關變更前取得報價（SCC11.305）"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": [
+              {
+                "document": "SCC",
+                "clause": "11.305",
+                "paragraphs": "P1087"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "wto",
+        "label": {
+          "en": "WTO GPA applicability",
+          "zhHans": "WTO GPA适用性",
+          "zhHant": "WTO GPA適用性"
+        },
+        "fields": [
+          {
+            "key": "wtoGpaApplies",
+            "label": {
+              "en": "Contract subject to WTO GPA",
+              "zhHans": "合约适用WTO GPA",
+              "zhHant": "合約適用WTO GPA"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": [
+              {
+                "document": "NTT",
+                "clause": "9",
+                "paragraphs": "P435–469"
+              },
+              {
+                "document": "SCT",
+                "clause": "14",
+                "paragraphs": "P1104–1113"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "railway",
+        "label": {
+          "en": "Works in railway protection area",
+          "zhHans": "铁路保护区工程",
+          "zhHant": "鐵路保護區工程"
+        },
+        "fields": [
+          {
+            "key": "railwayProtectionAreaWorks",
+            "label": {
+              "en": "Any Works within MTRCL Railway Protection Area",
+              "zhHans": "任何工程位于MTRCL铁路保护区",
+              "zhHant": "任何工程位於MTRCL鐵路保護區"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": [
+              {
+                "document": "NTT",
+                "clause": "17",
+                "paragraphs": "P612–620"
+              },
+              {
+                "document": "SCC",
+                "clause": "22.307",
+                "paragraphs": "P1961–2026"
+              }
+            ]
+          },
+          {
+            "key": "railwayProtectionPlansAvailable",
+            "label": {
+              "en": "Plans available at MTRCL or its website",
+              "zhHans": "图则可在MTRCL或其网站查阅",
+              "zhHant": "圖則可在MTRCL或其網站查閱"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": [
+              {
+                "document": "SCC",
+                "clause": "22.307(2)",
+                "paragraphs": "P1977/P1979"
+              }
+            ],
+            "condition": {
+              "all": [
+                {
+                  "field": "railwayProtectionAreaWorks",
+                  "operator": "eq",
+                  "value": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "trees",
+        "label": {
+          "en": "Old and Valuable Trees",
+          "zhHans": "古树及名木",
+          "zhHant": "古樹及名木"
+        },
+        "fields": [
+          {
+            "key": "oldValuableTrees",
+            "label": {
+              "en": "Old and Valuable Trees to preserve",
+              "zhHans": "需要保留的古树名木",
+              "zhHant": "需要保留的古樹名木"
+            },
+            "kind": "list",
+            "optional": false,
+            "affects": [
+              {
+                "document": "SCC",
+                "clause": "1.305/22.301/22.302",
+                "paragraphs": "P166–176/P1781–1819"
+              }
+            ],
+            "columnFields": [
+              {
+                "key": "serial",
+                "label": {
+                  "en": "Tree serial number",
+                  "zhHans": "树木编号",
+                  "zhHant": "樹木編號"
+                },
+                "kind": "text",
+                "optional": false,
+                "affects": []
+              }
+            ]
+          },
+          {
+            "key": "ovtProjectSpecificText",
+            "label": {
+              "en": "Project-specific wording for multiple trees",
+              "zhHans": "多株树木项目特定改文",
+              "zhHant": "多株樹木項目特定改文"
+            },
+            "kind": "text",
+            "optional": false,
+            "affects": [
+              {
+                "document": "SCC",
+                "clause": "22.301",
+                "paragraphs": "P1785–1801"
+              }
+            ],
+            "condition": {
+              "all": [
+                {
+                  "field": "oldValuableTrees",
+                  "operator": "countGt",
+                  "value": 1
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "bills",
+        "label": {
+          "en": "Bills, Schedules and measurement",
+          "zhHans": "Bills、Schedules及计量方案",
+          "zhHant": "Bills、Schedules及計量方案"
+        },
+        "fields": [
+          {
+            "key": "pricingScheme",
+            "label": {
+              "en": "Contract pricing scheme",
+              "zhHans": "合约计价方案",
+              "zhHant": "合約計價方案"
+            },
+            "kind": "choice",
+            "optional": false,
+            "affects": [
+              {
+                "document": "SCC",
+                "clause": "1.304/11.301/11.302",
+                "paragraphs": "P156/P979–1015"
+              }
+            ],
+            "options": [
+              {
+                "value": "BQ",
+                "label": {
+                  "en": "BQ only",
+                  "zhHans": "仅BQ",
+                  "zhHant": "僅BQ"
+                }
+              },
+              {
+                "value": "BQ_SOR",
+                "label": {
+                  "en": "Combined BQ and SOR",
+                  "zhHans": "BQ及SOR混合",
+                  "zhHant": "BQ及SOR混合"
+                }
+              },
+              {
+                "value": "SOR",
+                "label": {
+                  "en": "SOR only",
+                  "zhHans": "仅SOR",
+                  "zhHant": "僅SOR"
+                }
+              }
+            ]
+          },
+          {
+            "key": "allBqQuantitiesProvisional",
+            "label": {
+              "en": "All BQ quantities measured provisional",
+              "zhHans": "全部BQ数量为暂定量",
+              "zhHant": "全部BQ數量為暫定量"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": [
+              {
+                "document": "SCC",
+                "clause": "11.301/11.302",
+                "paragraphs": "P979–1015"
+              }
+            ],
+            "condition": {
+              "all": [
+                {
+                  "field": "pricingScheme",
+                  "operator": "in",
+                  "value": [
+                    "BQ",
+                    "BQ_SOR"
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "key": "billNos",
+            "label": {
+              "en": "Bill / Schedule numbers, descriptions and adopted roles",
+              "zhHans": "Bill／Schedule编号、说明及采用用途",
+              "zhHant": "Bill／Schedule編號、說明及采用用途"
+            },
+            "kind": "list",
+            "optional": false,
+            "affects": [
+              {
+                "document": "SCT",
+                "clause": "1/5",
+                "paragraphs": "P132–358/P674/P697"
+              },
+              {
+                "document": "SCC",
+                "clause": "20.301–20.304",
+                "paragraphs": "P1334/P1548/P1663/P1777"
+              }
+            ],
+            "columnFields": [
+              {
+                "key": "id",
+                "label": {
+                  "en": "Record ID",
+                  "zhHans": "记录ID",
+                  "zhHant": "記錄ID"
+                },
+                "kind": "text",
+                "optional": true,
+                "affects": []
+              },
+              {
+                "key": "number",
+                "label": {
+                  "en": "Bill / Schedule number",
+                  "zhHans": "Bill／Schedule编号",
+                  "zhHant": "Bill／Schedule編號"
+                },
+                "kind": "text",
+                "optional": false,
+                "affects": []
+              },
+              {
+                "key": "description",
+                "label": {
+                  "en": "Exact Bill / Schedule description",
+                  "zhHans": "原始准确说明",
+                  "zhHant": "原始準確說明"
+                },
+                "kind": "text",
+                "optional": false,
+                "affects": []
+              },
+              {
+                "key": "type",
+                "label": {
+                  "en": "Pricing document type",
+                  "zhHans": "计价文件类型",
+                  "zhHant": "計價文件類型"
+                },
+                "kind": "choice",
+                "optional": true,
+                "affects": [],
+                "options": [
+                  {
+                    "value": "BQ",
+                    "label": {
+                      "en": "Bill of Quantities",
+                      "zhHans": "工程量清单（BQ）",
+                      "zhHant": "工程量清單（BQ）"
+                    }
+                  },
+                  {
+                    "value": "SOR",
+                    "label": {
+                      "en": "Schedule of Rates",
+                      "zhHans": "单价表（SOR）",
+                      "zhHant": "單價表（SOR）"
+                    }
+                  }
+                ]
+              },
+              {
+                "key": "purpose",
+                "label": {
+                  "en": "Purpose",
+                  "zhHans": "用途",
+                  "zhHant": "用途"
+                },
+                "kind": "choice",
+                "optional": true,
+                "affects": [],
+                "options": [
+                  {
+                    "value": "preliminaries",
+                    "label": {
+                      "en": "Preliminaries",
+                      "zhHans": "开办项目",
+                      "zhHant": "開辦項目"
+                    }
+                  },
+                  {
+                    "value": "preambles",
+                    "label": {
+                      "en": "Preambles",
+                      "zhHans": "前言",
+                      "zhHant": "前言"
+                    }
+                  },
+                  {
+                    "value": "general",
+                    "label": {
+                      "en": "Ordinary Works pricing",
+                      "zhHans": "一般工程计价",
+                      "zhHant": "一般工程計價"
+                    }
+                  },
+                  {
+                    "value": "bsSafety",
+                    "label": {
+                      "en": "General BS safety / environment / hygiene",
+                      "zhHans": "全部机电安全／环境／卫生",
+                      "zhHant": "全部機電安全／環境／衛生"
+                    }
+                  },
+                  {
+                    "value": "electricalSafety",
+                    "label": {
+                      "en": "Electrical safety / environment / hygiene",
+                      "zhHans": "电气安全／环境／卫生",
+                      "zhHant": "電氣安全／環境／衛生"
+                    }
+                  },
+                  {
+                    "value": "fireSafety",
+                    "label": {
+                      "en": "Fire services safety / environment / hygiene",
+                      "zhHans": "消防安全／环境／卫生",
+                      "zhHant": "消防安全／環境／衛生"
+                    }
+                  },
+                  {
+                    "value": "fireWaterSafety",
+                    "label": {
+                      "en": "Fire and water pump safety / environment / hygiene",
+                      "zhHans": "消防及水泵安全／环境／卫生",
+                      "zhHant": "消防及水泵安全／環境／衛生"
+                    }
+                  }
+                ]
+              },
+              {
+                "key": "trade",
+                "label": {
+                  "en": "Trade / Works scope",
+                  "zhHans": "工种／工程范围",
+                  "zhHant": "工種／工程范圍"
+                },
+                "kind": "choice",
+                "optional": true,
+                "affects": [],
+                "options": [
+                  {
+                    "value": "Electrical",
+                    "label": {
+                      "en": "Electrical",
+                      "zhHans": "电气工程",
+                      "zhHant": "電氣工程"
+                    }
+                  },
+                  {
+                    "value": "Fire services",
+                    "label": {
+                      "en": "Fire services",
+                      "zhHans": "消防工程",
+                      "zhHant": "消防工程"
+                    }
+                  },
+                  {
+                    "value": "Fire services and water pump",
+                    "label": {
+                      "en": "Fire services and water pump",
+                      "zhHans": "消防及水泵工程",
+                      "zhHant": "消防及水泵工程"
+                    }
+                  },
+                  {
+                    "value": "Air-conditioning and mechanical ventilation",
+                    "label": {
+                      "en": "Air-conditioning and mechanical ventilation",
+                      "zhHans": "空调及机械通风工程",
+                      "zhHant": "空調及機械通風工程"
+                    }
+                  },
+                  {
+                    "value": "Lift",
+                    "label": {
+                      "en": "Lift",
+                      "zhHans": "升降机工程",
+                      "zhHant": "升降機工程"
+                    }
+                  },
+                  {
+                    "value": "Lift and escalator",
+                    "label": {
+                      "en": "Lift and escalator",
+                      "zhHans": "升降机及自动扶梯工程",
+                      "zhHant": "升降機及自動扶梯工程"
+                    }
+                  }
+                ]
+              },
+              {
+                "key": "placement",
+                "label": {
+                  "en": "Adopted issue placement",
+                  "zhHans": "采用发放安排",
+                  "zhHant": "采用發放安排"
+                },
+                "kind": "choice",
+                "optional": true,
+                "affects": [],
+                "options": [
+                  {
+                    "value": "standard",
+                    "label": {
+                      "en": "Standard arrangement for selected issue format",
+                      "zhHans": "所选格式标准安排",
+                      "zhHant": "所選格式標準安排"
+                    }
+                  },
+                  {
+                    "value": "DiscA",
+                    "label": {
+                      "en": "Disc A",
+                      "zhHans": "光盘A",
+                      "zhHant": "光盤A"
+                    }
+                  },
+                  {
+                    "value": "DiscB",
+                    "label": {
+                      "en": "Disc B",
+                      "zhHans": "光盘B",
+                      "zhHant": "光盤B"
+                    }
+                  },
+                  {
+                    "value": "Hardcopy",
+                    "label": {
+                      "en": "Hardcopy",
+                      "zhHans": "纸本",
+                      "zhHant": "紙本"
+                    }
+                  },
+                  {
+                    "value": "custom",
+                    "label": {
+                      "en": "Project-specific arrangement",
+                      "zhHans": "项目特定安排",
+                      "zhHant": "項目特定安排"
+                    }
+                  }
+                ]
+              },
+              {
+                "key": "placementText",
+                "label": {
+                  "en": "Project-specific distribution / addenda arrangement",
+                  "zhHans": "项目特定分发／补遗安排",
+                  "zhHant": "項目特定分發／補遺安排"
+                },
+                "kind": "text",
+                "optional": true,
+                "affects": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "photocopy",
+        "label": {
+          "en": "Photocopy rates",
+          "zhHans": "抄印费率",
+          "zhHant": "抄印費率"
+        },
+        "fields": [
+          {
+            "key": "photocopyRateUpToA3",
+            "label": {
+              "en": "HK$ per page up to A3",
+              "zhHans": "A3及以下每页港币费率",
+              "zhHant": "A3及以下每頁港幣費率"
+            },
+            "kind": "number",
+            "optional": false,
+            "affects": [
+              {
+                "document": "SCT",
+                "clause": "5(8)",
+                "paragraphs": "P747–755"
+              }
+            ],
+            "condition": {
+              "all": [
+                {
+                  "field": "twoEnvelopeTendering",
+                  "operator": "eq",
+                  "value": true
+                }
+              ]
+            }
+          },
+          {
+            "key": "photocopyRateAboveA3",
+            "label": {
+              "en": "HK$ per page above A3",
+              "zhHans": "大于A3每页港币费率",
+              "zhHant": "大於A3每頁港幣費率"
+            },
+            "kind": "number",
+            "optional": false,
+            "affects": [
+              {
+                "document": "SCT",
+                "clause": "5(8)",
+                "paragraphs": "P747–755"
+              }
+            ],
+            "condition": {
+              "all": [
+                {
+                  "field": "twoEnvelopeTendering",
+                  "operator": "eq",
+                  "value": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "submissions",
+        "label": {
+          "en": "Tender submission requirements",
+          "zhHans": "投标提交要求",
+          "zhHant": "投標提交要求"
+        },
+        "fields": [
+          {
+            "key": "rseSubmissionsRequired",
+            "label": {
+              "en": "Specific structural submissions require preparation/signature by RSE",
+              "zhHans": "专项结构提交需要RSE准备及签署",
+              "zhHant": "專項結構提交需要RSE準備及簽署"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": [
+              {
+                "document": "SCT",
+                "clause": "6(3)(d)",
+                "paragraphs": "P901–903"
+              }
+            ]
+          },
+          {
+            "key": "additionalSubmissions",
+            "label": {
+              "en": "Additional tender requirements",
+              "zhHans": "一般额外投标提交要求",
+              "zhHant": "一般額外投標提交要求"
+            },
+            "kind": "list",
+            "optional": false,
+            "affects": [
+              {
+                "document": "SCT",
+                "clause": "6(1)",
+                "paragraphs": "P905–907"
+              }
+            ],
+            "columnFields": [
+              {
+                "key": "text",
+                "label": {
+                  "en": "Requirement text",
+                  "zhHans": "要求原文",
+                  "zhHant": "要求原文"
+                },
+                "kind": "text",
+                "optional": false,
+                "affects": []
+              }
+            ]
+          },
+          {
+            "key": "pseSubmissions",
+            "label": {
+              "en": "PSE requirements for domestic CON8",
+              "zhHans": "住宅CON8的PSE提交要求",
+              "zhHant": "住宅CON8的PSE提交要求"
+            },
+            "kind": "list",
+            "optional": false,
+            "affects": [
+              {
+                "document": "SCT",
+                "clause": "6(1)",
+                "paragraphs": "P907"
+              }
+            ],
+            "condition": {
+              "all": [
+                {
+                  "field": "domesticBlocks",
+                  "operator": "eq",
+                  "value": true
+                },
+                {
+                  "field": "volumetricPrecastComponents",
+                  "operator": "eq",
+                  "value": true
+                }
+              ]
+            },
+            "columnFields": [
+              {
+                "key": "text",
+                "label": {
+                  "en": "Requirement text",
+                  "zhHans": "要求原文",
+                  "zhHant": "要求原文"
+                },
+                "kind": "text",
+                "optional": false,
+                "affects": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "warranties",
+        "label": {
+          "en": "Structural and installation warranties",
+          "zhHans": "结构及安装质保",
+          "zhHant": "結構及安裝質保"
+        },
+        "fields": [
+          {
+            "key": "projectInTinShuiWai",
+            "label": {
+              "en": "Project in Tin Shui Wai",
+              "zhHans": "项目位于天水围",
+              "zhHant": "項目位於天水圍"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": [
+              {
+                "document": "SCC",
+                "clause": "7.303",
+                "paragraphs": "P570/P572"
+              }
+            ],
+            "condition": {
+              "all": [
+                {
+                  "field": "domesticBlocks",
+                  "operator": "eq",
+                  "value": true
+                }
+              ]
+            }
+          },
+          {
+            "key": "roofingInstallationIncluded",
+            "label": {
+              "en": "Roofing installation included",
+              "zhHans": "包括屋面安装",
+              "zhHant": "包括屋面安裝"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": []
+          },
+          {
+            "key": "roofingWarrantyRequired",
+            "label": {
+              "en": "Roofing warranty required",
+              "zhHans": "要求屋面质保",
+              "zhHant": "要求屋面質保"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": [
+              {
+                "document": "SCC",
+                "clause": "7.304",
+                "paragraphs": "P598–646"
+              }
+            ],
+            "condition": {
+              "all": [
+                {
+                  "field": "roofingInstallationIncluded",
+                  "operator": "eq",
+                  "value": true
+                }
+              ]
+            }
+          },
+          {
+            "key": "refugeFloorInstallationIncluded",
+            "label": {
+              "en": "Refuge floor installation included",
+              "zhHans": "包括避难层安装",
+              "zhHant": "包括避難層安裝"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": []
+          },
+          {
+            "key": "refugeFloorWarrantyRequired",
+            "label": {
+              "en": "Refuge floor warranty required",
+              "zhHans": "要求避难层质保",
+              "zhHant": "要求避難層質保"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": [
+              {
+                "document": "SCC",
+                "clause": "7.304",
+                "paragraphs": "P598–646"
+              }
+            ],
+            "condition": {
+              "all": [
+                {
+                  "field": "refugeFloorInstallationIncluded",
+                  "operator": "eq",
+                  "value": true
+                }
+              ]
+            }
+          },
+          {
+            "key": "otherWaterproofingWarrantyRequired",
+            "label": {
+              "en": "Other waterproofing warranty required",
+              "zhHans": "要求其他防水质保",
+              "zhHant": "要求其他防水質保"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": [
+              {
+                "document": "SCC",
+                "clause": "7.304",
+                "paragraphs": "P602"
+              }
+            ]
+          },
+          {
+            "key": "otherWaterproofingSpecificationAreas",
+            "label": {
+              "en": "Other waterproofing areas specified in Specification",
+              "zhHans": "规范指定的其他防水区域",
+              "zhHant": "規范指定的其他防水區域"
+            },
+            "kind": "text",
+            "optional": false,
+            "affects": [
+              {
+                "document": "SCC",
+                "clause": "7.304",
+                "paragraphs": "P602"
+              }
+            ],
+            "condition": {
+              "all": [
+                {
+                  "field": "otherWaterproofingWarrantyRequired",
+                  "operator": "eq",
+                  "value": true
+                }
+              ]
+            }
+          },
+          {
+            "key": "acrylicPaintWarrantyRequired",
+            "label": {
+              "en": "Acrylic paint warranty required",
+              "zhHans": "要求丙烯酸涂料质保",
+              "zhHant": "要求丙烯酸涂料質保"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": [
+              {
+                "document": "SCC",
+                "clause": "7.305",
+                "paragraphs": "P650"
+              }
+            ]
+          },
+          {
+            "key": "wallTilingWarrantyRequired",
+            "label": {
+              "en": "Wall tiling warranty required",
+              "zhHans": "要求墙砖质保",
+              "zhHant": "要求墻磚質保"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": [
+              {
+                "document": "SCC",
+                "clause": "7.306",
+                "paragraphs": "P664"
+              }
+            ]
+          },
+          {
+            "key": "playEquipmentIncluded",
+            "label": {
+              "en": "Play equipment included",
+              "zhHans": "包含游乐设施",
+              "zhHant": "包含游樂設施"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": [
+              {
+                "document": "SCC",
+                "clause": "7.307",
+                "paragraphs": "P694"
+              }
+            ]
+          },
+          {
+            "key": "iasmIncluded",
+            "label": {
+              "en": "IASM included",
+              "zhHans": "包含IASM",
+              "zhHant": "包含IASM"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": [
+              {
+                "document": "SCC",
+                "clause": "7.307",
+                "paragraphs": "P694"
+              }
+            ]
+          },
+          {
+            "key": "epoxyCastIronPipeWarrantyRequired",
+            "label": {
+              "en": "Epoxy coated cast iron pipes / fittings warranty required",
+              "zhHans": "要求环氧涂层铸铁管／配件质保",
+              "zhHant": "要求環氧涂層鑄鐵管／配件質保"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": [
+              {
+                "document": "SCC",
+                "clause": "7.308",
+                "paragraphs": "P765"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "sections",
+        "label": {
+          "en": "Sections and special time provisions",
+          "zhHans": "工程Sections及特殊工期条款",
+          "zhHant": "工程Sections及特殊工期條款"
+        },
+        "fields": [
+          {
+            "key": "sections",
+            "label": {
+              "en": "Sections: Works type and location",
+              "zhHans": "Section工程类型与地点",
+              "zhHant": "Section工程類型與地點"
+            },
+            "kind": "list",
+            "optional": false,
+            "affects": [
+              {
+                "document": "SCC",
+                "clause": "8.303/8.305/11.304",
+                "paragraphs": "P835/P894/P1076"
+              }
+            ],
+            "columnFields": [
+              {
+                "key": "id",
+                "label": {
+                  "en": "Record ID",
+                  "zhHans": "记录ID",
+                  "zhHant": "記錄ID"
+                },
+                "kind": "text",
+                "optional": true,
+                "affects": []
+              },
+              {
+                "key": "designation",
+                "label": {
+                  "en": "Section designation",
+                  "zhHans": "Section编号",
+                  "zhHant": "Section編號"
+                },
+                "kind": "text",
+                "optional": false,
+                "affects": []
+              },
+              {
+                "key": "workTypes",
+                "label": {
+                  "en": "Works types",
+                  "zhHans": "工程类型",
+                  "zhHant": "工程類型"
+                },
+                "kind": "multiselect",
+                "optional": false,
+                "affects": [],
+                "options": [
+                  {
+                    "value": "building",
+                    "label": {
+                      "en": "building",
+                      "zhHans": "建筑",
+                      "zhHant": "建筑"
+                    }
+                  },
+                  {
+                    "value": "demolition",
+                    "label": {
+                      "en": "demolition",
+                      "zhHans": "拆卸",
+                      "zhHant": "拆卸"
+                    }
+                  },
+                  {
+                    "value": "foundation",
+                    "label": {
+                      "en": "foundation",
+                      "zhHans": "基础",
+                      "zhHant": "基礎"
+                    }
+                  },
+                  {
+                    "value": "other",
+                    "label": {
+                      "en": "other",
+                      "zhHans": "其他",
+                      "zhHant": "其他"
+                    }
+                  }
+                ]
+              },
+              {
+                "key": "location",
+                "label": {
+                  "en": "Site / location",
+                  "zhHans": "地盘／地点",
+                  "zhHant": "地盤／地點"
+                },
+                "kind": "text",
+                "optional": false,
+                "affects": []
+              }
+            ]
+          },
+          {
+            "key": "buildingDemolitionSitesSeparated",
+            "label": {
+              "en": "Building and demolition sites separate / detached",
+              "zhHans": "建筑与拆卸地盘分离",
+              "zhHant": "建筑與拆卸地盤分離"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": [
+              {
+                "document": "SCC",
+                "clause": "8.303",
+                "paragraphs": "P835–839"
+              }
+            ]
+          },
+          {
+            "key": "weatherEotClause",
+            "label": {
+              "en": "Adopted weather / EOT arrangement",
+              "zhHans": "采用天气／延期安排",
+              "zhHant": "采用天氣／延期安排"
+            },
+            "kind": "choice",
+            "optional": false,
+            "affects": [
+              {
+                "document": "SCC",
+                "clause": "8.302/8.303",
+                "paragraphs": "P827–839"
+              }
+            ],
+            "options": [
+              {
+                "value": "standard",
+                "label": {
+                  "en": "Standard GCC; neither optional SCC adopted",
+                  "zhHans": "标准GCC；不采用两项可选SCC",
+                  "zhHant": "標準GCC；不采用兩項可選SCC"
+                }
+              },
+              {
+                "value": "SCC8.302",
+                "label": {
+                  "en": "SCC8.302",
+                  "zhHans": "SCC8.302",
+                  "zhHant": "SCC8.302"
+                }
+              },
+              {
+                "value": "SCC8.303",
+                "label": {
+                  "en": "SCC8.303",
+                  "zhHans": "SCC8.303",
+                  "zhHant": "SCC8.303"
+                }
+              }
+            ]
+          },
+          {
+            "key": "demolitionOnlySection",
+            "label": {
+              "en": "Only-demolition Section (if several candidates)",
+              "zhHans": "仅拆卸Section（多个候选时）",
+              "zhHant": "僅拆卸Section（多個候選時）"
+            },
+            "kind": "text",
+            "optional": true,
+            "affects": [
+              {
+                "document": "SCC",
+                "clause": "8.303",
+                "paragraphs": "P839"
+              }
+            ],
+            "condition": {
+              "all": [
+                {
+                  "field": "weatherEotClause",
+                  "operator": "eq",
+                  "value": "SCC8.303"
+                }
+              ]
+            }
+          },
+          {
+            "key": "latePossessionAdopted",
+            "label": {
+              "en": "Adopt special late site possession provision (SCC8.301)",
+              "zhHans": "采用特殊迟交地盘条款（SCC8.301）",
+              "zhHant": "采用特殊遲交地盤條款（SCC8.301）"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": [
+              {
+                "document": "SCC",
+                "clause": "8.301",
+                "paragraphs": "P815/P817"
+              }
+            ]
+          },
+          {
+            "key": "additionalLossAdopted",
+            "label": {
+              "en": "Adopt special additional losses provision (SCC8.305)",
+              "zhHans": "采用特殊额外损失条款（SCC8.305）",
+              "zhHant": "采用特殊額外損失條款（SCC8.305）"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": [
+              {
+                "document": "SCC",
+                "clause": "8.305",
+                "paragraphs": "P894/P896"
+              }
+            ]
+          },
+          {
+            "key": "additionalLossSpecifiedSections",
+            "label": {
+              "en": "Specified Sections (reuse designations)",
+              "zhHans": "Specified Sections（复用编号）",
+              "zhHant": "Specified Sections（復用編號）"
+            },
+            "kind": "text",
+            "optional": false,
+            "affects": [
+              {
+                "document": "SCC",
+                "clause": "8.305",
+                "paragraphs": "P896–906"
+              }
+            ],
+            "condition": {
+              "all": [
+                {
+                  "field": "additionalLossAdopted",
+                  "operator": "eq",
+                  "value": true
+                }
+              ]
+            }
+          },
+          {
+            "key": "additionalLossRelevantSection",
+            "label": {
+              "en": "Relevant Section (reuse designation)",
+              "zhHans": "Relevant Section（复用编号）",
+              "zhHant": "Relevant Section（復用編號）"
+            },
+            "kind": "text",
+            "optional": false,
+            "affects": [
+              {
+                "document": "SCC",
+                "clause": "8.305",
+                "paragraphs": "P896–906"
+              }
+            ],
+            "condition": {
+              "all": [
+                {
+                  "field": "additionalLossAdopted",
+                  "operator": "eq",
+                  "value": true
+                }
+              ]
+            }
+          },
+          {
+            "key": "policeTrainingAdopted",
+            "label": {
+              "en": "Adopt first-month demolition site training option",
+              "zhHans": "采用拆卸地盘首月训练选项",
+              "zhHant": "采用拆卸地盤首月訓練選項"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": [
+              {
+                "document": "SCC",
+                "clause": "8.308",
+                "paragraphs": "P929–937"
+              }
+            ]
+          },
+          {
+            "key": "demolitionStandaloneBuilding",
+            "label": {
+              "en": "Demolition of qualifying standalone building",
+              "zhHans": "拆卸适用的独立建筑",
+              "zhHant": "拆卸適用的獨立建筑"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": [
+              {
+                "document": "SCC",
+                "clause": "8.308",
+                "paragraphs": "P929–933"
+              }
+            ],
+            "condition": {
+              "all": [
+                {
+                  "field": "policeTrainingAdopted",
+                  "operator": "eq",
+                  "value": true
+                }
+              ]
+            }
+          },
+          {
+            "key": "siteSuitableForTrainingFirstMonth",
+            "label": {
+              "en": "Site suitable for first-month training",
+              "zhHans": "地盘适合首月训练",
+              "zhHant": "地盤適合首月訓練"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": [
+              {
+                "document": "SCC",
+                "clause": "8.308",
+                "paragraphs": "P929–933"
+              }
+            ],
+            "condition": {
+              "all": [
+                {
+                  "field": "policeTrainingAdopted",
+                  "operator": "eq",
+                  "value": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "legal",
+        "label": {
+          "en": "Tenderer legal form / clauses",
+          "zhHans": "投标主体形式／条款采用",
+          "zhHant": "投標主體形式／條款采用"
+        },
+        "fields": [
+          {
+            "key": "contractorLegalForm",
+            "label": {
+              "en": "Contractor legal form if known",
+              "zhHans": "已知承包人主体形式",
+              "zhHant": "已知承包人主體形式"
+            },
+            "kind": "choice",
+            "optional": false,
+            "affects": [
+              {
+                "document": "SCC",
+                "clause": "22.308/22.309",
+                "paragraphs": "P2030/P2044"
+              }
+            ],
+            "options": [
+              {
+                "value": "partnership",
+                "label": {
+                  "en": "Partnership",
+                  "zhHans": "合伙",
+                  "zhHant": "合伙"
+                }
+              },
+              {
+                "value": "unincorporatedJV",
+                "label": {
+                  "en": "Unincorporated joint venture",
+                  "zhHans": "非公司联营",
+                  "zhHant": "非公司聯營"
+                }
+              },
+              {
+                "value": "incorporatedJV",
+                "label": {
+                  "en": "Incorporated joint venture",
+                  "zhHans": "公司联营",
+                  "zhHant": "公司聯營"
+                }
+              },
+              {
+                "value": "other",
+                "label": {
+                  "en": "Other",
+                  "zhHans": "其他",
+                  "zhHant": "其他"
+                }
+              }
+            ]
+          },
+          {
+            "key": "partnershipClauseAdopted",
+            "label": {
+              "en": "This draft: adopt SCC22.308 if form is unknown",
+              "zhHans": "主体未知时本次采用SCC22.308",
+              "zhHant": "主體未知時本次采用SCC22.308"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": [
+              {
+                "document": "SCC",
+                "clause": "22.308",
+                "paragraphs": "P2030"
+              }
+            ],
+            "condition": {
+              "all": [
+                {
+                  "field": "contractorLegalForm",
+                  "operator": "unknown",
+                  "value": true
+                }
+              ]
+            }
+          },
+          {
+            "key": "jointVentureClauseAdopted",
+            "label": {
+              "en": "This draft: adopt SCC22.309 if form is unknown",
+              "zhHans": "主体未知时本次采用SCC22.309",
+              "zhHant": "主體未知時本次采用SCC22.309"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": [
+              {
+                "document": "SCC",
+                "clause": "22.309",
+                "paragraphs": "P2044"
+              }
+            ],
+            "condition": {
+              "all": [
+                {
+                  "field": "contractorLegalForm",
+                  "operator": "unknown",
+                  "value": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "architect",
+        "label": {
+          "en": "Project Architect and inspection locations",
+          "zhHans": "项目建筑师及查阅地点",
+          "zhHant": "項目建筑師及查閱地點"
+        },
+        "fields": [
+          {
+            "key": "projectArchitectPost",
+            "label": {
+              "en": "Project Architect post",
+              "zhHans": "项目建筑师职位",
+              "zhHant": "項目建筑師職位"
+            },
+            "kind": "text",
+            "optional": false,
+            "affects": [
+              {
+                "document": "SCT",
+                "clause": "7(1)",
+                "paragraphs": "P923–924"
+              }
+            ]
+          },
+          {
+            "key": "projectArchitectSalutation",
+            "label": {
+              "en": "Salutation",
+              "zhHans": "称谓",
+              "zhHant": "稱謂"
+            },
+            "kind": "choice",
+            "optional": false,
+            "affects": [
+              {
+                "document": "SCT",
+                "clause": "7(1)",
+                "paragraphs": "P923–924"
+              }
+            ],
+            "options": [
+              {
+                "value": "Mr",
+                "label": {
+                  "en": "Mr",
+                  "zhHans": "Mr",
+                  "zhHant": "Mr"
+                }
+              },
+              {
+                "value": "Ms",
+                "label": {
+                  "en": "Ms",
+                  "zhHans": "Ms",
+                  "zhHant": "Ms"
+                }
+              },
+              {
+                "value": "Other",
+                "label": {
+                  "en": "Other agreed title",
+                  "zhHans": "其他采用称谓",
+                  "zhHant": "其他采用稱謂"
+                }
+              }
+            ]
+          },
+          {
+            "key": "projectArchitectOtherTitle",
+            "label": {
+              "en": "Actual other title",
+              "zhHans": "其他实际称谓",
+              "zhHant": "其他實際稱謂"
+            },
+            "kind": "text",
+            "optional": false,
+            "affects": [
+              {
+                "document": "SCT",
+                "clause": "7(1)",
+                "paragraphs": "P923–924"
+              }
+            ],
+            "condition": {
+              "all": [
+                {
+                  "field": "projectArchitectSalutation",
+                  "operator": "eq",
+                  "value": "Other"
+                }
+              ]
+            }
+          },
+          {
+            "key": "projectArchitectName",
+            "label": {
+              "en": "Project Architect name",
+              "zhHans": "项目建筑师姓名",
+              "zhHant": "項目建筑師姓名"
+            },
+            "kind": "text",
+            "optional": false,
+            "affects": [
+              {
+                "document": "SCT",
+                "clause": "7(1)",
+                "paragraphs": "P923–924"
+              }
+            ]
+          },
+          {
+            "key": "projectArchitectPhone",
+            "label": {
+              "en": "Telephone number",
+              "zhHans": "电话号码",
+              "zhHant": "電話號碼"
+            },
+            "kind": "text",
+            "optional": false,
+            "affects": [
+              {
+                "document": "SCT",
+                "clause": "7(1)",
+                "paragraphs": "P923–924"
+              }
+            ]
+          },
+          {
+            "key": "specificationInspectionFloor",
+            "label": {
+              "en": "Specification Library inspection floor",
+              "zhHans": "规范资料库查阅楼层",
+              "zhHant": "規范資料庫查閱樓層"
+            },
+            "kind": "text",
+            "optional": false,
+            "affects": [
+              {
+                "document": "SCT",
+                "clause": "7(2)",
+                "paragraphs": "P926–927"
+              }
+            ]
+          },
+          {
+            "key": "specificationInspectionBlock",
+            "label": {
+              "en": "Specification Library inspection block",
+              "zhHans": "规范资料库查阅座号",
+              "zhHant": "規范資料庫查閱座號"
+            },
+            "kind": "text",
+            "optional": false,
+            "affects": [
+              {
+                "document": "SCT",
+                "clause": "7(2)",
+                "paragraphs": "P926–927"
+              }
+            ]
+          },
+          {
+            "key": "drawingsInspectionFloor",
+            "label": {
+              "en": "Drawings inspection floor",
+              "zhHans": "图纸查阅楼层",
+              "zhHant": "圖紙查閱樓層"
+            },
+            "kind": "text",
+            "optional": false,
+            "affects": [
+              {
+                "document": "SCT",
+                "clause": "7(3)",
+                "paragraphs": "P932–933"
+              }
+            ]
+          },
+          {
+            "key": "drawingsInspectionBlock",
+            "label": {
+              "en": "Drawings inspection block",
+              "zhHans": "图纸查阅座号",
+              "zhHant": "圖紙查閱座號"
+            },
+            "kind": "text",
+            "optional": false,
+            "affects": [
+              {
+                "document": "SCT",
+                "clause": "7(3)",
+                "paragraphs": "P932–933"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "siteInspection",
+        "label": {
+          "en": "Site inspection dates and restrictions",
+          "zhHans": "地盘视察日期及限制",
+          "zhHant": "地盤視察日期及限制"
+        },
+        "fields": [
+          {
+            "key": "siteInspectionStartDate",
+            "label": {
+              "en": "Inspection start date",
+              "zhHans": "视察开始日期",
+              "zhHant": "視察開始日期"
+            },
+            "kind": "date",
+            "optional": false,
+            "affects": [
+              {
+                "document": "SCT",
+                "clause": "8",
+                "paragraphs": "P961–963"
+              }
+            ]
+          },
+          {
+            "key": "siteInspectionEndDate",
+            "label": {
+              "en": "Inspection end date",
+              "zhHans": "视察结束日期",
+              "zhHant": "視察結束日期"
+            },
+            "kind": "date",
+            "optional": false,
+            "affects": [
+              {
+                "document": "SCT",
+                "clause": "8",
+                "paragraphs": "P961–963"
+              }
+            ]
+          },
+          {
+            "key": "siteVisitRestrictions",
+            "label": {
+              "en": "Actual inspection restrictions",
+              "zhHans": "实际视察限制",
+              "zhHant": "實際視察限制"
+            },
+            "kind": "list",
+            "optional": false,
+            "affects": [
+              {
+                "document": "SCT",
+                "clause": "8",
+                "paragraphs": "P963"
+              }
+            ],
+            "columnFields": [
+              {
+                "key": "text",
+                "label": {
+                  "en": "Restriction",
+                  "zhHans": "限制",
+                  "zhHant": "限制"
+                },
+                "kind": "text",
+                "optional": false,
+                "affects": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "advance",
+        "label": {
+          "en": "Advance payment",
+          "zhHans": "预付款",
+          "zhHant": "預付款"
+        },
+        "fields": [
+          {
+            "key": "advancePaymentAdopted",
+            "label": {
+              "en": "Adopt advance payment for this draft",
+              "zhHans": "本次采用预付款",
+              "zhHant": "本次采用預付款"
+            },
+            "kind": "boolean",
+            "optional": false,
+            "options": [
+              {
+                "value": true,
+                "label": {
+                  "en": "Yes",
+                  "zhHans": "是",
+                  "zhHant": "是"
+                }
+              },
+              {
+                "value": false,
+                "label": {
+                  "en": "No",
+                  "zhHans": "否",
+                  "zhHant": "否"
+                }
+              }
+            ],
+            "affects": [
+              {
+                "document": "SCC",
+                "clause": "14.305",
+                "paragraphs": "P1206–1222"
+              }
+            ]
+          },
+          {
+            "key": "advanceRepaymentMonths",
+            "label": {
+              "en": "Project-specific repayment months (optional)",
+              "zhHans": "项目特定偿还月数（可选）",
+              "zhHant": "項目特定償還月數（可選）"
+            },
+            "kind": "number",
+            "optional": true,
+            "affects": [
+              {
+                "document": "SCC",
+                "clause": "14.305(3)",
+                "paragraphs": "P1214"
+              }
+            ],
+            "condition": {
+              "all": [
+                {
+                  "field": "advancePaymentAdopted",
+                  "operator": "eq",
+                  "value": true
+                }
+              ]
+            }
+          },
+          {
+            "key": "advanceRepaymentFirstCertificate",
+            "label": {
+              "en": "Project-specific first repayment certificate ordinal (optional)",
+              "zhHans": "项目特定首期偿还证书序号（可选）",
+              "zhHant": "項目特定首期償還證書序號（可選）"
+            },
+            "kind": "number",
+            "optional": true,
+            "affects": [
+              {
+                "document": "SCC",
+                "clause": "14.305(3)",
+                "paragraphs": "P1214"
+              }
+            ],
+            "condition": {
+              "all": [
+                {
+                  "field": "advancePaymentAdopted",
+                  "operator": "eq",
+                  "value": true
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "systemFields": [
+      {
+        "key": "targetOverrides",
+        "kind": "list",
+        "hidden": true,
+        "label": {
+          "en": "Adopted target edits and source mapping",
+          "zhHans": "本次采用目标改文及来源映射",
+          "zhHant": "本次采用目標改文及來源映射"
+        },
+        "optional": true,
+        "columnFields": [
+          {
+            "key": "actionId",
+            "label": {
+              "en": "Action ID",
+              "zhHans": "动作ID",
+              "zhHant": "動作ID"
+            },
+            "kind": "text",
+            "optional": false,
+            "affects": []
+          },
+          {
+            "key": "document",
+            "label": {
+              "en": "Document",
+              "zhHans": "文件",
+              "zhHant": "文件"
+            },
+            "kind": "text",
+            "optional": false,
+            "affects": []
+          },
+          {
+            "key": "clause",
+            "label": {
+              "en": "Clause",
+              "zhHans": "条款",
+              "zhHant": "條款"
+            },
+            "kind": "text",
+            "optional": false,
+            "affects": []
+          },
+          {
+            "key": "action",
+            "label": {
+              "en": "Adopted action",
+              "zhHans": "采用动作",
+              "zhHant": "采用動作"
+            },
+            "kind": "choice",
+            "optional": false,
+            "affects": [],
+            "options": [
+              {
+                "value": "retain",
+                "label": {
+                  "en": "retain",
+                  "zhHans": "retain",
+                  "zhHant": "retain"
+                }
+              },
+              {
+                "value": "amend",
+                "label": {
+                  "en": "amend",
+                  "zhHans": "amend",
+                  "zhHant": "amend"
+                }
+              },
+              {
+                "value": "not_used",
+                "label": {
+                  "en": "not_used",
+                  "zhHans": "not_used",
+                  "zhHant": "not_used"
+                }
+              },
+              {
+                "value": "delete",
+                "label": {
+                  "en": "delete",
+                  "zhHans": "delete",
+                  "zhHant": "delete"
+                }
+              },
+              {
+                "value": "not_adopted",
+                "label": {
+                  "en": "not_adopted",
+                  "zhHans": "not_adopted",
+                  "zhHant": "not_adopted"
+                }
+              }
+            ]
+          },
+          {
+            "key": "adoptedText",
+            "label": {
+              "en": "Exact adopted wording",
+              "zhHans": "准确采用原文",
+              "zhHant": "準確采用原文"
+            },
+            "kind": "text",
+            "optional": false,
+            "affects": []
+          },
+          {
+            "key": "sourceMapping",
+            "label": {
+              "en": "Source/version mapping and basis",
+              "zhHans": "来源／版次映射及依据",
+              "zhHant": "來源／版次映射及依據"
+            },
+            "kind": "text",
+            "optional": false,
+            "affects": []
+          }
+        ]
+      }
+    ]
+  }
+}

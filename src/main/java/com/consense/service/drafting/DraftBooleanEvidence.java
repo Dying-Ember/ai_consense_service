@@ -37,7 +37,11 @@ final class DraftBooleanEvidence {
 
     static Boolean allBqQuantities(String quote) {
         Boolean supported=null;
-        String subject="(?:all\\s+(?:the\\s+)?(?:BQ\\s+|Bill\\s+)?quantities(?:\\s+in\\s+(?:the\\s+)?(?:BQ\\s+Bills?|Bills?\\s+of\\s+Quantities|BQ))?|all\\s+(?:the\\s+)?BQ\\s+(?:Bill\\s+)?quantities|(?:the\\s+)?BQ\\s+(?:Bill\\s+)?quantities)";
+        String units="(?:one|two|three|four|five|six|seven|eight|nine)";
+        String cardinal="(?:\\d+|"+units+"|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|(?:twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety)(?:[- ]"+units+")?)";
+        // Universal Bills are a quantity scope; a count alone or selected Bills is not universal.
+        String billScope="(?:(?:the\\s+)?|all\\s+(?:the\\s+)?(?:"+cardinal+"\\s+)?)";
+        String subject="(?:all\\s+(?:the\\s+)?(?:BQ\\s+|Bill\\s+)?quantities(?:\\s+in\\s+"+billScope+"(?:BQ\\s+Bills?|Bills?\\s+of\\s+Quantities|BQ))?|all\\s+(?:the\\s+)?BQ\\s+(?:Bill\\s+)?quantities|(?:the\\s+)?BQ\\s+(?:Bill\\s+)?quantities)";
         for(String clause:DraftScopeEvidence.sourcePassages(quote)) {
             if(clause.contains("?")||Pattern.compile("(?i)\\b(?:whether|please confirm|if|unless|except|other than|apart from|subject to|pending|unconfirmed|proposed|might|could|would|title|description|named|labelled|labeled|do not (?:use|adopt|accept)|(?:another|other|different|previous|former)\\s+(?:project|contract))\\b").matcher(clause).find())continue;
             Matcher statement=Pattern.compile("(?i)\\b(?:(not)\\s+)?("+subject+")\\s+(?:are|will\\s+be|shall\\s+be|:)\\s+(?:(not(?:\\s+all)?|all)\\s+)?(?:provisional|firm|fixed|final)\\b").matcher(clause);
@@ -46,6 +50,7 @@ final class DraftBooleanEvidence {
                 boolean scopedDenial=clause.substring(0,statement.start()).matches("(?is).*\\bit\\s+is\\s+not\\s+the\\s+case\\s+that\\s*$");
                 // Mixed or nested negation needs a separate assertion; do not simplify it into an absence.
                 if(scopedDenial&&(statement.group(1)!=null||statement.group(3)!=null&&statement.group(3).startsWith("not")))continue;
+                if(statement.group(1)!=null&&statement.group(3)!=null&&statement.group(3).toLowerCase(Locale.ROOT).startsWith("not"))continue;
                 boolean negative=statement.group(1)!=null||statement.group(3)!=null&&statement.group(3).startsWith("not")||scopedDenial;
                 if(!provisional&&negative)continue;
                 boolean answer=provisional&&!negative;

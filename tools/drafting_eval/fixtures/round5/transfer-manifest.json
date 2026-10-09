@@ -1,0 +1,185 @@
+{
+  "scope": "Portable subset of the frozen synthetic round5 fixture. Original source bytes and references unchanged; unrelated change ledgers and scenario config omitted.",
+  "files": [
+    {
+      "path": "01_upload_documents/01_2026-11-02_email_request_for_library_and_sports_centre_tender_decisions.docx",
+      "sha256": "4c13835ae9e09a450140a016251dfaaf4a43550d39181e55bf480899b07c7aa4",
+      "bytes": 37220
+    },
+    {
+      "path": "01_upload_documents/02_2026-11-03_minutes_contract_identity_programme_and_accommodation.docx",
+      "sha256": "b646e62071ce4fa197605850c57febda1c59bb265ddb48465f191346fb4b6218",
+      "bytes": 37183
+    },
+    {
+      "path": "01_upload_documents/03_2026-11-04_email_adopted_bills_of_quantities_register.docx",
+      "sha256": "920fbe5f1dddaf27e973bd80453fcbc4b535c132e103df798bf9a9879170b60a",
+      "bytes": 37762
+    },
+    {
+      "path": "01_upload_documents/04_2026-11-05_email_work_package_excavation_and_facade_decisions.docx",
+      "sha256": "106d7c704c146cc9e84f0643ce06191295407fb124f1daefc6fc22ba06174d91",
+      "bytes": 37251
+    },
+    {
+      "path": "01_upload_documents/05_2026-11-06_minutes_foundation_design_and_tender_acceptance.docx",
+      "sha256": "0ca125b1f0d2e5b80611b76875dfbfa89f22094f9f542e570eeef482ed17992a",
+      "bytes": 37183
+    },
+    {
+      "path": "01_upload_documents/06_2026-11-09_email_tender_procedure_hardcopy_issue_and_photocopy_charge.docx",
+      "sha256": "83230506caf39e5424a2b2e679ca2bc39225dae53565fb7036a332c1897d5918",
+      "bytes": 37191
+    },
+    {
+      "path": "01_upload_documents/07_2026-11-10_email_nominated_subcontract_procurement_coverage.docx",
+      "sha256": "18d7609fb08535dfa4cc85815f778386c90bacde710440fc0ef9ccfdb06cf61f",
+      "bytes": 37171
+    },
+    {
+      "path": "01_upload_documents/08_2026-11-11_email_railway_boundary_and_tree_register.docx",
+      "sha256": "49bc7fa08c40c185c8884220559c82422d82d293fd187a91e2ba1d79ea7df1b6",
+      "bytes": 37208
+    },
+    {
+      "path": "01_upload_documents/09_2026-11-12_email_complete_component_design_and_execution_register.docx",
+      "sha256": "c5f4297b86f565b3f002e90d3666f7e74b34cc2b67ada673592862e45bb29a10",
+      "bytes": 37773
+    },
+    {
+      "path": "01_upload_documents/10_2026-11-13_email_structural_endorsement_and_additional_tender_submissions.docx",
+      "sha256": "69bbb58e3abea590542f7d0f2d747d861192bd3aa23b6cbd753bc2dfeaee60b1",
+      "bytes": 37237
+    },
+    {
+      "path": "01_upload_documents/11_2026-11-16_email_other_waterproofing_installation_warranty_areas.docx",
+      "sha256": "b55862e2bbeb1c359b3153115df75ec7f33e4169c808c123c660bd33866dcc67",
+      "bytes": 37473
+    },
+    {
+      "path": "01_upload_documents/12_2026-11-17_minutes_sections_weather_provisions_and_possession.docx",
+      "sha256": "6e4d46814730f157210752c4a4aebd65d623209811e8f83454f3ee3511f4bd22",
+      "bytes": 37757
+    },
+    {
+      "path": "01_upload_documents/13_2026-11-18_email_architect_appointment_inspection_offices_and_site_visits.docx",
+      "sha256": "ea2df1d7a261e5d277e6a6d0d5ef8594f4599ae8b62a167fb03307e2403b955a",
+      "bytes": 37460
+    },
+    {
+      "path": "01_upload_documents/14_2026-11-19_minutes_finishes_legal_form_training_and_payment_decisions.docx",
+      "sha256": "ac040eec5787c2e3887e80234f6240ffb6328fb1c1f34d1ba9d14bc31a008e17",
+      "bytes": 37376
+    },
+    {
+      "path": "01_upload_documents/15_2026-11-20_email_final_outstanding_decisions_and_document_register.docx",
+      "sha256": "030390363d6291d3e9b9fd8703e3a7297bbd9dde5f0f7044ab4551a4e8fcd1a6",
+      "bytes": 37394
+    },
+    {
+      "path": "02_reference_do_not_upload/01_2026-11-02_email_request_for_library_and_sports_centre_tender_decisions.txt",
+      "sha256": "a0715855b9b6cb28dd4ca36cb57aa2b8aaf22a981554a7439554ac500b088fd1",
+      "bytes": 487
+    },
+    {
+      "path": "02_reference_do_not_upload/02_2026-11-03_minutes_contract_identity_programme_and_accommodation.txt",
+      "sha256": "68628b34217c3bcec69163ecf61cab977f8bd7fb96cacd5a2585c30721aa3ebe",
+      "bytes": 415
+    },
+    {
+      "path": "02_reference_do_not_upload/03_2026-11-04_email_adopted_bills_of_quantities_register.txt",
+      "sha256": "56ba2d417ef1c2a2d49953d1591362528b4d6218190b7fd1c049c908d6db7bca",
+      "bytes": 722
+    },
+    {
+      "path": "02_reference_do_not_upload/04_2026-11-05_email_work_package_excavation_and_facade_decisions.txt",
+      "sha256": "a5095c8f3124214707c522a5c9026eff619cf9d73acc682f88567758480098ec",
+      "bytes": 550
+    },
+    {
+      "path": "02_reference_do_not_upload/05_2026-11-06_minutes_foundation_design_and_tender_acceptance.txt",
+      "sha256": "f0ba4e1ff2b34d2c6778b8a8f4d2abcd42f532510503225db7c4edef15e0f161",
+      "bytes": 559
+    },
+    {
+      "path": "02_reference_do_not_upload/06_2026-11-09_email_tender_procedure_hardcopy_issue_and_photocopy_charge.txt",
+      "sha256": "e69f4b19c15a0b3b9f708af0bd00cba6e354ad7bca90d2cb171fc2ac46ccd822",
+      "bytes": 404
+    },
+    {
+      "path": "02_reference_do_not_upload/07_2026-11-10_email_nominated_subcontract_procurement_coverage.txt",
+      "sha256": "9dde948dc75aa6b5f390be24a4de9dd4424f944d845b03a2fc5a124f2b0ccaa9",
+      "bytes": 393
+    },
+    {
+      "path": "02_reference_do_not_upload/08_2026-11-11_email_railway_boundary_and_tree_register.txt",
+      "sha256": "f068631cd006ae511d74418d0b2943fac35a9f7ccf68a7109ab42ebc8dfdb11c",
+      "bytes": 487
+    },
+    {
+      "path": "02_reference_do_not_upload/09_2026-11-12_email_complete_component_design_and_execution_register.txt",
+      "sha256": "b3c43327a192adce74b02424d496fb07b1c40134192b7aaa443db25d8b8ee249",
+      "bytes": 733
+    },
+    {
+      "path": "02_reference_do_not_upload/10_2026-11-13_email_structural_endorsement_and_additional_tender_submissions.txt",
+      "sha256": "23fba1c995cb7536fa87902083bcc7ebf076694498e38a6c4f3a3b8b508fa212",
+      "bytes": 588
+    },
+    {
+      "path": "02_reference_do_not_upload/11_2026-11-16_email_other_waterproofing_installation_warranty_areas.txt",
+      "sha256": "5b073bdd218dd60c9d136135eb0eae20f12317c4f1028c6cf175adc32812e459",
+      "bytes": 1024
+    },
+    {
+      "path": "02_reference_do_not_upload/12_2026-11-17_minutes_sections_weather_provisions_and_possession.txt",
+      "sha256": "fe12001ae8b9a7d1362d8052050c63fe0b36146e3a5f774fd13e4faed7a4b337",
+      "bytes": 930
+    },
+    {
+      "path": "02_reference_do_not_upload/13_2026-11-18_email_architect_appointment_inspection_offices_and_site_visits.txt",
+      "sha256": "5c5813efe551e7a9d0aba7cb36c6f6e6a26ad0ba25d657a764b05f6fd61ec955",
+      "bytes": 963
+    },
+    {
+      "path": "02_reference_do_not_upload/14_2026-11-19_minutes_finishes_legal_form_training_and_payment_decisions.txt",
+      "sha256": "fb5832a9a3b0dfeec7ef60c3a1a0b18c4b995be3a49ad75ebedf77d176b337a1",
+      "bytes": 930
+    },
+    {
+      "path": "02_reference_do_not_upload/15_2026-11-20_email_final_outstanding_decisions_and_document_register.txt",
+      "sha256": "f742ee41a0013473b0b7988453ea48b311d41cae98cdcd43833ff150a9bbd688",
+      "bytes": 786
+    },
+    {
+      "path": "02_reference_do_not_upload/author_validation.json",
+      "sha256": "cd45cfda72c05e8036dbf6c569cb588c67afae2ddfc06cf55bedfddd9d7e3e59",
+      "bytes": 4973
+    },
+    {
+      "path": "02_reference_do_not_upload/expected_values.json",
+      "sha256": "5ed34460003d20e0864a9e8a9bdc68e820fe7ae4004ad29baf68f23742287e89",
+      "bytes": 118023
+    },
+    {
+      "path": "02_reference_do_not_upload/fixture-freeze.json",
+      "sha256": "d7bd369d0497fee36194db3a207c6baa7672002d58975654d3ecb5c04c9fcd51",
+      "bytes": 14942
+    },
+    {
+      "path": "02_reference_do_not_upload/incremental_expected_states.json",
+      "sha256": "7f2c6d15ff911053eef14cc267ea461f8ace71d16468d03581b6be99ad1803bb",
+      "bytes": 146574
+    },
+    {
+      "path": "02_reference_do_not_upload/input_catalogue_snapshot.json",
+      "sha256": "2c816cdf385a5c822000d1e89feee7a052834c6910d616260e59550afb681e9b",
+      "bytes": 103392
+    },
+    {
+      "path": "02_reference_do_not_upload/withheld_control.json",
+      "sha256": "a1f7b7f0f8482b550e12bfb1a3733eceb1bb2d89a76bca86579ddbb3e8a95d24",
+      "bytes": 609
+    }
+  ]
+}

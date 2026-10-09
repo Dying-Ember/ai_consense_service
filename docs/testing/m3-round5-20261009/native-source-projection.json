@@ -1,0 +1,777 @@
+{
+  "01_2026-11-02_email_request_for_library_and_sports_centre_tender_decisions.docx": {
+    "sha256": "4c13835ae9e09a450140a016251dfaaf4a43550d39181e55bf480899b07c7aa4",
+    "nativeParagraphs": [
+      "Request for library and sports centre tender decisions",
+      "Fictional test correspondence. All people, addresses, decisions and project particulars in this document are invented for a software evaluation.",
+      "Record R501    Date 2026-11-02    Email reply",
+      "From: Fictional Quantity Surveyor <qs@consense-scenario.invalid>To: Fictional Coordination Team <team@consense-scenario.invalid>",
+      "Dear colleagues, we are preparing the NTT, SCT and SCC for the community library and indoor sports centre. Please confirm the project particulars, design responsibilities, pricing documents, warranties and tender inspection arrangements in your respective replies.",
+      "The outstanding contact and access decisions can remain open until the responsible officers confirm them. Please identify the adopted arrangements for this tender so that the drafting team can prepare its review copy.",
+      "Regards,Fictional Quantity Surveyor"
+    ],
+    "blocks": [
+      {
+        "kind": "paragraph",
+        "text": "Request for library and sports centre tender decisions"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Fictional test correspondence. All people, addresses, decisions and project particulars in this document are invented for a software evaluation."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Record R501    Date 2026-11-02    Email reply"
+      },
+      {
+        "kind": "paragraph",
+        "text": "From: Fictional Quantity Surveyor <qs@consense-scenario.invalid>To: Fictional Coordination Team <team@consense-scenario.invalid>"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Dear colleagues, we are preparing the NTT, SCT and SCC for the community library and indoor sports centre. Please confirm the project particulars, design responsibilities, pricing documents, warranties and tender inspection arrangements in your respective replies."
+      },
+      {
+        "kind": "paragraph",
+        "text": "The outstanding contact and access decisions can remain open until the responsible officers confirm them. Please identify the adopted arrangements for this tender so that the drafting team can prepare its review copy."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Regards,Fictional Quantity Surveyor"
+      }
+    ]
+  },
+  "02_2026-11-03_minutes_contract_identity_programme_and_accommodation.docx": {
+    "sha256": "b646e62071ce4fa197605850c57febda1c59bb265ddb48465f191346fb4b6218",
+    "nativeParagraphs": [
+      "Contract identity programme and accommodation",
+      "Fictional test correspondence. All people, addresses, decisions and project particulars in this document are invented for a software evaluation.",
+      "Record R502    Date 2026-11-03    Meeting minutes",
+      "Attendees: Fictional Project Architect, Structural Engineer, Procurement Officer and Quantity Surveyor. Recorder: Fictional Quantity Surveyor.",
+      "The approved tender is Contract No. 20270194, Construction of Community Library and Indoor Sports Centre at Fanling Area 17.",
+      "The accepted whole contract completion period is 28 months. This is below the 39 month threshold.",
+      "The contract includes foundation works for the library and indoor sports centre. Both facilities are non-domestic buildings. No domestic block or residential accommodation is included."
+    ],
+    "blocks": [
+      {
+        "kind": "paragraph",
+        "text": "Contract identity programme and accommodation"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Fictional test correspondence. All people, addresses, decisions and project particulars in this document are invented for a software evaluation."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Record R502    Date 2026-11-03    Meeting minutes"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Attendees: Fictional Project Architect, Structural Engineer, Procurement Officer and Quantity Surveyor. Recorder: Fictional Quantity Surveyor."
+      },
+      {
+        "kind": "paragraph",
+        "text": "The approved tender is Contract No. 20270194, Construction of Community Library and Indoor Sports Centre at Fanling Area 17."
+      },
+      {
+        "kind": "paragraph",
+        "text": "The accepted whole contract completion period is 28 months. This is below the 39 month threshold."
+      },
+      {
+        "kind": "paragraph",
+        "text": "The contract includes foundation works for the library and indoor sports centre. Both facilities are non-domestic buildings. No domestic block or residential accommodation is included."
+      }
+    ]
+  },
+  "03_2026-11-04_email_adopted_bills_of_quantities_register.docx": {
+    "sha256": "920fbe5f1dddaf27e973bd80453fcbc4b535c132e103df798bf9a9879170b60a",
+    "nativeParagraphs": [
+      "Adopted Bills of Quantities register",
+      "Fictional test correspondence. All people, addresses, decisions and project particulars in this document are invented for a software evaluation.",
+      "Record R503    Date 2026-11-04    Email reply",
+      "From: Fictional Quantity Surveyor <qs@consense-scenario.invalid>To: Fictional Coordination Team <team@consense-scenario.invalid>",
+      "The tender is priced entirely by Bills of Quantities. No Schedule of Rates forms part of the adopted pricing scheme. The table below is the complete register of six BQ Bills.",
+      "",
+      "All quantities in the Bills of Quantities are provisional. The provisional measurement arrangement applies to all six Bills, including the quantities in the preliminaries and preambles where quantities are stated.",
+      "Regards,Fictional Quantity Surveyor"
+    ],
+    "blocks": [
+      {
+        "kind": "paragraph",
+        "text": "Adopted Bills of Quantities register"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Fictional test correspondence. All people, addresses, decisions and project particulars in this document are invented for a software evaluation."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Record R503    Date 2026-11-04    Email reply"
+      },
+      {
+        "kind": "paragraph",
+        "text": "From: Fictional Quantity Surveyor <qs@consense-scenario.invalid>To: Fictional Coordination Team <team@consense-scenario.invalid>"
+      },
+      {
+        "kind": "paragraph",
+        "text": "The tender is priced entirely by Bills of Quantities. No Schedule of Rates forms part of the adopted pricing scheme. The table below is the complete register of six BQ Bills."
+      },
+      {
+        "kind": "table_row",
+        "row": 1,
+        "text": "Bill number | Description | Pricing type"
+      },
+      {
+        "kind": "table_row",
+        "row": 2,
+        "text": "1 | General Preliminaries | BQ"
+      },
+      {
+        "kind": "table_row",
+        "row": 3,
+        "text": "2 | Preambles to the Bills of Quantities | BQ"
+      },
+      {
+        "kind": "table_row",
+        "row": 4,
+        "text": "3 | Library Building (All Provisional) | BQ"
+      },
+      {
+        "kind": "table_row",
+        "row": 5,
+        "text": "4 | Indoor Sports Centre (All Provisional) | BQ"
+      },
+      {
+        "kind": "table_row",
+        "row": 6,
+        "text": "5 | Foundations and Groundworks (All Provisional) | BQ"
+      },
+      {
+        "kind": "table_row",
+        "row": 7,
+        "text": "6 | External Works and Drainage (All Provisional) | BQ"
+      },
+      {
+        "kind": "paragraph",
+        "text": ""
+      },
+      {
+        "kind": "paragraph",
+        "text": "All quantities in the Bills of Quantities are provisional. The provisional measurement arrangement applies to all six Bills, including the quantities in the preliminaries and preambles where quantities are stated."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Regards,Fictional Quantity Surveyor"
+      }
+    ]
+  },
+  "04_2026-11-05_email_work_package_excavation_and_facade_decisions.docx": {
+    "sha256": "106d7c704c146cc9e84f0643ce06191295407fb124f1daefc6fc22ba06174d91",
+    "nativeParagraphs": [
+      "Work package excavation and facade decisions",
+      "Fictional test correspondence. All people, addresses, decisions and project particulars in this document are invented for a software evaluation.",
+      "Record R504    Date 2026-11-05    Email reply",
+      "From: Fictional Quantity Surveyor <qs@consense-scenario.invalid>To: Fictional Coordination Team <team@consense-scenario.invalid>",
+      "The east car park works identified in the drawings are subject to excision from the Works. No site formation works are included. An excavation permit is required for the public footpath trench connection.",
+      "The project produces no subsidised sale flats. Neither show flats nor exhibition flats are required because the facilities are non-residential.",
+      "Precast concrete facade panels form the tender basis. The Contractor is also permitted to propose an alternative precast concrete facade panel system, subject to the specified approval process.",
+      "Regards,Fictional Quantity Surveyor"
+    ],
+    "blocks": [
+      {
+        "kind": "paragraph",
+        "text": "Work package excavation and facade decisions"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Fictional test correspondence. All people, addresses, decisions and project particulars in this document are invented for a software evaluation."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Record R504    Date 2026-11-05    Email reply"
+      },
+      {
+        "kind": "paragraph",
+        "text": "From: Fictional Quantity Surveyor <qs@consense-scenario.invalid>To: Fictional Coordination Team <team@consense-scenario.invalid>"
+      },
+      {
+        "kind": "paragraph",
+        "text": "The east car park works identified in the drawings are subject to excision from the Works. No site formation works are included. An excavation permit is required for the public footpath trench connection."
+      },
+      {
+        "kind": "paragraph",
+        "text": "The project produces no subsidised sale flats. Neither show flats nor exhibition flats are required because the facilities are non-residential."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Precast concrete facade panels form the tender basis. The Contractor is also permitted to propose an alternative precast concrete facade panel system, subject to the specified approval process."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Regards,Fictional Quantity Surveyor"
+      }
+    ]
+  },
+  "05_2026-11-06_minutes_foundation_design_and_tender_acceptance.docx": {
+    "sha256": "0ca125b1f0d2e5b80611b76875dfbfa89f22094f9f542e570eeef482ed17992a",
+    "nativeParagraphs": [
+      "Foundation design and tender acceptance",
+      "Fictional test correspondence. All people, addresses, decisions and project particulars in this document are invented for a software evaluation.",
+      "Record R505    Date 2026-11-06    Meeting minutes",
+      "Attendees: Fictional Project Architect, Structural Engineer, Procurement Officer and Quantity Surveyor. Recorder: Fictional Quantity Surveyor.",
+      "All foundations in this contract are designed by the Architect and Structural Engineer. There are no contractor designed foundations. The Contractor will construct the foundations to the issued design.",
+      "The design is established before tender invitation, not at tender acceptance. Tenderers are not required to submit foundation design information with their Tender.",
+      "The optional requirement for a design related quotation before instructing a Variation remains awaiting the contracts officer decision. No adoption decision is recorded at this meeting."
+    ],
+    "blocks": [
+      {
+        "kind": "paragraph",
+        "text": "Foundation design and tender acceptance"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Fictional test correspondence. All people, addresses, decisions and project particulars in this document are invented for a software evaluation."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Record R505    Date 2026-11-06    Meeting minutes"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Attendees: Fictional Project Architect, Structural Engineer, Procurement Officer and Quantity Surveyor. Recorder: Fictional Quantity Surveyor."
+      },
+      {
+        "kind": "paragraph",
+        "text": "All foundations in this contract are designed by the Architect and Structural Engineer. There are no contractor designed foundations. The Contractor will construct the foundations to the issued design."
+      },
+      {
+        "kind": "paragraph",
+        "text": "The design is established before tender invitation, not at tender acceptance. Tenderers are not required to submit foundation design information with their Tender."
+      },
+      {
+        "kind": "paragraph",
+        "text": "The optional requirement for a design related quotation before instructing a Variation remains awaiting the contracts officer decision. No adoption decision is recorded at this meeting."
+      }
+    ]
+  },
+  "06_2026-11-09_email_tender_procedure_hardcopy_issue_and_photocopy_charge.docx": {
+    "sha256": "83230506caf39e5424a2b2e679ca2bc39225dae53565fb7036a332c1897d5918",
+    "nativeParagraphs": [
+      "Tender procedure hardcopy issue and photocopy charge",
+      "Fictional test correspondence. All people, addresses, decisions and project particulars in this document are invented for a software evaluation.",
+      "Record R506    Date 2026-11-09    Email reply",
+      "From: Fictional Quantity Surveyor <qs@consense-scenario.invalid>To: Fictional Coordination Team <team@consense-scenario.invalid>",
+      "Adopt the two envelope tendering procedure. Return the technical proposal in one sealed envelope and the priced tender in a separate sealed envelope.",
+      "The official issue format of the BQ original and BQ addenda is Hardcopy. L10Pro files are not issued for this tender.",
+      "The adopted photocopy charge for sheets up to A3 is HK$3.60 per sheet. The charge for sheets above A3 has not yet been approved.",
+      "Regards,Fictional Quantity Surveyor"
+    ],
+    "blocks": [
+      {
+        "kind": "paragraph",
+        "text": "Tender procedure hardcopy issue and photocopy charge"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Fictional test correspondence. All people, addresses, decisions and project particulars in this document are invented for a software evaluation."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Record R506    Date 2026-11-09    Email reply"
+      },
+      {
+        "kind": "paragraph",
+        "text": "From: Fictional Quantity Surveyor <qs@consense-scenario.invalid>To: Fictional Coordination Team <team@consense-scenario.invalid>"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Adopt the two envelope tendering procedure. Return the technical proposal in one sealed envelope and the priced tender in a separate sealed envelope."
+      },
+      {
+        "kind": "paragraph",
+        "text": "The official issue format of the BQ original and BQ addenda is Hardcopy. L10Pro files are not issued for this tender."
+      },
+      {
+        "kind": "paragraph",
+        "text": "The adopted photocopy charge for sheets up to A3 is HK$3.60 per sheet. The charge for sheets above A3 has not yet been approved."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Regards,Fictional Quantity Surveyor"
+      }
+    ]
+  },
+  "07_2026-11-10_email_nominated_subcontract_procurement_coverage.docx": {
+    "sha256": "18d7609fb08535dfa4cc85815f778386c90bacde710440fc0ef9ccfdb06cf61f",
+    "nativeParagraphs": [
+      "Nominated subcontract procurement coverage",
+      "Fictional test correspondence. All people, addresses, decisions and project particulars in this document are invented for a software evaluation.",
+      "Record R507    Date 2026-11-10    Email reply",
+      "From: Fictional Quantity Surveyor <qs@consense-scenario.invalid>To: Fictional Coordination Team <team@consense-scenario.invalid>",
+      "Use Nominated Sub-contracts, NSC, for the building services works. The Building Services Specialist Sub-contracts arrangement is not adopted. The BSSSC trade selection and its replacement clause text are therefore not required for this draft.",
+      "The WTO Agreement on Government Procurement does not apply to this contract. The procurement officer has confirmed that decision for this tender.",
+      "Regards,Fictional Quantity Surveyor"
+    ],
+    "blocks": [
+      {
+        "kind": "paragraph",
+        "text": "Nominated subcontract procurement coverage"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Fictional test correspondence. All people, addresses, decisions and project particulars in this document are invented for a software evaluation."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Record R507    Date 2026-11-10    Email reply"
+      },
+      {
+        "kind": "paragraph",
+        "text": "From: Fictional Quantity Surveyor <qs@consense-scenario.invalid>To: Fictional Coordination Team <team@consense-scenario.invalid>"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Use Nominated Sub-contracts, NSC, for the building services works. The Building Services Specialist Sub-contracts arrangement is not adopted. The BSSSC trade selection and its replacement clause text are therefore not required for this draft."
+      },
+      {
+        "kind": "paragraph",
+        "text": "The WTO Agreement on Government Procurement does not apply to this contract. The procurement officer has confirmed that decision for this tender."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Regards,Fictional Quantity Surveyor"
+      }
+    ]
+  },
+  "08_2026-11-11_email_railway_boundary_and_tree_register.docx": {
+    "sha256": "49bc7fa08c40c185c8884220559c82422d82d293fd187a91e2ba1d79ea7df1b6",
+    "nativeParagraphs": [
+      "Railway boundary and tree register",
+      "Fictional test correspondence. All people, addresses, decisions and project particulars in this document are invented for a software evaluation.",
+      "Record R508    Date 2026-11-11    Email reply",
+      "From: Fictional Quantity Surveyor <qs@consense-scenario.invalid>To: Fictional Coordination Team <team@consense-scenario.invalid>",
+      "No work in this contract is within a railway protection area. The approved site and the footpath trench are both outside the railway protection area; inspection of railway protection plans is therefore not required for this package.",
+      "The complete Old and Valuable Trees register contains one tree only, serial number OVT-FL-017-08. No other Old and Valuable Tree is affected. Use the standard single tree protection provision without additional project specific tree protection text.",
+      "Regards,Fictional Quantity Surveyor"
+    ],
+    "blocks": [
+      {
+        "kind": "paragraph",
+        "text": "Railway boundary and tree register"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Fictional test correspondence. All people, addresses, decisions and project particulars in this document are invented for a software evaluation."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Record R508    Date 2026-11-11    Email reply"
+      },
+      {
+        "kind": "paragraph",
+        "text": "From: Fictional Quantity Surveyor <qs@consense-scenario.invalid>To: Fictional Coordination Team <team@consense-scenario.invalid>"
+      },
+      {
+        "kind": "paragraph",
+        "text": "No work in this contract is within a railway protection area. The approved site and the footpath trench are both outside the railway protection area; inspection of railway protection plans is therefore not required for this package."
+      },
+      {
+        "kind": "paragraph",
+        "text": "The complete Old and Valuable Trees register contains one tree only, serial number OVT-FL-017-08. No other Old and Valuable Tree is affected. Use the standard single tree protection provision without additional project specific tree protection text."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Regards,Fictional Quantity Surveyor"
+      }
+    ]
+  },
+  "09_2026-11-12_email_complete_component_design_and_execution_register.docx": {
+    "sha256": "c5f4297b86f565b3f002e90d3666f7e74b34cc2b67ada673592862e45bb29a10",
+    "nativeParagraphs": [
+      "Complete component design and execution register",
+      "Fictional test correspondence. All people, addresses, decisions and project particulars in this document are invented for a software evaluation.",
+      "Record R509    Date 2026-11-12    Email reply",
+      "From: Fictional Quantity Surveyor <qs@consense-scenario.invalid>To: Fictional Coordination Team <team@consense-scenario.invalid>",
+      "The following four rows are the complete foundation and structural component responsibility register. Yes and No in the design and execution columns refer to the Contractor. Every listed design is issued by the Architect and Structural Engineer.",
+      "",
+      "The pad footings in the register support the indoor sports centre building. The footings therefore serve a building, rather than minor standalone landscape items.",
+      "Regards,Fictional Quantity Surveyor"
+    ],
+    "blocks": [
+      {
+        "kind": "paragraph",
+        "text": "Complete component design and execution register"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Fictional test correspondence. All people, addresses, decisions and project particulars in this document are invented for a software evaluation."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Record R509    Date 2026-11-12    Email reply"
+      },
+      {
+        "kind": "paragraph",
+        "text": "From: Fictional Quantity Surveyor <qs@consense-scenario.invalid>To: Fictional Coordination Team <team@consense-scenario.invalid>"
+      },
+      {
+        "kind": "paragraph",
+        "text": "The following four rows are the complete foundation and structural component responsibility register. Yes and No in the design and execution columns refer to the Contractor. Every listed design is issued by the Architect and Structural Engineer."
+      },
+      {
+        "kind": "table_row",
+        "row": 1,
+        "text": "Component | Scope | Contractor design | Contractor execution"
+      },
+      {
+        "kind": "table_row",
+        "row": 2,
+        "text": "piling | Bored piles beneath the library building | No | Yes"
+      },
+      {
+        "kind": "table_row",
+        "row": 3,
+        "text": "pilecaps | Pile caps beneath the library building | No | Yes"
+      },
+      {
+        "kind": "table_row",
+        "row": 4,
+        "text": "footings | Pad footings supporting the indoor sports centre | No | Yes"
+      },
+      {
+        "kind": "table_row",
+        "row": 5,
+        "text": "other | Retaining walls along the west boundary | No | Yes"
+      },
+      {
+        "kind": "paragraph",
+        "text": ""
+      },
+      {
+        "kind": "paragraph",
+        "text": "The pad footings in the register support the indoor sports centre building. The footings therefore serve a building, rather than minor standalone landscape items."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Regards,Fictional Quantity Surveyor"
+      }
+    ]
+  },
+  "10_2026-11-13_email_structural_endorsement_and_additional_tender_submissions.docx": {
+    "sha256": "69bbb58e3abea590542f7d0f2d747d861192bd3aa23b6cbd753bc2dfeaee60b1",
+    "nativeParagraphs": [
+      "Structural endorsement and additional tender submissions",
+      "Fictional test correspondence. All people, addresses, decisions and project particulars in this document are invented for a software evaluation.",
+      "Record R510    Date 2026-11-13    Email reply",
+      "From: Fictional Quantity Surveyor <qs@consense-scenario.invalid>To: Fictional Coordination Team <team@consense-scenario.invalid>",
+      "RSE endorsed submissions are required with the Tender. The endorsement must cover the temporary excavation support proposal submitted by the Tenderer.",
+      "The complete list of additional Tender submissions is:Submit a temporary excavation support proposal with the Tender.Submit a pedestrian access management plan with the Tender.Submit a construction noise control plan for the adjoining library with the Tender.",
+      "Domestic CON8 units are outside this non-residential project. No PSE endorsed submissions for domestic volumetric precast components are called for in this tender.",
+      "Regards,Fictional Quantity Surveyor"
+    ],
+    "blocks": [
+      {
+        "kind": "paragraph",
+        "text": "Structural endorsement and additional tender submissions"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Fictional test correspondence. All people, addresses, decisions and project particulars in this document are invented for a software evaluation."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Record R510    Date 2026-11-13    Email reply"
+      },
+      {
+        "kind": "paragraph",
+        "text": "From: Fictional Quantity Surveyor <qs@consense-scenario.invalid>To: Fictional Coordination Team <team@consense-scenario.invalid>"
+      },
+      {
+        "kind": "paragraph",
+        "text": "RSE endorsed submissions are required with the Tender. The endorsement must cover the temporary excavation support proposal submitted by the Tenderer."
+      },
+      {
+        "kind": "paragraph",
+        "text": "The complete list of additional Tender submissions is:Submit a temporary excavation support proposal with the Tender.Submit a pedestrian access management plan with the Tender.Submit a construction noise control plan for the adjoining library with the Tender."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Domestic CON8 units are outside this non-residential project. No PSE endorsed submissions for domestic volumetric precast components are called for in this tender."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Regards,Fictional Quantity Surveyor"
+      }
+    ]
+  },
+  "11_2026-11-16_email_other_waterproofing_installation_warranty_areas.docx": {
+    "sha256": "b55862e2bbeb1c359b3153115df75ec7f33e4169c808c123c660bd33866dcc67",
+    "nativeParagraphs": [
+      "Other waterproofing installation warranty areas",
+      "Fictional test correspondence. All people, addresses, decisions and project particulars in this document are invented for a software evaluation.",
+      "Record R511    Date 2026-11-16    Email reply",
+      "From: Fictional Quantity Surveyor <qs@consense-scenario.invalid>To: Fictional Coordination Team <team@consense-scenario.invalid>",
+      "Require an other waterproofing installation warranty covering the following complete nine area specification. The separate roofing and refuge floor decisions are recorded in the finishes meeting.",
+      "1. Library entrance planters, including planter bases, upstands and overflow sleeves;2. Public toilet floors and wet walls, including thresholds, floor drains and pipe penetrations;3. Sports changing rooms and shower areas, including shower kerbs, benches and service risers;4. Cleaning stores and janitor sinks, including sink surrounds and floor drain collars;5. Basement lift pits, including wall joints, cable sleeves and sump recesses;6. Plant room drainage channels, including equipment plinth junctions and grating frames;7. Library cafe preparation floors, including grease trap access necks and cupboard bases;8. External accessible ramps above occupied rooms, including movement joints and edge returns;9. Rainwater collection tank and pump chamber, including construction joints and pipe sleeves.",
+      "Regards,Fictional Quantity Surveyor"
+    ],
+    "blocks": [
+      {
+        "kind": "paragraph",
+        "text": "Other waterproofing installation warranty areas"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Fictional test correspondence. All people, addresses, decisions and project particulars in this document are invented for a software evaluation."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Record R511    Date 2026-11-16    Email reply"
+      },
+      {
+        "kind": "paragraph",
+        "text": "From: Fictional Quantity Surveyor <qs@consense-scenario.invalid>To: Fictional Coordination Team <team@consense-scenario.invalid>"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Require an other waterproofing installation warranty covering the following complete nine area specification. The separate roofing and refuge floor decisions are recorded in the finishes meeting."
+      },
+      {
+        "kind": "paragraph",
+        "text": "1. Library entrance planters, including planter bases, upstands and overflow sleeves;2. Public toilet floors and wet walls, including thresholds, floor drains and pipe penetrations;3. Sports changing rooms and shower areas, including shower kerbs, benches and service risers;4. Cleaning stores and janitor sinks, including sink surrounds and floor drain collars;5. Basement lift pits, including wall joints, cable sleeves and sump recesses;6. Plant room drainage channels, including equipment plinth junctions and grating frames;7. Library cafe preparation floors, including grease trap access necks and cupboard bases;8. External accessible ramps above occupied rooms, including movement joints and edge returns;9. Rainwater collection tank and pump chamber, including construction joints and pipe sleeves."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Regards,Fictional Quantity Surveyor"
+      }
+    ]
+  },
+  "12_2026-11-17_minutes_sections_weather_provisions_and_possession.docx": {
+    "sha256": "6e4d46814730f157210752c4a4aebd65d623209811e8f83454f3ee3511f4bd22",
+    "nativeParagraphs": [
+      "Sections weather provisions and possession",
+      "Fictional test correspondence. All people, addresses, decisions and project particulars in this document are invented for a software evaluation.",
+      "Record R512    Date 2026-11-17    Meeting minutes",
+      "Attendees: Fictional Project Architect, Structural Engineer, Procurement Officer and Quantity Surveyor. Recorder: Fictional Quantity Surveyor.",
+      "The complete Section schedule consists of the three rows below. The north building site and the south demolition site are separate fenced sites with separate entrances.",
+      "",
+      "The building and demolition sites are separated. The north site contains the library and sports centre works; the south site contains the demolition works only.",
+      "Adopt SCC8.303 for weather extension of time. Insert Section 3 as the demolition only Section under that clause.",
+      "Adopt the optional late possession provision. Do not adopt the additional loss provision; no specified Sections or relevant Section are needed for that optional provision."
+    ],
+    "blocks": [
+      {
+        "kind": "paragraph",
+        "text": "Sections weather provisions and possession"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Fictional test correspondence. All people, addresses, decisions and project particulars in this document are invented for a software evaluation."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Record R512    Date 2026-11-17    Meeting minutes"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Attendees: Fictional Project Architect, Structural Engineer, Procurement Officer and Quantity Surveyor. Recorder: Fictional Quantity Surveyor."
+      },
+      {
+        "kind": "paragraph",
+        "text": "The complete Section schedule consists of the three rows below. The north building site and the south demolition site are separate fenced sites with separate entrances."
+      },
+      {
+        "kind": "table_row",
+        "row": 1,
+        "text": "Section designation | Works types | Site or location"
+      },
+      {
+        "kind": "table_row",
+        "row": 2,
+        "text": "Section 1 | building, foundation | Library building at the north site on Library Road"
+      },
+      {
+        "kind": "table_row",
+        "row": 3,
+        "text": "Section 2 | building, foundation | Indoor sports centre at the north site on Library Road"
+      },
+      {
+        "kind": "table_row",
+        "row": 4,
+        "text": "Section 3 | demolition | Former depot at the south site on Depot Lane"
+      },
+      {
+        "kind": "paragraph",
+        "text": ""
+      },
+      {
+        "kind": "paragraph",
+        "text": "The building and demolition sites are separated. The north site contains the library and sports centre works; the south site contains the demolition works only."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Adopt SCC8.303 for weather extension of time. Insert Section 3 as the demolition only Section under that clause."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Adopt the optional late possession provision. Do not adopt the additional loss provision; no specified Sections or relevant Section are needed for that optional provision."
+      }
+    ]
+  },
+  "13_2026-11-18_email_architect_appointment_inspection_offices_and_site_visits.docx": {
+    "sha256": "ea2df1d7a261e5d277e6a6d0d5ef8594f4599ae8b62a167fb03307e2403b955a",
+    "nativeParagraphs": [
+      "Architect appointment inspection offices and site visits",
+      "Fictional test correspondence. All people, addresses, decisions and project particulars in this document are invented for a software evaluation.",
+      "Record R513    Date 2026-11-18    Email reply",
+      "From: Fictional Quantity Surveyor <qs@consense-scenario.invalid>To: Fictional Coordination Team <team@consense-scenario.invalid>",
+      "The appointed Project Architect is Ms. Vivian J. K. LO. Her post is Senior Architect Community Facilities. Use Ms as the salutation and Vivian J. K. LO as the name.",
+      "Her direct telephone number is awaiting confirmation. Interim enquiries may be sent to library-project@consense-scenario.invalid; this email address does not establish a telephone number.",
+      "The Specification Library is available for inspection on floor 6 of Block U at the Fictional Tender Information Centre. The drawings are available for inspection on floor 2 of Block V at that centre.",
+      "Site inspections start on 11 January 2027. The access officer has not yet fixed the inspection end date.",
+      "The complete site visit restrictions are:Submit the visitor names at least four working days before the visit.Each escorted group is limited to ten visitors.Wear safety helmets and safety boots throughout the visit.Enter through the Library Road gate and remain with the site escort.",
+      "Regards,Fictional Quantity Surveyor"
+    ],
+    "blocks": [
+      {
+        "kind": "paragraph",
+        "text": "Architect appointment inspection offices and site visits"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Fictional test correspondence. All people, addresses, decisions and project particulars in this document are invented for a software evaluation."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Record R513    Date 2026-11-18    Email reply"
+      },
+      {
+        "kind": "paragraph",
+        "text": "From: Fictional Quantity Surveyor <qs@consense-scenario.invalid>To: Fictional Coordination Team <team@consense-scenario.invalid>"
+      },
+      {
+        "kind": "paragraph",
+        "text": "The appointed Project Architect is Ms. Vivian J. K. LO. Her post is Senior Architect Community Facilities. Use Ms as the salutation and Vivian J. K. LO as the name."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Her direct telephone number is awaiting confirmation. Interim enquiries may be sent to library-project@consense-scenario.invalid; this email address does not establish a telephone number."
+      },
+      {
+        "kind": "paragraph",
+        "text": "The Specification Library is available for inspection on floor 6 of Block U at the Fictional Tender Information Centre. The drawings are available for inspection on floor 2 of Block V at that centre."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Site inspections start on 11 January 2027. The access officer has not yet fixed the inspection end date."
+      },
+      {
+        "kind": "paragraph",
+        "text": "The complete site visit restrictions are:Submit the visitor names at least four working days before the visit.Each escorted group is limited to ten visitors.Wear safety helmets and safety boots throughout the visit.Enter through the Library Road gate and remain with the site escort."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Regards,Fictional Quantity Surveyor"
+      }
+    ]
+  },
+  "14_2026-11-19_minutes_finishes_legal_form_training_and_payment_decisions.docx": {
+    "sha256": "ac040eec5787c2e3887e80234f6240ffb6328fb1c1f34d1ba9d14bc31a008e17",
+    "nativeParagraphs": [
+      "Finishes legal form training and payment decisions",
+      "Fictional test correspondence. All people, addresses, decisions and project particulars in this document are invented for a software evaluation.",
+      "Record R514    Date 2026-11-19    Meeting minutes",
+      "Attendees: Fictional Project Architect, Structural Engineer, Procurement Officer and Quantity Surveyor. Recorder: Fictional Quantity Surveyor.",
+      "Roofing installation is included and a roofing installation warranty is required. Refuge floor installation is also included, but no refuge floor installation warranty is required.",
+      "Do not require an acrylic paint warranty or a wall tiling warranty. Require the epoxy coated cast iron pipe installation warranty. Play equipment is excluded. Impact Absorbing Surfacing Materials are included on the indoor exercise track.",
+      "Do not adopt the police training clause for this project. The demolition site will remain under the demolition contractor control and will not be offered for police training.",
+      "The Contractor legal form is an incorporated joint venture. That legal form is confirmed; fallback clause choices for an unknown legal form are not required.",
+      "Do not adopt advance payment under SCC14.305. No advance payment will be made, and no advance repayment period or first repayment certificate needs to be inserted."
+    ],
+    "blocks": [
+      {
+        "kind": "paragraph",
+        "text": "Finishes legal form training and payment decisions"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Fictional test correspondence. All people, addresses, decisions and project particulars in this document are invented for a software evaluation."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Record R514    Date 2026-11-19    Meeting minutes"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Attendees: Fictional Project Architect, Structural Engineer, Procurement Officer and Quantity Surveyor. Recorder: Fictional Quantity Surveyor."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Roofing installation is included and a roofing installation warranty is required. Refuge floor installation is also included, but no refuge floor installation warranty is required."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Do not require an acrylic paint warranty or a wall tiling warranty. Require the epoxy coated cast iron pipe installation warranty. Play equipment is excluded. Impact Absorbing Surfacing Materials are included on the indoor exercise track."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Do not adopt the police training clause for this project. The demolition site will remain under the demolition contractor control and will not be offered for police training."
+      },
+      {
+        "kind": "paragraph",
+        "text": "The Contractor legal form is an incorporated joint venture. That legal form is confirmed; fallback clause choices for an unknown legal form are not required."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Do not adopt advance payment under SCC14.305. No advance payment will be made, and no advance repayment period or first repayment certificate needs to be inserted."
+      }
+    ]
+  },
+  "15_2026-11-20_email_final_outstanding_decisions_and_document_register.docx": {
+    "sha256": "030390363d6291d3e9b9fd8703e3a7297bbd9dde5f0f7044ab4551a4e8fcd1a6",
+    "nativeParagraphs": [
+      "Final outstanding decisions and document register",
+      "Fictional test correspondence. All people, addresses, decisions and project particulars in this document are invented for a software evaluation.",
+      "Record R515    Date 2026-11-20    Email reply",
+      "From: Fictional Quantity Surveyor <qs@consense-scenario.invalid>To: Fictional Coordination Team <team@consense-scenario.invalid>",
+      "Four matters remain awaiting confirmation: the photocopy charge for sheets above A3, the Project Architect direct telephone number, the site inspection end date, and whether a design related quotation is required before a Variation instruction. No adopted value has been supplied for these four matters.",
+      "The earlier replies remain effective. The complete registers contain six BQ Bills, four component responsibility rows, one Old and Valuable Tree, nine other waterproofing areas and three Sections. There are three additional Tender submissions and four site visit restrictions. No further entries are introduced by this reply.",
+      "Please circulate the prepared NTT, SCT and SCC for business review before the adopted project inputs are used to produce the final tender documents.",
+      "Regards,Fictional Quantity Surveyor"
+    ],
+    "blocks": [
+      {
+        "kind": "paragraph",
+        "text": "Final outstanding decisions and document register"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Fictional test correspondence. All people, addresses, decisions and project particulars in this document are invented for a software evaluation."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Record R515    Date 2026-11-20    Email reply"
+      },
+      {
+        "kind": "paragraph",
+        "text": "From: Fictional Quantity Surveyor <qs@consense-scenario.invalid>To: Fictional Coordination Team <team@consense-scenario.invalid>"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Four matters remain awaiting confirmation: the photocopy charge for sheets above A3, the Project Architect direct telephone number, the site inspection end date, and whether a design related quotation is required before a Variation instruction. No adopted value has been supplied for these four matters."
+      },
+      {
+        "kind": "paragraph",
+        "text": "The earlier replies remain effective. The complete registers contain six BQ Bills, four component responsibility rows, one Old and Valuable Tree, nine other waterproofing areas and three Sections. There are three additional Tender submissions and four site visit restrictions. No further entries are introduced by this reply."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Please circulate the prepared NTT, SCT and SCC for business review before the adopted project inputs are used to produce the final tender documents."
+      },
+      {
+        "kind": "paragraph",
+        "text": "Regards,Fictional Quantity Surveyor"
+      }
+    ]
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "doNotUpload": true,
+  "holdouts": {
+    "photocopyRateAboveA3": {
+      "applicability": "active",
+      "expectedValue": null,
+      "expectedStatus": "unknown"
+    },
+    "projectArchitectPhone": {
+      "applicability": "active",
+      "expectedValue": null,
+      "expectedStatus": "unknown"
+    },
+    "siteInspectionEndDate": {
+      "applicability": "active",
+      "expectedValue": null,
+      "expectedStatus": "unknown"
+    },
+    "quotationBeforeVariation": {
+      "applicability": "active",
+      "expectedValue": null,
+      "expectedStatus": "unknown"
+    }
+  }
+}

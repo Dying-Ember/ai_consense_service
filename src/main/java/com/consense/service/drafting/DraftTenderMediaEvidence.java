@@ -19,10 +19,11 @@ final class DraftTenderMediaEvidence {
     private static final Pattern NARROW=Pattern.compile("(?i)\\b(?:SOR|schedules?\\s+of\\s+rates|tender\\s+drawings?|addenda|correspondence|photocop(?:ies|y)|reference\\s+(?:PDF|cop(?:y|ies)|sets?|documents?)|convenience\\s+cop(?:y|ies))\\b");
     private static final Pattern BQ_EXCLUSION=Pattern.compile("(?i)\\b(?:except|excluding|without|but\\s+not)\\s+(?:the\\s+)?"+BQ+"\\b");
     private static final Pattern BQ_ROLE=Pattern.compile("(?i)\\b"+BQ+"\\b[^.;|\\r\\n]{0,90}\\b(?:issue(?:d)?|issuance|format|preparation|pricing)\\b");
-    private static final Pattern ISSUE_FORMAT_OBJECT=Pattern.compile("(?i)\\b(?:electronic\\s+)?issue\\s+format\\s+for\\s+(?:the\\s+)?"+BQ+"\\b");
+    private static final Pattern ISSUE_FORMAT_OBJECT=Pattern.compile("(?i)\\b(?:electronic\\s+)?issue\\s+format\\s+(?:for|of)\\s+(?:the\\s+)?"+BQ+"\\b(?:\\s+original)?(?:\\s+and\\s+(?:the\\s+)?"+BQ+"\\s+addenda\\b)?");
     private static final Pattern BILLS_FORMAT_OBJECT=Pattern.compile("(?i)\\b(?:electronic\\s+)?issue\\s+format\\s+for\\s+(?:the\\s+)?Bills\\b");
     private static final Pattern BILLS_BQ_SCOPE=Pattern.compile("(?i)^(?:(?:the\\s+)?(?:detailed\\s+)?"+BQ+"(?:\\s+and\\s+(?:SOR|schedules?\\s+of\\s+rates))?\\s+pricing\\s+files\\s+(?:are|will\\s+be|shall\\s+be)\\s+(?:supplied|issued)\\b|(?:the\\s+)?Bills\\s+(?:include|comprise)\\s+(?:the\\s+)?"+BQ+"\\b)");
     private static final Pattern NONADOPTED_SCOPE=Pattern.compile("(?i)\\b(?:for\\s+reference|reference\\s+only|for\\s+convenience|unselected|samples?|examples?|specimens?|illustrative|drafts?)\\b");
+    private static final Pattern CURRENT_ADOPTED_ISSUE=Pattern.compile("(?i)^\\s*current\\s+adopted\\s+(?:BQ\\s+)?issue\\s+format\\s*:\\s*$");
     private static final Pattern BILLS_EXCLUDE_BQ=Pattern.compile("(?i)\\b(?:(?:these|the)\\s+)?(?:adopted\\s+)?Bills\\s+(?:comprise|include|contain|cover|are)\\s+(?:only\\s+(?:SOR|schedules?\\s+of\\s+rates)|(?:SOR|schedules?\\s+of\\s+rates)\\s+only)\\b");
     private static final Pattern WHOLE_ISSUE=Pattern.compile("(?i)\\b(?:all\\s+)?tender\\s+documents\\b[^.;|\\r\\n]{0,60}\\b(?:issue(?:d)?|issuance)\\b");
     private static final Pattern WORKFLOW=Pattern.compile("(?i)\\btendering\\s+preparation\\s+option\\b|\\bselect\\s+(?:the\\s+)?L10Pro\\s+option\\s+for\\s+the\\s+preparation\\s+and\\s+pricing\\s+workflow\\b");
@@ -41,9 +42,38 @@ final class DraftTenderMediaEvidence {
 
     /** Resolves a bare Bills object only within its quoted original paragraph and visible adjacent scope sentence. */
     static boolean supported(Object value,String quote,String supplied,String original) {
-        if(supported(value,quote))return true;
+        if(nonAdoptedIssueRole(quote,original))return false;
+        String explicitScope=DraftScopeEvidence.assertedScope(quote,supplied,original,"(?:BQ|bills?|tender\\s+documents|issue\\s+format)");
+        if(explicitScope!=null&&supported(value,quote)&&supported(value,explicitScope))return true;
         String scope=billsScope(quote,supplied,original);
         return scope!=null&&supported(value,scope,true);
+    }
+
+    /** Reference/sample headings govern their own continuous body, not a later adopted issue. */
+    private static boolean nonAdoptedIssueRole(String quote,String original) {
+        if(quote==null||original==null)return false;
+        String anchor=canonical(quote);if(anchor.isEmpty())return false;
+        String[] paragraphs=original.split("\\R[\\t ]*\\R");
+        for(int index=0;index<paragraphs.length;index++) {
+            String body=canonical(paragraphs[index]);if(!body.contains(anchor))continue;
+            int comma=body.indexOf(',');
+            if(comma>=0&&NONADOPTED_SCOPE.matcher(body.substring(0,comma)).lookingAt())return true;
+            boolean adoptedReset=false;
+            int colon=body.indexOf(':');
+            if(colon>=0) {
+                String prefix=body.substring(0,colon+1);
+                adoptedReset=CURRENT_ADOPTED_ISSUE.matcher(prefix).matches();
+                if(!adoptedReset&&NONADOPTED_SCOPE.matcher(prefix).find())return true;
+            }
+            for(int preceding=index-1;preceding>=0;preceding--) {
+                String heading=paragraphs[preceding].trim();if(!heading.endsWith(":"))break;
+                if(CURRENT_ADOPTED_ISSUE.matcher(heading).matches()) {adoptedReset=true;continue;}
+                // A title copied within an expressly unselected sample cannot adopt itself.
+                boolean copied=canonical(heading).toLowerCase(Locale.ROOT).contains("copied verbatim");
+                if(NONADOPTED_SCOPE.matcher(heading).find()&&(!adoptedReset||copied))return true;
+            }
+        }
+        return false;
     }
 
     private static boolean supported(Object value,String quote,boolean resolvedBills) {
@@ -54,7 +84,7 @@ final class DraftTenderMediaEvidence {
         Set<String> positive=new HashSet<>(),negative=new HashSet<>();
         // Preserve table rows and independent assertions. Do not pool media across their subjects.
         for(String sentence:quote.split("\\R|(?<=[.!?])\\s+")) {
-            for(String fragment:CLAUSES.split(sentence)) {
+            for(String fragment:issueClauses(sentence)) {
                 String clause=canonical(fragment);
                 if(UNASSERTED.matcher(clause).find()||OTHER_PROJECT.matcher(clause).find()||BQ_EXCLUSION.matcher(clause).find())continue;
                 java.util.regex.Matcher bqRole=BQ_ROLE.matcher(clause);
@@ -87,6 +117,19 @@ final class DraftTenderMediaEvidence {
             }
         }
         return positive.size()==1&&positive.contains(candidate)&&!negative.contains(candidate);
+    }
+
+    /** Original BQ and its addenda can share one issue-format object before a single predicate. */
+    private static List<String> issueClauses(String sentence) {
+        List<String> clauses=new ArrayList<>();int start=0;
+        java.util.regex.Matcher boundary=CLAUSES.matcher(sentence);
+        while(boundary.find()) {
+            java.util.regex.Matcher object=ISSUE_FORMAT_OBJECT.matcher(sentence);boolean compound=false;
+            while(object.find())if(object.start()<=boundary.start()&&boundary.end()<=object.end()) {compound=true;break;}
+            if(compound)continue;
+            clauses.add(sentence.substring(start,boundary.start()));start=boundary.end();
+        }
+        clauses.add(sentence.substring(start));return clauses;
     }
 
     private static String billsScope(String quote,String supplied,String original) {

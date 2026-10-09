@@ -11,7 +11,7 @@ public final class MiniMaxChatClient implements LlmClient {
     private final OpenAiLlmClient delegate;
     private final ConsenseProperties.Llm cfg;
     private final HttpSupport http;
-    public MiniMaxChatClient(ConsenseProperties.Llm cfg,HttpSupport http){this.cfg=cfg;this.http=http;delegate=new OpenAiLlmClient(cfg,http);}
+    public MiniMaxChatClient(ConsenseProperties.Llm cfg,HttpSupport http){this.cfg=cfg;this.http=http;delegate=new OpenAiLlmClient(cfg,http,true);}
     @Override public String chat(List<ChatTurn> turns){return safeCall(()->delegate.chatStructured(turns,JsonUtils.mapper().createObjectNode()));}
     @Override public String chatStructured(List<ChatTurn> turns,JsonNode schema){return safeCall(()->delegate.chatStructured(turns,schema));}
     @Override public List<float[]> embed(List<String> texts){throw new BizException(5001,"MiniMax chat selection does not provide deployment embeddings.");}

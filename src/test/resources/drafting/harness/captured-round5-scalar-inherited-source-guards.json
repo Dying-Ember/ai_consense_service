@@ -1,0 +1,29 @@
+{
+  "independentCasesSha256": "b3c4f30d83142907cc6022c05df82b122040a10a64b57c0e69eb30e45b113eaf",
+  "cases": [
+    {
+      "name": "existing_pair_separation_pending_whole_quote",
+      "key": "buildingDemolitionSitesSeparated",
+      "value": true,
+      "quote": "The building site and demolition site are separate. The separation classification remains pending.",
+      "source": "The building site and demolition site are separate. The separation classification remains pending.",
+      "expectedStatus": "rejected"
+    },
+    {
+      "name": "existing_pair_separation_pending_short_quote",
+      "key": "buildingDemolitionSitesSeparated",
+      "value": true,
+      "quote": "The building site and demolition site are separate.",
+      "source": "The building site and demolition site are separate. The separation classification remains pending.",
+      "expectedStatus": "rejected"
+    },
+    {
+      "name": "existing_issue_for_reference_only_heading",
+      "key": "electronicTendering",
+      "value": "L10Pro",
+      "quote": "The issue format for the BQ is L10Pro.",
+      "source": "For reference only:\n\nThe issue format for the BQ is L10Pro.",
+      "expectedStatus": "rejected"
+    }
+  ]
+}

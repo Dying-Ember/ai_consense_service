@@ -72,7 +72,9 @@ consense:
     provider: openai
     base-url: "${CONSENSE_MINIMAX_BASE_URL:}"
     chat-model: MiniMax-M3
-    api-key: ${MiniMaxCN_Token_Plan_API_Key:}
+    # Dedicated alias accepts either a relay token or a direct provider key; legacy variable stays compatible.
+    api-key: ${CONSENSE_MINIMAX_API_KEY:${MiniMaxCN_Token_Plan_API_Key:}}
+    overload-retry-enabled: "${CONSENSE_MINIMAX_OVERLOAD_RETRY_ENABLED:true}"
     structured-open-ai-thinking-mode: disabled
     structured-open-ai-reasoning-split: true
     structured-max-tokens: 16384

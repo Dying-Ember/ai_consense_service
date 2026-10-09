@@ -75,3 +75,9 @@ This verifies the source packaging boundary, compilation, 13 passing rule tests 
 ## Optional Python tool paths
 
 Some optional Python evaluation tools retain generic development-workspace, logging-module and source-manifest defaults. Configure the existing CONSENSE_WORKSPACE_ROOT and CLI workspace, log-module, log-root, tooling and source-manifest inputs for your deployment. Their referenced corpora, caches and historical runtime records are excluded from this repository. No Python evaluation logic or model settings were changed for publication.
+
+## MiniMax relay testing and development
+
+Use [the MiniMax relay handoff](docs/minimax-relay-handoff.md) to run this backend with `h2,minimax-relay`, a relay root URL and a privately supplied independent token. The frontend selects `minimax-cn`; no provider credential belongs in frontend code. The handoff also includes a non-streaming M3 code-review client and explains the single owner of HTTP 529 retries.
+
+The [portable Drafting evaluation kit](tools/drafting_eval/README.md) contains 15 fictional round-five correspondence documents, a separate answer ledger, read-only completed-run capture and the unchanged strict scorer. Use MiniMax-M3 for real identification regression and code suggestions, then review patches and run local tests. Keep reference answers out of model inputs, and record actual run IDs and results rather than treating generated suggestions as executed tests.

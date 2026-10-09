@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 /** Input type validation is separate from applicability, source completeness and adoption. */
 public final class DraftInputRules {
  private DraftInputRules() { }
+ private static final Pattern FLOOR_LABEL=Pattern.compile("(?i)^\\s*floor\\s+([0-9]+(?:st|nd|rd|th)?)\\s*$");
  public static String normalizeSuggestion(DraftBlueprint.InputSpec spec,String value){
   return normalizeSuggestion(spec,value,null);
  }
@@ -18,6 +19,9 @@ public final class DraftInputRules {
  public static String normalizeSuggestion(DraftBlueprint.InputSpec spec,String value,String quote,String supplied,String original){
   if(spec!=null)value=DraftArchitectContactEvidence.suggestion(spec.key,value,quote,supplied,original);
   if(spec!=null&&Arrays.asList("specificationInspectionBlock","drawingsInspectionBlock").contains(spec.key))value=blockIdentifier(value);
+  if(spec!=null&&Arrays.asList("specificationInspectionFloor","drawingsInspectionFloor").contains(spec.key)&&value!=null){
+   java.util.regex.Matcher floor=FLOOR_LABEL.matcher(value);if(floor.matches())value=floor.group(1);
+  }
   if(spec!=null&&"sections".equals(spec.key)&&DraftBusinessRules.parse(value) instanceof List){
    List<Object> rows=new ArrayList<>();for(Object item:DraftBusinessRules.list(DraftBusinessRules.parse(value))){
     if(!(item instanceof Map)){rows.add(item);continue;}Map<String,Object> row=new LinkedHashMap<>(DraftBusinessRules.asMap(item));row.remove("id");rows.add(row);

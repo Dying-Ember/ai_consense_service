@@ -61,6 +61,7 @@ output/
 logs/
 tmp/
 .env*
+!.env.example
 *.pem
 *.p12
 *.pfx
@@ -68,3 +69,6 @@ tmp/
 *.jks
 *.keystore
 tests/external-fixtures/private-resources/
+
+# Local read-only evaluation snapshots (never publish)
+.local/

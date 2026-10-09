@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 /** Drafting-local request/intake boundary. Accepted intake never certifies business truth. */
 @Service @RequiredArgsConstructor
 public class DraftExtractionHarness {
-    public static final String VERSION="draft-extraction-20261009.25-native-tables-and-scoped-negation";
+    public static final String VERSION="draft-extraction-20261009.27-media-scope-and-floor-normalization";
     private static final String PROTOCOL="DRAFTING EXTRACTION PROTOCOL. Return only a JSON array of supported items {key,value,sourceQuote,reason,confidence}. "
             +"Use native JSON values: object, array, boolean, number, string or null, according to the single catalogue below. "
             +"Example contract value: {\"number\":\"C-2026/10\",\"title\":\"Works A\"}. A supported partial contract may omit its missing sibling. "

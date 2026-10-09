@@ -1,0 +1,2486 @@
+{
+  "schemaVersion": 2,
+  "fixtureVersion": "20261009-novel-round4-school-housing-1",
+  "synthetic": true,
+  "case": "Wholly fictional public housing and primary school tender in Tin Shui Wai Area 112",
+  "variant": "novel_round4_with_four_active_holdouts",
+  "catalogueRuleVersion": "drafting-20261006.8-docx",
+  "groupCount": 21,
+  "inputCount": 79,
+  "expectedInputs": {
+    "contractTitle": {
+      "value": {
+        "number": "20270234",
+        "title": "Construction of Public Housing and Primary School at Tin Shui Wai Area 112"
+      },
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R402",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 5,
+        "quote": "The approved Contract No. is 20270234. The Contract Title is Construction of Public Housing and Primary School at Tin Shui Wai Area 112. The housing comprises two domestic residential blocks of subsidised sale flats. All sites in this contract are in Tin Shui Wai.",
+        "sourceKind": "paragraph",
+        "recordId": "R402",
+        "file": "02_2026-11-03_minutes_contract_identity_and_approved_programme.docx",
+        "sha256": "afa5c025b77eb8ea26ac7309f7314b535d83cddf800d57839e1b5d13db722f47"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 5,
+          "quote": "The approved Contract No. is 20270234. The Contract Title is Construction of Public Housing and Primary School at Tin Shui Wai Area 112. The housing comprises two domestic residential blocks of subsidised sale flats. All sites in this contract are in Tin Shui Wai.",
+          "sourceKind": "paragraph",
+          "recordId": "R402",
+          "file": "02_2026-11-03_minutes_contract_identity_and_approved_programme.docx",
+          "sha256": "afa5c025b77eb8ea26ac7309f7314b535d83cddf800d57839e1b5d13db722f47"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "foundationIncluded": {
+      "value": true,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R402",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 6,
+        "quote": "Foundation works are included in the same contract as the building works. The approved period for completion of the whole contract is 34 months. It is below the 39 month threshold.",
+        "sourceKind": "paragraph",
+        "recordId": "R402",
+        "file": "02_2026-11-03_minutes_contract_identity_and_approved_programme.docx",
+        "sha256": "afa5c025b77eb8ea26ac7309f7314b535d83cddf800d57839e1b5d13db722f47"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 6,
+          "quote": "Foundation works are included in the same contract as the building works. The approved period for completion of the whole contract is 34 months. It is below the 39 month threshold.",
+          "sourceKind": "paragraph",
+          "recordId": "R402",
+          "file": "02_2026-11-03_minutes_contract_identity_and_approved_programme.docx",
+          "sha256": "afa5c025b77eb8ea26ac7309f7314b535d83cddf800d57839e1b5d13db722f47"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "periodAtLeast39Months": {
+      "value": false,
+      "status": "derived",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R402",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 6,
+        "quote": "Foundation works are included in the same contract as the building works. The approved period for completion of the whole contract is 34 months. It is below the 39 month threshold.",
+        "sourceKind": "paragraph",
+        "recordId": "R402",
+        "file": "02_2026-11-03_minutes_contract_identity_and_approved_programme.docx",
+        "sha256": "afa5c025b77eb8ea26ac7309f7314b535d83cddf800d57839e1b5d13db722f47"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 6,
+          "quote": "Foundation works are included in the same contract as the building works. The approved period for completion of the whole contract is 34 months. It is below the 39 month threshold.",
+          "sourceKind": "paragraph",
+          "recordId": "R402",
+          "file": "02_2026-11-03_minutes_contract_identity_and_approved_programme.docx",
+          "sha256": "afa5c025b77eb8ea26ac7309f7314b535d83cddf800d57839e1b5d13db722f47"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "contractPeriodMonths": {
+      "value": 34,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R402",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 6,
+        "quote": "Foundation works are included in the same contract as the building works. The approved period for completion of the whole contract is 34 months. It is below the 39 month threshold.",
+        "sourceKind": "paragraph",
+        "recordId": "R402",
+        "file": "02_2026-11-03_minutes_contract_identity_and_approved_programme.docx",
+        "sha256": "afa5c025b77eb8ea26ac7309f7314b535d83cddf800d57839e1b5d13db722f47"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 6,
+          "quote": "Foundation works are included in the same contract as the building works. The approved period for completion of the whole contract is 34 months. It is below the 39 month threshold.",
+          "sourceKind": "paragraph",
+          "recordId": "R402",
+          "file": "02_2026-11-03_minutes_contract_identity_and_approved_programme.docx",
+          "sha256": "afa5c025b77eb8ea26ac7309f7314b535d83cddf800d57839e1b5d13db722f47"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "subcontractArrangement": {
+      "value": "NSC",
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R405",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 5,
+        "quote": "Adopt Nominated Sub-contracts, NSC, for the electrical, fire services and lift packages. BSSSC is not the procurement arrangement for this tender. Retain the nominated subcontract provision without alternative wording.",
+        "sourceKind": "paragraph",
+        "recordId": "R405",
+        "file": "05_2026-11-06_minutes_nominated_procurement_and_tender_return_decisions.docx",
+        "sha256": "9853fa65e0bfae9f9ecb8e59236aaf5ac57fa5360618128433e25e7e280cf990"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 5,
+          "quote": "Adopt Nominated Sub-contracts, NSC, for the electrical, fire services and lift packages. BSSSC is not the procurement arrangement for this tender. Retain the nominated subcontract provision without alternative wording.",
+          "sourceKind": "paragraph",
+          "recordId": "R405",
+          "file": "05_2026-11-06_minutes_nominated_procurement_and_tender_return_decisions.docx",
+          "sha256": "9853fa65e0bfae9f9ecb8e59236aaf5ac57fa5360618128433e25e7e280cf990"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "subcontractors": {
+      "value": null,
+      "status": "not_applicable",
+      "origin": "inactive_detail",
+      "applicability": "inactive",
+      "firstDisclosure": null,
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 5,
+          "quote": "Adopt Nominated Sub-contracts, NSC, for the electrical, fire services and lift packages. BSSSC is not the procurement arrangement for this tender. Retain the nominated subcontract provision without alternative wording.",
+          "sourceKind": "paragraph",
+          "recordId": "R405",
+          "file": "05_2026-11-06_minutes_nominated_procurement_and_tender_return_decisions.docx",
+          "sha256": "9853fa65e0bfae9f9ecb8e59236aaf5ac57fa5360618128433e25e7e280cf990",
+          "role": "inactive_prerequisite",
+          "prerequisite": "subcontractArrangement"
+        }
+      ],
+      "rationale": "The official schema prerequisite makes this detail inactive; the native prerequisite evidence is recorded."
+    },
+    "nscAlternativeText": {
+      "value": null,
+      "status": "not_applicable",
+      "origin": "inactive_detail",
+      "applicability": "inactive",
+      "firstDisclosure": null,
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 5,
+          "quote": "Adopt Nominated Sub-contracts, NSC, for the electrical, fire services and lift packages. BSSSC is not the procurement arrangement for this tender. Retain the nominated subcontract provision without alternative wording.",
+          "sourceKind": "paragraph",
+          "recordId": "R405",
+          "file": "05_2026-11-06_minutes_nominated_procurement_and_tender_return_decisions.docx",
+          "sha256": "9853fa65e0bfae9f9ecb8e59236aaf5ac57fa5360618128433e25e7e280cf990",
+          "role": "inactive_prerequisite",
+          "prerequisite": "subcontractArrangement"
+        }
+      ],
+      "rationale": "The official schema prerequisite makes this detail inactive; the native prerequisite evidence is recorded."
+    },
+    "twoEnvelopeTendering": {
+      "value": true,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R405",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 6,
+        "quote": "Use the two-envelope tendering procedure. Tenderers return the technical submission and the priced submission in separate sealed envelopes.",
+        "sourceKind": "paragraph",
+        "recordId": "R405",
+        "file": "05_2026-11-06_minutes_nominated_procurement_and_tender_return_decisions.docx",
+        "sha256": "9853fa65e0bfae9f9ecb8e59236aaf5ac57fa5360618128433e25e7e280cf990"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 6,
+          "quote": "Use the two-envelope tendering procedure. Tenderers return the technical submission and the priced submission in separate sealed envelopes.",
+          "sourceKind": "paragraph",
+          "recordId": "R405",
+          "file": "05_2026-11-06_minutes_nominated_procurement_and_tender_return_decisions.docx",
+          "sha256": "9853fa65e0bfae9f9ecb8e59236aaf5ac57fa5360618128433e25e7e280cf990"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "otherTenderingArrangement": {
+      "value": null,
+      "status": "not_applicable",
+      "origin": "inactive_detail",
+      "applicability": "inactive",
+      "firstDisclosure": null,
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 6,
+          "quote": "Use the two-envelope tendering procedure. Tenderers return the technical submission and the priced submission in separate sealed envelopes.",
+          "sourceKind": "paragraph",
+          "recordId": "R405",
+          "file": "05_2026-11-06_minutes_nominated_procurement_and_tender_return_decisions.docx",
+          "sha256": "9853fa65e0bfae9f9ecb8e59236aaf5ac57fa5360618128433e25e7e280cf990",
+          "role": "inactive_prerequisite",
+          "prerequisite": "twoEnvelopeTendering"
+        }
+      ],
+      "rationale": "The official schema prerequisite makes this detail inactive; the native prerequisite evidence is recorded."
+    },
+    "electronicTendering": {
+      "value": "Hardcopy",
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R405",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 7,
+        "quote": "The BQ issue format is Hardcopy. Both the original BQ and BQ addenda are issued as printed documents. The SOR original and SOR addenda are also issued in Hardcopy. A PDF sent for reading convenience is not an electronic pricing issue.",
+        "sourceKind": "paragraph",
+        "recordId": "R405",
+        "file": "05_2026-11-06_minutes_nominated_procurement_and_tender_return_decisions.docx",
+        "sha256": "9853fa65e0bfae9f9ecb8e59236aaf5ac57fa5360618128433e25e7e280cf990"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 7,
+          "quote": "The BQ issue format is Hardcopy. Both the original BQ and BQ addenda are issued as printed documents. The SOR original and SOR addenda are also issued in Hardcopy. A PDF sent for reading convenience is not an electronic pricing issue.",
+          "sourceKind": "paragraph",
+          "recordId": "R405",
+          "file": "05_2026-11-06_minutes_nominated_procurement_and_tender_return_decisions.docx",
+          "sha256": "9853fa65e0bfae9f9ecb8e59236aaf5ac57fa5360618128433e25e7e280cf990"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "worksSubjectToExcision": {
+      "value": true,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R403",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 5,
+        "quote": "The optional covered walkway between the school and the housing estate is Works Subject to Excision. Site formation is excluded because the formed platforms are provided under a completed enabling contract. This contract includes excavations in the public road for which an Excavation Permit is required.",
+        "sourceKind": "paragraph",
+        "recordId": "R403",
+        "file": "03_2026-11-04_email_work_package_and_construction_methods.docx",
+        "sha256": "cd853a274f8b3bcf148edcfe2d7bd7d4d496e74a1b9272d6109e5f10b0327b45"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 5,
+          "quote": "The optional covered walkway between the school and the housing estate is Works Subject to Excision. Site formation is excluded because the formed platforms are provided under a completed enabling contract. This contract includes excavations in the public road for which an Excavation Permit is required.",
+          "sourceKind": "paragraph",
+          "recordId": "R403",
+          "file": "03_2026-11-04_email_work_package_and_construction_methods.docx",
+          "sha256": "cd853a274f8b3bcf148edcfe2d7bd7d4d496e74a1b9272d6109e5f10b0327b45"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "siteFormationWorks": {
+      "value": false,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R403",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 5,
+        "quote": "The optional covered walkway between the school and the housing estate is Works Subject to Excision. Site formation is excluded because the formed platforms are provided under a completed enabling contract. This contract includes excavations in the public road for which an Excavation Permit is required.",
+        "sourceKind": "paragraph",
+        "recordId": "R403",
+        "file": "03_2026-11-04_email_work_package_and_construction_methods.docx",
+        "sha256": "cd853a274f8b3bcf148edcfe2d7bd7d4d496e74a1b9272d6109e5f10b0327b45"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 5,
+          "quote": "The optional covered walkway between the school and the housing estate is Works Subject to Excision. Site formation is excluded because the formed platforms are provided under a completed enabling contract. This contract includes excavations in the public road for which an Excavation Permit is required.",
+          "sourceKind": "paragraph",
+          "recordId": "R403",
+          "file": "03_2026-11-04_email_work_package_and_construction_methods.docx",
+          "sha256": "cd853a274f8b3bcf148edcfe2d7bd7d4d496e74a1b9272d6109e5f10b0327b45"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "excavationPermitRequired": {
+      "value": true,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R403",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 5,
+        "quote": "The optional covered walkway between the school and the housing estate is Works Subject to Excision. Site formation is excluded because the formed platforms are provided under a completed enabling contract. This contract includes excavations in the public road for which an Excavation Permit is required.",
+        "sourceKind": "paragraph",
+        "recordId": "R403",
+        "file": "03_2026-11-04_email_work_package_and_construction_methods.docx",
+        "sha256": "cd853a274f8b3bcf148edcfe2d7bd7d4d496e74a1b9272d6109e5f10b0327b45"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 5,
+          "quote": "The optional covered walkway between the school and the housing estate is Works Subject to Excision. Site formation is excluded because the formed platforms are provided under a completed enabling contract. This contract includes excavations in the public road for which an Excavation Permit is required.",
+          "sourceKind": "paragraph",
+          "recordId": "R403",
+          "file": "03_2026-11-04_email_work_package_and_construction_methods.docx",
+          "sha256": "cd853a274f8b3bcf148edcfe2d7bd7d4d496e74a1b9272d6109e5f10b0327b45"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "subsidisedSaleFlatsProduction": {
+      "value": true,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R402",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 5,
+        "quote": "The approved Contract No. is 20270234. The Contract Title is Construction of Public Housing and Primary School at Tin Shui Wai Area 112. The housing comprises two domestic residential blocks of subsidised sale flats. All sites in this contract are in Tin Shui Wai.",
+        "sourceKind": "paragraph",
+        "recordId": "R402",
+        "file": "02_2026-11-03_minutes_contract_identity_and_approved_programme.docx",
+        "sha256": "afa5c025b77eb8ea26ac7309f7314b535d83cddf800d57839e1b5d13db722f47"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 5,
+          "quote": "The approved Contract No. is 20270234. The Contract Title is Construction of Public Housing and Primary School at Tin Shui Wai Area 112. The housing comprises two domestic residential blocks of subsidised sale flats. All sites in this contract are in Tin Shui Wai.",
+          "sourceKind": "paragraph",
+          "recordId": "R402",
+          "file": "02_2026-11-03_minutes_contract_identity_and_approved_programme.docx",
+          "sha256": "afa5c025b77eb8ea26ac7309f7314b535d83cddf800d57839e1b5d13db722f47"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "showFlatsRequirement": {
+      "value": "both",
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R403",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 6,
+        "quote": "Provide both exhibition flats and show flats for the subsidised sale development. The domestic blocks use conventional construction; CON8 volumetric precast components are not included. No PSE submission for such volumetric units is called for.",
+        "sourceKind": "paragraph",
+        "recordId": "R403",
+        "file": "03_2026-11-04_email_work_package_and_construction_methods.docx",
+        "sha256": "cd853a274f8b3bcf148edcfe2d7bd7d4d496e74a1b9272d6109e5f10b0327b45"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 6,
+          "quote": "Provide both exhibition flats and show flats for the subsidised sale development. The domestic blocks use conventional construction; CON8 volumetric precast components are not included. No PSE submission for such volumetric units is called for.",
+          "sourceKind": "paragraph",
+          "recordId": "R403",
+          "file": "03_2026-11-04_email_work_package_and_construction_methods.docx",
+          "sha256": "cd853a274f8b3bcf148edcfe2d7bd7d4d496e74a1b9272d6109e5f10b0327b45"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "domesticBlocks": {
+      "value": true,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R402",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 5,
+        "quote": "The approved Contract No. is 20270234. The Contract Title is Construction of Public Housing and Primary School at Tin Shui Wai Area 112. The housing comprises two domestic residential blocks of subsidised sale flats. All sites in this contract are in Tin Shui Wai.",
+        "sourceKind": "paragraph",
+        "recordId": "R402",
+        "file": "02_2026-11-03_minutes_contract_identity_and_approved_programme.docx",
+        "sha256": "afa5c025b77eb8ea26ac7309f7314b535d83cddf800d57839e1b5d13db722f47"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 5,
+          "quote": "The approved Contract No. is 20270234. The Contract Title is Construction of Public Housing and Primary School at Tin Shui Wai Area 112. The housing comprises two domestic residential blocks of subsidised sale flats. All sites in this contract are in Tin Shui Wai.",
+          "sourceKind": "paragraph",
+          "recordId": "R402",
+          "file": "02_2026-11-03_minutes_contract_identity_and_approved_programme.docx",
+          "sha256": "afa5c025b77eb8ea26ac7309f7314b535d83cddf800d57839e1b5d13db722f47"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "volumetricPrecastComponents": {
+      "value": false,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R403",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 6,
+        "quote": "Provide both exhibition flats and show flats for the subsidised sale development. The domestic blocks use conventional construction; CON8 volumetric precast components are not included. No PSE submission for such volumetric units is called for.",
+        "sourceKind": "paragraph",
+        "recordId": "R403",
+        "file": "03_2026-11-04_email_work_package_and_construction_methods.docx",
+        "sha256": "cd853a274f8b3bcf148edcfe2d7bd7d4d496e74a1b9272d6109e5f10b0327b45"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 6,
+          "quote": "Provide both exhibition flats and show flats for the subsidised sale development. The domestic blocks use conventional construction; CON8 volumetric precast components are not included. No PSE submission for such volumetric units is called for.",
+          "sourceKind": "paragraph",
+          "recordId": "R403",
+          "file": "03_2026-11-04_email_work_package_and_construction_methods.docx",
+          "sha256": "cd853a274f8b3bcf148edcfe2d7bd7d4d496e74a1b9272d6109e5f10b0327b45"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "precastFacadeTenderBasis": {
+      "value": true,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R403",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 7,
+        "quote": "The Tender is based on precast concrete facades. The Contractor is also permitted to propose precast concrete facade construction under the applicable facade provision.",
+        "sourceKind": "paragraph",
+        "recordId": "R403",
+        "file": "03_2026-11-04_email_work_package_and_construction_methods.docx",
+        "sha256": "cd853a274f8b3bcf148edcfe2d7bd7d4d496e74a1b9272d6109e5f10b0327b45"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 7,
+          "quote": "The Tender is based on precast concrete facades. The Contractor is also permitted to propose precast concrete facade construction under the applicable facade provision.",
+          "sourceKind": "paragraph",
+          "recordId": "R403",
+          "file": "03_2026-11-04_email_work_package_and_construction_methods.docx",
+          "sha256": "cd853a274f8b3bcf148edcfe2d7bd7d4d496e74a1b9272d6109e5f10b0327b45"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "precastFacadePermission": {
+      "value": true,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R403",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 7,
+        "quote": "The Tender is based on precast concrete facades. The Contractor is also permitted to propose precast concrete facade construction under the applicable facade provision.",
+        "sourceKind": "paragraph",
+        "recordId": "R403",
+        "file": "03_2026-11-04_email_work_package_and_construction_methods.docx",
+        "sha256": "cd853a274f8b3bcf148edcfe2d7bd7d4d496e74a1b9272d6109e5f10b0327b45"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 7,
+          "quote": "The Tender is based on precast concrete facades. The Contractor is also permitted to propose precast concrete facade construction under the applicable facade provision.",
+          "sourceKind": "paragraph",
+          "recordId": "R403",
+          "file": "03_2026-11-04_email_work_package_and_construction_methods.docx",
+          "sha256": "cd853a274f8b3bcf148edcfe2d7bd7d4d496e74a1b9272d6109e5f10b0327b45"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "contractorDesignedFoundations": {
+      "value": false,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R406",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 5,
+        "quote": "All foundation design is by the Employer. Contractor designed foundations are not included. The Contractor executes the four work scopes listed in the complete responsibility schedule below.",
+        "sourceKind": "paragraph",
+        "recordId": "R406",
+        "file": "06_2026-11-09_email_foundation_design_responsibilities.docx",
+        "sha256": "41056e7e6d525e9009aff7256d971231f0c979e2614e9e7f8604db24e071850a"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 5,
+          "quote": "All foundation design is by the Employer. Contractor designed foundations are not included. The Contractor executes the four work scopes listed in the complete responsibility schedule below.",
+          "sourceKind": "paragraph",
+          "recordId": "R406",
+          "file": "06_2026-11-09_email_foundation_design_responsibilities.docx",
+          "sha256": "41056e7e6d525e9009aff7256d971231f0c979e2614e9e7f8604db24e071850a"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "designResponsibilities": {
+      "value": [
+        {
+          "component": "piling",
+          "design": false,
+          "execution": true,
+          "scope": "Bored piles beneath Housing Blocks 1 and 2"
+        },
+        {
+          "component": "pilecaps",
+          "design": false,
+          "execution": true,
+          "scope": "Pile caps beneath Housing Blocks 1 and 2"
+        },
+        {
+          "component": "footings",
+          "design": false,
+          "execution": true,
+          "scope": "Shallow footings supporting the primary school"
+        },
+        {
+          "component": "other",
+          "design": false,
+          "execution": true,
+          "scope": "Retaining walls beside the school playground"
+        }
+      ],
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R406",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeTable": 1,
+        "headers": [
+          "Component",
+          "Scope of work",
+          "Contractor designs",
+          "Contractor executes"
+        ],
+        "rows": [
+          [
+            "piling",
+            "Bored piles beneath Housing Blocks 1 and 2",
+            "No",
+            "Yes"
+          ],
+          [
+            "pilecaps",
+            "Pile caps beneath Housing Blocks 1 and 2",
+            "No",
+            "Yes"
+          ],
+          [
+            "footings",
+            "Shallow footings supporting the primary school",
+            "No",
+            "Yes"
+          ],
+          [
+            "other",
+            "Retaining walls beside the school playground",
+            "No",
+            "Yes"
+          ]
+        ],
+        "quote": "Component | Scope of work | Contractor designs | Contractor executes\npiling | Bored piles beneath Housing Blocks 1 and 2 | No | Yes\npilecaps | Pile caps beneath Housing Blocks 1 and 2 | No | Yes\nfootings | Shallow footings supporting the primary school | No | Yes\nother | Retaining walls beside the school playground | No | Yes",
+        "sourceKind": "table",
+        "recordId": "R406",
+        "file": "06_2026-11-09_email_foundation_design_responsibilities.docx",
+        "sha256": "41056e7e6d525e9009aff7256d971231f0c979e2614e9e7f8604db24e071850a"
+      },
+      "oracleEvidence": [
+        {
+          "nativeTable": 1,
+          "headers": [
+            "Component",
+            "Scope of work",
+            "Contractor designs",
+            "Contractor executes"
+          ],
+          "rows": [
+            [
+              "piling",
+              "Bored piles beneath Housing Blocks 1 and 2",
+              "No",
+              "Yes"
+            ],
+            [
+              "pilecaps",
+              "Pile caps beneath Housing Blocks 1 and 2",
+              "No",
+              "Yes"
+            ],
+            [
+              "footings",
+              "Shallow footings supporting the primary school",
+              "No",
+              "Yes"
+            ],
+            [
+              "other",
+              "Retaining walls beside the school playground",
+              "No",
+              "Yes"
+            ]
+          ],
+          "quote": "Component | Scope of work | Contractor designs | Contractor executes\npiling | Bored piles beneath Housing Blocks 1 and 2 | No | Yes\npilecaps | Pile caps beneath Housing Blocks 1 and 2 | No | Yes\nfootings | Shallow footings supporting the primary school | No | Yes\nother | Retaining walls beside the school playground | No | Yes",
+          "sourceKind": "table",
+          "recordId": "R406",
+          "file": "06_2026-11-09_email_foundation_design_responsibilities.docx",
+          "sha256": "41056e7e6d525e9009aff7256d971231f0c979e2614e9e7f8604db24e071850a"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "footingsServeBuildingsOrMajorExternalStructures": {
+      "value": true,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R406",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 7,
+        "quote": "The shallow footings serve the primary school building. Footings serving buildings or major external structures are therefore included.",
+        "sourceKind": "paragraph",
+        "recordId": "R406",
+        "file": "06_2026-11-09_email_foundation_design_responsibilities.docx",
+        "sha256": "41056e7e6d525e9009aff7256d971231f0c979e2614e9e7f8604db24e071850a"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 7,
+          "quote": "The shallow footings serve the primary school building. Footings serving buildings or major external structures are therefore included.",
+          "sourceKind": "paragraph",
+          "recordId": "R406",
+          "file": "06_2026-11-09_email_foundation_design_responsibilities.docx",
+          "sha256": "41056e7e6d525e9009aff7256d971231f0c979e2614e9e7f8604db24e071850a"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "designEstablishedAtTenderAcceptance": {
+      "value": false,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R406",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 8,
+        "quote": "The Employer will complete its foundation design after tender acceptance. The design is not established at tender acceptance. Tenderers are not required to submit a foundation design with the Tender.",
+        "sourceKind": "paragraph",
+        "recordId": "R406",
+        "file": "06_2026-11-09_email_foundation_design_responsibilities.docx",
+        "sha256": "41056e7e6d525e9009aff7256d971231f0c979e2614e9e7f8604db24e071850a"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 8,
+          "quote": "The Employer will complete its foundation design after tender acceptance. The design is not established at tender acceptance. Tenderers are not required to submit a foundation design with the Tender.",
+          "sourceKind": "paragraph",
+          "recordId": "R406",
+          "file": "06_2026-11-09_email_foundation_design_responsibilities.docx",
+          "sha256": "41056e7e6d525e9009aff7256d971231f0c979e2614e9e7f8604db24e071850a"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "foundationDesignSubmittedWithTender": {
+      "value": false,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R406",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 8,
+        "quote": "The Employer will complete its foundation design after tender acceptance. The design is not established at tender acceptance. Tenderers are not required to submit a foundation design with the Tender.",
+        "sourceKind": "paragraph",
+        "recordId": "R406",
+        "file": "06_2026-11-09_email_foundation_design_responsibilities.docx",
+        "sha256": "41056e7e6d525e9009aff7256d971231f0c979e2614e9e7f8604db24e071850a"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 8,
+          "quote": "The Employer will complete its foundation design after tender acceptance. The design is not established at tender acceptance. Tenderers are not required to submit a foundation design with the Tender.",
+          "sourceKind": "paragraph",
+          "recordId": "R406",
+          "file": "06_2026-11-09_email_foundation_design_responsibilities.docx",
+          "sha256": "41056e7e6d525e9009aff7256d971231f0c979e2614e9e7f8604db24e071850a"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "quotationBeforeVariation": {
+      "value": null,
+      "status": "unknown",
+      "origin": "deliberately_withheld",
+      "applicability": "active",
+      "firstDisclosure": null,
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 5,
+          "quote": "Four matters remain unresolved after these replies: the photocopy charge above A3, the site inspection end date, the epoxy coated cast iron pipe installation warranty requirement, and the optional design related quotation before Variation requirement. The supplied correspondence contains no approved value, positive or negative, for any of those four matters. Leave them for the responsible officer to decide.",
+          "sourceKind": "paragraph",
+          "recordId": "R415",
+          "file": "15_2026-11-20_email_final_outstanding_information_register.docx",
+          "sha256": "195d02fea6724d5411db64b52449505b158d75ea195772a18a9af9169e1bf927",
+          "role": "explicit_absence_record"
+        }
+      ],
+      "rationale": "The applicable value is explicitly unresolved and must not be replaced by false, zero, a default date or a guessed contact."
+    },
+    "wtoGpaApplies": {
+      "value": false,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R407",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 7,
+        "quote": "The WTO Government Procurement Agreement does not apply to this contract.",
+        "sourceKind": "paragraph",
+        "recordId": "R407",
+        "file": "07_2026-11-10_email_tender_submissions_and_procurement_coverage.docx",
+        "sha256": "29eee44567c1c7737948dd9509c10b52b1ed4ee744dcc4078ddc46ad043b6756"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 7,
+          "quote": "The WTO Government Procurement Agreement does not apply to this contract.",
+          "sourceKind": "paragraph",
+          "recordId": "R407",
+          "file": "07_2026-11-10_email_tender_submissions_and_procurement_coverage.docx",
+          "sha256": "29eee44567c1c7737948dd9509c10b52b1ed4ee744dcc4078ddc46ad043b6756"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "railwayProtectionAreaWorks": {
+      "value": false,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R408",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 5,
+        "quote": "There are no works in a railway protection area in this contract. Railway protection plan inspection arrangements are consequently not required.",
+        "sourceKind": "paragraph",
+        "recordId": "R408",
+        "file": "08_2026-11-11_email_railway_and_protected_tree_reply.docx",
+        "sha256": "e4014048f5ccc979fdba8d388487489329944c0886b84909c4a8884a2afc5454"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 5,
+          "quote": "There are no works in a railway protection area in this contract. Railway protection plan inspection arrangements are consequently not required.",
+          "sourceKind": "paragraph",
+          "recordId": "R408",
+          "file": "08_2026-11-11_email_railway_and_protected_tree_reply.docx",
+          "sha256": "e4014048f5ccc979fdba8d388487489329944c0886b84909c4a8884a2afc5454"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "railwayProtectionPlansAvailable": {
+      "value": null,
+      "status": "not_applicable",
+      "origin": "inactive_detail",
+      "applicability": "inactive",
+      "firstDisclosure": null,
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 5,
+          "quote": "There are no works in a railway protection area in this contract. Railway protection plan inspection arrangements are consequently not required.",
+          "sourceKind": "paragraph",
+          "recordId": "R408",
+          "file": "08_2026-11-11_email_railway_and_protected_tree_reply.docx",
+          "sha256": "e4014048f5ccc979fdba8d388487489329944c0886b84909c4a8884a2afc5454",
+          "role": "inactive_prerequisite",
+          "prerequisite": "railwayProtectionAreaWorks"
+        }
+      ],
+      "rationale": "The official schema prerequisite makes this detail inactive; the native prerequisite evidence is recorded."
+    },
+    "oldValuableTrees": {
+      "value": [
+        {
+          "serial": "OVT-TSW-112-07"
+        }
+      ],
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R408",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 6,
+        "quote": "The complete Old or Valuable Trees register contains one tree only, serial OVT-TSW-112-07. Retain the standard single tree protection provision. No multiple tree project text is needed.",
+        "sourceKind": "paragraph",
+        "recordId": "R408",
+        "file": "08_2026-11-11_email_railway_and_protected_tree_reply.docx",
+        "sha256": "e4014048f5ccc979fdba8d388487489329944c0886b84909c4a8884a2afc5454"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 6,
+          "quote": "The complete Old or Valuable Trees register contains one tree only, serial OVT-TSW-112-07. Retain the standard single tree protection provision. No multiple tree project text is needed.",
+          "sourceKind": "paragraph",
+          "recordId": "R408",
+          "file": "08_2026-11-11_email_railway_and_protected_tree_reply.docx",
+          "sha256": "e4014048f5ccc979fdba8d388487489329944c0886b84909c4a8884a2afc5454"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "ovtProjectSpecificText": {
+      "value": null,
+      "status": "not_applicable",
+      "origin": "inactive_detail",
+      "applicability": "inactive",
+      "firstDisclosure": null,
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 6,
+          "quote": "The complete Old or Valuable Trees register contains one tree only, serial OVT-TSW-112-07. Retain the standard single tree protection provision. No multiple tree project text is needed.",
+          "sourceKind": "paragraph",
+          "recordId": "R408",
+          "file": "08_2026-11-11_email_railway_and_protected_tree_reply.docx",
+          "sha256": "e4014048f5ccc979fdba8d388487489329944c0886b84909c4a8884a2afc5454",
+          "role": "inactive_prerequisite",
+          "prerequisite": "oldValuableTrees"
+        }
+      ],
+      "rationale": "The official schema prerequisite makes this detail inactive; the native prerequisite evidence is recorded."
+    },
+    "pricingScheme": {
+      "value": "BQ_SOR",
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R404",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 5,
+        "quote": "Adopt the combined BQ and SOR pricing scheme. The table is the complete register of seven Bills issued for this tender. BQ and SOR have separate number series, so the same number in a different pricing type is a different Bill.",
+        "sourceKind": "paragraph",
+        "recordId": "R404",
+        "file": "04_2026-11-05_email_complete_bills_and_rates_register.docx",
+        "sha256": "b9b46b3fa685f0fbef34a75552168c56a8f2fa2060eca238e8662db47b865ff3"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 5,
+          "quote": "Adopt the combined BQ and SOR pricing scheme. The table is the complete register of seven Bills issued for this tender. BQ and SOR have separate number series, so the same number in a different pricing type is a different Bill.",
+          "sourceKind": "paragraph",
+          "recordId": "R404",
+          "file": "04_2026-11-05_email_complete_bills_and_rates_register.docx",
+          "sha256": "b9b46b3fa685f0fbef34a75552168c56a8f2fa2060eca238e8662db47b865ff3"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "allBqQuantitiesProvisional": {
+      "value": true,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R404",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 7,
+        "quote": "All quantities in all four BQ Bills are provisional. The three SOR Bills remain rate schedules. There are no further Bills in the issued register.",
+        "sourceKind": "paragraph",
+        "recordId": "R404",
+        "file": "04_2026-11-05_email_complete_bills_and_rates_register.docx",
+        "sha256": "b9b46b3fa685f0fbef34a75552168c56a8f2fa2060eca238e8662db47b865ff3"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 7,
+          "quote": "All quantities in all four BQ Bills are provisional. The three SOR Bills remain rate schedules. There are no further Bills in the issued register.",
+          "sourceKind": "paragraph",
+          "recordId": "R404",
+          "file": "04_2026-11-05_email_complete_bills_and_rates_register.docx",
+          "sha256": "b9b46b3fa685f0fbef34a75552168c56a8f2fa2060eca238e8662db47b865ff3"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "billNos": {
+      "value": [
+        {
+          "number": "1",
+          "description": "Preliminaries and General Requirements",
+          "type": "BQ"
+        },
+        {
+          "number": "2",
+          "description": "Foundation Works for Housing and School",
+          "type": "BQ"
+        },
+        {
+          "number": "3",
+          "description": "Housing Blocks and External Works",
+          "type": "BQ"
+        },
+        {
+          "number": "4",
+          "description": "Primary School Building",
+          "type": "BQ"
+        },
+        {
+          "number": "1",
+          "description": "Electrical Installations",
+          "type": "SOR"
+        },
+        {
+          "number": "2",
+          "description": "Fire Services and Water Pump Installations",
+          "type": "SOR"
+        },
+        {
+          "number": "3",
+          "description": "Passenger Lift Installations",
+          "type": "SOR"
+        }
+      ],
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R404",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeTable": 1,
+        "headers": [
+          "Pricing type",
+          "Bill No.",
+          "Bill description"
+        ],
+        "rows": [
+          [
+            "BQ",
+            "1",
+            "Preliminaries and General Requirements"
+          ],
+          [
+            "BQ",
+            "2",
+            "Foundation Works for Housing and School"
+          ],
+          [
+            "BQ",
+            "3",
+            "Housing Blocks and External Works"
+          ],
+          [
+            "BQ",
+            "4",
+            "Primary School Building"
+          ],
+          [
+            "SOR",
+            "1",
+            "Electrical Installations"
+          ],
+          [
+            "SOR",
+            "2",
+            "Fire Services and Water Pump Installations"
+          ],
+          [
+            "SOR",
+            "3",
+            "Passenger Lift Installations"
+          ]
+        ],
+        "quote": "Pricing type | Bill No. | Bill description\nBQ | 1 | Preliminaries and General Requirements\nBQ | 2 | Foundation Works for Housing and School\nBQ | 3 | Housing Blocks and External Works\nBQ | 4 | Primary School Building\nSOR | 1 | Electrical Installations\nSOR | 2 | Fire Services and Water Pump Installations\nSOR | 3 | Passenger Lift Installations",
+        "sourceKind": "table",
+        "recordId": "R404",
+        "file": "04_2026-11-05_email_complete_bills_and_rates_register.docx",
+        "sha256": "b9b46b3fa685f0fbef34a75552168c56a8f2fa2060eca238e8662db47b865ff3"
+      },
+      "oracleEvidence": [
+        {
+          "nativeTable": 1,
+          "headers": [
+            "Pricing type",
+            "Bill No.",
+            "Bill description"
+          ],
+          "rows": [
+            [
+              "BQ",
+              "1",
+              "Preliminaries and General Requirements"
+            ],
+            [
+              "BQ",
+              "2",
+              "Foundation Works for Housing and School"
+            ],
+            [
+              "BQ",
+              "3",
+              "Housing Blocks and External Works"
+            ],
+            [
+              "BQ",
+              "4",
+              "Primary School Building"
+            ],
+            [
+              "SOR",
+              "1",
+              "Electrical Installations"
+            ],
+            [
+              "SOR",
+              "2",
+              "Fire Services and Water Pump Installations"
+            ],
+            [
+              "SOR",
+              "3",
+              "Passenger Lift Installations"
+            ]
+          ],
+          "quote": "Pricing type | Bill No. | Bill description\nBQ | 1 | Preliminaries and General Requirements\nBQ | 2 | Foundation Works for Housing and School\nBQ | 3 | Housing Blocks and External Works\nBQ | 4 | Primary School Building\nSOR | 1 | Electrical Installations\nSOR | 2 | Fire Services and Water Pump Installations\nSOR | 3 | Passenger Lift Installations",
+          "sourceKind": "table",
+          "recordId": "R404",
+          "file": "04_2026-11-05_email_complete_bills_and_rates_register.docx",
+          "sha256": "b9b46b3fa685f0fbef34a75552168c56a8f2fa2060eca238e8662db47b865ff3"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "photocopyRateUpToA3": {
+      "value": 7.25,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R405",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 8,
+        "quote": "The charge for each photocopied page up to A3 size is HK$7.25 when the required tender return copies are missing. The rate for pages above A3 is awaiting approval.",
+        "sourceKind": "paragraph",
+        "recordId": "R405",
+        "file": "05_2026-11-06_minutes_nominated_procurement_and_tender_return_decisions.docx",
+        "sha256": "9853fa65e0bfae9f9ecb8e59236aaf5ac57fa5360618128433e25e7e280cf990"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 8,
+          "quote": "The charge for each photocopied page up to A3 size is HK$7.25 when the required tender return copies are missing. The rate for pages above A3 is awaiting approval.",
+          "sourceKind": "paragraph",
+          "recordId": "R405",
+          "file": "05_2026-11-06_minutes_nominated_procurement_and_tender_return_decisions.docx",
+          "sha256": "9853fa65e0bfae9f9ecb8e59236aaf5ac57fa5360618128433e25e7e280cf990"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "photocopyRateAboveA3": {
+      "value": null,
+      "status": "unknown",
+      "origin": "deliberately_withheld",
+      "applicability": "active",
+      "firstDisclosure": null,
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 5,
+          "quote": "Four matters remain unresolved after these replies: the photocopy charge above A3, the site inspection end date, the epoxy coated cast iron pipe installation warranty requirement, and the optional design related quotation before Variation requirement. The supplied correspondence contains no approved value, positive or negative, for any of those four matters. Leave them for the responsible officer to decide.",
+          "sourceKind": "paragraph",
+          "recordId": "R415",
+          "file": "15_2026-11-20_email_final_outstanding_information_register.docx",
+          "sha256": "195d02fea6724d5411db64b52449505b158d75ea195772a18a9af9169e1bf927",
+          "role": "explicit_absence_record"
+        }
+      ],
+      "rationale": "The applicable value is explicitly unresolved and must not be replaced by false, zero, a default date or a guessed contact."
+    },
+    "rseSubmissionsRequired": {
+      "value": true,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R407",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 5,
+        "quote": "RSE endorsed submissions are required. The following additional Tender submissions are also required, and the list is complete.",
+        "sourceKind": "paragraph",
+        "recordId": "R407",
+        "file": "07_2026-11-10_email_tender_submissions_and_procurement_coverage.docx",
+        "sha256": "29eee44567c1c7737948dd9509c10b52b1ed4ee744dcc4078ddc46ad043b6756"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 5,
+          "quote": "RSE endorsed submissions are required. The following additional Tender submissions are also required, and the list is complete.",
+          "sourceKind": "paragraph",
+          "recordId": "R407",
+          "file": "07_2026-11-10_email_tender_submissions_and_procurement_coverage.docx",
+          "sha256": "29eee44567c1c7737948dd9509c10b52b1ed4ee744dcc4078ddc46ad043b6756"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "additionalSubmissions": {
+      "value": [
+        {
+          "text": "Submit a public road excavation staging plan with the Tender."
+        },
+        {
+          "text": "Submit a school boundary noise control proposal with the Tender."
+        }
+      ],
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R407",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 6,
+        "quote": "1. Submit a public road excavation staging plan with the Tender.\n2. Submit a school boundary noise control proposal with the Tender.",
+        "sourceKind": "paragraph",
+        "recordId": "R407",
+        "file": "07_2026-11-10_email_tender_submissions_and_procurement_coverage.docx",
+        "sha256": "29eee44567c1c7737948dd9509c10b52b1ed4ee744dcc4078ddc46ad043b6756"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 6,
+          "quote": "1. Submit a public road excavation staging plan with the Tender.\n2. Submit a school boundary noise control proposal with the Tender.",
+          "sourceKind": "paragraph",
+          "recordId": "R407",
+          "file": "07_2026-11-10_email_tender_submissions_and_procurement_coverage.docx",
+          "sha256": "29eee44567c1c7737948dd9509c10b52b1ed4ee744dcc4078ddc46ad043b6756"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "pseSubmissions": {
+      "value": null,
+      "status": "not_applicable",
+      "origin": "inactive_detail",
+      "applicability": "inactive",
+      "firstDisclosure": null,
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 5,
+          "quote": "The approved Contract No. is 20270234. The Contract Title is Construction of Public Housing and Primary School at Tin Shui Wai Area 112. The housing comprises two domestic residential blocks of subsidised sale flats. All sites in this contract are in Tin Shui Wai.",
+          "sourceKind": "paragraph",
+          "recordId": "R402",
+          "file": "02_2026-11-03_minutes_contract_identity_and_approved_programme.docx",
+          "sha256": "afa5c025b77eb8ea26ac7309f7314b535d83cddf800d57839e1b5d13db722f47",
+          "role": "inactive_prerequisite",
+          "prerequisite": "domesticBlocks"
+        },
+        {
+          "nativeParagraph": 6,
+          "quote": "Provide both exhibition flats and show flats for the subsidised sale development. The domestic blocks use conventional construction; CON8 volumetric precast components are not included. No PSE submission for such volumetric units is called for.",
+          "sourceKind": "paragraph",
+          "recordId": "R403",
+          "file": "03_2026-11-04_email_work_package_and_construction_methods.docx",
+          "sha256": "cd853a274f8b3bcf148edcfe2d7bd7d4d496e74a1b9272d6109e5f10b0327b45",
+          "role": "inactive_prerequisite",
+          "prerequisite": "volumetricPrecastComponents"
+        }
+      ],
+      "rationale": "The official schema prerequisite makes this detail inactive; the native prerequisite evidence is recorded."
+    },
+    "projectInTinShuiWai": {
+      "value": true,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R402",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 5,
+        "quote": "The approved Contract No. is 20270234. The Contract Title is Construction of Public Housing and Primary School at Tin Shui Wai Area 112. The housing comprises two domestic residential blocks of subsidised sale flats. All sites in this contract are in Tin Shui Wai.",
+        "sourceKind": "paragraph",
+        "recordId": "R402",
+        "file": "02_2026-11-03_minutes_contract_identity_and_approved_programme.docx",
+        "sha256": "afa5c025b77eb8ea26ac7309f7314b535d83cddf800d57839e1b5d13db722f47"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 5,
+          "quote": "The approved Contract No. is 20270234. The Contract Title is Construction of Public Housing and Primary School at Tin Shui Wai Area 112. The housing comprises two domestic residential blocks of subsidised sale flats. All sites in this contract are in Tin Shui Wai.",
+          "sourceKind": "paragraph",
+          "recordId": "R402",
+          "file": "02_2026-11-03_minutes_contract_identity_and_approved_programme.docx",
+          "sha256": "afa5c025b77eb8ea26ac7309f7314b535d83cddf800d57839e1b5d13db722f47"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "roofingInstallationIncluded": {
+      "value": true,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R409",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 5,
+        "quote": "Roofing installation is included on the school and the housing blocks. The roofing installation warranty is required. Refuge floor installation is excluded, so there is no refuge floor installation warranty to insert.",
+        "sourceKind": "paragraph",
+        "recordId": "R409",
+        "file": "09_2026-11-12_minutes_roof_refuge_floor_and_warranty_decisions.docx",
+        "sha256": "5e197e9faebd408ffbca1c662ca052e4d8334f9a2e3e104a4daa70765470a781"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 5,
+          "quote": "Roofing installation is included on the school and the housing blocks. The roofing installation warranty is required. Refuge floor installation is excluded, so there is no refuge floor installation warranty to insert.",
+          "sourceKind": "paragraph",
+          "recordId": "R409",
+          "file": "09_2026-11-12_minutes_roof_refuge_floor_and_warranty_decisions.docx",
+          "sha256": "5e197e9faebd408ffbca1c662ca052e4d8334f9a2e3e104a4daa70765470a781"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "roofingWarrantyRequired": {
+      "value": true,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R409",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 5,
+        "quote": "Roofing installation is included on the school and the housing blocks. The roofing installation warranty is required. Refuge floor installation is excluded, so there is no refuge floor installation warranty to insert.",
+        "sourceKind": "paragraph",
+        "recordId": "R409",
+        "file": "09_2026-11-12_minutes_roof_refuge_floor_and_warranty_decisions.docx",
+        "sha256": "5e197e9faebd408ffbca1c662ca052e4d8334f9a2e3e104a4daa70765470a781"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 5,
+          "quote": "Roofing installation is included on the school and the housing blocks. The roofing installation warranty is required. Refuge floor installation is excluded, so there is no refuge floor installation warranty to insert.",
+          "sourceKind": "paragraph",
+          "recordId": "R409",
+          "file": "09_2026-11-12_minutes_roof_refuge_floor_and_warranty_decisions.docx",
+          "sha256": "5e197e9faebd408ffbca1c662ca052e4d8334f9a2e3e104a4daa70765470a781"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "refugeFloorInstallationIncluded": {
+      "value": false,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R409",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 5,
+        "quote": "Roofing installation is included on the school and the housing blocks. The roofing installation warranty is required. Refuge floor installation is excluded, so there is no refuge floor installation warranty to insert.",
+        "sourceKind": "paragraph",
+        "recordId": "R409",
+        "file": "09_2026-11-12_minutes_roof_refuge_floor_and_warranty_decisions.docx",
+        "sha256": "5e197e9faebd408ffbca1c662ca052e4d8334f9a2e3e104a4daa70765470a781"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 5,
+          "quote": "Roofing installation is included on the school and the housing blocks. The roofing installation warranty is required. Refuge floor installation is excluded, so there is no refuge floor installation warranty to insert.",
+          "sourceKind": "paragraph",
+          "recordId": "R409",
+          "file": "09_2026-11-12_minutes_roof_refuge_floor_and_warranty_decisions.docx",
+          "sha256": "5e197e9faebd408ffbca1c662ca052e4d8334f9a2e3e104a4daa70765470a781"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "refugeFloorWarrantyRequired": {
+      "value": null,
+      "status": "not_applicable",
+      "origin": "inactive_detail",
+      "applicability": "inactive",
+      "firstDisclosure": null,
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 5,
+          "quote": "Roofing installation is included on the school and the housing blocks. The roofing installation warranty is required. Refuge floor installation is excluded, so there is no refuge floor installation warranty to insert.",
+          "sourceKind": "paragraph",
+          "recordId": "R409",
+          "file": "09_2026-11-12_minutes_roof_refuge_floor_and_warranty_decisions.docx",
+          "sha256": "5e197e9faebd408ffbca1c662ca052e4d8334f9a2e3e104a4daa70765470a781",
+          "role": "inactive_prerequisite",
+          "prerequisite": "refugeFloorInstallationIncluded"
+        }
+      ],
+      "rationale": "The official schema prerequisite makes this detail inactive; the native prerequisite evidence is recorded."
+    },
+    "otherWaterproofingWarrantyRequired": {
+      "value": true,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R409",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 6,
+        "quote": "A warranty for the other waterproofing installations is required. The separate waterproofing scope reply will supply its complete specification area list.",
+        "sourceKind": "paragraph",
+        "recordId": "R409",
+        "file": "09_2026-11-12_minutes_roof_refuge_floor_and_warranty_decisions.docx",
+        "sha256": "5e197e9faebd408ffbca1c662ca052e4d8334f9a2e3e104a4daa70765470a781"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 6,
+          "quote": "A warranty for the other waterproofing installations is required. The separate waterproofing scope reply will supply its complete specification area list.",
+          "sourceKind": "paragraph",
+          "recordId": "R409",
+          "file": "09_2026-11-12_minutes_roof_refuge_floor_and_warranty_decisions.docx",
+          "sha256": "5e197e9faebd408ffbca1c662ca052e4d8334f9a2e3e104a4daa70765470a781"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "otherWaterproofingSpecificationAreas": {
+      "value": "1. Housing kitchens and utility rooms, including floor gullies, pipe penetrations and the upstands behind fixed cabinets;\n2. Housing bathrooms, toilets and shower rooms, including door thresholds, shower kerbs and wall to floor junctions;\n3. School changing rooms and showers, including the accessible shower bay and the drainage channels beneath the benches;\n4. Refuse storage rooms and material recovery rooms, including wash down floors, drain collars and wet wall surfaces;\n5. School catering kitchens and washing areas, including grease trap access covers and service trench junctions;\n6. Underground fresh water and flushing water tanks, including tank walls, bases, construction joints and access necks;\n7. Basement retaining walls around the housing car park, including wall sleeves and the junction with the basement slab;\n8. Landscape planters above the covered walkway, including root resistant protection, irrigation sleeves and overflow outlets;\n9. School playground drainage sumps and connecting channels, including cover frames and movement joints at the channel ends.",
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R410",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 6,
+        "quote": "1. Housing kitchens and utility rooms, including floor gullies, pipe penetrations and the upstands behind fixed cabinets;\n2. Housing bathrooms, toilets and shower rooms, including door thresholds, shower kerbs and wall to floor junctions;\n3. School changing rooms and showers, including the accessible shower bay and the drainage channels beneath the benches;\n4. Refuse storage rooms and material recovery rooms, including wash down floors, drain collars and wet wall surfaces;\n5. School catering kitchens and washing areas, including grease trap access covers and service trench junctions;\n6. Underground fresh water and flushing water tanks, including tank walls, bases, construction joints and access necks;\n7. Basement retaining walls around the housing car park, including wall sleeves and the junction with the basement slab;\n8. Landscape planters above the covered walkway, including root resistant protection, irrigation sleeves and overflow outlets;\n9. School playground drainage sumps and connecting channels, including cover frames and movement joints at the channel ends.",
+        "sourceKind": "paragraph",
+        "recordId": "R410",
+        "file": "10_2026-11-13_email_complete_other_waterproofing_specification_areas.docx",
+        "sha256": "070e90d48476df93d5dd7df2b3c82a85924d1017c2c64864c7f3af5c380214d6"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 6,
+          "quote": "1. Housing kitchens and utility rooms, including floor gullies, pipe penetrations and the upstands behind fixed cabinets;\n2. Housing bathrooms, toilets and shower rooms, including door thresholds, shower kerbs and wall to floor junctions;\n3. School changing rooms and showers, including the accessible shower bay and the drainage channels beneath the benches;\n4. Refuse storage rooms and material recovery rooms, including wash down floors, drain collars and wet wall surfaces;\n5. School catering kitchens and washing areas, including grease trap access covers and service trench junctions;\n6. Underground fresh water and flushing water tanks, including tank walls, bases, construction joints and access necks;\n7. Basement retaining walls around the housing car park, including wall sleeves and the junction with the basement slab;\n8. Landscape planters above the covered walkway, including root resistant protection, irrigation sleeves and overflow outlets;\n9. School playground drainage sumps and connecting channels, including cover frames and movement joints at the channel ends.",
+          "sourceKind": "paragraph",
+          "recordId": "R410",
+          "file": "10_2026-11-13_email_complete_other_waterproofing_specification_areas.docx",
+          "sha256": "070e90d48476df93d5dd7df2b3c82a85924d1017c2c64864c7f3af5c380214d6"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "acrylicPaintWarrantyRequired": {
+      "value": false,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R409",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 7,
+        "quote": "An acrylic paint warranty is not required. A wall tiling warranty is not required. Play equipment is excluded from this contract. Impact Absorbing Surfacing Materials are included at the outdoor mobility exercise area.",
+        "sourceKind": "paragraph",
+        "recordId": "R409",
+        "file": "09_2026-11-12_minutes_roof_refuge_floor_and_warranty_decisions.docx",
+        "sha256": "5e197e9faebd408ffbca1c662ca052e4d8334f9a2e3e104a4daa70765470a781"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 7,
+          "quote": "An acrylic paint warranty is not required. A wall tiling warranty is not required. Play equipment is excluded from this contract. Impact Absorbing Surfacing Materials are included at the outdoor mobility exercise area.",
+          "sourceKind": "paragraph",
+          "recordId": "R409",
+          "file": "09_2026-11-12_minutes_roof_refuge_floor_and_warranty_decisions.docx",
+          "sha256": "5e197e9faebd408ffbca1c662ca052e4d8334f9a2e3e104a4daa70765470a781"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "wallTilingWarrantyRequired": {
+      "value": false,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R409",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 7,
+        "quote": "An acrylic paint warranty is not required. A wall tiling warranty is not required. Play equipment is excluded from this contract. Impact Absorbing Surfacing Materials are included at the outdoor mobility exercise area.",
+        "sourceKind": "paragraph",
+        "recordId": "R409",
+        "file": "09_2026-11-12_minutes_roof_refuge_floor_and_warranty_decisions.docx",
+        "sha256": "5e197e9faebd408ffbca1c662ca052e4d8334f9a2e3e104a4daa70765470a781"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 7,
+          "quote": "An acrylic paint warranty is not required. A wall tiling warranty is not required. Play equipment is excluded from this contract. Impact Absorbing Surfacing Materials are included at the outdoor mobility exercise area.",
+          "sourceKind": "paragraph",
+          "recordId": "R409",
+          "file": "09_2026-11-12_minutes_roof_refuge_floor_and_warranty_decisions.docx",
+          "sha256": "5e197e9faebd408ffbca1c662ca052e4d8334f9a2e3e104a4daa70765470a781"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "playEquipmentIncluded": {
+      "value": false,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R409",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 7,
+        "quote": "An acrylic paint warranty is not required. A wall tiling warranty is not required. Play equipment is excluded from this contract. Impact Absorbing Surfacing Materials are included at the outdoor mobility exercise area.",
+        "sourceKind": "paragraph",
+        "recordId": "R409",
+        "file": "09_2026-11-12_minutes_roof_refuge_floor_and_warranty_decisions.docx",
+        "sha256": "5e197e9faebd408ffbca1c662ca052e4d8334f9a2e3e104a4daa70765470a781"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 7,
+          "quote": "An acrylic paint warranty is not required. A wall tiling warranty is not required. Play equipment is excluded from this contract. Impact Absorbing Surfacing Materials are included at the outdoor mobility exercise area.",
+          "sourceKind": "paragraph",
+          "recordId": "R409",
+          "file": "09_2026-11-12_minutes_roof_refuge_floor_and_warranty_decisions.docx",
+          "sha256": "5e197e9faebd408ffbca1c662ca052e4d8334f9a2e3e104a4daa70765470a781"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "iasmIncluded": {
+      "value": true,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R409",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 7,
+        "quote": "An acrylic paint warranty is not required. A wall tiling warranty is not required. Play equipment is excluded from this contract. Impact Absorbing Surfacing Materials are included at the outdoor mobility exercise area.",
+        "sourceKind": "paragraph",
+        "recordId": "R409",
+        "file": "09_2026-11-12_minutes_roof_refuge_floor_and_warranty_decisions.docx",
+        "sha256": "5e197e9faebd408ffbca1c662ca052e4d8334f9a2e3e104a4daa70765470a781"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 7,
+          "quote": "An acrylic paint warranty is not required. A wall tiling warranty is not required. Play equipment is excluded from this contract. Impact Absorbing Surfacing Materials are included at the outdoor mobility exercise area.",
+          "sourceKind": "paragraph",
+          "recordId": "R409",
+          "file": "09_2026-11-12_minutes_roof_refuge_floor_and_warranty_decisions.docx",
+          "sha256": "5e197e9faebd408ffbca1c662ca052e4d8334f9a2e3e104a4daa70765470a781"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "epoxyCastIronPipeWarrantyRequired": {
+      "value": null,
+      "status": "unknown",
+      "origin": "deliberately_withheld",
+      "applicability": "active",
+      "firstDisclosure": null,
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 5,
+          "quote": "Four matters remain unresolved after these replies: the photocopy charge above A3, the site inspection end date, the epoxy coated cast iron pipe installation warranty requirement, and the optional design related quotation before Variation requirement. The supplied correspondence contains no approved value, positive or negative, for any of those four matters. Leave them for the responsible officer to decide.",
+          "sourceKind": "paragraph",
+          "recordId": "R415",
+          "file": "15_2026-11-20_email_final_outstanding_information_register.docx",
+          "sha256": "195d02fea6724d5411db64b52449505b158d75ea195772a18a9af9169e1bf927",
+          "role": "explicit_absence_record"
+        }
+      ],
+      "rationale": "The applicable value is explicitly unresolved and must not be replaced by false, zero, a default date or a guessed contact."
+    },
+    "sections": {
+      "value": [
+        {
+          "designation": "Section H",
+          "workTypes": [
+            "building",
+            "foundation"
+          ],
+          "location": "Housing Blocks 1 and 2 on the north site"
+        },
+        {
+          "designation": "Section S",
+          "workTypes": [
+            "building",
+            "foundation"
+          ],
+          "location": "Primary school on the east site"
+        },
+        {
+          "designation": "Section D",
+          "workTypes": [
+            "demolition"
+          ],
+          "location": "Former maintenance annex in the west compound"
+        }
+      ],
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R411",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeTable": 1,
+        "headers": [
+          "Section designation",
+          "Work types",
+          "Site or location"
+        ],
+        "rows": [
+          [
+            "Section H",
+            "building, foundation",
+            "Housing Blocks 1 and 2 on the north site"
+          ],
+          [
+            "Section S",
+            "building, foundation",
+            "Primary school on the east site"
+          ],
+          [
+            "Section D",
+            "demolition",
+            "Former maintenance annex in the west compound"
+          ]
+        ],
+        "quote": "Section designation | Work types | Site or location\nSection H | building, foundation | Housing Blocks 1 and 2 on the north site\nSection S | building, foundation | Primary school on the east site\nSection D | demolition | Former maintenance annex in the west compound",
+        "sourceKind": "table",
+        "recordId": "R411",
+        "file": "11_2026-11-16_minutes_sections_possession_and_weather_clauses.docx",
+        "sha256": "f066c5a6bed98df48719fb5f03fcd0f934db21a711f784169a6ebb2c847be919"
+      },
+      "oracleEvidence": [
+        {
+          "nativeTable": 1,
+          "headers": [
+            "Section designation",
+            "Work types",
+            "Site or location"
+          ],
+          "rows": [
+            [
+              "Section H",
+              "building, foundation",
+              "Housing Blocks 1 and 2 on the north site"
+            ],
+            [
+              "Section S",
+              "building, foundation",
+              "Primary school on the east site"
+            ],
+            [
+              "Section D",
+              "demolition",
+              "Former maintenance annex in the west compound"
+            ]
+          ],
+          "quote": "Section designation | Work types | Site or location\nSection H | building, foundation | Housing Blocks 1 and 2 on the north site\nSection S | building, foundation | Primary school on the east site\nSection D | demolition | Former maintenance annex in the west compound",
+          "sourceKind": "table",
+          "recordId": "R411",
+          "file": "11_2026-11-16_minutes_sections_possession_and_weather_clauses.docx",
+          "sha256": "f066c5a6bed98df48719fb5f03fcd0f934db21a711f784169a6ebb2c847be919"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "buildingDemolitionSitesSeparated": {
+      "value": true,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R411",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 7,
+        "quote": "The building sites at the north and east are separated from the demolition site in the west compound. Building and demolition sites are separated for the whole contract.",
+        "sourceKind": "paragraph",
+        "recordId": "R411",
+        "file": "11_2026-11-16_minutes_sections_possession_and_weather_clauses.docx",
+        "sha256": "f066c5a6bed98df48719fb5f03fcd0f934db21a711f784169a6ebb2c847be919"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 7,
+          "quote": "The building sites at the north and east are separated from the demolition site in the west compound. Building and demolition sites are separated for the whole contract.",
+          "sourceKind": "paragraph",
+          "recordId": "R411",
+          "file": "11_2026-11-16_minutes_sections_possession_and_weather_clauses.docx",
+          "sha256": "f066c5a6bed98df48719fb5f03fcd0f934db21a711f784169a6ebb2c847be919"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "weatherEotClause": {
+      "value": "SCC8.302",
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R411",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 8,
+        "quote": "Adopt SCC8.302 for weather extension of time. SCC8.303 is not adopted. Adopt the late possession provision. Do not adopt the additional loss provision; no specified or relevant Sections for that provision are to be inserted.",
+        "sourceKind": "paragraph",
+        "recordId": "R411",
+        "file": "11_2026-11-16_minutes_sections_possession_and_weather_clauses.docx",
+        "sha256": "f066c5a6bed98df48719fb5f03fcd0f934db21a711f784169a6ebb2c847be919"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 8,
+          "quote": "Adopt SCC8.302 for weather extension of time. SCC8.303 is not adopted. Adopt the late possession provision. Do not adopt the additional loss provision; no specified or relevant Sections for that provision are to be inserted.",
+          "sourceKind": "paragraph",
+          "recordId": "R411",
+          "file": "11_2026-11-16_minutes_sections_possession_and_weather_clauses.docx",
+          "sha256": "f066c5a6bed98df48719fb5f03fcd0f934db21a711f784169a6ebb2c847be919"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "demolitionOnlySection": {
+      "value": null,
+      "status": "not_applicable",
+      "origin": "inactive_detail",
+      "applicability": "inactive",
+      "firstDisclosure": null,
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 8,
+          "quote": "Adopt SCC8.302 for weather extension of time. SCC8.303 is not adopted. Adopt the late possession provision. Do not adopt the additional loss provision; no specified or relevant Sections for that provision are to be inserted.",
+          "sourceKind": "paragraph",
+          "recordId": "R411",
+          "file": "11_2026-11-16_minutes_sections_possession_and_weather_clauses.docx",
+          "sha256": "f066c5a6bed98df48719fb5f03fcd0f934db21a711f784169a6ebb2c847be919",
+          "role": "inactive_prerequisite",
+          "prerequisite": "weatherEotClause"
+        }
+      ],
+      "rationale": "The official schema prerequisite makes this detail inactive; the native prerequisite evidence is recorded."
+    },
+    "latePossessionAdopted": {
+      "value": true,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R411",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 8,
+        "quote": "Adopt SCC8.302 for weather extension of time. SCC8.303 is not adopted. Adopt the late possession provision. Do not adopt the additional loss provision; no specified or relevant Sections for that provision are to be inserted.",
+        "sourceKind": "paragraph",
+        "recordId": "R411",
+        "file": "11_2026-11-16_minutes_sections_possession_and_weather_clauses.docx",
+        "sha256": "f066c5a6bed98df48719fb5f03fcd0f934db21a711f784169a6ebb2c847be919"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 8,
+          "quote": "Adopt SCC8.302 for weather extension of time. SCC8.303 is not adopted. Adopt the late possession provision. Do not adopt the additional loss provision; no specified or relevant Sections for that provision are to be inserted.",
+          "sourceKind": "paragraph",
+          "recordId": "R411",
+          "file": "11_2026-11-16_minutes_sections_possession_and_weather_clauses.docx",
+          "sha256": "f066c5a6bed98df48719fb5f03fcd0f934db21a711f784169a6ebb2c847be919"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "additionalLossAdopted": {
+      "value": false,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R411",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 8,
+        "quote": "Adopt SCC8.302 for weather extension of time. SCC8.303 is not adopted. Adopt the late possession provision. Do not adopt the additional loss provision; no specified or relevant Sections for that provision are to be inserted.",
+        "sourceKind": "paragraph",
+        "recordId": "R411",
+        "file": "11_2026-11-16_minutes_sections_possession_and_weather_clauses.docx",
+        "sha256": "f066c5a6bed98df48719fb5f03fcd0f934db21a711f784169a6ebb2c847be919"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 8,
+          "quote": "Adopt SCC8.302 for weather extension of time. SCC8.303 is not adopted. Adopt the late possession provision. Do not adopt the additional loss provision; no specified or relevant Sections for that provision are to be inserted.",
+          "sourceKind": "paragraph",
+          "recordId": "R411",
+          "file": "11_2026-11-16_minutes_sections_possession_and_weather_clauses.docx",
+          "sha256": "f066c5a6bed98df48719fb5f03fcd0f934db21a711f784169a6ebb2c847be919"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "additionalLossSpecifiedSections": {
+      "value": null,
+      "status": "not_applicable",
+      "origin": "inactive_detail",
+      "applicability": "inactive",
+      "firstDisclosure": null,
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 8,
+          "quote": "Adopt SCC8.302 for weather extension of time. SCC8.303 is not adopted. Adopt the late possession provision. Do not adopt the additional loss provision; no specified or relevant Sections for that provision are to be inserted.",
+          "sourceKind": "paragraph",
+          "recordId": "R411",
+          "file": "11_2026-11-16_minutes_sections_possession_and_weather_clauses.docx",
+          "sha256": "f066c5a6bed98df48719fb5f03fcd0f934db21a711f784169a6ebb2c847be919",
+          "role": "inactive_prerequisite",
+          "prerequisite": "additionalLossAdopted"
+        }
+      ],
+      "rationale": "The official schema prerequisite makes this detail inactive; the native prerequisite evidence is recorded."
+    },
+    "additionalLossRelevantSection": {
+      "value": null,
+      "status": "not_applicable",
+      "origin": "inactive_detail",
+      "applicability": "inactive",
+      "firstDisclosure": null,
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 8,
+          "quote": "Adopt SCC8.302 for weather extension of time. SCC8.303 is not adopted. Adopt the late possession provision. Do not adopt the additional loss provision; no specified or relevant Sections for that provision are to be inserted.",
+          "sourceKind": "paragraph",
+          "recordId": "R411",
+          "file": "11_2026-11-16_minutes_sections_possession_and_weather_clauses.docx",
+          "sha256": "f066c5a6bed98df48719fb5f03fcd0f934db21a711f784169a6ebb2c847be919",
+          "role": "inactive_prerequisite",
+          "prerequisite": "additionalLossAdopted"
+        }
+      ],
+      "rationale": "The official schema prerequisite makes this detail inactive; the native prerequisite evidence is recorded."
+    },
+    "policeTrainingAdopted": {
+      "value": true,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R412",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 5,
+        "quote": "Adopt the police training clause for the former maintenance annex in Section D. The annex is connected to the retained utility building, so it is not a standalone building. The west compound is suitable for police training during the first month: the safe access and secure boundary will be available at commencement.",
+        "sourceKind": "paragraph",
+        "recordId": "R412",
+        "file": "12_2026-11-17_minutes_police_training_and_contractor_legal_form.docx",
+        "sha256": "679200c1e0f0b769032e0eca41b0cf2b33e50abcd364a2dd380380c75d1feaeb"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 5,
+          "quote": "Adopt the police training clause for the former maintenance annex in Section D. The annex is connected to the retained utility building, so it is not a standalone building. The west compound is suitable for police training during the first month: the safe access and secure boundary will be available at commencement.",
+          "sourceKind": "paragraph",
+          "recordId": "R412",
+          "file": "12_2026-11-17_minutes_police_training_and_contractor_legal_form.docx",
+          "sha256": "679200c1e0f0b769032e0eca41b0cf2b33e50abcd364a2dd380380c75d1feaeb"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "demolitionStandaloneBuilding": {
+      "value": false,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R412",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 5,
+        "quote": "Adopt the police training clause for the former maintenance annex in Section D. The annex is connected to the retained utility building, so it is not a standalone building. The west compound is suitable for police training during the first month: the safe access and secure boundary will be available at commencement.",
+        "sourceKind": "paragraph",
+        "recordId": "R412",
+        "file": "12_2026-11-17_minutes_police_training_and_contractor_legal_form.docx",
+        "sha256": "679200c1e0f0b769032e0eca41b0cf2b33e50abcd364a2dd380380c75d1feaeb"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 5,
+          "quote": "Adopt the police training clause for the former maintenance annex in Section D. The annex is connected to the retained utility building, so it is not a standalone building. The west compound is suitable for police training during the first month: the safe access and secure boundary will be available at commencement.",
+          "sourceKind": "paragraph",
+          "recordId": "R412",
+          "file": "12_2026-11-17_minutes_police_training_and_contractor_legal_form.docx",
+          "sha256": "679200c1e0f0b769032e0eca41b0cf2b33e50abcd364a2dd380380c75d1feaeb"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "siteSuitableForTrainingFirstMonth": {
+      "value": true,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R412",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 5,
+        "quote": "Adopt the police training clause for the former maintenance annex in Section D. The annex is connected to the retained utility building, so it is not a standalone building. The west compound is suitable for police training during the first month: the safe access and secure boundary will be available at commencement.",
+        "sourceKind": "paragraph",
+        "recordId": "R412",
+        "file": "12_2026-11-17_minutes_police_training_and_contractor_legal_form.docx",
+        "sha256": "679200c1e0f0b769032e0eca41b0cf2b33e50abcd364a2dd380380c75d1feaeb"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 5,
+          "quote": "Adopt the police training clause for the former maintenance annex in Section D. The annex is connected to the retained utility building, so it is not a standalone building. The west compound is suitable for police training during the first month: the safe access and secure boundary will be available at commencement.",
+          "sourceKind": "paragraph",
+          "recordId": "R412",
+          "file": "12_2026-11-17_minutes_police_training_and_contractor_legal_form.docx",
+          "sha256": "679200c1e0f0b769032e0eca41b0cf2b33e50abcd364a2dd380380c75d1feaeb"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "contractorLegalForm": {
+      "value": "partnership",
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R412",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 6,
+        "quote": "The Contractor legal form is a partnership. It is not an incorporated or unincorporated joint venture. The legal form is confirmed; no fallback decision for an unknown legal form is needed.",
+        "sourceKind": "paragraph",
+        "recordId": "R412",
+        "file": "12_2026-11-17_minutes_police_training_and_contractor_legal_form.docx",
+        "sha256": "679200c1e0f0b769032e0eca41b0cf2b33e50abcd364a2dd380380c75d1feaeb"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 6,
+          "quote": "The Contractor legal form is a partnership. It is not an incorporated or unincorporated joint venture. The legal form is confirmed; no fallback decision for an unknown legal form is needed.",
+          "sourceKind": "paragraph",
+          "recordId": "R412",
+          "file": "12_2026-11-17_minutes_police_training_and_contractor_legal_form.docx",
+          "sha256": "679200c1e0f0b769032e0eca41b0cf2b33e50abcd364a2dd380380c75d1feaeb"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "partnershipClauseAdopted": {
+      "value": null,
+      "status": "not_applicable",
+      "origin": "inactive_detail",
+      "applicability": "inactive",
+      "firstDisclosure": null,
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 6,
+          "quote": "The Contractor legal form is a partnership. It is not an incorporated or unincorporated joint venture. The legal form is confirmed; no fallback decision for an unknown legal form is needed.",
+          "sourceKind": "paragraph",
+          "recordId": "R412",
+          "file": "12_2026-11-17_minutes_police_training_and_contractor_legal_form.docx",
+          "sha256": "679200c1e0f0b769032e0eca41b0cf2b33e50abcd364a2dd380380c75d1feaeb",
+          "role": "inactive_prerequisite",
+          "prerequisite": "contractorLegalForm"
+        }
+      ],
+      "rationale": "The official schema prerequisite makes this detail inactive; the native prerequisite evidence is recorded."
+    },
+    "jointVentureClauseAdopted": {
+      "value": null,
+      "status": "not_applicable",
+      "origin": "inactive_detail",
+      "applicability": "inactive",
+      "firstDisclosure": null,
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 6,
+          "quote": "The Contractor legal form is a partnership. It is not an incorporated or unincorporated joint venture. The legal form is confirmed; no fallback decision for an unknown legal form is needed.",
+          "sourceKind": "paragraph",
+          "recordId": "R412",
+          "file": "12_2026-11-17_minutes_police_training_and_contractor_legal_form.docx",
+          "sha256": "679200c1e0f0b769032e0eca41b0cf2b33e50abcd364a2dd380380c75d1feaeb",
+          "role": "inactive_prerequisite",
+          "prerequisite": "contractorLegalForm"
+        }
+      ],
+      "rationale": "The official schema prerequisite makes this detail inactive; the native prerequisite evidence is recorded."
+    },
+    "projectArchitectPost": {
+      "value": "Senior Architect Housing and Education Projects",
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R413",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 5,
+        "quote": "For SCT7, the Project Architect post is Senior Architect Housing and Education Projects. The appointed fictional officer is Ms Alice P. Y. CHAN. Insert Ms as the salutation and Alice P. Y. CHAN as the name. Her confirmed telephone number for this correspondence exercise is 3128 4507.",
+        "sourceKind": "paragraph",
+        "recordId": "R413",
+        "file": "13_2026-11-18_email_architect_appointment_and_document_inspection_offices.docx",
+        "sha256": "fa89afafc7e237d71025aac20700994c7f9a0ce2394e9e0724e012393a4f389a"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 5,
+          "quote": "For SCT7, the Project Architect post is Senior Architect Housing and Education Projects. The appointed fictional officer is Ms Alice P. Y. CHAN. Insert Ms as the salutation and Alice P. Y. CHAN as the name. Her confirmed telephone number for this correspondence exercise is 3128 4507.",
+          "sourceKind": "paragraph",
+          "recordId": "R413",
+          "file": "13_2026-11-18_email_architect_appointment_and_document_inspection_offices.docx",
+          "sha256": "fa89afafc7e237d71025aac20700994c7f9a0ce2394e9e0724e012393a4f389a"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "projectArchitectSalutation": {
+      "value": "Ms",
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R413",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 5,
+        "quote": "For SCT7, the Project Architect post is Senior Architect Housing and Education Projects. The appointed fictional officer is Ms Alice P. Y. CHAN. Insert Ms as the salutation and Alice P. Y. CHAN as the name. Her confirmed telephone number for this correspondence exercise is 3128 4507.",
+        "sourceKind": "paragraph",
+        "recordId": "R413",
+        "file": "13_2026-11-18_email_architect_appointment_and_document_inspection_offices.docx",
+        "sha256": "fa89afafc7e237d71025aac20700994c7f9a0ce2394e9e0724e012393a4f389a"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 5,
+          "quote": "For SCT7, the Project Architect post is Senior Architect Housing and Education Projects. The appointed fictional officer is Ms Alice P. Y. CHAN. Insert Ms as the salutation and Alice P. Y. CHAN as the name. Her confirmed telephone number for this correspondence exercise is 3128 4507.",
+          "sourceKind": "paragraph",
+          "recordId": "R413",
+          "file": "13_2026-11-18_email_architect_appointment_and_document_inspection_offices.docx",
+          "sha256": "fa89afafc7e237d71025aac20700994c7f9a0ce2394e9e0724e012393a4f389a"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "projectArchitectOtherTitle": {
+      "value": null,
+      "status": "not_applicable",
+      "origin": "inactive_detail",
+      "applicability": "inactive",
+      "firstDisclosure": null,
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 5,
+          "quote": "For SCT7, the Project Architect post is Senior Architect Housing and Education Projects. The appointed fictional officer is Ms Alice P. Y. CHAN. Insert Ms as the salutation and Alice P. Y. CHAN as the name. Her confirmed telephone number for this correspondence exercise is 3128 4507.",
+          "sourceKind": "paragraph",
+          "recordId": "R413",
+          "file": "13_2026-11-18_email_architect_appointment_and_document_inspection_offices.docx",
+          "sha256": "fa89afafc7e237d71025aac20700994c7f9a0ce2394e9e0724e012393a4f389a",
+          "role": "inactive_prerequisite",
+          "prerequisite": "projectArchitectSalutation"
+        }
+      ],
+      "rationale": "The official schema prerequisite makes this detail inactive; the native prerequisite evidence is recorded."
+    },
+    "projectArchitectName": {
+      "value": "Alice P. Y. CHAN",
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R413",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 5,
+        "quote": "For SCT7, the Project Architect post is Senior Architect Housing and Education Projects. The appointed fictional officer is Ms Alice P. Y. CHAN. Insert Ms as the salutation and Alice P. Y. CHAN as the name. Her confirmed telephone number for this correspondence exercise is 3128 4507.",
+        "sourceKind": "paragraph",
+        "recordId": "R413",
+        "file": "13_2026-11-18_email_architect_appointment_and_document_inspection_offices.docx",
+        "sha256": "fa89afafc7e237d71025aac20700994c7f9a0ce2394e9e0724e012393a4f389a"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 5,
+          "quote": "For SCT7, the Project Architect post is Senior Architect Housing and Education Projects. The appointed fictional officer is Ms Alice P. Y. CHAN. Insert Ms as the salutation and Alice P. Y. CHAN as the name. Her confirmed telephone number for this correspondence exercise is 3128 4507.",
+          "sourceKind": "paragraph",
+          "recordId": "R413",
+          "file": "13_2026-11-18_email_architect_appointment_and_document_inspection_offices.docx",
+          "sha256": "fa89afafc7e237d71025aac20700994c7f9a0ce2394e9e0724e012393a4f389a"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "projectArchitectPhone": {
+      "value": "3128 4507",
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R413",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 5,
+        "quote": "For SCT7, the Project Architect post is Senior Architect Housing and Education Projects. The appointed fictional officer is Ms Alice P. Y. CHAN. Insert Ms as the salutation and Alice P. Y. CHAN as the name. Her confirmed telephone number for this correspondence exercise is 3128 4507.",
+        "sourceKind": "paragraph",
+        "recordId": "R413",
+        "file": "13_2026-11-18_email_architect_appointment_and_document_inspection_offices.docx",
+        "sha256": "fa89afafc7e237d71025aac20700994c7f9a0ce2394e9e0724e012393a4f389a"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 5,
+          "quote": "For SCT7, the Project Architect post is Senior Architect Housing and Education Projects. The appointed fictional officer is Ms Alice P. Y. CHAN. Insert Ms as the salutation and Alice P. Y. CHAN as the name. Her confirmed telephone number for this correspondence exercise is 3128 4507.",
+          "sourceKind": "paragraph",
+          "recordId": "R413",
+          "file": "13_2026-11-18_email_architect_appointment_and_document_inspection_offices.docx",
+          "sha256": "fa89afafc7e237d71025aac20700994c7f9a0ce2394e9e0724e012393a4f389a"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "specificationInspectionFloor": {
+      "value": "2",
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R413",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 6,
+        "quote": "The Specification Library is available for inspection on floor 2, Block K, Fictional Housing Project Office, 46 School Road, Tin Shui Wai.",
+        "sourceKind": "paragraph",
+        "recordId": "R413",
+        "file": "13_2026-11-18_email_architect_appointment_and_document_inspection_offices.docx",
+        "sha256": "fa89afafc7e237d71025aac20700994c7f9a0ce2394e9e0724e012393a4f389a"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 6,
+          "quote": "The Specification Library is available for inspection on floor 2, Block K, Fictional Housing Project Office, 46 School Road, Tin Shui Wai.",
+          "sourceKind": "paragraph",
+          "recordId": "R413",
+          "file": "13_2026-11-18_email_architect_appointment_and_document_inspection_offices.docx",
+          "sha256": "fa89afafc7e237d71025aac20700994c7f9a0ce2394e9e0724e012393a4f389a"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "specificationInspectionBlock": {
+      "value": "K",
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R413",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 6,
+        "quote": "The Specification Library is available for inspection on floor 2, Block K, Fictional Housing Project Office, 46 School Road, Tin Shui Wai.",
+        "sourceKind": "paragraph",
+        "recordId": "R413",
+        "file": "13_2026-11-18_email_architect_appointment_and_document_inspection_offices.docx",
+        "sha256": "fa89afafc7e237d71025aac20700994c7f9a0ce2394e9e0724e012393a4f389a"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 6,
+          "quote": "The Specification Library is available for inspection on floor 2, Block K, Fictional Housing Project Office, 46 School Road, Tin Shui Wai.",
+          "sourceKind": "paragraph",
+          "recordId": "R413",
+          "file": "13_2026-11-18_email_architect_appointment_and_document_inspection_offices.docx",
+          "sha256": "fa89afafc7e237d71025aac20700994c7f9a0ce2394e9e0724e012393a4f389a"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "drawingsInspectionFloor": {
+      "value": "6",
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R413",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 7,
+        "quote": "The drawings are available for inspection on floor 6, Block L, Fictional Housing Project Office, 46 School Road, Tin Shui Wai.",
+        "sourceKind": "paragraph",
+        "recordId": "R413",
+        "file": "13_2026-11-18_email_architect_appointment_and_document_inspection_offices.docx",
+        "sha256": "fa89afafc7e237d71025aac20700994c7f9a0ce2394e9e0724e012393a4f389a"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 7,
+          "quote": "The drawings are available for inspection on floor 6, Block L, Fictional Housing Project Office, 46 School Road, Tin Shui Wai.",
+          "sourceKind": "paragraph",
+          "recordId": "R413",
+          "file": "13_2026-11-18_email_architect_appointment_and_document_inspection_offices.docx",
+          "sha256": "fa89afafc7e237d71025aac20700994c7f9a0ce2394e9e0724e012393a4f389a"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "drawingsInspectionBlock": {
+      "value": "L",
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R413",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 7,
+        "quote": "The drawings are available for inspection on floor 6, Block L, Fictional Housing Project Office, 46 School Road, Tin Shui Wai.",
+        "sourceKind": "paragraph",
+        "recordId": "R413",
+        "file": "13_2026-11-18_email_architect_appointment_and_document_inspection_offices.docx",
+        "sha256": "fa89afafc7e237d71025aac20700994c7f9a0ce2394e9e0724e012393a4f389a"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 7,
+          "quote": "The drawings are available for inspection on floor 6, Block L, Fictional Housing Project Office, 46 School Road, Tin Shui Wai.",
+          "sourceKind": "paragraph",
+          "recordId": "R413",
+          "file": "13_2026-11-18_email_architect_appointment_and_document_inspection_offices.docx",
+          "sha256": "fa89afafc7e237d71025aac20700994c7f9a0ce2394e9e0724e012393a4f389a"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "siteInspectionStartDate": {
+      "value": "2027-01-11",
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R414",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 5,
+        "quote": "The site inspection starts on 2027-01-11. The inspection end date is still awaiting agreement. Do not treat the first inspection date as an end date.",
+        "sourceKind": "paragraph",
+        "recordId": "R414",
+        "file": "14_2026-11-19_email_site_visits_and_advance_payment_reply.docx",
+        "sha256": "06705be8be243826914e01de1dbb34a9b74c1c5ed4c122f3db80625dac53620a"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 5,
+          "quote": "The site inspection starts on 2027-01-11. The inspection end date is still awaiting agreement. Do not treat the first inspection date as an end date.",
+          "sourceKind": "paragraph",
+          "recordId": "R414",
+          "file": "14_2026-11-19_email_site_visits_and_advance_payment_reply.docx",
+          "sha256": "06705be8be243826914e01de1dbb34a9b74c1c5ed4c122f3db80625dac53620a"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "siteInspectionEndDate": {
+      "value": null,
+      "status": "unknown",
+      "origin": "deliberately_withheld",
+      "applicability": "active",
+      "firstDisclosure": null,
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 5,
+          "quote": "Four matters remain unresolved after these replies: the photocopy charge above A3, the site inspection end date, the epoxy coated cast iron pipe installation warranty requirement, and the optional design related quotation before Variation requirement. The supplied correspondence contains no approved value, positive or negative, for any of those four matters. Leave them for the responsible officer to decide.",
+          "sourceKind": "paragraph",
+          "recordId": "R415",
+          "file": "15_2026-11-20_email_final_outstanding_information_register.docx",
+          "sha256": "195d02fea6724d5411db64b52449505b158d75ea195772a18a9af9169e1bf927",
+          "role": "explicit_absence_record"
+        }
+      ],
+      "rationale": "The applicable value is explicitly unresolved and must not be replaced by false, zero, a default date or a guessed contact."
+    },
+    "siteVisitRestrictions": {
+      "value": [
+        {
+          "text": "Arrange each visit at least five working days in advance."
+        },
+        {
+          "text": "Each escorted group may contain no more than eight visitors."
+        },
+        {
+          "text": "Visitors must wear safety helmets, reflective vests and safety boots."
+        }
+      ],
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R414",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 6,
+        "quote": "The following is the complete list of site visit restrictions:\n1. Arrange each visit at least five working days in advance.\n2. Each escorted group may contain no more than eight visitors.\n3. Visitors must wear safety helmets, reflective vests and safety boots.",
+        "sourceKind": "paragraph",
+        "recordId": "R414",
+        "file": "14_2026-11-19_email_site_visits_and_advance_payment_reply.docx",
+        "sha256": "06705be8be243826914e01de1dbb34a9b74c1c5ed4c122f3db80625dac53620a"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 6,
+          "quote": "The following is the complete list of site visit restrictions:\n1. Arrange each visit at least five working days in advance.\n2. Each escorted group may contain no more than eight visitors.\n3. Visitors must wear safety helmets, reflective vests and safety boots.",
+          "sourceKind": "paragraph",
+          "recordId": "R414",
+          "file": "14_2026-11-19_email_site_visits_and_advance_payment_reply.docx",
+          "sha256": "06705be8be243826914e01de1dbb34a9b74c1c5ed4c122f3db80625dac53620a"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "advancePaymentAdopted": {
+      "value": true,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R414",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 7,
+        "quote": "Adopt the advance payment arrangement. The project repayment period is ten consecutive months. Deduct the first repayment instalment in the sixth interim payment certificate. These two figures are the agreed project specific repayment terms.",
+        "sourceKind": "paragraph",
+        "recordId": "R414",
+        "file": "14_2026-11-19_email_site_visits_and_advance_payment_reply.docx",
+        "sha256": "06705be8be243826914e01de1dbb34a9b74c1c5ed4c122f3db80625dac53620a"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 7,
+          "quote": "Adopt the advance payment arrangement. The project repayment period is ten consecutive months. Deduct the first repayment instalment in the sixth interim payment certificate. These two figures are the agreed project specific repayment terms.",
+          "sourceKind": "paragraph",
+          "recordId": "R414",
+          "file": "14_2026-11-19_email_site_visits_and_advance_payment_reply.docx",
+          "sha256": "06705be8be243826914e01de1dbb34a9b74c1c5ed4c122f3db80625dac53620a"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "advanceRepaymentMonths": {
+      "value": 10,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R414",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 7,
+        "quote": "Adopt the advance payment arrangement. The project repayment period is ten consecutive months. Deduct the first repayment instalment in the sixth interim payment certificate. These two figures are the agreed project specific repayment terms.",
+        "sourceKind": "paragraph",
+        "recordId": "R414",
+        "file": "14_2026-11-19_email_site_visits_and_advance_payment_reply.docx",
+        "sha256": "06705be8be243826914e01de1dbb34a9b74c1c5ed4c122f3db80625dac53620a"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 7,
+          "quote": "Adopt the advance payment arrangement. The project repayment period is ten consecutive months. Deduct the first repayment instalment in the sixth interim payment certificate. These two figures are the agreed project specific repayment terms.",
+          "sourceKind": "paragraph",
+          "recordId": "R414",
+          "file": "14_2026-11-19_email_site_visits_and_advance_payment_reply.docx",
+          "sha256": "06705be8be243826914e01de1dbb34a9b74c1c5ed4c122f3db80625dac53620a"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    },
+    "advanceRepaymentFirstCertificate": {
+      "value": 6,
+      "status": "provided",
+      "origin": "authored_test_decision",
+      "applicability": "active",
+      "firstDisclosure": "R414",
+      "sourceReferences": [],
+      "humanAdoptedInApplication": false,
+      "inputEvidence": {
+        "nativeParagraph": 7,
+        "quote": "Adopt the advance payment arrangement. The project repayment period is ten consecutive months. Deduct the first repayment instalment in the sixth interim payment certificate. These two figures are the agreed project specific repayment terms.",
+        "sourceKind": "paragraph",
+        "recordId": "R414",
+        "file": "14_2026-11-19_email_site_visits_and_advance_payment_reply.docx",
+        "sha256": "06705be8be243826914e01de1dbb34a9b74c1c5ed4c122f3db80625dac53620a"
+      },
+      "oracleEvidence": [
+        {
+          "nativeParagraph": 7,
+          "quote": "Adopt the advance payment arrangement. The project repayment period is ten consecutive months. Deduct the first repayment instalment in the sixth interim payment certificate. These two figures are the agreed project specific repayment terms.",
+          "sourceKind": "paragraph",
+          "recordId": "R414",
+          "file": "14_2026-11-19_email_site_visits_and_advance_payment_reply.docx",
+          "sha256": "06705be8be243826914e01de1dbb34a9b74c1c5ed4c122f3db80625dac53620a"
+        }
+      ],
+      "rationale": "The stated fictional project decision is supported by the exact native source below."
+    }
+  },
+  "derivedDecisions": {
+    "g1aJointCondition": {
+      "value": false,
+      "dependencies": [
+        "foundationIncluded",
+        "periodAtLeast39Months"
+      ],
+      "rule": "foundationIncluded AND periodAtLeast39Months"
+    },
+    "nscApplicable": {
+      "value": true,
+      "dependencies": [
+        "subcontractArrangement"
+      ]
+    },
+    "oldValuableTreeCount": {
+      "value": 1,
+      "dependencies": [
+        "oldValuableTrees"
+      ]
+    }
+  },
+  "sourceContext": {
+    "acceptedContractPeriodMonths": 34,
+    "actualReturnMedia": "separate_sealed_technical_and_priced_envelopes"
+  },
+  "gradingMetadata": {
+    "examTitle": "第四轮未见新题 Tin Shui Wai 公共房屋及小学",
+    "candidateExamScope": "Exactly 79 official inputs; 15 fictional native DOCX communications; three complete native Word tables",
+    "scoringBoundary": "Only the official input catalogue is scored. Unrepresented distribution or generated fields are not extra expectations."
+  },
+  "sourceReaderSpecification": {
+    "paragraphs": "nativeParagraph is one based in Document.paragraphs",
+    "tables": "nativeTable is one based in Document.tables; headers and rows are exact native cell text; quote joins cells with a pipe only in this reference ledger"
+  },
+  "scoring": {
+    "modelOutputIsUnconfirmedPrefill": true,
+    "falseAndEmptyAreAnswers": true,
+    "inactiveDetailsMustNotBeInvented": true,
+    "compareBusinessMeaningNotRandomInternalIds": true,
+    "caseSourceAndAuthoredTestDecisionMustStaySeparate": true,
+    "absentRequiredFactsAreNotNo": true,
+    "deliberatelyWithheldInputsMustRemainNull": [
+      "photocopyRateAboveA3",
+      "siteInspectionEndDate",
+      "epoxyCastIronPipeWarrantyRequired",
+      "quotationBeforeVariation"
+    ],
+    "unknownMustNotBecomeFalseZeroEmptyStringOrDefaultDate": true
+  },
+  "excluded": [
+    "Tender A/B",
+    "bid prices",
+    "future performance",
+    "hidden targetOverrides without explicit human action",
+    "additional scoring of system or no-input fields"
+  ]
+}

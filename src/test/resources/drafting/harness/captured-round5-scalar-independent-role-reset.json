@@ -1,0 +1,101 @@
+{
+  "independentCasesSha256": "6c32098e9d4be91fecdaaa6414a3c301575e05eb55db426e230567fa4ff712be",
+  "cases": [
+    {
+      "name": "reset_standalone_current_adopted_heading",
+      "key": "electronicTendering",
+      "value": "Hardcopy",
+      "quote": "The official issue format of the BQ original and BQ addenda is Hardcopy.",
+      "source": "Current adopted issue format:\n\nThe official issue format of the BQ original and BQ addenda is Hardcopy.",
+      "expectedStatus": "accepted"
+    },
+    {
+      "name": "reset_completed_reference_body_then_adopted",
+      "key": "electronicTendering",
+      "value": "Hardcopy",
+      "quote": "The official issue format of the BQ original and BQ addenda is Hardcopy.",
+      "source": "For reference only:\n\nThe attached sample is an obsolete specimen.\n\nCurrent adopted issue format:\n\nThe official issue format of the BQ original and BQ addenda is Hardcopy.",
+      "expectedStatus": "accepted"
+    },
+    {
+      "name": "reset_same_paragraph_current_adopted",
+      "key": "electronicTendering",
+      "value": "Hardcopy",
+      "quote": "The official issue format of the BQ original and BQ addenda is Hardcopy.",
+      "source": "Current adopted issue format: The official issue format of the BQ original and BQ addenda is Hardcopy.",
+      "expectedStatus": "accepted"
+    },
+    {
+      "name": "role_reference_neutral_heading_chain",
+      "key": "electronicTendering",
+      "value": "Hardcopy",
+      "quote": "The official issue format of the BQ original and BQ addenda is Hardcopy.",
+      "source": "For reference only:\n\nIssue arrangements:\n\nThe official issue format of the BQ original and BQ addenda is Hardcopy.",
+      "expectedStatus": "rejected"
+    },
+    {
+      "name": "role_copied_sample_cannot_self_adopt_heading",
+      "key": "electronicTendering",
+      "value": "Hardcopy",
+      "quote": "The official issue format of the BQ original and BQ addenda is Hardcopy.",
+      "source": "The following is an illustrative sample, copied verbatim:\n\nCurrent adopted issue format:\n\nThe official issue format of the BQ original and BQ addenda is Hardcopy.",
+      "expectedStatus": "rejected"
+    },
+    {
+      "name": "role_sample_prefix_current_adopted_cannot_reset",
+      "key": "electronicTendering",
+      "value": "Hardcopy",
+      "quote": "The official issue format of the BQ original and BQ addenda is Hardcopy.",
+      "source": "Illustrative sample: Current adopted issue format: The official issue format of the BQ original and BQ addenda is Hardcopy.",
+      "expectedStatus": "rejected"
+    },
+    {
+      "name": "role_reference_comma_prefix_short_quote",
+      "key": "electronicTendering",
+      "value": "Hardcopy",
+      "quote": "The official issue format of the BQ original and BQ addenda is Hardcopy.",
+      "source": "For reference only, The official issue format of the BQ original and BQ addenda is Hardcopy.",
+      "expectedStatus": "rejected"
+    },
+    {
+      "name": "role_reference_comma_prefix_whole_quote",
+      "key": "electronicTendering",
+      "value": "Hardcopy",
+      "quote": "For reference only, The official issue format of the BQ original and BQ addenda is Hardcopy.",
+      "source": "For reference only, The official issue format of the BQ original and BQ addenda is Hardcopy.",
+      "expectedStatus": "rejected"
+    },
+    {
+      "name": "role_duplicate_sample_and_adopted_anchor",
+      "key": "electronicTendering",
+      "value": "Hardcopy",
+      "quote": "The official issue format of the BQ original and BQ addenda is Hardcopy.",
+      "source": "Illustrative sample:\n\nThe official issue format of the BQ original and BQ addenda is Hardcopy.\n\nCurrent adopted issue format:\n\nThe official issue format of the BQ original and BQ addenda is Hardcopy.",
+      "expectedStatus": "rejected"
+    },
+    {
+      "name": "reset_unrelated_previous_sample_body",
+      "key": "electronicTendering",
+      "value": "Hardcopy",
+      "quote": "The official issue format of the BQ original and BQ addenda is Hardcopy.",
+      "source": "A drawing sample is retained for reference only.\n\nThe official issue format of the BQ original and BQ addenda is Hardcopy.",
+      "expectedStatus": "accepted"
+    },
+    {
+      "name": "sites_unrelated_previous_classification_pending",
+      "key": "buildingDemolitionSitesSeparated",
+      "value": true,
+      "quote": "The east building site and the west demolition site are separate fenced sites with separate entrances.",
+      "source": "The construction classification remains pending. The east building site and the west demolition site are separate fenced sites with separate entrances.",
+      "expectedStatus": "accepted"
+    },
+    {
+      "name": "sites_explicit_pending_next_paragraph",
+      "key": "buildingDemolitionSitesSeparated",
+      "value": true,
+      "quote": "The east building site and the west demolition site are separate fenced sites with separate entrances.",
+      "source": "The east building site and the west demolition site are separate fenced sites with separate entrances.\n\nThe separation classification remains pending.",
+      "expectedStatus": "rejected"
+    }
+  ]
+}

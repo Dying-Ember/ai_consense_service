@@ -1,0 +1,9 @@
+The following four rows are the complete foundation and structural component responsibility register. Yes and No in the design and execution columns refer to the Contractor. Every listed design is issued by the Architect and Structural Engineer.
+
+Component | Scope | Contractor design | Contractor execution
+piling | Bored piles beneath the library building | No | Yes
+pilecaps | Pile caps beneath the library building | No | Yes
+footings | Pad footings supporting the indoor sports centre | No | Yes
+other | Retaining walls along the west boundary | No | Yes
+
+The pad footings in the register support the indoor sports centre building. The footings therefore serve a building, rather than minor standalone landscape items.

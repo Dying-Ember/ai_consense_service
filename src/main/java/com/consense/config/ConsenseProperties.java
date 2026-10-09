@@ -66,6 +66,8 @@ public class ConsenseProperties {
         private int structuredMaxTokens = 2048;
         private long timeoutMs = 300_000L;
         private int maxRetry = 2;
+        /** MiniMax only: the direct provider owns overload retry; turn off behind a retrying relay. */
+        private boolean overloadRetryEnabled = true;
         @lombok.ToString.Exclude
         @com.fasterxml.jackson.annotation.JsonProperty(access=com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY)
         private String apiKey = "";

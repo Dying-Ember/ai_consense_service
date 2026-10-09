@@ -1,0 +1,14 @@
+# Add to an existing database profile: SPRING_PROFILES_ACTIVE=h2,minimax-relay
+# The Java client appends /v1; configure only http://<relay-host>:8092 here.
+consense:
+  minimax-cn:
+    base-url: "${CONSENSE_MINIMAX_BASE_URL:}"
+    # Never fall back to an official API key when the relay profile is selected.
+    api-key: "${CONSENSE_MINIMAX_RELAY_API_KEY:}"
+    timeout-ms: 1900000
+    max-retry: 0
+    # The relay retries explicit 529 errors, so the application sends once.
+    overload-retry-enabled: false
+    structured-max-tokens: 16384
+    structured-open-ai-thinking-mode: disabled
+    structured-open-ai-reasoning-split: true

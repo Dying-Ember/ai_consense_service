@@ -22,10 +22,17 @@ public class OpenAiLlmClient implements LlmClient {
 
     private final ConsenseProperties.Llm cfg;
     private final HttpSupport http;
+    private final boolean retryExplicitOverload;
 
     public OpenAiLlmClient(ConsenseProperties.Llm cfg, HttpSupport http) {
+        this(cfg, http, false);
+    }
+
+    /** Package-local opt-in for the separate MiniMax adapter; ordinary deployments retain their policy. */
+    OpenAiLlmClient(ConsenseProperties.Llm cfg, HttpSupport http, boolean retryExplicitOverload) {
         this.cfg = cfg;
         this.http = http;
+        this.retryExplicitOverload = retryExplicitOverload;
     }
 
     @Override
@@ -66,8 +73,13 @@ public class OpenAiLlmClient implements LlmClient {
             node.put("role", turn.getRole());
             node.put("content", turn.getContent());
         }
-        String raw = http.postJson(trim(cfg.getBaseUrl()) + "/v1/chat/completions",
-                JsonUtils.write(body), cfg.getTimeoutMs(), authHeader(), structured ? 0 : cfg.getMaxRetry());
+        String url = trim(cfg.getBaseUrl()) + "/v1/chat/completions";
+        String requestJson = JsonUtils.write(body);
+        String raw = retryExplicitOverload
+                ? (cfg.isOverloadRetryEnabled()
+                    ? http.postJsonWithOverloadBackoff(url, requestJson, cfg.getTimeoutMs(), authHeader())
+                    : http.postJsonWithoutReplay(url, requestJson, cfg.getTimeoutMs(), authHeader()))
+                : http.postJson(url, requestJson, cfg.getTimeoutMs(), authHeader(), structured ? 0 : cfg.getMaxRetry());
         JsonNode root;
         try {
             root = JsonUtils.parse(raw);

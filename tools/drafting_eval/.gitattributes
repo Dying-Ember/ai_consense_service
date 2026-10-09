@@ -1,0 +1,3 @@
+# Preserve the original scorer and source fixture seals across Windows/Linux clones.
+validate_drafting_fixture.py -text
+fixtures/round5/** -text

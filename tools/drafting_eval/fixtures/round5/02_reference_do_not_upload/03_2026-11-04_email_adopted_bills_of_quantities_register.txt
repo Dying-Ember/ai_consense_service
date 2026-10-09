@@ -1,0 +1,11 @@
+The tender is priced entirely by Bills of Quantities. No Schedule of Rates forms part of the adopted pricing scheme. The table below is the complete register of six BQ Bills.
+
+Bill number | Description | Pricing type
+1 | General Preliminaries | BQ
+2 | Preambles to the Bills of Quantities | BQ
+3 | Library Building (All Provisional) | BQ
+4 | Indoor Sports Centre (All Provisional) | BQ
+5 | Foundations and Groundworks (All Provisional) | BQ
+6 | External Works and Drainage (All Provisional) | BQ
+
+All quantities in the Bills of Quantities are provisional. The provisional measurement arrangement applies to all six Bills, including the quantities in the preliminaries and preambles where quantities are stated.

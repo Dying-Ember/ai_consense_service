@@ -76,22 +76,32 @@ class DraftingCapturedBaselineWorkflowTest {
         runFixture("captured-novel-round3",33,108);
     }
 
+    @Test void recordedFourthNovelRoundAnswersReachSixtyTwoSuggestionsAndSeventeenBlanks() throws Exception {
+        runFixture("captured-novel-round4",27,95);
+    }
+
+    @Test void recordedFifthNovelRoundAnswersReachFiftySixSuggestionsWhileTwoModelFailuresRemainMissing() throws Exception {
+        runFixture("captured-novel-round5",28,105);
+    }
+
     private void runFixture(String name,int expectedAttempts,int expectedDecisions) throws Exception {
         fixtureName=name;FIXTURE=resource(name+"/fixture.json");
         boolean novel="captured-novel-round1".equals(name);
         boolean roundTwo="captured-novel-round2".equals(name);
         boolean roundThree="captured-novel-round3".equals(name);
-        EXPECTED=resource((novel||roundTwo||roundThree?name:"captured-alternate-values")+"/expected.json").path("expectedInputs");
+        boolean roundFour="captured-novel-round4".equals(name);
+        boolean roundFive="captured-novel-round5".equals(name);
+        EXPECTED=resource((novel||roundTwo||roundThree||roundFour||roundFive?name:"captured-alternate-values")+"/expected.json").path("expectedInputs");
         assertTrue(FIXTURE.path("replayOnly").asBoolean());
         assertEquals(79,EXPECTED.size());
         int nonempty=0,blank=0;
         for(JsonNode input:EXPECTED)if(input.path("value").isNull())blank++;else nonempty++;
-        assertEquals(roundTwo?62:novel?68:69,nonempty);assertEquals(roundTwo?17:novel?11:10,blank);
-        assertEquals(roundThree?"a8f32dc6-0c01-4a1d-8d14-58e37882a540":roundTwo?"24ec77b5-5695-41fb-934f-bbb2717f8567":novel?"12d06aec-a541-4e21-a400-0632b80d0d3e":"bca1b3bc-b75b-4fb6-a8cc-7862d3b94166",FIXTURE.path("provenance").path("runId").asText());
-        assertEquals(roundThree?33:novel?29:27,FIXTURE.path("trace").path("rawResponses").size());
-        assertEquals(roundTwo||roundThree?15:16,FIXTURE.path("trace").path("parts").size());
+        assertEquals(roundFive?58:roundTwo||roundFour?62:novel?68:69,nonempty);assertEquals(roundFive?21:roundTwo||roundFour?17:novel?11:10,blank);
+        assertEquals(roundFive?"80d0396f-1a3c-4ed0-8232-5c21e966a209":roundFour?"4274693a-eb38-46d3-acfb-7559ef5c6587":roundThree?"a8f32dc6-0c01-4a1d-8d14-58e37882a540":roundTwo?"24ec77b5-5695-41fb-934f-bbb2717f8567":novel?"12d06aec-a541-4e21-a400-0632b80d0d3e":"bca1b3bc-b75b-4fb6-a8cc-7862d3b94166",FIXTURE.path("provenance").path("runId").asText());
+        assertEquals(roundFive?28:roundThree?33:novel?29:27,FIXTURE.path("trace").path("rawResponses").size());
+        assertEquals(roundTwo||roundThree||roundFour||roundFive?15:16,FIXTURE.path("trace").path("parts").size());
         assertEquals(expectedDecisions,FIXTURE.path("trace").path("decisions").size());
-        assertEquals(roundTwo||roundThree?0:novel?2:1,FIXTURE.path("trace").path("relations").size());
+        assertEquals(roundTwo||roundThree||roundFour||roundFive?0:novel?2:1,FIXTURE.path("trace").path("relations").size());
         assertTrue(FIXTURE.path("provenance").path("noSynthesizedCapturedResponses").asBoolean());
         assertEquals(65536,FIXTURE.path("capturedRuntime").path("contextSize").asInt());
         assertEquals(16384,FIXTURE.path("capturedRuntime").path("maxOutputTokens").asInt());
@@ -99,7 +109,7 @@ class DraftingCapturedBaselineWorkflowTest {
         int rawIndex=0;
         for(JsonNode raw:FIXTURE.path("trace").path("rawResponses"))
             assertEquals(FIXTURE.path("provenance").path("rawResponseSha256InOrder").get(rawIndex++).asText(),DraftAdoption.hash(raw.asText()));
-        if(roundThree)validateRoundThreeWrongStatesRemainFrozen();else if(roundTwo)validateRoundTwoWrongStatesRemainFrozen();else if(!novel)validateOriginalWrongStatesRemainFrozen();else validateRoundOneWrongStatesRemainFrozen();
+        if(roundFive)validateRoundFiveWrongStatesRemainFrozen();else if(roundFour)validateRoundFourWrongStatesRemainFrozen();else if(roundThree)validateRoundThreeWrongStatesRemainFrozen();else if(roundTwo)validateRoundTwoWrongStatesRemainFrozen();else if(!novel)validateOriginalWrongStatesRemainFrozen();else validateRoundOneWrongStatesRemainFrozen();
         assertEquals(expectedAttempts,FIXTURE.path("provenance").path("extractionAttempts").asInt());
         assertEquals(FIXTURE.path("trace").path("rawResponses").size(),FIXTURE.path("provenance").path("modelCalls").asInt());
         validateRecordedContexts();
@@ -151,7 +161,8 @@ class DraftingCapturedBaselineWorkflowTest {
             assertions.add(()->assertNotNull(variable,key));
             assertions.add(()->assertFalse(variable.isConfirmed(),key+" was auto-adopted"));
             assertions.add(()->assertFalse(variable.isManuallyEdited(),key+" was marked human-edited"));
-            if(expected.isNull()) {
+            if(expected.isNull()||roundFive&&Arrays.asList("billNos","sections").contains(key)) {
+                // Model output/provenance failures stay observable. The oracle is not an answer generator.
                 assertions.add(()->assertTrue(variable.getValue()==null||variable.getValue().isEmpty(),key+" must remain blank"));
                 assertions.add(()->assertTrue(variable.getCandidates()==null||variable.getCandidates().isEmpty(),key+" must have no candidate"));
             } else {
@@ -164,13 +175,59 @@ class DraftingCapturedBaselineWorkflowTest {
         for(VariableVO variable:actual)for(CandidateVO candidate:variable.getCandidates()) {
             assertions.add(()->assertTrue(DraftEvidenceQuotes.present(FIXTURE.path("sources").path(candidate.getSourceDocumentId().toString()).path("originalSource").asText(),candidate.getSourceQuote()),variable.getKey()+" must retain a literal original-source quotation"));
         }
-        if(roundThree)assertions.add(()->assertRoundThreeFixes(trace,variables));
+        if(roundFive)assertions.add(()->assertRoundFiveFixes(trace,variables));
+        else if(roundFour)assertions.add(()->assertRoundFourFixes(trace,variables));
+        else if(roundThree)assertions.add(()->assertRoundThreeFixes(trace,variables));
         else if(roundTwo)assertions.add(()->assertRoundTwoFixes(trace,variables));
         else if(!novel) {
             assertions.add(()->assertTrue(variables.get("allBqQuantitiesProvisional").getCandidates().stream().noneMatch(candidate->"false".equals(candidate.getValue()))));
             assertions.add(()->assertBaselineFixes(trace,variables));
         } else assertions.add(()->assertRoundOneFixes(trace,variables));
         assertAll("Frozen frontend answers through production intake and persistence",assertions);
+    }
+
+    private void validateRoundFiveWrongStatesRemainFrozen() {
+        Map<String,JsonNode> frozen=new LinkedHashMap<>();
+        for(JsonNode variable:FIXTURE.path("capturedVariables"))frozen.put(variable.path("key").asText(),variable);
+        for(String key:Arrays.asList("billNos","sections","electronicTendering","footingsServeBuildingsOrMajorExternalStructures","buildingDemolitionSitesSeparated"))
+            assertEquals("",frozen.get(key).path("value").asText(),key+" original missing state must remain frozen");
+        assertEquals("floor 6",frozen.get("specificationInspectionFloor").path("value").asText());
+        assertEquals("floor 2",frozen.get("drawingsInspectionFloor").path("value").asText());
+    }
+
+    private void assertRoundFiveFixes(ExtractTraceVO trace,Map<String,VariableVO> variables) {
+        assertEquals("Hardcopy",variables.get("electronicTendering").getValue());
+        assertEquals("true",variables.get("footingsServeBuildingsOrMajorExternalStructures").getValue());
+        assertEquals("true",variables.get("buildingDemolitionSitesSeparated").getValue());
+        assertEquals("6",variables.get("specificationInspectionFloor").getValue());
+        assertEquals("2",variables.get("drawingsInspectionFloor").getValue());
+        List<String> rescued=Arrays.asList("electronicTendering","footingsServeBuildingsOrMajorExternalStructures","buildingDemolitionSitesSeparated");
+        for(JsonNode original:FIXTURE.path("trace").path("decisions")) {
+            if(!"rejected".equals(original.path("status").asText()))continue;
+            ExtractionDecisionVO current=trace.getDecisions().stream().filter(d->Objects.equals(d.getPartId(),original.path("partId").asText())&&d.getAttemptIndex()==original.path("attemptIndex").asInt()&&d.getItemIndex()==original.path("itemIndex").asInt()).findFirst().orElseThrow(AssertionError::new);
+            assertEquals(rescued.contains(original.path("key").asText())?"accepted":"rejected",current.getStatus(),"Do not relax unrelated captured failures.");
+            if(!rescued.contains(original.path("key").asText()))assertEquals(JsonUtils.mapper().convertValue(original.path("codes"),List.class),current.getCodes());
+        }
+        assertEquals(6,trace.getDecisions().stream().filter(d->"222:0".equals(d.getPartId())&&d.getAttemptIndex()==1&&d.getCodes().contains("unknown_key")).count(),"Mixed reasoning output remains a model protocol failure.");
+        assertEquals(2,trace.getDecisions().stream().filter(d->"sections".equals(d.getKey())&&"rejected".equals(d.getStatus())).count(),"Missing designation and noncontiguous quote remain rejected.");
+    }
+
+    private void validateRoundFourWrongStatesRemainFrozen() {
+        for(JsonNode variable:FIXTURE.path("capturedVariables"))
+            if(Arrays.asList("designResponsibilities","allBqQuantitiesProvisional").contains(variable.path("key").asText()))
+                assertEquals("",variable.path("value").asText(),"Original failed suggestions must stay frozen.");
+    }
+
+    private void assertRoundFourFixes(ExtractTraceVO trace,Map<String,VariableVO> variables) {
+        for(String key:Arrays.asList("designResponsibilities","allBqQuantitiesProvisional")) {
+            assertFalse(variables.get(key).isReviewRequired(),key+" has no manufactured conflict.");
+            assertEquals(3,trace.getDecisions().stream().filter(d->key.equals(d.getKey())&&"accepted".equals(d.getStatus())).count(),key+" all unchanged captured correct answers reach intake.");
+        }
+        assertEquals(4,JsonUtils.parse(variables.get("designResponsibilities").getValue()).size());
+        assertEquals("true",variables.get("allBqQuantitiesProvisional").getValue());
+        for(JsonNode original:FIXTURE.path("trace").path("decisions"))
+            if("rejected".equals(original.path("status").asText())&&!Arrays.asList("designResponsibilities","allBqQuantitiesProvisional").contains(original.path("key").asText()))
+                assertTrue(trace.getDecisions().stream().anyMatch(d->Objects.equals(d.getPartId(),original.path("partId").asText())&&d.getAttemptIndex()==original.path("attemptIndex").asInt()&&d.getItemIndex()==original.path("itemIndex").asInt()&&"rejected".equals(d.getStatus())),"Previously blocked bad model item must remain rejected.");
     }
 
     private void validateRoundThreeWrongStatesRemainFrozen() {
