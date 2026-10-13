@@ -1,0 +1,97 @@
+{
+  "schema": "consense.public-frozen-artifacts-remote-verification/v1",
+  "checkedAt": "2026-10-13T11:02:56.734452+08:00",
+  "repository": "Dying-Ember/ai_consense_service",
+  "release": {
+    "id": 411186317,
+    "tag_name": "oer-models-fixed05-20261013",
+    "target_commitish": "d59e93a385ce618951c75eef2be1a0b2595c7360",
+    "draft": false,
+    "prerelease": true,
+    "html_url": "https://github.com/Dying-Ember/ai_consense_service/releases/tag/oer-models-fixed05-20261013",
+    "published_at": "2026-10-13T03:02:47Z"
+  },
+  "assetCount": 9,
+  "assets": [
+    {
+      "id": 635629926,
+      "name": "README.md",
+      "size": 3345,
+      "state": "uploaded",
+      "digest": "sha256:a28aadc1d52b57cfa4aa81bef616136f32d3553b054c6d53df147b86350e57da",
+      "browser_download_url": "https://github.com/Dying-Ember/ai_consense_service/releases/download/oer-models-fixed05-20261013/README.md"
+    },
+    {
+      "id": 635653763,
+      "name": "consense-oer-public-models-db-20261013.tar.gz.part001",
+      "size": 1073741824,
+      "state": "uploaded",
+      "digest": "sha256:68c67d2748e9ae8b74d6532b94b9044fc4fb4843871640c8de01a9d13e1c035a",
+      "browser_download_url": "https://github.com/Dying-Ember/ai_consense_service/releases/download/oer-models-fixed05-20261013/consense-oer-public-models-db-20261013.tar.gz.part001"
+    },
+    {
+      "id": 635661461,
+      "name": "consense-oer-public-models-db-20261013.tar.gz.part002",
+      "size": 1073741824,
+      "state": "uploaded",
+      "digest": "sha256:6bfcd269d8b022fd782621a57f2cce08f50edc1763f508d03e504a09ee22f01f",
+      "browser_download_url": "https://github.com/Dying-Ember/ai_consense_service/releases/download/oer-models-fixed05-20261013/consense-oer-public-models-db-20261013.tar.gz.part002"
+    },
+    {
+      "id": 635669315,
+      "name": "consense-oer-public-models-db-20261013.tar.gz.part003",
+      "size": 1073741824,
+      "state": "uploaded",
+      "digest": "sha256:4aece7e29911d5b06a5c067cbb6d914db114e902e1e41797f1f0a8985e4d2406",
+      "browser_download_url": "https://github.com/Dying-Ember/ai_consense_service/releases/download/oer-models-fixed05-20261013/consense-oer-public-models-db-20261013.tar.gz.part003"
+    },
+    {
+      "id": 635676725,
+      "name": "consense-oer-public-models-db-20261013.tar.gz.part004",
+      "size": 1073741824,
+      "state": "uploaded",
+      "digest": "sha256:5863f8fd20b2a7b96393fa26aa608a9e0d755567a9d39bd8f688ca21147533bd",
+      "browser_download_url": "https://github.com/Dying-Ember/ai_consense_service/releases/download/oer-models-fixed05-20261013/consense-oer-public-models-db-20261013.tar.gz.part004"
+    },
+    {
+      "id": 635683340,
+      "name": "consense-oer-public-models-db-20261013.tar.gz.part005",
+      "size": 1073741824,
+      "state": "uploaded",
+      "digest": "sha256:348b138a31f35f7243854ea766de3e2f59ba0af4500b03ae4386235a94b8d4cf",
+      "browser_download_url": "https://github.com/Dying-Ember/ai_consense_service/releases/download/oer-models-fixed05-20261013/consense-oer-public-models-db-20261013.tar.gz.part005"
+    },
+    {
+      "id": 635690077,
+      "name": "consense-oer-public-models-db-20261013.tar.gz.part006",
+      "size": 1073741824,
+      "state": "uploaded",
+      "digest": "sha256:c80f53072cb9625cfc32112503880540a6bc57a4d9baf27a13a533e0e4251b70",
+      "browser_download_url": "https://github.com/Dying-Ember/ai_consense_service/releases/download/oer-models-fixed05-20261013/consense-oer-public-models-db-20261013.tar.gz.part006"
+    },
+    {
+      "id": 635698641,
+      "name": "consense-oer-public-models-db-20261013.tar.gz.part007",
+      "size": 785191654,
+      "state": "uploaded",
+      "digest": "sha256:cb3a82281ff0447340f5ddff1aa681d39b4a3d59cf48a4ab4f6b83441eaa07fd",
+      "browser_download_url": "https://github.com/Dying-Ember/ai_consense_service/releases/download/oer-models-fixed05-20261013/consense-oer-public-models-db-20261013.tar.gz.part007"
+    },
+    {
+      "id": 635629927,
+      "name": "manifest.json",
+      "size": 29140,
+      "state": "uploaded",
+      "digest": "sha256:5d13e569422e87a7428792dd7be5795ce1a110c699e1bd82fdee67637ce6b3c6",
+      "browser_download_url": "https://github.com/Dying-Ember/ai_consense_service/releases/download/oer-models-fixed05-20261013/manifest.json"
+    }
+  ],
+  "manifestSha256": "5d13e569422e87a7428792dd7be5795ce1a110c699e1bd82fdee67637ce6b3c6",
+  "releaseManifestActuallyDownloadedAndHashed": true,
+  "remoteSourceManifestActuallyDownloadedAndByteMatched": true,
+  "localHeadManifestByteMatched": true,
+  "allNativeAssetSizesAndSha256Matched": true,
+  "fullRemoteArchiveDownloaded": false,
+  "completeArchiveRestore": "All seven locally hashed parts restored to a new directory; all 82 files verified. See verification.json.",
+  "boundary": "GitHub-native SHA256 and size validate large remote assets. No full second remote archive download, runtime/model/source/business/OCI/H800 acceptance."
+}

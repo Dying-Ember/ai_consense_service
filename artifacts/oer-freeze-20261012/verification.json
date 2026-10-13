@@ -1,0 +1,157 @@
+{
+  "schema": "consense.public-frozen-artifacts-local-verification/v1",
+  "package": {
+    "startedAt": "2026-10-13T10:13:20.756740+08:00",
+    "completedAt": "2026-10-13T10:18:04.119627+08:00",
+    "fileCount": 82,
+    "unpackedBytes": 10376931695,
+    "archive": {
+      "name": "consense-oer-public-models-db-20261013.tar.gz",
+      "bytes": 7227642598,
+      "sha256": "16aa2e6244e467d3bbd1dfae17ca63f0ca2672e8f5e6211770917570f4530db8",
+      "parts": [
+        {
+          "name": "consense-oer-public-models-db-20261013.tar.gz.part001",
+          "bytes": 1073741824,
+          "sha256": "68c67d2748e9ae8b74d6532b94b9044fc4fb4843871640c8de01a9d13e1c035a"
+        },
+        {
+          "name": "consense-oer-public-models-db-20261013.tar.gz.part002",
+          "bytes": 1073741824,
+          "sha256": "6bfcd269d8b022fd782621a57f2cce08f50edc1763f508d03e504a09ee22f01f"
+        },
+        {
+          "name": "consense-oer-public-models-db-20261013.tar.gz.part003",
+          "bytes": 1073741824,
+          "sha256": "4aece7e29911d5b06a5c067cbb6d914db114e902e1e41797f1f0a8985e4d2406"
+        },
+        {
+          "name": "consense-oer-public-models-db-20261013.tar.gz.part004",
+          "bytes": 1073741824,
+          "sha256": "5863f8fd20b2a7b96393fa26aa608a9e0d755567a9d39bd8f688ca21147533bd"
+        },
+        {
+          "name": "consense-oer-public-models-db-20261013.tar.gz.part005",
+          "bytes": 1073741824,
+          "sha256": "348b138a31f35f7243854ea766de3e2f59ba0af4500b03ae4386235a94b8d4cf"
+        },
+        {
+          "name": "consense-oer-public-models-db-20261013.tar.gz.part006",
+          "bytes": 1073741824,
+          "sha256": "c80f53072cb9625cfc32112503880540a6bc57a4d9baf27a13a533e0e4251b70"
+        },
+        {
+          "name": "consense-oer-public-models-db-20261013.tar.gz.part007",
+          "bytes": 785191654,
+          "sha256": "cb3a82281ff0447340f5ddff1aa681d39b4a3d59cf48a4ab4f6b83441eaa07fd"
+        }
+      ]
+    },
+    "manifestSha256": "5d13e569422e87a7428792dd7be5795ce1a110c699e1bd82fdee67637ce6b3c6",
+    "allSourceHashesAndStatsMatched": true,
+    "categoryCounts": {
+      "fixed05-model-publication": {
+        "files": 18,
+        "bytes": 4586560654
+      },
+      "ocr-frozen-repository-assets": {
+        "files": 50,
+        "bytes": 5285403843
+      },
+      "fixed05-static-database-copy": {
+        "files": 4,
+        "bytes": 504859034
+      },
+      "model-distribution-notices": {
+        "files": 10,
+        "bytes": 108164
+      }
+    },
+    "databaseOpens": 0,
+    "modelLoads": 0,
+    "activeStateCopied": false
+  },
+  "realRestore": {
+    "manifestSha256": "5d13e569422e87a7428792dd7be5795ce1a110c699e1bd82fdee67637ce6b3c6",
+    "archiveSha256": "16aa2e6244e467d3bbd1dfae17ca63f0ca2672e8f5e6211770917570f4530db8",
+    "verifiedFiles": 82,
+    "runtimeStarted": false,
+    "absoluteSourcePathsRewritten": false
+  },
+  "restoreExecution": {
+    "exitCode": 0,
+    "outputFileCreatedAt": "2026-10-13T10:18:57+08:00",
+    "completionObservedAt": "2026-10-13T10:24:03.9200921+08:00",
+    "destinationCheckedAbsentBeforeCommand": true,
+    "resultOutputLastWrittenAt": "2026-10-13T10:23:43.309218+08:00",
+    "errorLogBytes": 0,
+    "independentCheckExitCode": 0,
+    "independentCheckErrorBytes": 0
+  },
+  "restoredDatabase": {
+    "checkedAt": "2026-10-13T10:24:15.193726+08:00",
+    "quickCheck": "ok",
+    "pointRows": 20700,
+    "chunks": 19371,
+    "windows": 20700,
+    "allRolesStandard": true,
+    "originalModelDatabaseFilesShaMatched": 72,
+    "beforeReadSha256": {
+      "baseline05/state/projects/c18c9b7514b1c830e02cecd9bec3a11350ef947f5aa2aae625cbd4f862eb477e.json": "0ce8c7cf6df5c196b5dc01fe9013412e7db5fe4692641da5375f176e85be927b",
+      "baseline05/state/qdrant/collection/project_c18c9b7514b1c830_b0a7bc46bb241f9a/storage.sqlite": "a8747db01d9d2f6d180d00cc83cf519b6b562b1133cbee9f1d933c8cb29f5153",
+      "baseline05/state/qdrant/meta.json": "7f96d87039d15d8fd0be8dc9efe8454b4e19f27efb741d7d930b308d028a8338",
+      "baseline05/copy-provenance.json": "a56b96b9fde4f6e447d8eebd61f13cdcd6f65c44b5f114559ad9793358132219"
+    },
+    "afterReadSha256": {
+      "baseline05/state/projects/c18c9b7514b1c830e02cecd9bec3a11350ef947f5aa2aae625cbd4f862eb477e.json": "0ce8c7cf6df5c196b5dc01fe9013412e7db5fe4692641da5375f176e85be927b",
+      "baseline05/state/qdrant/collection/project_c18c9b7514b1c830_b0a7bc46bb241f9a/storage.sqlite": "a8747db01d9d2f6d180d00cc83cf519b6b562b1133cbee9f1d933c8cb29f5153",
+      "baseline05/state/qdrant/meta.json": "7f96d87039d15d8fd0be8dc9efe8454b4e19f27efb741d7d930b308d028a8338",
+      "baseline05/copy-provenance.json": "a56b96b9fde4f6e447d8eebd61f13cdcd6f65c44b5f114559ad9793358132219"
+    },
+    "readChangedDatabaseBytes": false,
+    "activeDatabaseOpened": false,
+    "QdrantClientOpened": false
+  },
+  "standaloneChecks": {
+    "build": {
+      "command": "mvn -B -DskipTests package",
+      "exitCode": 0,
+      "testsExecuted": false,
+      "testSourcesCompiled": true
+    },
+    "focusedJava": {
+      "tests": 46,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "exitCode": 0
+    },
+    "fixtureConsumptionJava": {
+      "tests": 107,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "exitCode": 0
+    },
+    "pythonWorkspaceMetadata": {
+      "tests": 13,
+      "exitCode": 0
+    },
+    "restoreHelper": {
+      "tests": 6,
+      "exitCode": 0,
+      "logSha256": "3144639815fec87bd0414d97e5f7b33062c9191cd7a7d2fdd63ec0abb8b4eadd"
+    }
+  },
+  "publication": "User explicitly confirmed public models and unchanged database, including full GCC/GCT/SL text and historical source paths. Active H2, private uploads and runtime secrets/logs excluded.",
+  "whitespaceBoundary": "Authored/source files pass the declared CR-at-EOL check; unchanged official model-card notices preserve upstream whitespace and are outside that source formatting check.",
+  "remoteUpload": {
+    "status": "completed",
+    "expectedAssets": 9,
+    "verifiedAssets": 9,
+    "releaseUrl": "https://github.com/Dying-Ember/ai_consense_service/releases/tag/oer-models-fixed05-20261013",
+    "remoteReceipt": "remote-verification.json",
+    "verifiedAt": "2026-10-13T11:02:56.734452+08:00"
+  },
+  "boundary": "Full local byte restoration and restored-copy SQLite checks; no full remote archive download, model/retrieval/business/source/OCI/H800 acceptance."
+}
