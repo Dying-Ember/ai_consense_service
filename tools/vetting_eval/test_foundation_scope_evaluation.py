@@ -1,9 +1,10 @@
+import copy
 import tempfile
 import unittest
 from pathlib import Path
 
 from foundation_scope_evaluation import (
-    _canonical_checks, canonical_digest, checked, coverage, descriptor, gaps, merged,
+    _canonical_checks, canonical_digest, form_source_digest, checked, coverage, descriptor, gaps, merged,
     parent_coverage, sha_bytes, utf16len, utf16slice, validate_target, window_coverage,
 )
 
@@ -26,6 +27,20 @@ class NativeRangeGuards(unittest.TestCase):
     def test_signature_structured_object_canonical_hash(self):
         self.assertEqual(canonical_digest({"version":3,"runtime":{"dtype":"float32"}}),canonical_digest({"runtime":{"dtype":"float32"},"version":3}))
         self.assertNotEqual(canonical_digest({"version":3}),canonical_digest({"version":2}))
+
+    def test_form_source_hash_has_the_shared_scientific_binary64_sha_without_mutation(self):
+        value={"z":[1e-7,1e20,0.0,1.0],"a":{"blank":"","count":1,"truth":True,"nothing":None,"text":"Original 中文 😀"}}
+        before=copy.deepcopy(value)
+        self.assertEqual(form_source_digest(value),"714f894e3f33c75c769a04d969b14e005f8e6fc221a588af5984a00f3b30f565")
+        self.assertEqual(value,before)
+        self.assertEqual(form_source_digest({"z":1.0,"a":2}),form_source_digest({"a":2,"z":1.0}))
+        self.assertNotEqual(form_source_digest([1]),form_source_digest([1.0]))
+        self.assertNotEqual(form_source_digest([0.0]),form_source_digest([-0.0]))
+
+    def test_form_source_hash_rejects_nonfinite_nested_coordinates(self):
+        for value in (float("nan"),float("inf"),float("-inf")):
+            with self.subTest(value=value),self.assertRaises(ValueError):
+                form_source_digest({"appearanceGlyphs":[{"bbox":[value]}]})
 
     def test_utf16_surrogate_boundaries(self):
         self.assertEqual(utf16len("a😀bc"),5)
@@ -111,6 +126,33 @@ class NativeRangeGuards(unittest.TestCase):
     def test_material_cannot_silently_drop_tail_part_observation(self):
         p=parent();row=dict(p);row["selectedPartExtractionObservations"]=[]
         with self.assertRaises(ValueError):_canonical_checks(row,p,material=True)
+
+    def test_material_form_values_remain_complete_while_raw_streams_are_source_bound_in_v6(self):
+        p=parent("");part=p["parts"][0]
+        part.update(anchor="pdf-form/0/widget/0",blockId="pdf-form:0:widget:0",extractionSource="native_form",
+                    nativeVisibilityStatus="operator_visible_unverified",
+                    pdfFormField={"id":"pdf-form/0/widget/0","fieldValue":"","appearanceValue":"Existing AP text",
+                                  "valueStatus":"field_appearance_conflict","conflict":True,"appearanceState":"ExistingState",
+                                  "appearanceRawStreamBytesBase64":"T3JpZ2luYWwgQVAgYnl0ZXM="})
+        compact=copy.deepcopy(part["pdfFormField"]);compact.pop("appearanceRawStreamBytesBase64")
+        observation={"partAnchor":part["anchor"],"blockId":part["blockId"],"startOffset":0,"endOffset":0,
+                     "extractionSource":"native_form","formObservationStatus":"observed_selected_original_widget",
+                     "pdfFormField":compact,"pdfFormFieldSourceSha256":form_source_digest(part["pdfFormField"]),"nativeVisibilityStatus":part["nativeVisibilityStatus"],
+                     "formInterpretation":"Stored value, selected appearance, blank/nontext and conflict are observations only; blank meaning, raster visibility, parent-child selection and legal OR applicability remain unknown. Raw streams, glyph coordinates and audit fields remain in source storage identified by pdfFormFieldSourceSha256."}
+        row={**p,"projectionVersion":"selected-native-source-material-form-observations-v6",
+             "selectedPartExtractionObservations":[observation]}
+        _canonical_checks(row,p,material=True)
+        for mutation in ("drop","stored","appearance","bytes","source_digest","status","meaning","version"):
+            changed=copy.deepcopy(row);observed=changed["selectedPartExtractionObservations"][0]
+            if mutation=="drop":observed.pop("pdfFormField")
+            if mutation=="stored":observed["pdfFormField"]["fieldValue"]="No"
+            if mutation=="appearance":observed["pdfFormField"]["appearanceValue"]=""
+            if mutation=="bytes":observed["pdfFormField"]["appearanceRawStreamBytesBase64"]="changed"
+            if mutation=="source_digest":observed["pdfFormFieldSourceSha256"]="0"*64
+            if mutation=="status":observed["formObservationStatus"]="accepted"
+            if mutation=="meaning":observed["formInterpretation"]="Blank means not applicable"
+            if mutation=="version":changed["projectionVersion"]="selected-native-source-material-portable-cell-slices-v4"
+            with self.subTest(mutation=mutation), self.assertRaises(ValueError):_canonical_checks(changed,p,material=True)
 
     def test_material_quality_adds_only_declared_unverified_scope(self):
         p=parent();p["sourceQuality"]={"textAccuracy":"unverified","needsReviewPages":[]}

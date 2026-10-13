@@ -20,7 +20,7 @@ import java.util.Map;
  * 向量   POST {base}/api/embed       { model, input:[...] }  （旧版回退 /api/embeddings）
  */
 @Slf4j
-public class OllamaLlmClient implements LlmClient {
+public class OllamaLlmClient implements LlmClient, EmbeddingAvailability {
 
     private final ConsenseProperties.Llm cfg;
     private final HttpSupport http;
@@ -125,6 +125,31 @@ public class OllamaLlmClient implements LlmClient {
             log.debug("Ollama 不可达: {}", e.getMessage());
             return false;
         }
+    }
+
+    /** Read-only inventory probe: a chat model or reachable server does not supply embeddings. */
+    @Override
+    public boolean embeddingAvailable() {
+        String configured = modelTag(cfg.getEmbedModel());
+        if (configured.isEmpty()) return false;
+        try {
+            JsonNode models=JsonUtils.parse(http.get(trim(cfg.getBaseUrl())+"/api/tags",4000)).path("models");
+            if (!models.isArray()) return false;
+            for (JsonNode model:models) {
+                if (configured.equals(modelTag(model.path("name").asText("")))
+                        || configured.equals(modelTag(model.path("model").asText("")))) return true;
+            }
+            return false;
+        } catch (Exception e) {
+            log.debug("Ollama configured embedding model is unavailable: {}",e.getMessage());
+            return false;
+        }
+    }
+
+    private static String modelTag(String value) {
+        String model=value==null?"":value.trim();
+        if(model.isEmpty()) return "";
+        return model.lastIndexOf(':')>model.lastIndexOf('/')?model:model+":latest";
     }
 
     @Override

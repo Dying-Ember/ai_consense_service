@@ -1,0 +1,1 @@
+{"pages":[{"blocks":[{"bbox":[0,0,200,200],"content":"Another OCR typo 0","id":"body","index":0,"type":"text"}],"page_idx":0},{"blocks":[{"bbox":[0,0,500,300],"content":"Another OCR typo 1","id":"body","index":0,"type":"text"}],"page_idx":1}],"schema":"docvortex.middle","schema_version":"2.0"}

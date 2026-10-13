@@ -55,6 +55,17 @@ class VettingMigrationTest {
             try(Statement stmt=connection.createStatement();ResultSet row=stmt.executeQuery("select status,model_identity_json from vetting_run where id='r'")) {
                 assertTrue(row.next());assertEquals("QUEUED",row.getString(1));assertNull(row.getString(2),"Historical runs must remain unknown after migration.");
             }
+            execute(connection,"db/migration/V17__vetting_recovery_and_report_snapshots.sql");
+            try(Statement stmt=connection.createStatement();ResultSet row=stmt.executeQuery("select recovery_contract_sha256,execution_owner,lease_until,recovery_status,report_snapshot_sha256 from vetting_run where id='r'")){
+                assertTrue(row.next());for(int column=1;column<=5;column++)assertNull(row.getObject(column),"Historical run recovery remains unknown.");
+            }
+            try(Statement stmt=connection.createStatement()){
+                stmt.execute("insert into vetting_packet_checkpoint(id,run_id,observation_sha256,packet_id,source_snapshot_sha256,prompt_envelope_sha256,status,updated_at) values('packet-1','r','observation','packet','source','prompt','CALLING',CURRENT_TIMESTAMP)");
+                assertThrows(SQLException.class,()->stmt.execute("insert into vetting_packet_checkpoint(id,run_id,observation_sha256,packet_id,source_snapshot_sha256,prompt_envelope_sha256,status,updated_at) values('packet-2','r','observation','packet','source','prompt','CALLING',CURRENT_TIMESTAMP)"));
+                try(ResultSet row=stmt.executeQuery("select status,review_remarks,action_taken,addendum_required,review_updated_at from vetting_finding where code='VT-001'")){
+                    assertTrue(row.next());assertEquals("Handled",row.getString("status"));assertEquals(remarks,row.getString("review_remarks"));assertEquals(action,row.getString("action_taken"));assertFalse(row.getBoolean("addendum_required"));assertEquals(reviewTime,row.getTimestamp("review_updated_at"));
+                }
+            }
         }
     }
 

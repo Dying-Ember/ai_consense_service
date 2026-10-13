@@ -61,6 +61,18 @@ public class StorageService {
         }
     }
 
+    /** Fresh byte verification; file size and timestamp cannot establish source identity. */
+    public boolean matchesStoredBytes(String storagePath,String expectedSha256) {
+        if(expectedSha256==null||!expectedSha256.matches("[a-f0-9]{64}"))return false;
+        try {
+            Path original=Paths.get(storagePath).toAbsolutePath().normalize().toRealPath();
+            if(!original.startsWith(root.toRealPath())||!Files.isRegularFile(original))return false;
+            java.security.MessageDigest digest=java.security.MessageDigest.getInstance("SHA-256");
+            try(InputStream stream=Files.newInputStream(original)){byte[] buffer=new byte[8192];int count;while((count=stream.read(buffer))!=-1)digest.update(buffer,0,count);}
+            StringBuilder hex=new StringBuilder();for(byte b:digest.digest())hex.append(String.format("%02x",b&255));return expectedSha256.equals(hex.toString());
+        }catch(Exception unavailable){return false;}
+    }
+
     /** 落盘结果（构造器签名与原 record 一致） */
     public static final class StoredFile {
 

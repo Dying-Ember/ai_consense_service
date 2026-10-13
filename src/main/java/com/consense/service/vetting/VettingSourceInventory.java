@@ -18,7 +18,10 @@ public final class VettingSourceInventory {
 
     /** Compact prompt view; the full describe method remains available for source probes. */
     public static Map<String,Object> compact(List<Chunk> selected) {
-        List<Map<String,Object>> excerpts=VettingSourceMaterial.project(selected),records=new ArrayList<>();
+        return compact(selected,FixedVettingReferences.empty());
+    }
+    static Map<String,Object> compact(List<Chunk> selected,FixedVettingReferences fixedReferences) {
+        List<Map<String,Object>> excerpts=VettingSourceMaterial.project(selected,fixedReferences),records=new ArrayList<>();
         for(int i=0;i<selected.size();i++) {
             Chunk c=selected.get(i);Map<String,Object> excerpt=excerpts.get(i);
             String label=c.getContent()==null?null:c.getContent().trim();

@@ -31,7 +31,7 @@ consense:
     expected-rerank-window-max-tokens: 512
     expected-window-overlap-tokens: 64
     semantic-enabled: true
-    semantic-topics: 16
+    semantic-topics: 17
     semantic-context-chars: 10000
     project-reference-comparisons: 16
     project-reference-context-chars: 12000

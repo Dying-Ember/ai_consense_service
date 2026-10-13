@@ -1,0 +1,12 @@
+ALTER TABLE source_document ADD COLUMN document_scope VARCHAR(32) NULL;
+ALTER TABLE vetting_run ADD COLUMN source_snapshot_sha256 VARCHAR(64) NULL;
+ALTER TABLE evidence_chunk ADD COLUMN source_hash VARCHAR(64) NULL;
+ALTER TABLE evidence_chunk ADD COLUMN source_role VARCHAR(32) NULL;
+ALTER TABLE chat_message ADD COLUMN sources_json LONGTEXT NULL;
+ALTER TABLE chat_message ADD COLUMN clarifications_json LONGTEXT NULL;
+ALTER TABLE chat_message ADD COLUMN source_scope VARCHAR(32) NULL;
+ALTER TABLE chat_message ADD COLUMN basis_scope VARCHAR(32) NULL;
+ALTER TABLE chat_message ADD COLUMN reply_to_message_id BIGINT NULL;
+ALTER TABLE chat_message ADD COLUMN question_message_id BIGINT NULL;
+ALTER TABLE chat_message ADD COLUMN original_question LONGTEXT NULL;
+ALTER TABLE chat_message ADD COLUMN user_background_json LONGTEXT NULL;

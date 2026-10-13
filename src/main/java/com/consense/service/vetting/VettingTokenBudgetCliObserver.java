@@ -12,7 +12,7 @@ import java.security.MessageDigest;
 import java.util.*;
 import java.util.concurrent.*;
 
-/** Optional vetting-only CPU counter. A sealed recipe is a trusted deployment declaration, not live model health. */
+/** Shared CPU counter. A sealed recipe is a trusted deployment declaration, not live model health. */
 @Component
 public class VettingTokenBudgetCliObserver implements VettingInputBudget.Observer {
     public static final String PROTOCOL="vetting-bound-token-budget-cli-recipe-v1";

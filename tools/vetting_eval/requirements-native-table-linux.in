@@ -1,0 +1,3 @@
+# Independent CPU candidate. No ML/OCR extras; never replace a parser globally.
+camelot-py==2.0.0
+pdfplumber==0.11.9

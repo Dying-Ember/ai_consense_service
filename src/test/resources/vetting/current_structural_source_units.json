@@ -1,0 +1,302 @@
+{
+  "fixtureScope": "Actual pure Python source-unit selector with explicit synthetic source parents and score; no neural inference",
+  "parents": [
+    {
+      "id": "head",
+      "documentId": "fixture-document",
+      "content": "TECH.1 A register shall be retained. 🌱",
+      "role": "tender",
+      "fileKey": "fixture",
+      "sourceHash": "b476a0d126925f1010722c56b3ef7fbece88168321e45aca86672468b0bf9a9e",
+      "clauseId": "TECH.1",
+      "clauseHeadingLocation": "body/1",
+      "metadataVersion": "owner-clause-v2",
+      "segmentationVersion": "standalone-section-boundary-v1",
+      "nativeTableMetadataVersion": "native-rows-and-cell-slices-v3",
+      "sourceQualityMetadataVersion": "source-quality-observations-v1",
+      "sourceQuality": {
+        "parseStatus": "PARSED",
+        "ocrQualityStatus": "not_observed",
+        "textAccuracy": "unverified",
+        "extractionCoverageComplete": null,
+        "ocrDeclared": null,
+        "totalPages": null,
+        "parsedPages": null,
+        "ocrPages": null,
+        "needsReviewPages": [],
+        "qualityPageScopeUnknown": true,
+        "limitations": [],
+        "coverageMetadataSha256": "edca586f2922fc82ebccc6a53bdcfcffcaae252de630c7084cfadc2c09c879e0"
+      },
+      "sourceQualityHash": "c2130d2f779720bc96b95557598f562be19d59e228a576de3db2219f234574f7",
+      "anchor": "body/1",
+      "parts": [
+        {
+          "text": "TECH.1 A register shall be retained. 🌱",
+          "anchor": "body/1",
+          "pageNo": null,
+          "blockId": "body:1",
+          "extractionSource": "word",
+          "startOffset": 0,
+          "endOffset": 39,
+          "bbox": null
+        }
+      ]
+    },
+    {
+      "id": "tail",
+      "documentId": "fixture-document",
+      "content": "Unless inactive the register remains required.",
+      "role": "tender",
+      "fileKey": "fixture",
+      "sourceHash": "b476a0d126925f1010722c56b3ef7fbece88168321e45aca86672468b0bf9a9e",
+      "clauseId": "TECH.1",
+      "clauseHeadingLocation": "body/1",
+      "metadataVersion": "owner-clause-v2",
+      "segmentationVersion": "standalone-section-boundary-v1",
+      "nativeTableMetadataVersion": "native-rows-and-cell-slices-v3",
+      "sourceQualityMetadataVersion": "source-quality-observations-v1",
+      "sourceQuality": {
+        "parseStatus": "PARSED",
+        "ocrQualityStatus": "not_observed",
+        "textAccuracy": "unverified",
+        "extractionCoverageComplete": null,
+        "ocrDeclared": null,
+        "totalPages": null,
+        "parsedPages": null,
+        "ocrPages": null,
+        "needsReviewPages": [],
+        "qualityPageScopeUnknown": true,
+        "limitations": [],
+        "coverageMetadataSha256": "edca586f2922fc82ebccc6a53bdcfcffcaae252de630c7084cfadc2c09c879e0"
+      },
+      "sourceQualityHash": "c2130d2f779720bc96b95557598f562be19d59e228a576de3db2219f234574f7",
+      "anchor": "body/2",
+      "parts": [
+        {
+          "text": "Unless inactive the register remains required.",
+          "anchor": "body/2",
+          "pageNo": null,
+          "blockId": "body:2",
+          "extractionSource": "word",
+          "startOffset": 0,
+          "endOffset": 46,
+          "bbox": null
+        }
+      ]
+    }
+  ],
+  "indexReceipt": {
+    "projectId": "p",
+    "indexed": 2,
+    "signature": "c554296f7902f0df347cb3213392dbea2141f0e5d6d451f67400d18e97b88573",
+    "contract": "source-bound-dual-granularity-structure-results-v1"
+  },
+  "response": {
+    "projectId": "p",
+    "indexSignature": "c554296f7902f0df347cb3213392dbea2141f0e5d6d451f67400d18e97b88573",
+    "mode": "source-bound-dual-granularity-structure-results-v1",
+    "hits": [
+      {
+        "id": "head",
+        "score": 0.75,
+        "payload": {
+          "id": "head",
+          "documentId": "fixture-document",
+          "content": "TECH.1 A register shall be retained. 🌱",
+          "role": "tender",
+          "fileKey": "fixture",
+          "sourceHash": "b476a0d126925f1010722c56b3ef7fbece88168321e45aca86672468b0bf9a9e",
+          "clauseId": "TECH.1",
+          "clauseHeadingLocation": "body/1",
+          "metadataVersion": "owner-clause-v2",
+          "segmentationVersion": "standalone-section-boundary-v1",
+          "nativeTableMetadataVersion": "native-rows-and-cell-slices-v3",
+          "sourceQualityMetadataVersion": "source-quality-observations-v1",
+          "sourceQuality": {
+            "parseStatus": "PARSED",
+            "ocrQualityStatus": "not_observed",
+            "textAccuracy": "unverified",
+            "extractionCoverageComplete": null,
+            "ocrDeclared": null,
+            "totalPages": null,
+            "parsedPages": null,
+            "ocrPages": null,
+            "needsReviewPages": [],
+            "qualityPageScopeUnknown": true,
+            "limitations": [],
+            "coverageMetadataSha256": "edca586f2922fc82ebccc6a53bdcfcffcaae252de630c7084cfadc2c09c879e0"
+          },
+          "sourceQualityHash": "c2130d2f779720bc96b95557598f562be19d59e228a576de3db2219f234574f7",
+          "anchor": "body/1",
+          "parts": [
+            {
+              "text": "TECH.1 A register shall be retained. 🌱",
+              "anchor": "body/1",
+              "pageNo": null,
+              "blockId": "body:1",
+              "extractionSource": "word",
+              "startOffset": 0,
+              "endOffset": 39,
+              "bbox": null
+            }
+          ]
+        }
+      }
+    ],
+    "sourceUnits": {
+      "policy": "unique-source-structural-unit-seeds-v1",
+      "scope": "canonical_observed_structure_only",
+      "originalHitIds": [
+        "head"
+      ],
+      "units": [
+        {
+          "originIds": [
+            "head"
+          ],
+          "kind": "exact_clause_heading",
+          "status": "complete_observed_unit",
+          "reason": null,
+          "requiredMemberIds": [
+            "head",
+            "tail"
+          ],
+          "members": [
+            {
+              "id": "head",
+              "documentId": "fixture-document",
+              "content": "TECH.1 A register shall be retained. 🌱",
+              "role": "tender",
+              "fileKey": "fixture",
+              "sourceHash": "b476a0d126925f1010722c56b3ef7fbece88168321e45aca86672468b0bf9a9e",
+              "clauseId": "TECH.1",
+              "clauseHeadingLocation": "body/1",
+              "metadataVersion": "owner-clause-v2",
+              "segmentationVersion": "standalone-section-boundary-v1",
+              "nativeTableMetadataVersion": "native-rows-and-cell-slices-v3",
+              "sourceQualityMetadataVersion": "source-quality-observations-v1",
+              "sourceQuality": {
+                "parseStatus": "PARSED",
+                "ocrQualityStatus": "not_observed",
+                "textAccuracy": "unverified",
+                "extractionCoverageComplete": null,
+                "ocrDeclared": null,
+                "totalPages": null,
+                "parsedPages": null,
+                "ocrPages": null,
+                "needsReviewPages": [],
+                "qualityPageScopeUnknown": true,
+                "limitations": [],
+                "coverageMetadataSha256": "edca586f2922fc82ebccc6a53bdcfcffcaae252de630c7084cfadc2c09c879e0"
+              },
+              "sourceQualityHash": "c2130d2f779720bc96b95557598f562be19d59e228a576de3db2219f234574f7",
+              "anchor": "body/1",
+              "parts": [
+                {
+                  "text": "TECH.1 A register shall be retained. 🌱",
+                  "anchor": "body/1",
+                  "pageNo": null,
+                  "blockId": "body:1",
+                  "extractionSource": "word",
+                  "startOffset": 0,
+                  "endOffset": 39,
+                  "bbox": null
+                }
+              ]
+            },
+            {
+              "id": "tail",
+              "documentId": "fixture-document",
+              "content": "Unless inactive the register remains required.",
+              "role": "tender",
+              "fileKey": "fixture",
+              "sourceHash": "b476a0d126925f1010722c56b3ef7fbece88168321e45aca86672468b0bf9a9e",
+              "clauseId": "TECH.1",
+              "clauseHeadingLocation": "body/1",
+              "metadataVersion": "owner-clause-v2",
+              "segmentationVersion": "standalone-section-boundary-v1",
+              "nativeTableMetadataVersion": "native-rows-and-cell-slices-v3",
+              "sourceQualityMetadataVersion": "source-quality-observations-v1",
+              "sourceQuality": {
+                "parseStatus": "PARSED",
+                "ocrQualityStatus": "not_observed",
+                "textAccuracy": "unverified",
+                "extractionCoverageComplete": null,
+                "ocrDeclared": null,
+                "totalPages": null,
+                "parsedPages": null,
+                "ocrPages": null,
+                "needsReviewPages": [],
+                "qualityPageScopeUnknown": true,
+                "limitations": [],
+                "coverageMetadataSha256": "edca586f2922fc82ebccc6a53bdcfcffcaae252de630c7084cfadc2c09c879e0"
+              },
+              "sourceQualityHash": "c2130d2f779720bc96b95557598f562be19d59e228a576de3db2219f234574f7",
+              "anchor": "body/2",
+              "parts": [
+                {
+                  "text": "Unless inactive the register remains required.",
+                  "anchor": "body/2",
+                  "pageNo": null,
+                  "blockId": "body:2",
+                  "extractionSource": "word",
+                  "startOffset": 0,
+                  "endOffset": 46,
+                  "bbox": null
+                }
+              ]
+            }
+          ],
+          "observedRanges": [
+            {
+              "blockId": "body:1",
+              "startUtf16": 0,
+              "endUtf16": 39,
+              "status": "observed_canonical_ranges_zero_gap",
+              "sourceBlockComplete": null
+            },
+            {
+              "blockId": "body:2",
+              "startUtf16": 0,
+              "endUtf16": 46,
+              "status": "observed_canonical_ranges_zero_gap",
+              "sourceBlockComplete": null
+            }
+          ],
+          "sourceIdentity": {
+            "documentId": "fixture-document",
+            "sourceHash": "b476a0d126925f1010722c56b3ef7fbece88168321e45aca86672468b0bf9a9e",
+            "role": "tender",
+            "metadataVersion": "owner-clause-v2",
+            "segmentationVersion": "standalone-section-boundary-v1",
+            "nativeTableMetadataVersion": "native-rows-and-cell-slices-v3",
+            "sourceQualityMetadataVersion": "source-quality-observations-v1",
+            "sourceQualityHash": "c2130d2f779720bc96b95557598f562be19d59e228a576de3db2219f234574f7"
+          },
+          "clauseId": "TECH.1",
+          "headingLocation": "body/1",
+          "blockIds": [
+            "body:1",
+            "body:2"
+          ],
+          "derivedMembersCanBecomeOrigins": false,
+          "memberScores": null,
+          "qualifiersComplete": "unknown",
+          "semanticScopeVerified": false,
+          "unitId": "f6a92d1be1d577a70c6d818d1cc08f3c3b6f5fd02681e3ba8a0585fa12c2af7e",
+          "originalRerankOrdinal": 1,
+          "seedScore": 0.75
+        }
+      ],
+      "rawParentTopKIds": [
+        "head"
+      ],
+      "skippedDuplicateUnitSeeds": [],
+      "derivedMembersCanBecomeOrigins": false,
+      "memberOrder": "canonical_parent_id_lexical",
+      "qualifiersComplete": "unknown",
+      "semanticScopeVerified": false
+    }
+  }
+}

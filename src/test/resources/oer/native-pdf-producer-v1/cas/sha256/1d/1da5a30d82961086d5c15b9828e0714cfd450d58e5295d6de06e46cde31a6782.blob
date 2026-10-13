@@ -1,0 +1,193 @@
+"""Bounded public wire for native PDF prose with separate visual provenance.
+
+Full operators, styles, AP channels, both parser outputs, source review and
+adoption remain actual CAS bytes. Public text is the validated literal channel;
+large glyph membership/span inventories use typed pointers to the complete
+internal snapshot. Every read cold-validates and reconstructs that snapshot.
+This wire does not register sources, certify pixels or publish table/AP text.
+"""
+from __future__ import annotations
+
+import copy
+import hashlib
+from pathlib import Path
+
+from artifact_store import ArtifactStore, DESCRIPTOR_SCHEMA
+from canonical_projection import CanonicalProjectionError, _bytes, _fail, _hash
+from native_pdf_canonical_projection import SCHEMA, _json, validate_native_pdf_projection
+
+STORAGE_SHAPE = 'cas-native-pdf-joint-adopted-public-v1'
+VERSION = 'source-reviewed-native-pdf-cas-public-projection-v1'
+COMMITMENTS_VERSION = 'native-pdf-public-whole-prose-commitments-v1'
+MAX_SNAPSHOT_BYTES = 16777216
+
+
+def _boundary(operation, code):
+    try:
+        return operation()
+    except CanonicalProjectionError:
+        raise
+    except (ValueError, OSError, KeyError, TypeError, IndexError, AttributeError) as error:
+        raise CanonicalProjectionError(code, reason=str(error)) from error
+
+
+def _size(snapshot, limit):
+    _fail(type(limit) is int and 0 < limit <= MAX_SNAPSHOT_BYTES, 'native_pdf_public_snapshot_limit_invalid')
+    raw = _bytes(snapshot)
+    _fail(len(raw) <= limit, 'native_pdf_public_snapshot_too_large', byteCount=len(raw), maximumBytes=limit)
+    return raw
+
+
+def _descriptor(raw):
+    digest = hashlib.sha256(raw).hexdigest()
+    return {'schema': DESCRIPTOR_SCHEMA, 'storage': 'content_addressed_disk', 'sha256': digest,
+            'byteCount': len(raw), 'relativePath': 'sha256/' + digest[:2] + '/' + digest + '.blob',
+            'identityScope': 'exact_supplied_bytes'}
+
+
+def _payload(value, store, capture):
+    raw = _bytes(value)
+    descriptor = _descriptor(raw)
+    if capture:
+        _fail(store.put_bytes(raw) == descriptor, 'native_pdf_transport_capture_descriptor_mismatch')
+    else:
+        # Validation never recreates a missing captured artifact.
+        _fail(store.read_asset(descriptor) == raw, 'native_pdf_transport_actual_payload_mismatch')
+    return descriptor
+
+
+def _ref(descriptor, pointer, value, internal, kind):
+    return {'kind': kind, 'artifactDescriptor': copy.deepcopy(descriptor), 'jsonPointer': pointer,
+            'payloadSha256': _hash(value), 'sourceSha256': internal['source']['sourceSha256'],
+            'sourceRevisionSha256': internal['source']['sourceRevisionSha256'],
+            'internalProjectionSha256': internal['projectionSha256']}
+
+
+def _part(part, internal, descriptor, pointer):
+    public = {key: copy.deepcopy(value) for key, value in part.items()
+              if key not in {'capturedGlyphIds', 'nativeTextSpans'}}
+    public['nativePdfRegionRef'] = _ref(descriptor, pointer, part, internal, 'native_pdf_whole_region')
+    public['nativeGlyphMembershipRef'] = _ref(descriptor, pointer + '/capturedGlyphIds',
+                                            part['capturedGlyphIds'], internal, 'native_pdf_glyph_membership')
+    public['nativeTextSpansRef'] = _ref(descriptor, pointer + '/nativeTextSpans',
+                                      part['nativeTextSpans'], internal, 'native_pdf_literal_utf16_spans')
+    public['textChannel'] = 'literal_native_glyphs_with_explicit_source_reviewed_separators'
+    public['offsetUnit'] = 'UTF16'
+    return public
+
+
+def _body(chunk, ordinal, internal, descriptor, code_sha):
+    excluded = {'id', 'sourceHash', 'projectionRevisionSha256', 'parts', 'sourceSpans'}
+    body = {key: copy.deepcopy(value) for key, value in chunk.items() if key not in excluded}
+    body.update(producerKind='native_pdf', storageShape=STORAGE_SHAPE,
+                projectionVersion=VERSION, metadataVersion=VERSION, projectionCodeSha256=code_sha,
+                internalProjectionVersion=internal['projectionIdentity']['projectionVersion'],
+                internalProjectionCodeSha256=internal['projectionIdentity']['projectionCodeSha256'])
+    body['parts'] = [_part(part, internal, descriptor, '/chunks/' + str(ordinal) + '/parts/' + str(index))
+                     for index, part in enumerate(chunk['parts'])]
+    body['sourceSpans'] = [{key: copy.deepcopy(part[key]) for key in
+                           ('blockId', 'startOffset', 'endOffset', 'sourcePosition', 'nativeTextSpansRef')}
+                          for part in body['parts']]
+    return body
+
+
+def _assemble(internal, store, code_ref, *, capture):
+    descriptor = _payload(internal, store, capture)
+    native = internal['nativeObservationBundle']
+    inputs = internal['evidenceDescriptors']
+    bodies = [_body(chunk, ordinal, internal, descriptor, code_ref['sha256'])
+              for ordinal, chunk in enumerate(internal['chunks'])]
+    canonical = {'version': COMMITMENTS_VERSION, 'units': [
+        {'unitId': body['unitId'], 'scope': body['canonicalScope'], 'partsSha256': _hash(body['parts']),
+         'adoptionSha256': _hash(body['adoption']), 'chunkPreIdentitySha256': _hash(body)} for body in bodies],
+        'relations': copy.deepcopy(internal['canonical']['relations']), 'assetRefs': []}
+    identity = copy.deepcopy(internal['projectionIdentity'])
+    identity.update(projectionVersion=VERSION, storageShape=STORAGE_SHAPE,
+                    projectionCodeSha256=code_ref['sha256'], internalProjectionSha256=internal['projectionSha256'],
+                    internalProjectionVersion=internal['projectionIdentity']['projectionVersion'],
+                    internalProjectionCodeSha256=internal['projectionIdentity']['projectionCodeSha256'],
+                    internalSnapshotBytesSha256=descriptor['sha256'])
+    source_hash = _hash({'projectionIdentity': identity, 'canonical': canonical})
+    revision = _hash({'sourceHash': source_hash, 'projectionIdentity': identity})
+    chunks = [{**body, 'id': 'canonical-native-pdf-public:' + _hash({'revision': revision, 'unitId': body['unitId']}),
+               'sourceHash': source_hash, 'projectionRevisionSha256': revision} for body in bodies]
+    manifest = {key: copy.deepcopy(value) for key, value in internal['manifest'].items()
+                if key != 'regionReview'}
+    manifest['regionReviewRef'] = _ref(inputs['adoption'], '/regionReview', internal['manifest']['regionReview'],
+                                     internal, 'native_pdf_source_region_review')
+    result = {'schema': SCHEMA, 'producerKind': 'native_pdf', 'storageShape': STORAGE_SHAPE,
+              'projectionIdentity': identity, 'projectionRevisionSha256': revision, 'sourceHash': source_hash,
+              'source': copy.deepcopy(internal['source']), 'manifest': manifest,
+              'transportCodeRef': copy.deepcopy(code_ref),
+              'internalProjectionRef': {'artifactDescriptor': descriptor, 'projectionSha256': internal['projectionSha256'],
+                  'sourceHash': internal['sourceHash'], 'projectionRevisionSha256': internal['projectionRevisionSha256']},
+              'nativeObservationRef': {'artifactDescriptor': copy.deepcopy(inputs['nativeBundle']),
+                                      'bundleSha256': native['bundleSha256']},
+              'dualParserBundleRef': {'artifactDescriptor': copy.deepcopy(inputs['dualBundle']),
+                                      'bundleSha256': internal['dualParserBundle']['bundleSha256']},
+              'adoptionManifestRef': copy.deepcopy(inputs['adoption']),
+              'nativeCaptureRefs': {key: copy.deepcopy(native[key]) for key in
+                                   ('sourcePackage', 'rawObservation', 'observerSources', 'appearanceArtifacts')},
+              'observerIdentity': copy.deepcopy(native['observation']['observerIdentity']),
+              'sourceReferenceRef': {**copy.deepcopy(internal['manifest']['reference']), 'humanConfirmed': False,
+                                     'sourceMediaType': 'application/pdf'},
+              'canonical': canonical, 'chunks': chunks, 'assetRefs': [],
+              'unadoptedGlyphsRef': _ref(descriptor, '/unadoptedGlyphs', internal['unadoptedGlyphs'],
+                                        internal, 'native_pdf_unadopted_unknown_inventory'),
+              'unadoptedGlyphSummary': [{'physicalPageNo': row['physicalPageNo'], 'glyphCount': len(row['glyphIds']),
+                                         'status': row['status']} for row in internal['unadoptedGlyphs']],
+              'captureCompleteness': copy.deepcopy(internal['captureCompleteness']),
+              'unobservedOriginalPhysicalPages': copy.deepcopy(internal['unobservedOriginalPhysicalPages']),
+              'humanConfirmed': False, 'semanticScopeVerified': False,
+              'wholeOriginalSourceCoverage': internal['wholeOriginalSourceCoverage'],
+              'visualReturnStatus': 'not_published_by_native_pdf_transport',
+              'limitations': copy.deepcopy(internal['limitations']),
+              'transportValidation': {'mode': 'cold_full_cas_and_internal_reconstruction',
+                                      'derivedValidationCache': 'not_implemented', 'qualityCertified': False}}
+    result['limitations'].append('Public prose wire retains actual raster descriptors; image serving, table/AP adoption and business integration remain unverified')
+    result['projectionSha256'] = _hash(result)
+    return result
+
+
+def publish_native_pdf_transport(internal_projection, *, artifact_store, max_snapshot_bytes=MAX_SNAPSHOT_BYTES):
+    def run():
+        _fail(isinstance(artifact_store, ArtifactStore), 'actual_artifact_store_required')
+        validate_native_pdf_projection(internal_projection, artifact_store=artifact_store)
+        code_ref = artifact_store.put_bytes(Path(__file__).read_bytes())
+        result = _assemble(internal_projection, artifact_store, code_ref, capture=True)
+        _size(result, max_snapshot_bytes)
+        return validate_native_pdf_transport(result, artifact_store=artifact_store, max_snapshot_bytes=max_snapshot_bytes)
+    return _boundary(run, 'malformed_native_pdf_transport_input')
+
+
+def hydrate_native_pdf_transport(public_projection, *, artifact_store, max_snapshot_bytes=MAX_SNAPSHOT_BYTES):
+    def run():
+        _fail(isinstance(artifact_store, ArtifactStore), 'actual_artifact_store_required')
+        _fail(isinstance(public_projection, dict) and public_projection.get('schema') == SCHEMA
+              and public_projection.get('producerKind') == 'native_pdf'
+              and public_projection.get('storageShape') == STORAGE_SHAPE,
+              'unsupported_native_pdf_public_storage_shape')
+        _size(public_projection, max_snapshot_bytes)
+        _fail(public_projection.get('projectionSha256') == _hash({key: value for key, value in public_projection.items()
+                                                                if key != 'projectionSha256'}), 'native_pdf_public_seal_mismatch')
+        identity = public_projection['projectionIdentity']
+        _fail(identity.get('projectionVersion') == VERSION and identity.get('storageShape') == STORAGE_SHAPE,
+              'unsupported_native_pdf_public_projection_version')
+        code_ref = public_projection['transportCodeRef']
+        code = artifact_store.read_asset(code_ref)
+        # Retained publisher bytes must cold-match CAS and the known-version
+        # identity. They are never executed or replaced by this reader's bytes.
+        _fail(code_ref == _descriptor(code)
+              and identity.get('projectionCodeSha256') == hashlib.sha256(code).hexdigest(),
+              'native_pdf_transport_code_identity_mismatch')
+        internal = _json(artifact_store.read_asset(public_projection['internalProjectionRef']['artifactDescriptor']))
+        validate_native_pdf_projection(internal, artifact_store=artifact_store)
+        expected = _assemble(internal, artifact_store, code_ref, capture=False)
+        _fail(expected == public_projection, 'native_pdf_public_derived_payload_mismatch')
+        return internal
+    return _boundary(run, 'malformed_native_pdf_public_snapshot')
+
+
+def validate_native_pdf_transport(public_projection, *, artifact_store, max_snapshot_bytes=MAX_SNAPSHOT_BYTES):
+    hydrate_native_pdf_transport(public_projection, artifact_store=artifact_store, max_snapshot_bytes=max_snapshot_bytes)
+    return public_projection

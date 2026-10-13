@@ -25,6 +25,7 @@ public final class VettingCorpus {
     public static final String NATIVE_TABLE_METADATA_VERSION = "native-rows-and-cell-slices-v3";
     public static final String SOURCE_QUALITY_METADATA_VERSION = VettingSourceQuality.VERSION;
     private VettingCorpus() {}
+    private static final SourceHashNormalizer SOURCE_HASH_NORMALIZER = new SourceHashNormalizer(64);
     @Data public static class Chunk {
         private String id, content, role, fileKey, documentId, fileName, anchor, pageNo, sourceHash;
         private List<Double> bbox;
@@ -32,6 +33,23 @@ public final class VettingCorpus {
         private String clauseId, clauseHeadingLocation, metadataVersion, segmentationVersion, nativeTableMetadataVersion;
         private String sourceQualityMetadataVersion, sourceQualityHash;
         private VettingSourceQuality.Info sourceQuality;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String sourceSha256;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String originalSourceSha256;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String sourcePurpose;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String sourceClass;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private List<String> eligibleModules;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private com.consense.document.OerDocumentIdentity sourceIdentity;
+        /** Complete accepted payload remains authoritative alongside the legacy read-only model view. */
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private JsonNode canonicalPayload;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private com.consense.web.dto.CanonicalEvidenceDtos.EvidencePointer canonicalEvidence;
     }
     @Data public static class Part {
         private String text, anchor, pageNo, blockId, extractionSource;
@@ -43,6 +61,14 @@ public final class VettingCorpus {
         /** Only the selected UTF16 intersections, never complete unselected row values. */
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private NativeTableSlice tableSlice;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private List<DocumentBlock.WordCell> wordCells;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private List<com.consense.document.PdfPageEvidence.PdfGlyph> pdfGlyphs;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private com.consense.document.PdfPageEvidence.PdfFormField pdfFormField;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String nativeVisibilityStatus;
     }
     @Data public static class NativeTableSlice {
         private String version, sourceIdentityHash, tableLocation, rowTextSha256, cellLayoutSha256;
@@ -83,10 +109,16 @@ public final class VettingCorpus {
     public static String sourceRole(SourceDocument d) {
         String explicit = nvl(d.getReviewRole()).trim().toLowerCase(Locale.ROOT);
         if (Arrays.asList("tender", "standard", "project_fact", "package_manifest").contains(explicit)) return explicit;
+        com.consense.document.OerDocumentIdentity identity=com.consense.service.sources.OerSourceMetadata.identity(d);
+        if(identity!=null && Arrays.asList("tender","standard","project_fact","package_manifest").contains(identity.getRole()))return identity.getRole();
         if (SourceDocument.CATEGORY_STANDARD_TEMPLATE.equals(d.getCategory())) return "standard";
         String filename = nvl(d.getFileName()).toLowerCase(Locale.ROOT);
         if (SourceDocument.CATEGORY_PROJECT_INPUT.equals(d.getCategory())
-                || filename.endsWith(".msg") || filename.endsWith(".eml") || filename.endsWith(".emlx")) return "project_fact";
+                || filename.endsWith(".msg") || filename.endsWith(".eml") || filename.endsWith(".emlx")
+                || filename.matches(".*(?:^|[ _-])from[ _-].*(?:^|[ _-])to[ _-].*\\.(?:docx?|pdf|txt)$")
+                || filename.matches(".*(?:[ _-]email[ _-]|[ _-]minutes[ _-]).*\\.(?:docx?|pdf|txt)$")) return "project_fact";
+        // The case's CoC is its contract-specific adoption sheet, not the GCC standard text.
+        if (filename.matches(".*(?:^|[ _-])coc(?:[ ._-]|$).*") && SourceDocument.CATEGORY_VETTING_PACKAGE.equals(d.getCategory())) return "tender";
         if (Arrays.asList("GCC", "SL").contains(nvl(d.getFileKey()).toUpperCase(Locale.ROOT))) return "standard";
         return "tender";
     }
@@ -107,19 +139,7 @@ public final class VettingCorpus {
     }
     public static String sourceHash(SourceDocument d) {
         String structure = nvl(d.getStructuredContentJson());
-        // Style-name enrichment changes segmentation metadata, not the source revision.
-        // Leave legacy JSON byte-for-byte intact; compact enriched snapshots serialize
-        // back to their exact pre-enrichment form after this one new field is removed.
-        if (structure.contains("\"paragraphStyleName\"")) {
-            JsonNode tree = JsonUtils.parse(structure); boolean enriched = false;
-            if (tree.isArray()) for (JsonNode block : tree) {
-                if (block.isObject() && block.has("paragraphStyleName")) {
-                    ((ObjectNode) block).remove("paragraphStyleName"); enriched = true;
-                }
-            }
-            if (enriched) structure = JsonUtils.write(tree);
-        }
-        return hash(nvl(d.getTextContent()) + "\n" + structure);
+        return SOURCE_HASH_NORMALIZER.hash(nvl(d.getTextContent()), structure);
     }
     public static List<Chunk> chunks(List<SourceDocument> docs) {
         List<Chunk> out = new ArrayList<>();
@@ -134,7 +154,8 @@ public final class VettingCorpus {
                     "^(" + Pattern.quote(owner) + "(?:\\.[A-Z]+)?\\s*\\.?\\s*" + NUMBER
                             + "(?:\\.[A-Z]+" + NUMBER + ")*(?:\\.\\s*[A-Z](?=\\s|$))?)(?=\\s|\\.[A-Z]|[A-Z\\p{IsHan}]|$)", Pattern.CASE_INSENSITIVE);
             for (DocumentBlock b : sourceBlocks) {
-                if (nvl(b.getText()).trim().isEmpty()) continue;
+                // A blank widget still carries /V, /AP, /AS and unknown/conflict observations.
+                if (nvl(b.getText()).trim().isEmpty() && b.getPdfFormField() == null) continue;
                 String detected = heading(b, owner, ownedHeading);
                 boolean supplementary = Arrays.asList("header", "footer", "footnote", "endnote").contains(b.getKind());
                 String nextClause = supplementary ? "" : detected != null ? detected : clause;
@@ -147,7 +168,7 @@ public final class VettingCorpus {
                 clause = nextClause;
                 if (headingChanged) headingLocation = clause.isEmpty() ? null : b.getLocation();
                 // Very long tables/pages are split with offsets into the same source block.
-                if (b.getText().length() > 1400) {
+                if (b.getText().length() > 1400 && b.getPdfFormField() == null) {
                     if (!group.isEmpty()) { emit(out, d, digest, clause, headingLocation, group, nativeTables, quality); group.clear(); length = 0; }
                     for (int step = 0; step < b.getText().length(); step += 1200) {
                         int start = step, end = Math.min(start + 1400, b.getText().length());
@@ -291,6 +312,16 @@ public final class VettingCorpus {
         c.setContent(blocks.stream().map(DocumentBlock::getText).collect(Collectors.joining("\n")));
         c.setDocumentId(String.valueOf(d.getId())); c.setFileKey(nvl(d.getFileKey())); c.setFileName(d.getFileName());
         c.setRole(sourceRole(d));
+        c.setSourceSha256(d.getSourceSha256()); c.setOriginalSourceSha256(d.getSourceSha256());
+        com.consense.document.OerDocumentIdentity identity=com.consense.service.sources.OerSourceMetadata.identity(d);
+        if(identity!=null) {
+            c.setSourceIdentity(identity); c.setSourcePurpose(identity.getSourcePurpose()); c.setEligibleModules(identity.getEligibleModules());
+            Map<String,String> classes=new HashMap<>();
+            classes.put("PRE","project_pre"); classes.put("BQ","pricing_bq"); classes.put("SOR","pricing_sor");
+            classes.put("GENERAL_SUMMARY","pricing_general_summary"); classes.put("WORKS_PSS","works_related_pss");
+            classes.put("SL_NON_TECHNICAL","sl_nontechnical");
+            c.setSourceClass("standard_template".equals(identity.getSourcePurpose())?"drafting_standard_template":classes.get(identity.getKind()));
+        }
         c.setMetadataVersion(METADATA_VERSION); c.setSegmentationVersion(SEGMENTATION_VERSION);
         c.setNativeTableMetadataVersion(NATIVE_TABLE_METADATA_VERSION);
         c.setSourceQualityMetadataVersion(SOURCE_QUALITY_METADATA_VERSION); c.setSourceQualityHash(qualityHash);
@@ -312,6 +343,11 @@ public final class VettingCorpus {
             if (!split) p.setTable(nativeTables.get(item.getId()));
             else if (nativeTables.get(p.getBlockId()) != null)
                 p.setTableSlice(VettingNativeCellSlices.slice(c, p, nativeTables.get(p.getBlockId())));
+            if(!split) {
+                if(item.getWordCells()!=null&&!item.getWordCells().isEmpty())p.setWordCells(item.getWordCells());
+                if(item.getPdfGlyphs()!=null&&!item.getPdfGlyphs().isEmpty())p.setPdfGlyphs(item.getPdfGlyphs());
+                p.setPdfFormField(item.getPdfFormField()); p.setNativeVisibilityStatus(item.getNativeVisibilityStatus());
+            }
             p.setPageNo(item.getPageNo() == null ? null : "P" + item.getPageNo());
             if (item.getBbox() != null) p.setBbox(Arrays.stream(item.getBbox()).boxed().collect(Collectors.toList()));
             parts.add(p);
@@ -325,7 +361,9 @@ public final class VettingCorpus {
         if (located && c.getParts() != null) for (Part part : c.getParts()) {
             if (normalize(part.getText()).contains(normalize(quote))) { anchor = part.getAnchor(); page = part.getPageNo(); bbox = part.getBbox(); break; }
         }
-        return new FindingEvidence(side, c.getDocumentId(), c.getFileKey(), c.getFileName(), page, anchor, quote, located, c.getSourceHash(), bbox);
+        FindingEvidence evidence=new FindingEvidence(side, c.getDocumentId(), c.getFileKey(), c.getFileName(), page, anchor, quote, located,
+                c.getCanonicalEvidence()==null?c.getSourceHash():c.getCanonicalEvidence().getJavaParsedSourceHash(), bbox);
+        evidence.setCanonicalEvidence(c.getCanonicalEvidence());evidence.setOriginalSourceSha256(c.getOriginalSourceSha256());return evidence;
     }
     public static String normalize(String text) { return nvl(text).replaceAll("[\\s\\p{Z}]+", " ").trim(); }
     public static String hash(String text) {

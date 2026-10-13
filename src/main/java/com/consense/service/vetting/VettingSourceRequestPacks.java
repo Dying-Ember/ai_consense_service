@@ -128,7 +128,7 @@ public final class VettingSourceRequestPacks {
             retrieved.add(unit.originId);
             Request r=newRequest(out,"original_retrieval_structural_unit","retrieved_structural_unit",Collections.singletonList(unit.originId),null,ranks);
             r.setSourceTrace(new LinkedHashMap<>(unit.trace));
-            r.setOriginObservation(VettingReviewProbe.map("originalRetrievalSeedId",unit.originId,"structuralMembersCanBecomeLiteralOrigins",false,"selectionPolicy",VettingRetrievalSourceUnits.POLICY));
+            r.setOriginObservation(VettingReviewProbe.map("originalRetrievalSeedId",unit.originId,"structuralMembersCanBecomeLiteralOrigins",false,"selectionPolicy",unit.trace.get("selectionPolicy")));
             r.setUnknownReason("complete_observed_unit".equals(unit.status)?sourceStatus(seed):"structural_unit_unknown_"+unit.reason);
             for(String id:unit.ids){Chunk member=snapshot.get(id);if(member==null||!source(seed).equals(source(member)))throw new IllegalArgumentException("Retrieved structural unit canonical source differs");String state=sourceStatus(member);if(state!=null)r.setUnknownReason(state);}
             required(r,unit.ids);finishMissing(r,selected.keySet());
@@ -273,6 +273,7 @@ public final class VettingSourceRequestPacks {
     private String sourceStatus(Chunk c) {
         if(nvl(c.getDocumentId()).isEmpty()||!nvl(c.getSourceHash()).matches("[a-f0-9]{64}")||!Arrays.asList("tender","standard","project_fact","package_manifest").contains(c.getRole()))return "unknown_source_identity";
         if(documentIdentities.getOrDefault(c.getDocumentId(),Collections.emptySet()).size()!=1)return "ambiguous_document_source_identity";
+        if(c.getCanonicalPayload()!=null||c.getCanonicalEvidence()!=null)return OerBusinessEvidence.canonicalViewStatus(c);
         if(!VettingCorpus.METADATA_VERSION.equals(c.getMetadataVersion())||!VettingCorpus.SEGMENTATION_VERSION.equals(c.getSegmentationVersion())||!VettingCorpus.NATIVE_TABLE_METADATA_VERSION.equals(c.getNativeTableMetadataVersion())
                 ||!VettingSourceQuality.VERSION.equals(c.getSourceQualityMetadataVersion())||c.getSourceQuality()==null||!Objects.equals(c.getSourceQualityHash(),VettingSourceQuality.hash(c.getSourceQuality()))||!VettingSourceQuality.project(c).containsKey("observationScope"))return "unknown_source_quality_or_version";
         if(c.getParts()==null||c.getParts().isEmpty()||nvl(c.getAnchor()).isEmpty())return "unknown_source_part_mapping";

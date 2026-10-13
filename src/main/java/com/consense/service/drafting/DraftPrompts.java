@@ -106,7 +106,15 @@ public final class DraftPrompts {
             + "1. 只能使用「合同条款摘录」中的内容作答，不得使用任何外部知识或常识推断。\n"
             + "2. 每一条结论后面必须标注其依据的条款编号或来源文件。\n"
             + "3. 如果摘录不足以回答问题，必须明确回答找不到依据，不得猜测、不得补全。\n"
-            + "4. 回答保持简洁，直接回答被问到的问题。\n";
+            + "4. 回答保持简洁，直接回答被问到的问题；正式合约咨询答案使用英文。\n"
+            + "5. 资料角色必须区分：tender 是本次合约文字；standard 是须核对采用版本及范围的参考；project_fact 是沟通背景；package_manifest 是文件组成目录。样板答案不是本次合约依据。\n"
+            + "6. 不得把整份规范库默认视为全部适用。以项目指定版本、排除范围、明文引入及优先次序为准；项目 PRE 及项目修订如何替代对应规范库条款，必须按实际采用文字判断。版本或采用状态不明时说明缺少依据，不能直接选最新版本。\n"
+            + "7. 若答案取决于未提供的背景（例如招标还是合约执行阶段、合约类型、firm 或 provisional quantities），返回 grounded=false，answer 留空，在 clarifications 中给出具体澄清问题；不得猜测背景后给出确定答案。\n"
+            + "8. 每项合约结论引用实际摘录编号 [1]、[2] 等；citations 只列本次实际提供且用于回答的摘录编号，不得虚构条款或用检索排名代替引用。\n"
+            + "9. basisScope 默认 project_contract。若援引 standard 作本项目合约结论，必须同时引用 tender 中的采用、修订或引入依据。只有用户明确问标准条文本身的含义且不要求判断本次项目适用性时，才可设为 reference_only；这只是参考条文解释，不是项目合约结论。缺少采用依据的项目问题必须 grounded=false，追问版本或采用条款。\n"
+            + "10. 专业术语和缩写只按本次所供摘录中的明确定义展开；没有提供定义时保留原文缩写（例如 CM），不得猜测全称或改成其他角色。\n"
+            + "11. 判断缺漏前逐项核对本次实际所供摘录。区分已明确的版本、采用和排除事实与真正缺少的条文；missingReason 不得声称本次摘录已经明示的封面版本或排除说明没有提供。\n"
+            + "12. 采用、排除及优先次序的结论必须保留本次摘录中明确的例外和限定，例如 subject to、except、交叉引用所需的重新纳入、及条款运作范围。若摘录规定被排除库中的被引用条款仍按运作需要纳入，应同时说明一般排除与这项例外，不得断言该库全部条款永远不属于合约；这仅纳入相应运作范围内的被引用条款，也不意味着整库重新适用。替代及优先规则仍受明文采用和例外条件约束。引用整段而遗漏该段的明确例外，仍是错误结论。范围标志和完整性元数据不是合约条文。\n";
 
     public static final String ADVICE_USER_TEMPLATE =
             "【检索范围】%s\n"
@@ -120,11 +128,13 @@ public final class DraftPrompts {
             + "【输出格式】\n"
             + "{\n"
             + "  \"grounded\": true,\n"
+            + "  \"basisScope\": \"project_contract\",\n"
             + "  \"answer\": \"回答正文（若无依据则留空）\",\n"
-            + "  \"citations\": [\"SCC4.1 · Special Conditions of Contract\", \"GCC · General Conditions of Contract\"],\n"
-            + "  \"missingReason\": \"当 grounded 为 false 时，说明在选定范围内未找到哪些依据\"\n"
+            + "  \"citations\": [\"[1]\", \"[2]\"],\n"
+            + "  \"missingReason\": \"当 grounded 为 false 时，用英文说明缺少的条款或背景\",\n"
+            + "  \"clarifications\": [\"必须补充才能回答原问题的具体背景问题，使用英文；无需必要澄清则空数组。可选建议写在answer正文中\"]\n"
             + "}\n"
-            + "grounded 只能为 true 或 false。citations 必须是摘录中真实出现的条款编号或文件名。\n";
+            + "grounded 只能为 true 或 false。citations 必须是本次摘录真实编号。结论依据充分且无需澄清才能 grounded=true；若缺少必要背景，必须 grounded=false 并列出 clarifications。\n";
 }
 
 

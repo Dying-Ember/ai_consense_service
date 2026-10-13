@@ -1,11 +1,11 @@
-# Shared competition-sized evaluation budget; model choice does not enable a provider.
-# GPT-OSS-120B MXFP4 / Qwen approximately 120B MoE candidates, one review sequence.
-# Complete input (instructions + materials + schema) <= 98,304 provider-estimated tokens.
+# Vetting operation policy; model choice does not enable a provider or prove H800 capacity.
+# At least 256K total context; 512K is preferred under the current selection rules.
+# Complete input (instructions + materials + schema) <= 229,376 provider-estimated tokens.
 consense:
   vetting:
     responses:
       enabled: false
-      configured-context-tokens: 131072
+      configured-context-tokens: 262144
       max-output-tokens: 16384
       safety-margin-tokens: 16384
       counter-timeout-ms: 45000

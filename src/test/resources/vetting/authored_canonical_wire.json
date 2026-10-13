@@ -1,0 +1,2951 @@
+{
+  "purpose": "Authored wire contract; no real PDF/model/quality claim",
+  "projection": {
+    "schema": "consense.canonical-projection.v1",
+    "projectionIdentity": {
+      "version": "source-reviewed-whole-unit-projection-v1",
+      "projectionCodeSha256": "04ad81189bea16829be9f23353a81479b56a2ee945386bdd8b376fd37b724953",
+      "bundleSha256": "183725c1d56f9327e6aa397d99fb54d3f226d0b4dc08a8bc63a60679b89d0b9f",
+      "manifestSha256": "91af35f149efd75d432c12729fe05c3b5b187bb6b541dad084771f655a949f30",
+      "sourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0",
+      "sourceRevisionSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0",
+      "documentId": "42",
+      "role": "tender",
+      "module": "vetting",
+      "eligibleModules": [
+        "vetting",
+        "advisory"
+      ],
+      "sourcePurpose": "project_document",
+      "sourceClass": "project_pre",
+      "scopeSha256": "c66092634f72e365de67b532940d1c82328385a47748d62647e5f4a17848ff83",
+      "qualitySha256": "ab79381bb788e429d03ea3a18e95de435f5b9de435e826d7a22cc179bcd17d73",
+      "modelSha256": "78ed9aa2b7dbd4b2659a1b2fbde41428d55939b5f06f16db38714f5c366698d1"
+    },
+    "projectionRevisionSha256": "477fadb08e03e9714aa6bbbba38c8c6d07359632313665dd16ca17bbe0e89f3a",
+    "sourceHash": "cc5fc262eb62c4dcbe479a022917875edd14fd651dad38f38120c9d3f19159a3",
+    "source": {
+      "sourceFilename": "AUTHORED-project.pdf",
+      "mediaType": "application/pdf",
+      "sourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0",
+      "pageCount": 5,
+      "sourceRevisionSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0"
+    },
+    "manifest": {
+      "schema": "consense.canonical-adoption.v1",
+      "bundleSha256": "183725c1d56f9327e6aa397d99fb54d3f226d0b4dc08a8bc63a60679b89d0b9f",
+      "sourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0",
+      "sourceRevisionSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0",
+      "documentId": "42",
+      "role": "tender",
+      "module": "vetting",
+      "sourcePurpose": "project_document",
+      "eligibleModules": [
+        "vetting",
+        "advisory"
+      ],
+      "sourceClass": "project_pre",
+      "scope": {
+        "requiredPhysicalPages": [
+          3,
+          4
+        ],
+        "scopePolicySha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+      },
+      "quality": {
+        "parseStatus": "PARSED",
+        "semanticQuality": "unknown",
+        "version": "authored-quality-v1"
+      },
+      "reference": {
+        "actor": "codex",
+        "method": "original_source_review",
+        "sourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0",
+        "referenceVersion": "AUTHORED-source-review-not-gold",
+        "physicalPages": [
+          3,
+          4
+        ],
+        "evidence": {
+          "sourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0",
+          "purpose": "authored wire record; not an actual source review"
+        },
+        "evidenceSha256": "9794c0608685e9bd4c0d972792c72662e0219208ffb4eb8d04b608455a53b919"
+      },
+      "tableGroups": [
+        {
+          "tableGroupId": "authored-two-page-table",
+          "physicalPages": [
+            3,
+            4
+          ],
+          "candidates": {
+            "paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038": [
+              "paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038/page/3/block/1",
+              "paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038/page/4/block/1"
+            ],
+            "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1": [
+              "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1",
+              "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/4/block/1"
+            ]
+          }
+        }
+      ],
+      "units": [
+        {
+          "unitId": "heading",
+          "scope": "region",
+          "runId": "paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038",
+          "blockId": "paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038/page/3/block/0",
+          "reviewedAttributes": [
+            "text",
+            "geometry",
+            "clauseHierarchy"
+          ],
+          "clause": {
+            "clauseId": "A1",
+            "headingUnitId": "heading"
+          }
+        },
+        {
+          "unitId": "table",
+          "scope": "table_group",
+          "runId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1",
+          "tableGroupId": "authored-two-page-table",
+          "reviewedAttributes": [
+            "text",
+            "geometry",
+            "tableTopology",
+            "assetBoundary",
+            "clauseHierarchy"
+          ],
+          "clause": {
+            "clauseId": "A1",
+            "headingUnitId": "heading"
+          }
+        }
+      ],
+      "relations": [
+        {
+          "type": "parent",
+          "fromUnitId": "table",
+          "toUnitId": "heading"
+        }
+      ],
+      "assets": []
+    },
+    "parserIdentities": {
+      "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1": {
+        "parserVersion": "AUTHORED-v1",
+        "engine": "AUTHORED-no-inference",
+        "models": [
+          {
+            "modelId": "mineru-fixture",
+            "revision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+          }
+        ],
+        "config": {
+          "authoredFixture": true
+        },
+        "configSha256": "5250dc563b8b2adc42aafb7ad80493e79657ba371e164ae82bc41da413fe037a",
+        "modelIdentityStatus": "declared_pinned",
+        "parser": "mineru",
+        "identitySha256": "bed1890f78b3341c2e42dde048c7b53a180db8f6faa317262f037da523890139"
+      },
+      "paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038": {
+        "parserVersion": "AUTHORED-v1",
+        "engine": "AUTHORED-no-inference",
+        "models": [
+          {
+            "modelId": "paddleocr-vl-fixture",
+            "revision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+          }
+        ],
+        "config": {
+          "authoredFixture": true
+        },
+        "configSha256": "5250dc563b8b2adc42aafb7ad80493e79657ba371e164ae82bc41da413fe037a",
+        "modelIdentityStatus": "declared_pinned",
+        "parser": "paddleocr-vl",
+        "identitySha256": "0508cc4756af07fb41e837dd9f5a4f2303c34a7d00e4384417c272c57bf1359f"
+      }
+    },
+    "canonical": {
+      "units": [
+        {
+          "unitId": "heading",
+          "scope": "region",
+          "runId": "paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038",
+          "blockId": "paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038/page/3/block/0",
+          "reviewedAttributes": [
+            "text",
+            "geometry",
+            "clauseHierarchy"
+          ],
+          "clause": {
+            "clauseId": "A1",
+            "headingUnitId": "heading"
+          },
+          "parts": [
+            {
+              "blockId": "paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038/page/3/block/0",
+              "anchor": "page/3/paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038/page/3/block/0",
+              "text": "A1 Contract requirements",
+              "candidateLabel": "text",
+              "startOffset": 0,
+              "endOffset": 24,
+              "physicalPageNo": 3,
+              "sourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0",
+              "bbox": [
+                0.01,
+                0.005,
+                0.9,
+                0.05
+              ],
+              "bboxConvention": "normalized_xyxy_original_page",
+              "geometryEvidence": {
+                "status": "verified",
+                "reason": "explicit_input_and_source_bound_transform",
+                "xyxyNormalized": [
+                  0.01,
+                  0.005,
+                  0.9,
+                  0.05
+                ],
+                "xyxyOriginal": [
+                  10,
+                  10,
+                  900,
+                  100
+                ],
+                "polygonOriginal": [
+                  [
+                    10,
+                    10
+                  ],
+                  [
+                    900,
+                    10
+                  ],
+                  [
+                    900,
+                    100
+                  ],
+                  [
+                    10,
+                    100
+                  ]
+                ],
+                "targetFrame": {
+                  "coordinateFrame": "original_page",
+                  "coordinateUnit": "pixel",
+                  "width": 1000,
+                  "height": 2000,
+                  "physicalPageNo": 3,
+                  "sourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0"
+                },
+                "transformSha256": "1dd7d424bdea3563f51d0831a679221e989e5a7168923b6ef91ef89c617cc9e1"
+              },
+              "candidateProvenance": {
+                "runId": "paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038",
+                "parser": "paddleocr-vl",
+                "parserIdentitySha256": "0508cc4756af07fb41e837dd9f5a4f2303c34a7d00e4384417c272c57bf1359f",
+                "configSha256": "5250dc563b8b2adc42aafb7ad80493e79657ba371e164ae82bc41da413fe037a",
+                "raw": {
+                  "output": "page_json",
+                  "pointer": "/0/parsing_res_list/0",
+                  "textField": "block_content"
+                },
+                "providerBlockId": "heading"
+              },
+              "declaredRelationships": {},
+              "qualityAttributes": {
+                "semanticQuality": "unknown",
+                "editState": "unknown",
+                "blankMeaning": "unknown",
+                "headerRelations": "unknown",
+                "crossPageRelations": "unknown",
+                "qualifiersComplete": "unknown"
+              },
+              "native": false,
+              "candidateTextStatus": "parser_observed_unverified"
+            }
+          ],
+          "physicalPages": [
+            3
+          ],
+          "reviewStatus": "explicit_source_reviewed_selection",
+          "referenceSha256": "9794c0608685e9bd4c0d972792c72662e0219208ffb4eb8d04b608455a53b919",
+          "humanConfirmed": false,
+          "clauseHeadingLocation": "page/3/paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038/page/3/block/0"
+        },
+        {
+          "unitId": "table",
+          "scope": "table_group",
+          "runId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1",
+          "tableGroupId": "authored-two-page-table",
+          "reviewedAttributes": [
+            "text",
+            "geometry",
+            "tableTopology",
+            "assetBoundary",
+            "clauseHierarchy"
+          ],
+          "clause": {
+            "clauseId": "A1",
+            "headingUnitId": "heading"
+          },
+          "parts": [
+            {
+              "blockId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1",
+              "anchor": "page/3/mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1",
+              "text": "<table><tr><th>Item</th><th>Offer</th></tr><tr><td>3 — Must not 😀</td><td></td></tr></table>",
+              "candidateLabel": "table",
+              "startOffset": 0,
+              "endOffset": 93,
+              "physicalPageNo": 3,
+              "sourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0",
+              "bbox": [
+                0.1,
+                0.1,
+                0.9,
+                0.8
+              ],
+              "bboxConvention": "normalized_xyxy_original_page",
+              "geometryEvidence": {
+                "status": "verified",
+                "reason": "explicit_input_and_source_bound_transform",
+                "xyxyNormalized": [
+                  0.1,
+                  0.1,
+                  0.9,
+                  0.8
+                ],
+                "xyxyOriginal": [
+                  100,
+                  200,
+                  900,
+                  1600
+                ],
+                "polygonOriginal": [
+                  [
+                    100,
+                    200
+                  ],
+                  [
+                    900,
+                    200
+                  ],
+                  [
+                    900,
+                    1600
+                  ],
+                  [
+                    100,
+                    1600
+                  ]
+                ],
+                "targetFrame": {
+                  "coordinateFrame": "original_page",
+                  "coordinateUnit": "pixel",
+                  "width": 1000,
+                  "height": 2000,
+                  "physicalPageNo": 3,
+                  "sourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0"
+                },
+                "transformSha256": "1dd7d424bdea3563f51d0831a679221e989e5a7168923b6ef91ef89c617cc9e1"
+              },
+              "candidateProvenance": {
+                "runId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1",
+                "parser": "mineru",
+                "parserIdentitySha256": "bed1890f78b3341c2e42dde048c7b53a180db8f6faa317262f037da523890139",
+                "configSha256": "5250dc563b8b2adc42aafb7ad80493e79657ba371e164ae82bc41da413fe037a",
+                "raw": {
+                  "output": "middle_json",
+                  "pointer": "/pages/0/blocks/1",
+                  "textField": "content"
+                },
+                "providerBlockId": "table"
+              },
+              "declaredRelationships": {},
+              "qualityAttributes": {
+                "semanticQuality": "unknown",
+                "editState": "unknown",
+                "blankMeaning": "unknown",
+                "headerRelations": "unknown",
+                "crossPageRelations": "unknown",
+                "qualifiersComplete": "unknown"
+              },
+              "native": false,
+              "candidateTextStatus": "parser_observed_unverified",
+              "table": {
+                "tableGroupId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1/table",
+                "html": "<table><tr><th>Item</th><th>Offer</th></tr><tr><td>3 — Must not 😀</td><td></td></tr></table>",
+                "cells": [
+                  {
+                    "row": 0,
+                    "column": 0,
+                    "rowSpan": 1,
+                    "columnSpan": 1,
+                    "htmlTag": "th",
+                    "text": "Item",
+                    "attributes": {},
+                    "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1/cell/0",
+                    "nativeCell": false,
+                    "bbox": null,
+                    "bboxStatus": "not_supplied",
+                    "headerStatus": "unknown",
+                    "textStatus": "parser_observed_unverified",
+                    "provenance": {
+                      "pointer": "/pages/0/blocks/1/content",
+                      "htmlCellOrdinal": 0,
+                      "output": "middle_json"
+                    }
+                  },
+                  {
+                    "row": 0,
+                    "column": 1,
+                    "rowSpan": 1,
+                    "columnSpan": 1,
+                    "htmlTag": "th",
+                    "text": "Offer",
+                    "attributes": {},
+                    "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1/cell/1",
+                    "nativeCell": false,
+                    "bbox": null,
+                    "bboxStatus": "not_supplied",
+                    "headerStatus": "unknown",
+                    "textStatus": "parser_observed_unverified",
+                    "provenance": {
+                      "pointer": "/pages/0/blocks/1/content",
+                      "htmlCellOrdinal": 1,
+                      "output": "middle_json"
+                    }
+                  },
+                  {
+                    "row": 1,
+                    "column": 0,
+                    "rowSpan": 1,
+                    "columnSpan": 1,
+                    "htmlTag": "td",
+                    "text": "3 — Must not 😀",
+                    "attributes": {},
+                    "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1/cell/2",
+                    "nativeCell": false,
+                    "bbox": null,
+                    "bboxStatus": "not_supplied",
+                    "headerStatus": "unknown",
+                    "textStatus": "parser_observed_unverified",
+                    "provenance": {
+                      "pointer": "/pages/0/blocks/1/content",
+                      "htmlCellOrdinal": 2,
+                      "output": "middle_json"
+                    }
+                  },
+                  {
+                    "row": 1,
+                    "column": 1,
+                    "rowSpan": 1,
+                    "columnSpan": 1,
+                    "htmlTag": "td",
+                    "text": "",
+                    "attributes": {},
+                    "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1/cell/3",
+                    "nativeCell": false,
+                    "bbox": null,
+                    "bboxStatus": "not_supplied",
+                    "headerStatus": "unknown",
+                    "textStatus": "blank_meaning_unknown",
+                    "provenance": {
+                      "pointer": "/pages/0/blocks/1/content",
+                      "htmlCellOrdinal": 3,
+                      "output": "middle_json"
+                    }
+                  }
+                ],
+                "groupPolicy": "whole_table_only",
+                "nativeTable": false,
+                "structureStatus": "parser_observed_unverified",
+                "headerRelationsStatus": "unknown",
+                "crossPageRelationsStatus": "unknown",
+                "declaredRelationships": {},
+                "declaredCellObservations": null,
+                "issues": [],
+                "provenance": {
+                  "pointer": "/pages/0/blocks/1",
+                  "htmlPointer": "/pages/0/blocks/1/content",
+                  "output": "middle_json"
+                }
+              },
+              "cells": [
+                {
+                  "row": 0,
+                  "column": 0,
+                  "rowSpan": 1,
+                  "columnSpan": 1,
+                  "htmlTag": "th",
+                  "text": "Item",
+                  "attributes": {},
+                  "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1/cell/0",
+                  "nativeCell": false,
+                  "bbox": null,
+                  "bboxStatus": "not_supplied",
+                  "headerStatus": "unknown",
+                  "textStatus": "parser_observed_unverified",
+                  "provenance": {
+                    "pointer": "/pages/0/blocks/1/content",
+                    "htmlCellOrdinal": 0,
+                    "output": "middle_json"
+                  }
+                },
+                {
+                  "row": 0,
+                  "column": 1,
+                  "rowSpan": 1,
+                  "columnSpan": 1,
+                  "htmlTag": "th",
+                  "text": "Offer",
+                  "attributes": {},
+                  "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1/cell/1",
+                  "nativeCell": false,
+                  "bbox": null,
+                  "bboxStatus": "not_supplied",
+                  "headerStatus": "unknown",
+                  "textStatus": "parser_observed_unverified",
+                  "provenance": {
+                    "pointer": "/pages/0/blocks/1/content",
+                    "htmlCellOrdinal": 1,
+                    "output": "middle_json"
+                  }
+                },
+                {
+                  "row": 1,
+                  "column": 0,
+                  "rowSpan": 1,
+                  "columnSpan": 1,
+                  "htmlTag": "td",
+                  "text": "3 — Must not 😀",
+                  "attributes": {},
+                  "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1/cell/2",
+                  "nativeCell": false,
+                  "bbox": null,
+                  "bboxStatus": "not_supplied",
+                  "headerStatus": "unknown",
+                  "textStatus": "parser_observed_unverified",
+                  "provenance": {
+                    "pointer": "/pages/0/blocks/1/content",
+                    "htmlCellOrdinal": 2,
+                    "output": "middle_json"
+                  }
+                },
+                {
+                  "row": 1,
+                  "column": 1,
+                  "rowSpan": 1,
+                  "columnSpan": 1,
+                  "htmlTag": "td",
+                  "text": "",
+                  "attributes": {},
+                  "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1/cell/3",
+                  "nativeCell": false,
+                  "bbox": null,
+                  "bboxStatus": "not_supplied",
+                  "headerStatus": "unknown",
+                  "textStatus": "blank_meaning_unknown",
+                  "provenance": {
+                    "pointer": "/pages/0/blocks/1/content",
+                    "htmlCellOrdinal": 3,
+                    "output": "middle_json"
+                  }
+                }
+              ],
+              "nativeCell": false,
+              "nativeTable": false
+            },
+            {
+              "blockId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/4/block/1",
+              "anchor": "page/4/mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/4/block/1",
+              "text": "<table><tr><th>Item</th><th>Offer</th></tr><tr><td>4 — Must not 😀</td><td></td></tr></table>",
+              "candidateLabel": "table",
+              "startOffset": 0,
+              "endOffset": 93,
+              "physicalPageNo": 4,
+              "sourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0",
+              "bbox": [
+                0.1,
+                0.1,
+                0.9,
+                0.8
+              ],
+              "bboxConvention": "normalized_xyxy_original_page",
+              "geometryEvidence": {
+                "status": "verified",
+                "reason": "explicit_input_and_source_bound_transform",
+                "xyxyNormalized": [
+                  0.1,
+                  0.1,
+                  0.9,
+                  0.8
+                ],
+                "xyxyOriginal": [
+                  100,
+                  200,
+                  900,
+                  1600
+                ],
+                "polygonOriginal": [
+                  [
+                    100,
+                    200
+                  ],
+                  [
+                    900,
+                    200
+                  ],
+                  [
+                    900,
+                    1600
+                  ],
+                  [
+                    100,
+                    1600
+                  ]
+                ],
+                "targetFrame": {
+                  "coordinateFrame": "original_page",
+                  "coordinateUnit": "pixel",
+                  "width": 1000,
+                  "height": 2000,
+                  "physicalPageNo": 4,
+                  "sourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0"
+                },
+                "transformSha256": "c3bbfd1948c4f8bd3220efa5307f255aa3657b3c25fafb7a3abd9d5a4bb23c51"
+              },
+              "candidateProvenance": {
+                "runId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1",
+                "parser": "mineru",
+                "parserIdentitySha256": "bed1890f78b3341c2e42dde048c7b53a180db8f6faa317262f037da523890139",
+                "configSha256": "5250dc563b8b2adc42aafb7ad80493e79657ba371e164ae82bc41da413fe037a",
+                "raw": {
+                  "output": "middle_json",
+                  "pointer": "/pages/1/blocks/1",
+                  "textField": "content"
+                },
+                "providerBlockId": "table"
+              },
+              "declaredRelationships": {},
+              "qualityAttributes": {
+                "semanticQuality": "unknown",
+                "editState": "unknown",
+                "blankMeaning": "unknown",
+                "headerRelations": "unknown",
+                "crossPageRelations": "unknown",
+                "qualifiersComplete": "unknown"
+              },
+              "native": false,
+              "candidateTextStatus": "parser_observed_unverified",
+              "table": {
+                "tableGroupId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/4/block/1/table",
+                "html": "<table><tr><th>Item</th><th>Offer</th></tr><tr><td>4 — Must not 😀</td><td></td></tr></table>",
+                "cells": [
+                  {
+                    "row": 0,
+                    "column": 0,
+                    "rowSpan": 1,
+                    "columnSpan": 1,
+                    "htmlTag": "th",
+                    "text": "Item",
+                    "attributes": {},
+                    "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/4/block/1/cell/0",
+                    "nativeCell": false,
+                    "bbox": null,
+                    "bboxStatus": "not_supplied",
+                    "headerStatus": "unknown",
+                    "textStatus": "parser_observed_unverified",
+                    "provenance": {
+                      "pointer": "/pages/1/blocks/1/content",
+                      "htmlCellOrdinal": 0,
+                      "output": "middle_json"
+                    }
+                  },
+                  {
+                    "row": 0,
+                    "column": 1,
+                    "rowSpan": 1,
+                    "columnSpan": 1,
+                    "htmlTag": "th",
+                    "text": "Offer",
+                    "attributes": {},
+                    "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/4/block/1/cell/1",
+                    "nativeCell": false,
+                    "bbox": null,
+                    "bboxStatus": "not_supplied",
+                    "headerStatus": "unknown",
+                    "textStatus": "parser_observed_unverified",
+                    "provenance": {
+                      "pointer": "/pages/1/blocks/1/content",
+                      "htmlCellOrdinal": 1,
+                      "output": "middle_json"
+                    }
+                  },
+                  {
+                    "row": 1,
+                    "column": 0,
+                    "rowSpan": 1,
+                    "columnSpan": 1,
+                    "htmlTag": "td",
+                    "text": "4 — Must not 😀",
+                    "attributes": {},
+                    "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/4/block/1/cell/2",
+                    "nativeCell": false,
+                    "bbox": null,
+                    "bboxStatus": "not_supplied",
+                    "headerStatus": "unknown",
+                    "textStatus": "parser_observed_unverified",
+                    "provenance": {
+                      "pointer": "/pages/1/blocks/1/content",
+                      "htmlCellOrdinal": 2,
+                      "output": "middle_json"
+                    }
+                  },
+                  {
+                    "row": 1,
+                    "column": 1,
+                    "rowSpan": 1,
+                    "columnSpan": 1,
+                    "htmlTag": "td",
+                    "text": "",
+                    "attributes": {},
+                    "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/4/block/1/cell/3",
+                    "nativeCell": false,
+                    "bbox": null,
+                    "bboxStatus": "not_supplied",
+                    "headerStatus": "unknown",
+                    "textStatus": "blank_meaning_unknown",
+                    "provenance": {
+                      "pointer": "/pages/1/blocks/1/content",
+                      "htmlCellOrdinal": 3,
+                      "output": "middle_json"
+                    }
+                  }
+                ],
+                "groupPolicy": "whole_table_only",
+                "nativeTable": false,
+                "structureStatus": "parser_observed_unverified",
+                "headerRelationsStatus": "unknown",
+                "crossPageRelationsStatus": "unknown",
+                "declaredRelationships": {},
+                "declaredCellObservations": null,
+                "issues": [],
+                "provenance": {
+                  "pointer": "/pages/1/blocks/1",
+                  "htmlPointer": "/pages/1/blocks/1/content",
+                  "output": "middle_json"
+                }
+              },
+              "cells": [
+                {
+                  "row": 0,
+                  "column": 0,
+                  "rowSpan": 1,
+                  "columnSpan": 1,
+                  "htmlTag": "th",
+                  "text": "Item",
+                  "attributes": {},
+                  "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/4/block/1/cell/0",
+                  "nativeCell": false,
+                  "bbox": null,
+                  "bboxStatus": "not_supplied",
+                  "headerStatus": "unknown",
+                  "textStatus": "parser_observed_unverified",
+                  "provenance": {
+                    "pointer": "/pages/1/blocks/1/content",
+                    "htmlCellOrdinal": 0,
+                    "output": "middle_json"
+                  }
+                },
+                {
+                  "row": 0,
+                  "column": 1,
+                  "rowSpan": 1,
+                  "columnSpan": 1,
+                  "htmlTag": "th",
+                  "text": "Offer",
+                  "attributes": {},
+                  "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/4/block/1/cell/1",
+                  "nativeCell": false,
+                  "bbox": null,
+                  "bboxStatus": "not_supplied",
+                  "headerStatus": "unknown",
+                  "textStatus": "parser_observed_unverified",
+                  "provenance": {
+                    "pointer": "/pages/1/blocks/1/content",
+                    "htmlCellOrdinal": 1,
+                    "output": "middle_json"
+                  }
+                },
+                {
+                  "row": 1,
+                  "column": 0,
+                  "rowSpan": 1,
+                  "columnSpan": 1,
+                  "htmlTag": "td",
+                  "text": "4 — Must not 😀",
+                  "attributes": {},
+                  "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/4/block/1/cell/2",
+                  "nativeCell": false,
+                  "bbox": null,
+                  "bboxStatus": "not_supplied",
+                  "headerStatus": "unknown",
+                  "textStatus": "parser_observed_unverified",
+                  "provenance": {
+                    "pointer": "/pages/1/blocks/1/content",
+                    "htmlCellOrdinal": 2,
+                    "output": "middle_json"
+                  }
+                },
+                {
+                  "row": 1,
+                  "column": 1,
+                  "rowSpan": 1,
+                  "columnSpan": 1,
+                  "htmlTag": "td",
+                  "text": "",
+                  "attributes": {},
+                  "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/4/block/1/cell/3",
+                  "nativeCell": false,
+                  "bbox": null,
+                  "bboxStatus": "not_supplied",
+                  "headerStatus": "unknown",
+                  "textStatus": "blank_meaning_unknown",
+                  "provenance": {
+                    "pointer": "/pages/1/blocks/1/content",
+                    "htmlCellOrdinal": 3,
+                    "output": "middle_json"
+                  }
+                }
+              ],
+              "nativeCell": false,
+              "nativeTable": false
+            }
+          ],
+          "physicalPages": [
+            3,
+            4
+          ],
+          "reviewStatus": "explicit_source_reviewed_selection",
+          "referenceSha256": "9794c0608685e9bd4c0d972792c72662e0219208ffb4eb8d04b608455a53b919",
+          "humanConfirmed": false,
+          "clauseHeadingLocation": "page/3/paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038/page/3/block/0"
+        }
+      ],
+      "relations": [
+        {
+          "type": "parent",
+          "fromUnitId": "table",
+          "toUnitId": "heading",
+          "status": "explicit_source_reviewed",
+          "referenceSha256": "9794c0608685e9bd4c0d972792c72662e0219208ffb4eb8d04b608455a53b919"
+        }
+      ],
+      "assetRefs": []
+    },
+    "chunks": [
+      {
+        "id": "canonical:bb2c22272db3a74ae49b2d9b79259cdb4c081ca9bbe0bb25e2bf73e5f740cf4d",
+        "documentId": "42",
+        "role": "tender",
+        "content": "A1 Contract requirements",
+        "parts": [
+          {
+            "blockId": "paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038/page/3/block/0",
+            "anchor": "page/3/paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038/page/3/block/0",
+            "text": "A1 Contract requirements",
+            "candidateLabel": "text",
+            "startOffset": 0,
+            "endOffset": 24,
+            "physicalPageNo": 3,
+            "sourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0",
+            "bbox": [
+              0.01,
+              0.005,
+              0.9,
+              0.05
+            ],
+            "bboxConvention": "normalized_xyxy_original_page",
+            "geometryEvidence": {
+              "status": "verified",
+              "reason": "explicit_input_and_source_bound_transform",
+              "xyxyNormalized": [
+                0.01,
+                0.005,
+                0.9,
+                0.05
+              ],
+              "xyxyOriginal": [
+                10,
+                10,
+                900,
+                100
+              ],
+              "polygonOriginal": [
+                [
+                  10,
+                  10
+                ],
+                [
+                  900,
+                  10
+                ],
+                [
+                  900,
+                  100
+                ],
+                [
+                  10,
+                  100
+                ]
+              ],
+              "targetFrame": {
+                "coordinateFrame": "original_page",
+                "coordinateUnit": "pixel",
+                "width": 1000,
+                "height": 2000,
+                "physicalPageNo": 3,
+                "sourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0"
+              },
+              "transformSha256": "1dd7d424bdea3563f51d0831a679221e989e5a7168923b6ef91ef89c617cc9e1"
+            },
+            "candidateProvenance": {
+              "runId": "paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038",
+              "parser": "paddleocr-vl",
+              "parserIdentitySha256": "0508cc4756af07fb41e837dd9f5a4f2303c34a7d00e4384417c272c57bf1359f",
+              "configSha256": "5250dc563b8b2adc42aafb7ad80493e79657ba371e164ae82bc41da413fe037a",
+              "raw": {
+                "output": "page_json",
+                "pointer": "/0/parsing_res_list/0",
+                "textField": "block_content"
+              },
+              "providerBlockId": "heading"
+            },
+            "declaredRelationships": {},
+            "qualityAttributes": {
+              "semanticQuality": "unknown",
+              "editState": "unknown",
+              "blankMeaning": "unknown",
+              "headerRelations": "unknown",
+              "crossPageRelations": "unknown",
+              "qualifiersComplete": "unknown"
+            },
+            "native": false,
+            "candidateTextStatus": "parser_observed_unverified"
+          }
+        ],
+        "anchor": "page/3/paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038/page/3/block/0",
+        "pageNo": 3,
+        "physicalPages": [
+          3
+        ],
+        "sourceSpans": [
+          {
+            "physicalPageStart": 3,
+            "physicalPageEnd": 3,
+            "blockId": "paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038/page/3/block/0",
+            "bbox": [
+              0.01,
+              0.005,
+              0.9,
+              0.05
+            ],
+            "startOffset": 0,
+            "endOffset": 24,
+            "sourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0"
+          }
+        ],
+        "sourceHash": "cc5fc262eb62c4dcbe479a022917875edd14fd651dad38f38120c9d3f19159a3",
+        "sourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0",
+        "originalSourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0",
+        "sourceRevisionSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0",
+        "projectionRevisionSha256": "477fadb08e03e9714aa6bbbba38c8c6d07359632313665dd16ca17bbe0e89f3a",
+        "projectionVersion": "source-reviewed-whole-unit-projection-v1",
+        "metadataVersion": "source-reviewed-whole-unit-projection-v1",
+        "segmentationVersion": "explicit-whole-unit-source-order-v1",
+        "nativeTableMetadataVersion": "parser-observed-cells-not-native-v1",
+        "sourceQualityMetadataVersion": "source-review-attribute-preservation-v1",
+        "sourceQualityHash": "ab79381bb788e429d03ea3a18e95de435f5b9de435e826d7a22cc179bcd17d73",
+        "sourceQuality": {
+          "parseStatus": "PARSED",
+          "semanticQuality": "unknown",
+          "version": "authored-quality-v1",
+          "attributes": {
+            "semanticQuality": "unknown",
+            "editState": "unknown",
+            "blankMeaning": "unknown",
+            "headerRelations": "unknown",
+            "crossPageRelations": "unknown",
+            "qualifiersComplete": "unknown"
+          },
+          "reviewMeaning": "Explicit source-reviewed selection; no whole-source semantic verification"
+        },
+        "unitId": "heading",
+        "sourceOrder": 0,
+        "canonicalScope": "region",
+        "sourceClass": "project_pre",
+        "sourcePurpose": "project_document",
+        "eligibleModules": [
+          "vetting",
+          "advisory"
+        ],
+        "module": "vetting",
+        "adoption": {
+          "unitId": "heading",
+          "scope": "region",
+          "runId": "paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038",
+          "blockId": "paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038/page/3/block/0",
+          "reviewedAttributes": [
+            "text",
+            "geometry",
+            "clauseHierarchy"
+          ],
+          "clause": {
+            "clauseId": "A1",
+            "headingUnitId": "heading"
+          },
+          "physicalPages": [
+            3
+          ],
+          "reviewStatus": "explicit_source_reviewed_selection",
+          "referenceSha256": "9794c0608685e9bd4c0d972792c72662e0219208ffb4eb8d04b608455a53b919",
+          "humanConfirmed": false,
+          "clauseHeadingLocation": "page/3/paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038/page/3/block/0"
+        },
+        "relations": [
+          {
+            "type": "parent",
+            "fromUnitId": "table",
+            "toUnitId": "heading",
+            "status": "explicit_source_reviewed",
+            "referenceSha256": "9794c0608685e9bd4c0d972792c72662e0219208ffb4eb8d04b608455a53b919"
+          }
+        ],
+        "assetRefs": [],
+        "humanConfirmed": false,
+        "clauseId": "A1",
+        "clauseHeadingLocation": "page/3/paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038/page/3/block/0"
+      },
+      {
+        "id": "canonical:ab7eb00c0a97b3bed10159cdac28b324e55906aec0df9c0f24ac9048202a26a7",
+        "documentId": "42",
+        "role": "tender",
+        "content": "<table><tr><th>Item</th><th>Offer</th></tr><tr><td>3 — Must not 😀</td><td></td></tr></table>\n<table><tr><th>Item</th><th>Offer</th></tr><tr><td>4 — Must not 😀</td><td></td></tr></table>",
+        "parts": [
+          {
+            "blockId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1",
+            "anchor": "page/3/mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1",
+            "text": "<table><tr><th>Item</th><th>Offer</th></tr><tr><td>3 — Must not 😀</td><td></td></tr></table>",
+            "candidateLabel": "table",
+            "startOffset": 0,
+            "endOffset": 93,
+            "physicalPageNo": 3,
+            "sourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0",
+            "bbox": [
+              0.1,
+              0.1,
+              0.9,
+              0.8
+            ],
+            "bboxConvention": "normalized_xyxy_original_page",
+            "geometryEvidence": {
+              "status": "verified",
+              "reason": "explicit_input_and_source_bound_transform",
+              "xyxyNormalized": [
+                0.1,
+                0.1,
+                0.9,
+                0.8
+              ],
+              "xyxyOriginal": [
+                100,
+                200,
+                900,
+                1600
+              ],
+              "polygonOriginal": [
+                [
+                  100,
+                  200
+                ],
+                [
+                  900,
+                  200
+                ],
+                [
+                  900,
+                  1600
+                ],
+                [
+                  100,
+                  1600
+                ]
+              ],
+              "targetFrame": {
+                "coordinateFrame": "original_page",
+                "coordinateUnit": "pixel",
+                "width": 1000,
+                "height": 2000,
+                "physicalPageNo": 3,
+                "sourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0"
+              },
+              "transformSha256": "1dd7d424bdea3563f51d0831a679221e989e5a7168923b6ef91ef89c617cc9e1"
+            },
+            "candidateProvenance": {
+              "runId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1",
+              "parser": "mineru",
+              "parserIdentitySha256": "bed1890f78b3341c2e42dde048c7b53a180db8f6faa317262f037da523890139",
+              "configSha256": "5250dc563b8b2adc42aafb7ad80493e79657ba371e164ae82bc41da413fe037a",
+              "raw": {
+                "output": "middle_json",
+                "pointer": "/pages/0/blocks/1",
+                "textField": "content"
+              },
+              "providerBlockId": "table"
+            },
+            "declaredRelationships": {},
+            "qualityAttributes": {
+              "semanticQuality": "unknown",
+              "editState": "unknown",
+              "blankMeaning": "unknown",
+              "headerRelations": "unknown",
+              "crossPageRelations": "unknown",
+              "qualifiersComplete": "unknown"
+            },
+            "native": false,
+            "candidateTextStatus": "parser_observed_unverified",
+            "table": {
+              "tableGroupId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1/table",
+              "html": "<table><tr><th>Item</th><th>Offer</th></tr><tr><td>3 — Must not 😀</td><td></td></tr></table>",
+              "cells": [
+                {
+                  "row": 0,
+                  "column": 0,
+                  "rowSpan": 1,
+                  "columnSpan": 1,
+                  "htmlTag": "th",
+                  "text": "Item",
+                  "attributes": {},
+                  "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1/cell/0",
+                  "nativeCell": false,
+                  "bbox": null,
+                  "bboxStatus": "not_supplied",
+                  "headerStatus": "unknown",
+                  "textStatus": "parser_observed_unverified",
+                  "provenance": {
+                    "pointer": "/pages/0/blocks/1/content",
+                    "htmlCellOrdinal": 0,
+                    "output": "middle_json"
+                  }
+                },
+                {
+                  "row": 0,
+                  "column": 1,
+                  "rowSpan": 1,
+                  "columnSpan": 1,
+                  "htmlTag": "th",
+                  "text": "Offer",
+                  "attributes": {},
+                  "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1/cell/1",
+                  "nativeCell": false,
+                  "bbox": null,
+                  "bboxStatus": "not_supplied",
+                  "headerStatus": "unknown",
+                  "textStatus": "parser_observed_unverified",
+                  "provenance": {
+                    "pointer": "/pages/0/blocks/1/content",
+                    "htmlCellOrdinal": 1,
+                    "output": "middle_json"
+                  }
+                },
+                {
+                  "row": 1,
+                  "column": 0,
+                  "rowSpan": 1,
+                  "columnSpan": 1,
+                  "htmlTag": "td",
+                  "text": "3 — Must not 😀",
+                  "attributes": {},
+                  "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1/cell/2",
+                  "nativeCell": false,
+                  "bbox": null,
+                  "bboxStatus": "not_supplied",
+                  "headerStatus": "unknown",
+                  "textStatus": "parser_observed_unverified",
+                  "provenance": {
+                    "pointer": "/pages/0/blocks/1/content",
+                    "htmlCellOrdinal": 2,
+                    "output": "middle_json"
+                  }
+                },
+                {
+                  "row": 1,
+                  "column": 1,
+                  "rowSpan": 1,
+                  "columnSpan": 1,
+                  "htmlTag": "td",
+                  "text": "",
+                  "attributes": {},
+                  "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1/cell/3",
+                  "nativeCell": false,
+                  "bbox": null,
+                  "bboxStatus": "not_supplied",
+                  "headerStatus": "unknown",
+                  "textStatus": "blank_meaning_unknown",
+                  "provenance": {
+                    "pointer": "/pages/0/blocks/1/content",
+                    "htmlCellOrdinal": 3,
+                    "output": "middle_json"
+                  }
+                }
+              ],
+              "groupPolicy": "whole_table_only",
+              "nativeTable": false,
+              "structureStatus": "parser_observed_unverified",
+              "headerRelationsStatus": "unknown",
+              "crossPageRelationsStatus": "unknown",
+              "declaredRelationships": {},
+              "declaredCellObservations": null,
+              "issues": [],
+              "provenance": {
+                "pointer": "/pages/0/blocks/1",
+                "htmlPointer": "/pages/0/blocks/1/content",
+                "output": "middle_json"
+              }
+            },
+            "cells": [
+              {
+                "row": 0,
+                "column": 0,
+                "rowSpan": 1,
+                "columnSpan": 1,
+                "htmlTag": "th",
+                "text": "Item",
+                "attributes": {},
+                "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1/cell/0",
+                "nativeCell": false,
+                "bbox": null,
+                "bboxStatus": "not_supplied",
+                "headerStatus": "unknown",
+                "textStatus": "parser_observed_unverified",
+                "provenance": {
+                  "pointer": "/pages/0/blocks/1/content",
+                  "htmlCellOrdinal": 0,
+                  "output": "middle_json"
+                }
+              },
+              {
+                "row": 0,
+                "column": 1,
+                "rowSpan": 1,
+                "columnSpan": 1,
+                "htmlTag": "th",
+                "text": "Offer",
+                "attributes": {},
+                "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1/cell/1",
+                "nativeCell": false,
+                "bbox": null,
+                "bboxStatus": "not_supplied",
+                "headerStatus": "unknown",
+                "textStatus": "parser_observed_unverified",
+                "provenance": {
+                  "pointer": "/pages/0/blocks/1/content",
+                  "htmlCellOrdinal": 1,
+                  "output": "middle_json"
+                }
+              },
+              {
+                "row": 1,
+                "column": 0,
+                "rowSpan": 1,
+                "columnSpan": 1,
+                "htmlTag": "td",
+                "text": "3 — Must not 😀",
+                "attributes": {},
+                "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1/cell/2",
+                "nativeCell": false,
+                "bbox": null,
+                "bboxStatus": "not_supplied",
+                "headerStatus": "unknown",
+                "textStatus": "parser_observed_unverified",
+                "provenance": {
+                  "pointer": "/pages/0/blocks/1/content",
+                  "htmlCellOrdinal": 2,
+                  "output": "middle_json"
+                }
+              },
+              {
+                "row": 1,
+                "column": 1,
+                "rowSpan": 1,
+                "columnSpan": 1,
+                "htmlTag": "td",
+                "text": "",
+                "attributes": {},
+                "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1/cell/3",
+                "nativeCell": false,
+                "bbox": null,
+                "bboxStatus": "not_supplied",
+                "headerStatus": "unknown",
+                "textStatus": "blank_meaning_unknown",
+                "provenance": {
+                  "pointer": "/pages/0/blocks/1/content",
+                  "htmlCellOrdinal": 3,
+                  "output": "middle_json"
+                }
+              }
+            ],
+            "nativeCell": false,
+            "nativeTable": false
+          },
+          {
+            "blockId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/4/block/1",
+            "anchor": "page/4/mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/4/block/1",
+            "text": "<table><tr><th>Item</th><th>Offer</th></tr><tr><td>4 — Must not 😀</td><td></td></tr></table>",
+            "candidateLabel": "table",
+            "startOffset": 0,
+            "endOffset": 93,
+            "physicalPageNo": 4,
+            "sourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0",
+            "bbox": [
+              0.1,
+              0.1,
+              0.9,
+              0.8
+            ],
+            "bboxConvention": "normalized_xyxy_original_page",
+            "geometryEvidence": {
+              "status": "verified",
+              "reason": "explicit_input_and_source_bound_transform",
+              "xyxyNormalized": [
+                0.1,
+                0.1,
+                0.9,
+                0.8
+              ],
+              "xyxyOriginal": [
+                100,
+                200,
+                900,
+                1600
+              ],
+              "polygonOriginal": [
+                [
+                  100,
+                  200
+                ],
+                [
+                  900,
+                  200
+                ],
+                [
+                  900,
+                  1600
+                ],
+                [
+                  100,
+                  1600
+                ]
+              ],
+              "targetFrame": {
+                "coordinateFrame": "original_page",
+                "coordinateUnit": "pixel",
+                "width": 1000,
+                "height": 2000,
+                "physicalPageNo": 4,
+                "sourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0"
+              },
+              "transformSha256": "c3bbfd1948c4f8bd3220efa5307f255aa3657b3c25fafb7a3abd9d5a4bb23c51"
+            },
+            "candidateProvenance": {
+              "runId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1",
+              "parser": "mineru",
+              "parserIdentitySha256": "bed1890f78b3341c2e42dde048c7b53a180db8f6faa317262f037da523890139",
+              "configSha256": "5250dc563b8b2adc42aafb7ad80493e79657ba371e164ae82bc41da413fe037a",
+              "raw": {
+                "output": "middle_json",
+                "pointer": "/pages/1/blocks/1",
+                "textField": "content"
+              },
+              "providerBlockId": "table"
+            },
+            "declaredRelationships": {},
+            "qualityAttributes": {
+              "semanticQuality": "unknown",
+              "editState": "unknown",
+              "blankMeaning": "unknown",
+              "headerRelations": "unknown",
+              "crossPageRelations": "unknown",
+              "qualifiersComplete": "unknown"
+            },
+            "native": false,
+            "candidateTextStatus": "parser_observed_unverified",
+            "table": {
+              "tableGroupId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/4/block/1/table",
+              "html": "<table><tr><th>Item</th><th>Offer</th></tr><tr><td>4 — Must not 😀</td><td></td></tr></table>",
+              "cells": [
+                {
+                  "row": 0,
+                  "column": 0,
+                  "rowSpan": 1,
+                  "columnSpan": 1,
+                  "htmlTag": "th",
+                  "text": "Item",
+                  "attributes": {},
+                  "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/4/block/1/cell/0",
+                  "nativeCell": false,
+                  "bbox": null,
+                  "bboxStatus": "not_supplied",
+                  "headerStatus": "unknown",
+                  "textStatus": "parser_observed_unverified",
+                  "provenance": {
+                    "pointer": "/pages/1/blocks/1/content",
+                    "htmlCellOrdinal": 0,
+                    "output": "middle_json"
+                  }
+                },
+                {
+                  "row": 0,
+                  "column": 1,
+                  "rowSpan": 1,
+                  "columnSpan": 1,
+                  "htmlTag": "th",
+                  "text": "Offer",
+                  "attributes": {},
+                  "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/4/block/1/cell/1",
+                  "nativeCell": false,
+                  "bbox": null,
+                  "bboxStatus": "not_supplied",
+                  "headerStatus": "unknown",
+                  "textStatus": "parser_observed_unverified",
+                  "provenance": {
+                    "pointer": "/pages/1/blocks/1/content",
+                    "htmlCellOrdinal": 1,
+                    "output": "middle_json"
+                  }
+                },
+                {
+                  "row": 1,
+                  "column": 0,
+                  "rowSpan": 1,
+                  "columnSpan": 1,
+                  "htmlTag": "td",
+                  "text": "4 — Must not 😀",
+                  "attributes": {},
+                  "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/4/block/1/cell/2",
+                  "nativeCell": false,
+                  "bbox": null,
+                  "bboxStatus": "not_supplied",
+                  "headerStatus": "unknown",
+                  "textStatus": "parser_observed_unverified",
+                  "provenance": {
+                    "pointer": "/pages/1/blocks/1/content",
+                    "htmlCellOrdinal": 2,
+                    "output": "middle_json"
+                  }
+                },
+                {
+                  "row": 1,
+                  "column": 1,
+                  "rowSpan": 1,
+                  "columnSpan": 1,
+                  "htmlTag": "td",
+                  "text": "",
+                  "attributes": {},
+                  "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/4/block/1/cell/3",
+                  "nativeCell": false,
+                  "bbox": null,
+                  "bboxStatus": "not_supplied",
+                  "headerStatus": "unknown",
+                  "textStatus": "blank_meaning_unknown",
+                  "provenance": {
+                    "pointer": "/pages/1/blocks/1/content",
+                    "htmlCellOrdinal": 3,
+                    "output": "middle_json"
+                  }
+                }
+              ],
+              "groupPolicy": "whole_table_only",
+              "nativeTable": false,
+              "structureStatus": "parser_observed_unverified",
+              "headerRelationsStatus": "unknown",
+              "crossPageRelationsStatus": "unknown",
+              "declaredRelationships": {},
+              "declaredCellObservations": null,
+              "issues": [],
+              "provenance": {
+                "pointer": "/pages/1/blocks/1",
+                "htmlPointer": "/pages/1/blocks/1/content",
+                "output": "middle_json"
+              }
+            },
+            "cells": [
+              {
+                "row": 0,
+                "column": 0,
+                "rowSpan": 1,
+                "columnSpan": 1,
+                "htmlTag": "th",
+                "text": "Item",
+                "attributes": {},
+                "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/4/block/1/cell/0",
+                "nativeCell": false,
+                "bbox": null,
+                "bboxStatus": "not_supplied",
+                "headerStatus": "unknown",
+                "textStatus": "parser_observed_unverified",
+                "provenance": {
+                  "pointer": "/pages/1/blocks/1/content",
+                  "htmlCellOrdinal": 0,
+                  "output": "middle_json"
+                }
+              },
+              {
+                "row": 0,
+                "column": 1,
+                "rowSpan": 1,
+                "columnSpan": 1,
+                "htmlTag": "th",
+                "text": "Offer",
+                "attributes": {},
+                "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/4/block/1/cell/1",
+                "nativeCell": false,
+                "bbox": null,
+                "bboxStatus": "not_supplied",
+                "headerStatus": "unknown",
+                "textStatus": "parser_observed_unverified",
+                "provenance": {
+                  "pointer": "/pages/1/blocks/1/content",
+                  "htmlCellOrdinal": 1,
+                  "output": "middle_json"
+                }
+              },
+              {
+                "row": 1,
+                "column": 0,
+                "rowSpan": 1,
+                "columnSpan": 1,
+                "htmlTag": "td",
+                "text": "4 — Must not 😀",
+                "attributes": {},
+                "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/4/block/1/cell/2",
+                "nativeCell": false,
+                "bbox": null,
+                "bboxStatus": "not_supplied",
+                "headerStatus": "unknown",
+                "textStatus": "parser_observed_unverified",
+                "provenance": {
+                  "pointer": "/pages/1/blocks/1/content",
+                  "htmlCellOrdinal": 2,
+                  "output": "middle_json"
+                }
+              },
+              {
+                "row": 1,
+                "column": 1,
+                "rowSpan": 1,
+                "columnSpan": 1,
+                "htmlTag": "td",
+                "text": "",
+                "attributes": {},
+                "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/4/block/1/cell/3",
+                "nativeCell": false,
+                "bbox": null,
+                "bboxStatus": "not_supplied",
+                "headerStatus": "unknown",
+                "textStatus": "blank_meaning_unknown",
+                "provenance": {
+                  "pointer": "/pages/1/blocks/1/content",
+                  "htmlCellOrdinal": 3,
+                  "output": "middle_json"
+                }
+              }
+            ],
+            "nativeCell": false,
+            "nativeTable": false
+          }
+        ],
+        "anchor": "page/3/mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1",
+        "pageNo": 3,
+        "physicalPages": [
+          3,
+          4
+        ],
+        "sourceSpans": [
+          {
+            "physicalPageStart": 3,
+            "physicalPageEnd": 3,
+            "blockId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1",
+            "bbox": [
+              0.1,
+              0.1,
+              0.9,
+              0.8
+            ],
+            "startOffset": 0,
+            "endOffset": 93,
+            "sourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0"
+          },
+          {
+            "physicalPageStart": 4,
+            "physicalPageEnd": 4,
+            "blockId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/4/block/1",
+            "bbox": [
+              0.1,
+              0.1,
+              0.9,
+              0.8
+            ],
+            "startOffset": 0,
+            "endOffset": 93,
+            "sourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0"
+          }
+        ],
+        "sourceHash": "cc5fc262eb62c4dcbe479a022917875edd14fd651dad38f38120c9d3f19159a3",
+        "sourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0",
+        "originalSourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0",
+        "sourceRevisionSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0",
+        "projectionRevisionSha256": "477fadb08e03e9714aa6bbbba38c8c6d07359632313665dd16ca17bbe0e89f3a",
+        "projectionVersion": "source-reviewed-whole-unit-projection-v1",
+        "metadataVersion": "source-reviewed-whole-unit-projection-v1",
+        "segmentationVersion": "explicit-whole-unit-source-order-v1",
+        "nativeTableMetadataVersion": "parser-observed-cells-not-native-v1",
+        "sourceQualityMetadataVersion": "source-review-attribute-preservation-v1",
+        "sourceQualityHash": "ab79381bb788e429d03ea3a18e95de435f5b9de435e826d7a22cc179bcd17d73",
+        "sourceQuality": {
+          "parseStatus": "PARSED",
+          "semanticQuality": "unknown",
+          "version": "authored-quality-v1",
+          "attributes": {
+            "semanticQuality": "unknown",
+            "editState": "unknown",
+            "blankMeaning": "unknown",
+            "headerRelations": "unknown",
+            "crossPageRelations": "unknown",
+            "qualifiersComplete": "unknown"
+          },
+          "reviewMeaning": "Explicit source-reviewed selection; no whole-source semantic verification"
+        },
+        "unitId": "table",
+        "sourceOrder": 1,
+        "canonicalScope": "table_group",
+        "sourceClass": "project_pre",
+        "sourcePurpose": "project_document",
+        "eligibleModules": [
+          "vetting",
+          "advisory"
+        ],
+        "module": "vetting",
+        "adoption": {
+          "unitId": "table",
+          "scope": "table_group",
+          "runId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1",
+          "tableGroupId": "authored-two-page-table",
+          "reviewedAttributes": [
+            "text",
+            "geometry",
+            "tableTopology",
+            "assetBoundary",
+            "clauseHierarchy"
+          ],
+          "clause": {
+            "clauseId": "A1",
+            "headingUnitId": "heading"
+          },
+          "physicalPages": [
+            3,
+            4
+          ],
+          "reviewStatus": "explicit_source_reviewed_selection",
+          "referenceSha256": "9794c0608685e9bd4c0d972792c72662e0219208ffb4eb8d04b608455a53b919",
+          "humanConfirmed": false,
+          "clauseHeadingLocation": "page/3/paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038/page/3/block/0"
+        },
+        "relations": [
+          {
+            "type": "parent",
+            "fromUnitId": "table",
+            "toUnitId": "heading",
+            "status": "explicit_source_reviewed",
+            "referenceSha256": "9794c0608685e9bd4c0d972792c72662e0219208ffb4eb8d04b608455a53b919"
+          }
+        ],
+        "assetRefs": [],
+        "humanConfirmed": false,
+        "tableGroup": {
+          "tableGroupId": "authored-two-page-table",
+          "physicalPages": [
+            3,
+            4
+          ],
+          "candidates": {
+            "paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038": [
+              "paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038/page/3/block/1",
+              "paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038/page/4/block/1"
+            ],
+            "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1": [
+              "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1",
+              "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/4/block/1"
+            ]
+          },
+          "adoptedRunId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1"
+        },
+        "clauseId": "A1",
+        "clauseHeadingLocation": "page/3/paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038/page/3/block/0"
+      }
+    ],
+    "assetRefs": [],
+    "captureCompleteness": {
+      "status": "complete",
+      "eligibleForCanonical": true,
+      "reasons": [],
+      "requiredPhysicalPages": [
+        3,
+        4
+      ],
+      "requestPhysicalPagesByParser": {
+        "paddleocr-vl": [
+          3,
+          4
+        ],
+        "mineru": [
+          3,
+          4
+        ]
+      },
+      "perParser": {
+        "paddleocr-vl": {
+          "status": "complete",
+          "materialStatus": "complete",
+          "terminalStatus": "verified",
+          "eligibleForCanonical": true,
+          "reasons": [],
+          "requestedParserPageIndices": [
+            0,
+            1
+          ],
+          "observedParserPageIndices": [
+            0,
+            1
+          ],
+          "requestedPhysicalPages": [
+            3,
+            4
+          ]
+        },
+        "mineru": {
+          "status": "complete",
+          "materialStatus": "complete",
+          "terminalStatus": "verified",
+          "eligibleForCanonical": true,
+          "reasons": [],
+          "requestedParserPageIndices": [
+            0,
+            1
+          ],
+          "observedParserPageIndices": [
+            0,
+            1
+          ],
+          "requestedPhysicalPages": [
+            3,
+            4
+          ]
+        }
+      }
+    },
+    "unknowns": [
+      {
+        "unitId": "heading",
+        "attributes": {
+          "semanticQuality": "unknown",
+          "editState": "unknown",
+          "blankMeaning": "unknown",
+          "headerRelations": "unknown",
+          "crossPageRelations": "unknown",
+          "qualifiersComplete": "unknown"
+        }
+      },
+      {
+        "unitId": "table",
+        "attributes": {
+          "semanticQuality": "unknown",
+          "editState": "unknown",
+          "blankMeaning": "unknown",
+          "headerRelations": "unknown",
+          "crossPageRelations": "unknown",
+          "qualifiersComplete": "unknown"
+        }
+      }
+    ],
+    "humanConfirmed": false,
+    "semanticScopeVerified": false,
+    "limitations": [
+      "Caller-owned Codex source review is not human authentication",
+      "Only explicitly supplied relations; no automatic whole-library relation acceptance",
+      "Unknown header/blank/edit/semantic properties are not upgraded by text agreement"
+    ],
+    "projectionSha256": "171e2b15585a9f63d12091501abc57196d56b87699b5dab7faa2aa0fe2e26f0f"
+  },
+  "index": {
+    "projectId": "test-canonical",
+    "indexed": 2,
+    "signature": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+    "contract": "source-bound-dual-granularity-structure-results-v1",
+    "canonicalProjections": [
+      "171e2b15585a9f63d12091501abc57196d56b87699b5dab7faa2aa0fe2e26f0f"
+    ],
+    "targetModule": "vetting",
+    "competitionScope": {
+      "targetModule": "vetting",
+      "inputContract": "canonical-source-chunks-upstream-scope-and-parser-projection-v1",
+      "policyIdentity": {
+        "manifestSha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+      },
+      "sourceQualityChanged": false
+    }
+  },
+  "retrieve": {
+    "projectId": "test-canonical",
+    "indexSignature": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+    "mode": "source-bound-dual-granularity-structure-results-v1",
+    "hits": [
+      {
+        "id": "canonical:bb2c22272db3a74ae49b2d9b79259cdb4c081ca9bbe0bb25e2bf73e5f740cf4d",
+        "score": 0.8,
+        "payload": {
+          "id": "canonical:bb2c22272db3a74ae49b2d9b79259cdb4c081ca9bbe0bb25e2bf73e5f740cf4d",
+          "documentId": "42",
+          "role": "tender",
+          "content": "A1 Contract requirements",
+          "parts": [
+            {
+              "blockId": "paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038/page/3/block/0",
+              "anchor": "page/3/paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038/page/3/block/0",
+              "text": "A1 Contract requirements",
+              "candidateLabel": "text",
+              "startOffset": 0,
+              "endOffset": 24,
+              "physicalPageNo": 3,
+              "sourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0",
+              "bbox": [
+                0.01,
+                0.005,
+                0.9,
+                0.05
+              ],
+              "bboxConvention": "normalized_xyxy_original_page",
+              "geometryEvidence": {
+                "status": "verified",
+                "reason": "explicit_input_and_source_bound_transform",
+                "xyxyNormalized": [
+                  0.01,
+                  0.005,
+                  0.9,
+                  0.05
+                ],
+                "xyxyOriginal": [
+                  10,
+                  10,
+                  900,
+                  100
+                ],
+                "polygonOriginal": [
+                  [
+                    10,
+                    10
+                  ],
+                  [
+                    900,
+                    10
+                  ],
+                  [
+                    900,
+                    100
+                  ],
+                  [
+                    10,
+                    100
+                  ]
+                ],
+                "targetFrame": {
+                  "coordinateFrame": "original_page",
+                  "coordinateUnit": "pixel",
+                  "width": 1000,
+                  "height": 2000,
+                  "physicalPageNo": 3,
+                  "sourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0"
+                },
+                "transformSha256": "1dd7d424bdea3563f51d0831a679221e989e5a7168923b6ef91ef89c617cc9e1"
+              },
+              "candidateProvenance": {
+                "runId": "paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038",
+                "parser": "paddleocr-vl",
+                "parserIdentitySha256": "0508cc4756af07fb41e837dd9f5a4f2303c34a7d00e4384417c272c57bf1359f",
+                "configSha256": "5250dc563b8b2adc42aafb7ad80493e79657ba371e164ae82bc41da413fe037a",
+                "raw": {
+                  "output": "page_json",
+                  "pointer": "/0/parsing_res_list/0",
+                  "textField": "block_content"
+                },
+                "providerBlockId": "heading"
+              },
+              "declaredRelationships": {},
+              "qualityAttributes": {
+                "semanticQuality": "unknown",
+                "editState": "unknown",
+                "blankMeaning": "unknown",
+                "headerRelations": "unknown",
+                "crossPageRelations": "unknown",
+                "qualifiersComplete": "unknown"
+              },
+              "native": false,
+              "candidateTextStatus": "parser_observed_unverified"
+            }
+          ],
+          "anchor": "page/3/paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038/page/3/block/0",
+          "pageNo": 3,
+          "physicalPages": [
+            3
+          ],
+          "sourceSpans": [
+            {
+              "physicalPageStart": 3,
+              "physicalPageEnd": 3,
+              "blockId": "paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038/page/3/block/0",
+              "bbox": [
+                0.01,
+                0.005,
+                0.9,
+                0.05
+              ],
+              "startOffset": 0,
+              "endOffset": 24,
+              "sourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0"
+            }
+          ],
+          "sourceHash": "cc5fc262eb62c4dcbe479a022917875edd14fd651dad38f38120c9d3f19159a3",
+          "sourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0",
+          "originalSourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0",
+          "sourceRevisionSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0",
+          "projectionRevisionSha256": "477fadb08e03e9714aa6bbbba38c8c6d07359632313665dd16ca17bbe0e89f3a",
+          "projectionVersion": "source-reviewed-whole-unit-projection-v1",
+          "metadataVersion": "source-reviewed-whole-unit-projection-v1",
+          "segmentationVersion": "explicit-whole-unit-source-order-v1",
+          "nativeTableMetadataVersion": "parser-observed-cells-not-native-v1",
+          "sourceQualityMetadataVersion": "source-review-attribute-preservation-v1",
+          "sourceQualityHash": "ab79381bb788e429d03ea3a18e95de435f5b9de435e826d7a22cc179bcd17d73",
+          "sourceQuality": {
+            "parseStatus": "PARSED",
+            "semanticQuality": "unknown",
+            "version": "authored-quality-v1",
+            "attributes": {
+              "semanticQuality": "unknown",
+              "editState": "unknown",
+              "blankMeaning": "unknown",
+              "headerRelations": "unknown",
+              "crossPageRelations": "unknown",
+              "qualifiersComplete": "unknown"
+            },
+            "reviewMeaning": "Explicit source-reviewed selection; no whole-source semantic verification"
+          },
+          "unitId": "heading",
+          "sourceOrder": 0,
+          "canonicalScope": "region",
+          "sourceClass": "project_pre",
+          "sourcePurpose": "project_document",
+          "eligibleModules": [
+            "vetting",
+            "advisory"
+          ],
+          "module": "vetting",
+          "adoption": {
+            "unitId": "heading",
+            "scope": "region",
+            "runId": "paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038",
+            "blockId": "paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038/page/3/block/0",
+            "reviewedAttributes": [
+              "text",
+              "geometry",
+              "clauseHierarchy"
+            ],
+            "clause": {
+              "clauseId": "A1",
+              "headingUnitId": "heading"
+            },
+            "physicalPages": [
+              3
+            ],
+            "reviewStatus": "explicit_source_reviewed_selection",
+            "referenceSha256": "9794c0608685e9bd4c0d972792c72662e0219208ffb4eb8d04b608455a53b919",
+            "humanConfirmed": false,
+            "clauseHeadingLocation": "page/3/paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038/page/3/block/0"
+          },
+          "relations": [
+            {
+              "type": "parent",
+              "fromUnitId": "table",
+              "toUnitId": "heading",
+              "status": "explicit_source_reviewed",
+              "referenceSha256": "9794c0608685e9bd4c0d972792c72662e0219208ffb4eb8d04b608455a53b919"
+            }
+          ],
+          "assetRefs": [],
+          "humanConfirmed": false,
+          "clauseId": "A1",
+          "clauseHeadingLocation": "page/3/paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038/page/3/block/0"
+        }
+      }
+    ],
+    "sourceUnits": {
+      "policy": "unique-source-structural-unit-seeds-v1",
+      "scope": "canonical_observed_structure_only",
+      "originalHitIds": [
+        "canonical:bb2c22272db3a74ae49b2d9b79259cdb4c081ca9bbe0bb25e2bf73e5f740cf4d"
+      ],
+      "units": [
+        {
+          "originIds": [
+            "canonical:bb2c22272db3a74ae49b2d9b79259cdb4c081ca9bbe0bb25e2bf73e5f740cf4d"
+          ],
+          "kind": "exact_clause_heading",
+          "status": "complete_observed_unit",
+          "reason": null,
+          "requiredMemberIds": [
+            "canonical:ab7eb00c0a97b3bed10159cdac28b324e55906aec0df9c0f24ac9048202a26a7",
+            "canonical:bb2c22272db3a74ae49b2d9b79259cdb4c081ca9bbe0bb25e2bf73e5f740cf4d"
+          ],
+          "members": [
+            {
+              "id": "canonical:ab7eb00c0a97b3bed10159cdac28b324e55906aec0df9c0f24ac9048202a26a7",
+              "documentId": "42",
+              "role": "tender",
+              "content": "<table><tr><th>Item</th><th>Offer</th></tr><tr><td>3 — Must not 😀</td><td></td></tr></table>\n<table><tr><th>Item</th><th>Offer</th></tr><tr><td>4 — Must not 😀</td><td></td></tr></table>",
+              "parts": [
+                {
+                  "blockId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1",
+                  "anchor": "page/3/mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1",
+                  "text": "<table><tr><th>Item</th><th>Offer</th></tr><tr><td>3 — Must not 😀</td><td></td></tr></table>",
+                  "candidateLabel": "table",
+                  "startOffset": 0,
+                  "endOffset": 93,
+                  "physicalPageNo": 3,
+                  "sourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0",
+                  "bbox": [
+                    0.1,
+                    0.1,
+                    0.9,
+                    0.8
+                  ],
+                  "bboxConvention": "normalized_xyxy_original_page",
+                  "geometryEvidence": {
+                    "status": "verified",
+                    "reason": "explicit_input_and_source_bound_transform",
+                    "xyxyNormalized": [
+                      0.1,
+                      0.1,
+                      0.9,
+                      0.8
+                    ],
+                    "xyxyOriginal": [
+                      100,
+                      200,
+                      900,
+                      1600
+                    ],
+                    "polygonOriginal": [
+                      [
+                        100,
+                        200
+                      ],
+                      [
+                        900,
+                        200
+                      ],
+                      [
+                        900,
+                        1600
+                      ],
+                      [
+                        100,
+                        1600
+                      ]
+                    ],
+                    "targetFrame": {
+                      "coordinateFrame": "original_page",
+                      "coordinateUnit": "pixel",
+                      "width": 1000,
+                      "height": 2000,
+                      "physicalPageNo": 3,
+                      "sourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0"
+                    },
+                    "transformSha256": "1dd7d424bdea3563f51d0831a679221e989e5a7168923b6ef91ef89c617cc9e1"
+                  },
+                  "candidateProvenance": {
+                    "runId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1",
+                    "parser": "mineru",
+                    "parserIdentitySha256": "bed1890f78b3341c2e42dde048c7b53a180db8f6faa317262f037da523890139",
+                    "configSha256": "5250dc563b8b2adc42aafb7ad80493e79657ba371e164ae82bc41da413fe037a",
+                    "raw": {
+                      "output": "middle_json",
+                      "pointer": "/pages/0/blocks/1",
+                      "textField": "content"
+                    },
+                    "providerBlockId": "table"
+                  },
+                  "declaredRelationships": {},
+                  "qualityAttributes": {
+                    "semanticQuality": "unknown",
+                    "editState": "unknown",
+                    "blankMeaning": "unknown",
+                    "headerRelations": "unknown",
+                    "crossPageRelations": "unknown",
+                    "qualifiersComplete": "unknown"
+                  },
+                  "native": false,
+                  "candidateTextStatus": "parser_observed_unverified",
+                  "table": {
+                    "tableGroupId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1/table",
+                    "html": "<table><tr><th>Item</th><th>Offer</th></tr><tr><td>3 — Must not 😀</td><td></td></tr></table>",
+                    "cells": [
+                      {
+                        "row": 0,
+                        "column": 0,
+                        "rowSpan": 1,
+                        "columnSpan": 1,
+                        "htmlTag": "th",
+                        "text": "Item",
+                        "attributes": {},
+                        "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1/cell/0",
+                        "nativeCell": false,
+                        "bbox": null,
+                        "bboxStatus": "not_supplied",
+                        "headerStatus": "unknown",
+                        "textStatus": "parser_observed_unverified",
+                        "provenance": {
+                          "pointer": "/pages/0/blocks/1/content",
+                          "htmlCellOrdinal": 0,
+                          "output": "middle_json"
+                        }
+                      },
+                      {
+                        "row": 0,
+                        "column": 1,
+                        "rowSpan": 1,
+                        "columnSpan": 1,
+                        "htmlTag": "th",
+                        "text": "Offer",
+                        "attributes": {},
+                        "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1/cell/1",
+                        "nativeCell": false,
+                        "bbox": null,
+                        "bboxStatus": "not_supplied",
+                        "headerStatus": "unknown",
+                        "textStatus": "parser_observed_unverified",
+                        "provenance": {
+                          "pointer": "/pages/0/blocks/1/content",
+                          "htmlCellOrdinal": 1,
+                          "output": "middle_json"
+                        }
+                      },
+                      {
+                        "row": 1,
+                        "column": 0,
+                        "rowSpan": 1,
+                        "columnSpan": 1,
+                        "htmlTag": "td",
+                        "text": "3 — Must not 😀",
+                        "attributes": {},
+                        "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1/cell/2",
+                        "nativeCell": false,
+                        "bbox": null,
+                        "bboxStatus": "not_supplied",
+                        "headerStatus": "unknown",
+                        "textStatus": "parser_observed_unverified",
+                        "provenance": {
+                          "pointer": "/pages/0/blocks/1/content",
+                          "htmlCellOrdinal": 2,
+                          "output": "middle_json"
+                        }
+                      },
+                      {
+                        "row": 1,
+                        "column": 1,
+                        "rowSpan": 1,
+                        "columnSpan": 1,
+                        "htmlTag": "td",
+                        "text": "",
+                        "attributes": {},
+                        "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1/cell/3",
+                        "nativeCell": false,
+                        "bbox": null,
+                        "bboxStatus": "not_supplied",
+                        "headerStatus": "unknown",
+                        "textStatus": "blank_meaning_unknown",
+                        "provenance": {
+                          "pointer": "/pages/0/blocks/1/content",
+                          "htmlCellOrdinal": 3,
+                          "output": "middle_json"
+                        }
+                      }
+                    ],
+                    "groupPolicy": "whole_table_only",
+                    "nativeTable": false,
+                    "structureStatus": "parser_observed_unverified",
+                    "headerRelationsStatus": "unknown",
+                    "crossPageRelationsStatus": "unknown",
+                    "declaredRelationships": {},
+                    "declaredCellObservations": null,
+                    "issues": [],
+                    "provenance": {
+                      "pointer": "/pages/0/blocks/1",
+                      "htmlPointer": "/pages/0/blocks/1/content",
+                      "output": "middle_json"
+                    }
+                  },
+                  "cells": [
+                    {
+                      "row": 0,
+                      "column": 0,
+                      "rowSpan": 1,
+                      "columnSpan": 1,
+                      "htmlTag": "th",
+                      "text": "Item",
+                      "attributes": {},
+                      "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1/cell/0",
+                      "nativeCell": false,
+                      "bbox": null,
+                      "bboxStatus": "not_supplied",
+                      "headerStatus": "unknown",
+                      "textStatus": "parser_observed_unverified",
+                      "provenance": {
+                        "pointer": "/pages/0/blocks/1/content",
+                        "htmlCellOrdinal": 0,
+                        "output": "middle_json"
+                      }
+                    },
+                    {
+                      "row": 0,
+                      "column": 1,
+                      "rowSpan": 1,
+                      "columnSpan": 1,
+                      "htmlTag": "th",
+                      "text": "Offer",
+                      "attributes": {},
+                      "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1/cell/1",
+                      "nativeCell": false,
+                      "bbox": null,
+                      "bboxStatus": "not_supplied",
+                      "headerStatus": "unknown",
+                      "textStatus": "parser_observed_unverified",
+                      "provenance": {
+                        "pointer": "/pages/0/blocks/1/content",
+                        "htmlCellOrdinal": 1,
+                        "output": "middle_json"
+                      }
+                    },
+                    {
+                      "row": 1,
+                      "column": 0,
+                      "rowSpan": 1,
+                      "columnSpan": 1,
+                      "htmlTag": "td",
+                      "text": "3 — Must not 😀",
+                      "attributes": {},
+                      "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1/cell/2",
+                      "nativeCell": false,
+                      "bbox": null,
+                      "bboxStatus": "not_supplied",
+                      "headerStatus": "unknown",
+                      "textStatus": "parser_observed_unverified",
+                      "provenance": {
+                        "pointer": "/pages/0/blocks/1/content",
+                        "htmlCellOrdinal": 2,
+                        "output": "middle_json"
+                      }
+                    },
+                    {
+                      "row": 1,
+                      "column": 1,
+                      "rowSpan": 1,
+                      "columnSpan": 1,
+                      "htmlTag": "td",
+                      "text": "",
+                      "attributes": {},
+                      "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1/cell/3",
+                      "nativeCell": false,
+                      "bbox": null,
+                      "bboxStatus": "not_supplied",
+                      "headerStatus": "unknown",
+                      "textStatus": "blank_meaning_unknown",
+                      "provenance": {
+                        "pointer": "/pages/0/blocks/1/content",
+                        "htmlCellOrdinal": 3,
+                        "output": "middle_json"
+                      }
+                    }
+                  ],
+                  "nativeCell": false,
+                  "nativeTable": false
+                },
+                {
+                  "blockId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/4/block/1",
+                  "anchor": "page/4/mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/4/block/1",
+                  "text": "<table><tr><th>Item</th><th>Offer</th></tr><tr><td>4 — Must not 😀</td><td></td></tr></table>",
+                  "candidateLabel": "table",
+                  "startOffset": 0,
+                  "endOffset": 93,
+                  "physicalPageNo": 4,
+                  "sourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0",
+                  "bbox": [
+                    0.1,
+                    0.1,
+                    0.9,
+                    0.8
+                  ],
+                  "bboxConvention": "normalized_xyxy_original_page",
+                  "geometryEvidence": {
+                    "status": "verified",
+                    "reason": "explicit_input_and_source_bound_transform",
+                    "xyxyNormalized": [
+                      0.1,
+                      0.1,
+                      0.9,
+                      0.8
+                    ],
+                    "xyxyOriginal": [
+                      100,
+                      200,
+                      900,
+                      1600
+                    ],
+                    "polygonOriginal": [
+                      [
+                        100,
+                        200
+                      ],
+                      [
+                        900,
+                        200
+                      ],
+                      [
+                        900,
+                        1600
+                      ],
+                      [
+                        100,
+                        1600
+                      ]
+                    ],
+                    "targetFrame": {
+                      "coordinateFrame": "original_page",
+                      "coordinateUnit": "pixel",
+                      "width": 1000,
+                      "height": 2000,
+                      "physicalPageNo": 4,
+                      "sourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0"
+                    },
+                    "transformSha256": "c3bbfd1948c4f8bd3220efa5307f255aa3657b3c25fafb7a3abd9d5a4bb23c51"
+                  },
+                  "candidateProvenance": {
+                    "runId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1",
+                    "parser": "mineru",
+                    "parserIdentitySha256": "bed1890f78b3341c2e42dde048c7b53a180db8f6faa317262f037da523890139",
+                    "configSha256": "5250dc563b8b2adc42aafb7ad80493e79657ba371e164ae82bc41da413fe037a",
+                    "raw": {
+                      "output": "middle_json",
+                      "pointer": "/pages/1/blocks/1",
+                      "textField": "content"
+                    },
+                    "providerBlockId": "table"
+                  },
+                  "declaredRelationships": {},
+                  "qualityAttributes": {
+                    "semanticQuality": "unknown",
+                    "editState": "unknown",
+                    "blankMeaning": "unknown",
+                    "headerRelations": "unknown",
+                    "crossPageRelations": "unknown",
+                    "qualifiersComplete": "unknown"
+                  },
+                  "native": false,
+                  "candidateTextStatus": "parser_observed_unverified",
+                  "table": {
+                    "tableGroupId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/4/block/1/table",
+                    "html": "<table><tr><th>Item</th><th>Offer</th></tr><tr><td>4 — Must not 😀</td><td></td></tr></table>",
+                    "cells": [
+                      {
+                        "row": 0,
+                        "column": 0,
+                        "rowSpan": 1,
+                        "columnSpan": 1,
+                        "htmlTag": "th",
+                        "text": "Item",
+                        "attributes": {},
+                        "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/4/block/1/cell/0",
+                        "nativeCell": false,
+                        "bbox": null,
+                        "bboxStatus": "not_supplied",
+                        "headerStatus": "unknown",
+                        "textStatus": "parser_observed_unverified",
+                        "provenance": {
+                          "pointer": "/pages/1/blocks/1/content",
+                          "htmlCellOrdinal": 0,
+                          "output": "middle_json"
+                        }
+                      },
+                      {
+                        "row": 0,
+                        "column": 1,
+                        "rowSpan": 1,
+                        "columnSpan": 1,
+                        "htmlTag": "th",
+                        "text": "Offer",
+                        "attributes": {},
+                        "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/4/block/1/cell/1",
+                        "nativeCell": false,
+                        "bbox": null,
+                        "bboxStatus": "not_supplied",
+                        "headerStatus": "unknown",
+                        "textStatus": "parser_observed_unverified",
+                        "provenance": {
+                          "pointer": "/pages/1/blocks/1/content",
+                          "htmlCellOrdinal": 1,
+                          "output": "middle_json"
+                        }
+                      },
+                      {
+                        "row": 1,
+                        "column": 0,
+                        "rowSpan": 1,
+                        "columnSpan": 1,
+                        "htmlTag": "td",
+                        "text": "4 — Must not 😀",
+                        "attributes": {},
+                        "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/4/block/1/cell/2",
+                        "nativeCell": false,
+                        "bbox": null,
+                        "bboxStatus": "not_supplied",
+                        "headerStatus": "unknown",
+                        "textStatus": "parser_observed_unverified",
+                        "provenance": {
+                          "pointer": "/pages/1/blocks/1/content",
+                          "htmlCellOrdinal": 2,
+                          "output": "middle_json"
+                        }
+                      },
+                      {
+                        "row": 1,
+                        "column": 1,
+                        "rowSpan": 1,
+                        "columnSpan": 1,
+                        "htmlTag": "td",
+                        "text": "",
+                        "attributes": {},
+                        "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/4/block/1/cell/3",
+                        "nativeCell": false,
+                        "bbox": null,
+                        "bboxStatus": "not_supplied",
+                        "headerStatus": "unknown",
+                        "textStatus": "blank_meaning_unknown",
+                        "provenance": {
+                          "pointer": "/pages/1/blocks/1/content",
+                          "htmlCellOrdinal": 3,
+                          "output": "middle_json"
+                        }
+                      }
+                    ],
+                    "groupPolicy": "whole_table_only",
+                    "nativeTable": false,
+                    "structureStatus": "parser_observed_unverified",
+                    "headerRelationsStatus": "unknown",
+                    "crossPageRelationsStatus": "unknown",
+                    "declaredRelationships": {},
+                    "declaredCellObservations": null,
+                    "issues": [],
+                    "provenance": {
+                      "pointer": "/pages/1/blocks/1",
+                      "htmlPointer": "/pages/1/blocks/1/content",
+                      "output": "middle_json"
+                    }
+                  },
+                  "cells": [
+                    {
+                      "row": 0,
+                      "column": 0,
+                      "rowSpan": 1,
+                      "columnSpan": 1,
+                      "htmlTag": "th",
+                      "text": "Item",
+                      "attributes": {},
+                      "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/4/block/1/cell/0",
+                      "nativeCell": false,
+                      "bbox": null,
+                      "bboxStatus": "not_supplied",
+                      "headerStatus": "unknown",
+                      "textStatus": "parser_observed_unverified",
+                      "provenance": {
+                        "pointer": "/pages/1/blocks/1/content",
+                        "htmlCellOrdinal": 0,
+                        "output": "middle_json"
+                      }
+                    },
+                    {
+                      "row": 0,
+                      "column": 1,
+                      "rowSpan": 1,
+                      "columnSpan": 1,
+                      "htmlTag": "th",
+                      "text": "Offer",
+                      "attributes": {},
+                      "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/4/block/1/cell/1",
+                      "nativeCell": false,
+                      "bbox": null,
+                      "bboxStatus": "not_supplied",
+                      "headerStatus": "unknown",
+                      "textStatus": "parser_observed_unverified",
+                      "provenance": {
+                        "pointer": "/pages/1/blocks/1/content",
+                        "htmlCellOrdinal": 1,
+                        "output": "middle_json"
+                      }
+                    },
+                    {
+                      "row": 1,
+                      "column": 0,
+                      "rowSpan": 1,
+                      "columnSpan": 1,
+                      "htmlTag": "td",
+                      "text": "4 — Must not 😀",
+                      "attributes": {},
+                      "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/4/block/1/cell/2",
+                      "nativeCell": false,
+                      "bbox": null,
+                      "bboxStatus": "not_supplied",
+                      "headerStatus": "unknown",
+                      "textStatus": "parser_observed_unverified",
+                      "provenance": {
+                        "pointer": "/pages/1/blocks/1/content",
+                        "htmlCellOrdinal": 2,
+                        "output": "middle_json"
+                      }
+                    },
+                    {
+                      "row": 1,
+                      "column": 1,
+                      "rowSpan": 1,
+                      "columnSpan": 1,
+                      "htmlTag": "td",
+                      "text": "",
+                      "attributes": {},
+                      "cellId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/4/block/1/cell/3",
+                      "nativeCell": false,
+                      "bbox": null,
+                      "bboxStatus": "not_supplied",
+                      "headerStatus": "unknown",
+                      "textStatus": "blank_meaning_unknown",
+                      "provenance": {
+                        "pointer": "/pages/1/blocks/1/content",
+                        "htmlCellOrdinal": 3,
+                        "output": "middle_json"
+                      }
+                    }
+                  ],
+                  "nativeCell": false,
+                  "nativeTable": false
+                }
+              ],
+              "anchor": "page/3/mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1",
+              "pageNo": 3,
+              "physicalPages": [
+                3,
+                4
+              ],
+              "sourceSpans": [
+                {
+                  "physicalPageStart": 3,
+                  "physicalPageEnd": 3,
+                  "blockId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1",
+                  "bbox": [
+                    0.1,
+                    0.1,
+                    0.9,
+                    0.8
+                  ],
+                  "startOffset": 0,
+                  "endOffset": 93,
+                  "sourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0"
+                },
+                {
+                  "physicalPageStart": 4,
+                  "physicalPageEnd": 4,
+                  "blockId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/4/block/1",
+                  "bbox": [
+                    0.1,
+                    0.1,
+                    0.9,
+                    0.8
+                  ],
+                  "startOffset": 0,
+                  "endOffset": 93,
+                  "sourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0"
+                }
+              ],
+              "sourceHash": "cc5fc262eb62c4dcbe479a022917875edd14fd651dad38f38120c9d3f19159a3",
+              "sourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0",
+              "originalSourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0",
+              "sourceRevisionSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0",
+              "projectionRevisionSha256": "477fadb08e03e9714aa6bbbba38c8c6d07359632313665dd16ca17bbe0e89f3a",
+              "projectionVersion": "source-reviewed-whole-unit-projection-v1",
+              "metadataVersion": "source-reviewed-whole-unit-projection-v1",
+              "segmentationVersion": "explicit-whole-unit-source-order-v1",
+              "nativeTableMetadataVersion": "parser-observed-cells-not-native-v1",
+              "sourceQualityMetadataVersion": "source-review-attribute-preservation-v1",
+              "sourceQualityHash": "ab79381bb788e429d03ea3a18e95de435f5b9de435e826d7a22cc179bcd17d73",
+              "sourceQuality": {
+                "parseStatus": "PARSED",
+                "semanticQuality": "unknown",
+                "version": "authored-quality-v1",
+                "attributes": {
+                  "semanticQuality": "unknown",
+                  "editState": "unknown",
+                  "blankMeaning": "unknown",
+                  "headerRelations": "unknown",
+                  "crossPageRelations": "unknown",
+                  "qualifiersComplete": "unknown"
+                },
+                "reviewMeaning": "Explicit source-reviewed selection; no whole-source semantic verification"
+              },
+              "unitId": "table",
+              "sourceOrder": 1,
+              "canonicalScope": "table_group",
+              "sourceClass": "project_pre",
+              "sourcePurpose": "project_document",
+              "eligibleModules": [
+                "vetting",
+                "advisory"
+              ],
+              "module": "vetting",
+              "adoption": {
+                "unitId": "table",
+                "scope": "table_group",
+                "runId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1",
+                "tableGroupId": "authored-two-page-table",
+                "reviewedAttributes": [
+                  "text",
+                  "geometry",
+                  "tableTopology",
+                  "assetBoundary",
+                  "clauseHierarchy"
+                ],
+                "clause": {
+                  "clauseId": "A1",
+                  "headingUnitId": "heading"
+                },
+                "physicalPages": [
+                  3,
+                  4
+                ],
+                "reviewStatus": "explicit_source_reviewed_selection",
+                "referenceSha256": "9794c0608685e9bd4c0d972792c72662e0219208ffb4eb8d04b608455a53b919",
+                "humanConfirmed": false,
+                "clauseHeadingLocation": "page/3/paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038/page/3/block/0"
+              },
+              "relations": [
+                {
+                  "type": "parent",
+                  "fromUnitId": "table",
+                  "toUnitId": "heading",
+                  "status": "explicit_source_reviewed",
+                  "referenceSha256": "9794c0608685e9bd4c0d972792c72662e0219208ffb4eb8d04b608455a53b919"
+                }
+              ],
+              "assetRefs": [],
+              "humanConfirmed": false,
+              "tableGroup": {
+                "tableGroupId": "authored-two-page-table",
+                "physicalPages": [
+                  3,
+                  4
+                ],
+                "candidates": {
+                  "paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038": [
+                    "paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038/page/3/block/1",
+                    "paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038/page/4/block/1"
+                  ],
+                  "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1": [
+                    "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1",
+                    "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/4/block/1"
+                  ]
+                },
+                "adoptedRunId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1"
+              },
+              "clauseId": "A1",
+              "clauseHeadingLocation": "page/3/paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038/page/3/block/0"
+            },
+            {
+              "id": "canonical:bb2c22272db3a74ae49b2d9b79259cdb4c081ca9bbe0bb25e2bf73e5f740cf4d",
+              "documentId": "42",
+              "role": "tender",
+              "content": "A1 Contract requirements",
+              "parts": [
+                {
+                  "blockId": "paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038/page/3/block/0",
+                  "anchor": "page/3/paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038/page/3/block/0",
+                  "text": "A1 Contract requirements",
+                  "candidateLabel": "text",
+                  "startOffset": 0,
+                  "endOffset": 24,
+                  "physicalPageNo": 3,
+                  "sourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0",
+                  "bbox": [
+                    0.01,
+                    0.005,
+                    0.9,
+                    0.05
+                  ],
+                  "bboxConvention": "normalized_xyxy_original_page",
+                  "geometryEvidence": {
+                    "status": "verified",
+                    "reason": "explicit_input_and_source_bound_transform",
+                    "xyxyNormalized": [
+                      0.01,
+                      0.005,
+                      0.9,
+                      0.05
+                    ],
+                    "xyxyOriginal": [
+                      10,
+                      10,
+                      900,
+                      100
+                    ],
+                    "polygonOriginal": [
+                      [
+                        10,
+                        10
+                      ],
+                      [
+                        900,
+                        10
+                      ],
+                      [
+                        900,
+                        100
+                      ],
+                      [
+                        10,
+                        100
+                      ]
+                    ],
+                    "targetFrame": {
+                      "coordinateFrame": "original_page",
+                      "coordinateUnit": "pixel",
+                      "width": 1000,
+                      "height": 2000,
+                      "physicalPageNo": 3,
+                      "sourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0"
+                    },
+                    "transformSha256": "1dd7d424bdea3563f51d0831a679221e989e5a7168923b6ef91ef89c617cc9e1"
+                  },
+                  "candidateProvenance": {
+                    "runId": "paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038",
+                    "parser": "paddleocr-vl",
+                    "parserIdentitySha256": "0508cc4756af07fb41e837dd9f5a4f2303c34a7d00e4384417c272c57bf1359f",
+                    "configSha256": "5250dc563b8b2adc42aafb7ad80493e79657ba371e164ae82bc41da413fe037a",
+                    "raw": {
+                      "output": "page_json",
+                      "pointer": "/0/parsing_res_list/0",
+                      "textField": "block_content"
+                    },
+                    "providerBlockId": "heading"
+                  },
+                  "declaredRelationships": {},
+                  "qualityAttributes": {
+                    "semanticQuality": "unknown",
+                    "editState": "unknown",
+                    "blankMeaning": "unknown",
+                    "headerRelations": "unknown",
+                    "crossPageRelations": "unknown",
+                    "qualifiersComplete": "unknown"
+                  },
+                  "native": false,
+                  "candidateTextStatus": "parser_observed_unverified"
+                }
+              ],
+              "anchor": "page/3/paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038/page/3/block/0",
+              "pageNo": 3,
+              "physicalPages": [
+                3
+              ],
+              "sourceSpans": [
+                {
+                  "physicalPageStart": 3,
+                  "physicalPageEnd": 3,
+                  "blockId": "paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038/page/3/block/0",
+                  "bbox": [
+                    0.01,
+                    0.005,
+                    0.9,
+                    0.05
+                  ],
+                  "startOffset": 0,
+                  "endOffset": 24,
+                  "sourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0"
+                }
+              ],
+              "sourceHash": "cc5fc262eb62c4dcbe479a022917875edd14fd651dad38f38120c9d3f19159a3",
+              "sourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0",
+              "originalSourceSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0",
+              "sourceRevisionSha256": "2cde50f2cbd0bfb1943e2dacdab9ddd5f037ca0e0756f8c73b78791aba2603f0",
+              "projectionRevisionSha256": "477fadb08e03e9714aa6bbbba38c8c6d07359632313665dd16ca17bbe0e89f3a",
+              "projectionVersion": "source-reviewed-whole-unit-projection-v1",
+              "metadataVersion": "source-reviewed-whole-unit-projection-v1",
+              "segmentationVersion": "explicit-whole-unit-source-order-v1",
+              "nativeTableMetadataVersion": "parser-observed-cells-not-native-v1",
+              "sourceQualityMetadataVersion": "source-review-attribute-preservation-v1",
+              "sourceQualityHash": "ab79381bb788e429d03ea3a18e95de435f5b9de435e826d7a22cc179bcd17d73",
+              "sourceQuality": {
+                "parseStatus": "PARSED",
+                "semanticQuality": "unknown",
+                "version": "authored-quality-v1",
+                "attributes": {
+                  "semanticQuality": "unknown",
+                  "editState": "unknown",
+                  "blankMeaning": "unknown",
+                  "headerRelations": "unknown",
+                  "crossPageRelations": "unknown",
+                  "qualifiersComplete": "unknown"
+                },
+                "reviewMeaning": "Explicit source-reviewed selection; no whole-source semantic verification"
+              },
+              "unitId": "heading",
+              "sourceOrder": 0,
+              "canonicalScope": "region",
+              "sourceClass": "project_pre",
+              "sourcePurpose": "project_document",
+              "eligibleModules": [
+                "vetting",
+                "advisory"
+              ],
+              "module": "vetting",
+              "adoption": {
+                "unitId": "heading",
+                "scope": "region",
+                "runId": "paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038",
+                "blockId": "paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038/page/3/block/0",
+                "reviewedAttributes": [
+                  "text",
+                  "geometry",
+                  "clauseHierarchy"
+                ],
+                "clause": {
+                  "clauseId": "A1",
+                  "headingUnitId": "heading"
+                },
+                "physicalPages": [
+                  3
+                ],
+                "reviewStatus": "explicit_source_reviewed_selection",
+                "referenceSha256": "9794c0608685e9bd4c0d972792c72662e0219208ffb4eb8d04b608455a53b919",
+                "humanConfirmed": false,
+                "clauseHeadingLocation": "page/3/paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038/page/3/block/0"
+              },
+              "relations": [
+                {
+                  "type": "parent",
+                  "fromUnitId": "table",
+                  "toUnitId": "heading",
+                  "status": "explicit_source_reviewed",
+                  "referenceSha256": "9794c0608685e9bd4c0d972792c72662e0219208ffb4eb8d04b608455a53b919"
+                }
+              ],
+              "assetRefs": [],
+              "humanConfirmed": false,
+              "clauseId": "A1",
+              "clauseHeadingLocation": "page/3/paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038/page/3/block/0"
+            }
+          ],
+          "observedRanges": [
+            {
+              "blockId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1",
+              "startUtf16": 0,
+              "endUtf16": 93,
+              "status": "observed_canonical_ranges_zero_gap",
+              "sourceBlockComplete": null
+            },
+            {
+              "blockId": "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/4/block/1",
+              "startUtf16": 0,
+              "endUtf16": 93,
+              "status": "observed_canonical_ranges_zero_gap",
+              "sourceBlockComplete": null
+            },
+            {
+              "blockId": "paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038/page/3/block/0",
+              "startUtf16": 0,
+              "endUtf16": 24,
+              "status": "observed_canonical_ranges_zero_gap",
+              "sourceBlockComplete": null
+            }
+          ],
+          "sourceIdentity": {
+            "documentId": "42",
+            "sourceHash": "cc5fc262eb62c4dcbe479a022917875edd14fd651dad38f38120c9d3f19159a3",
+            "role": "tender",
+            "metadataVersion": "source-reviewed-whole-unit-projection-v1",
+            "segmentationVersion": "explicit-whole-unit-source-order-v1",
+            "nativeTableMetadataVersion": "parser-observed-cells-not-native-v1",
+            "sourceQualityMetadataVersion": "source-review-attribute-preservation-v1",
+            "sourceQualityHash": "ab79381bb788e429d03ea3a18e95de435f5b9de435e826d7a22cc179bcd17d73"
+          },
+          "clauseId": "A1",
+          "headingLocation": "page/3/paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038/page/3/block/0",
+          "blockIds": [
+            "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/3/block/1",
+            "mineru:14e372e4cd2658f1d30faa67fe61de04d506f49189c0a54fdc3584d70eaaf7e1/page/4/block/1",
+            "paddleocr-vl:04a723fc62c373514b4074587d6579c2921f52674e966227b9220337e55e8038/page/3/block/0"
+          ],
+          "derivedMembersCanBecomeOrigins": false,
+          "memberScores": null,
+          "qualifiersComplete": "unknown",
+          "semanticScopeVerified": false,
+          "unitId": "b48e0a8afedbb02f1ca13278cc5057c2b4d36626e54181e2f3d8cf305aef10f3",
+          "originalRerankOrdinal": 1,
+          "seedScore": 0.8
+        }
+      ],
+      "rawParentTopKIds": [
+        "canonical:bb2c22272db3a74ae49b2d9b79259cdb4c081ca9bbe0bb25e2bf73e5f740cf4d"
+      ],
+      "skippedDuplicateUnitSeeds": [
+        {
+          "id": "canonical:ab7eb00c0a97b3bed10159cdac28b324e55906aec0df9c0f24ac9048202a26a7",
+          "originalRerankOrdinal": 2,
+          "score": 0.7000000000000001,
+          "unitId": "b48e0a8afedbb02f1ca13278cc5057c2b4d36626e54181e2f3d8cf305aef10f3",
+          "selectedSeedId": "canonical:bb2c22272db3a74ae49b2d9b79259cdb4c081ca9bbe0bb25e2bf73e5f740cf4d"
+        }
+      ],
+      "derivedMembersCanBecomeOrigins": false,
+      "memberOrder": "canonical_parent_id_lexical",
+      "qualifiersComplete": "unknown",
+      "semanticScopeVerified": false
+    },
+    "competitionScope": {
+      "targetModule": "vetting",
+      "inputContract": "canonical-source-chunks-upstream-scope-and-parser-projection-v1",
+      "policyIdentity": {
+        "manifestSha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+      },
+      "sourceQualityChanged": false
+    }
+  }
+}

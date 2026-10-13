@@ -38,14 +38,24 @@ public class VettingReportWriter {
     private String fontPath = "";
 
     public byte[] docx(Project project, List<FindingVO> findings, VettingJobVO job, String lang) {
-        return docx(project,findings,job,lang,null);
+        return docx(project,findings,job,lang,(VettingExportProbe)null);
+    }
+    public byte[] docx(Project project,List<FindingVO> findings,VettingJobVO job,String lang,List<VettingChecklistCatalog.Result> checklist) {
+        return docx(project,findings,job,lang,null,checklist);
     }
     byte[] docx(Project project,List<FindingVO> findings,VettingJobVO job,String lang,VettingExportProbe probe) {
+        return docx(project,findings,job,lang,probe,Collections.emptyList());
+    }
+    byte[] docx(Project project,List<FindingVO> findings,VettingJobVO job,String lang,VettingExportProbe probe,List<VettingChecklistCatalog.Result> checklist) {
         List<Block> outline;
         try(VettingExportProbe.Timer timer=VettingExportProbe.measure(probe,"report_outline_construction","Original shared report outline construction")){outline=outline(project,findings,job,lang);}
         try(VettingExportProbe.Timer timer=VettingExportProbe.measure(probe,"docx_ooxml_generation","Original DOCX structure generation/write; not Microsoft Word pagination or visual layout QA")) {
         try (XWPFDocument document = new XWPFDocument(); ByteArrayOutputStream out = new ByteArrayOutputStream()) {
             setupWord(document);
+            writeBusinessWord(document,project,findings,job,checklist);
+            XWPFParagraph appendix=document.createParagraph();appendix.setPageBreak(true);
+            appendix.setStyle("Heading1");appendix.createRun().setText("APPENDIX II - Review scope and evidence records");
+            wordTable(document,VettingReportPresentation.evidenceIndex(findings,job==null?null:job.getCoverage()));
             for (Block block : outline) {
                 XWPFParagraph paragraph = document.createParagraph();
                 if (block.pageBreak) paragraph.setPageBreak(true);
@@ -60,6 +70,7 @@ public class VettingReportWriter {
                 setWordFont(run);
                 run.setFontSize(block.kind == 3 ? 22 : block.kind == 2 ? 14 : block.kind == 1 ? 11 : 10);
                 run.setBold(block.kind > 0);
+                run.setItalic(block.quote);
                 run.setColor(block.kind > 0 ? "000000" : "222222");
                 String[] lines = block.text.split("\n", -1);
                 for (int i = 0; i < lines.length; i++) {
@@ -69,12 +80,16 @@ public class VettingReportWriter {
             }
             XWPFFooter footer = document.createFooter(HeaderFooterType.DEFAULT);
             XWPFParagraph page = footer.createParagraph();
-            page.setAlignment(ParagraphAlignment.RIGHT);
+            page.setAlignment(ParagraphAlignment.CENTER);
             XWPFRun label = page.createRun(); setWordFont(label); label.setFontSize(8);
             label.setText(tr(lang, "第 ", "第 ", "Page "));
             page.getCTP().addNewFldSimple().setInstr("PAGE");
-            XWPFRun separator = page.createRun(); separator.setText(" / "); separator.setFontSize(8);
+            XWPFRun separator = page.createRun(); separator.setText("en".equalsIgnoreCase(lang)?" of ":" / "); separator.setFontSize(8);
             page.getCTP().addNewFldSimple().setInstr("NUMPAGES");
+            XWPFHeader runningHeader=document.createHeader(HeaderFooterType.DEFAULT);
+            XWPFParagraph contractHeader=runningHeader.createParagraph();
+            XWPFRun contractLabel=contractHeader.createRun();setWordFont(contractLabel);contractLabel.setFontSize(10);
+            contractLabel.setText("Contract No. "+available(project.getContractNo(),"en"));
             document.getProperties().getCoreProperties().setTitle(tr(lang, "招标文件审查报告", "招標文件審查報告", "Tender Document Vetting Report"));
             document.getProperties().getCoreProperties().setCreator("ConSense");
             document.write(out);
@@ -87,24 +102,41 @@ public class VettingReportWriter {
     }
 
     public byte[] pdf(Project project, List<FindingVO> findings, VettingJobVO job, String lang) {
-        return pdf(project,findings,job,lang,null);
+        return pdf(project,findings,job,lang,(VettingExportProbe)null);
+    }
+    public byte[] pdf(Project project,List<FindingVO> findings,VettingJobVO job,String lang,List<VettingChecklistCatalog.Result> checklist) {
+        return pdf(project,findings,job,lang,null,checklist);
     }
     byte[] pdf(Project project,List<FindingVO> findings,VettingJobVO job,String lang,VettingExportProbe probe) {
+        return pdf(project,findings,job,lang,probe,Collections.emptyList());
+    }
+    byte[] pdf(Project project,List<FindingVO> findings,VettingJobVO job,String lang,VettingExportProbe probe,List<VettingChecklistCatalog.Result> checklist) {
         List<Block> outline;
         try(VettingExportProbe.Timer timer=VettingExportProbe.measure(probe,"report_outline_construction","Original shared report outline construction")){outline=outline(project,findings,job,lang);}
         try(VettingExportProbe.Timer timer=VettingExportProbe.measure(probe,"pdf_native_generation","Original native PDF font/layout/drawing/footer/save work; not independent visual verification")) {
         try (PDDocument document = new PDDocument(); ByteArrayOutputStream out = new ByteArrayOutputStream()) {
-            PDFont font = loadFont(document, outline);
+            List<Block> characters=new ArrayList<>(outline);
+            for(VettingReportPresentation.Table table:businessTables(findings,job,checklist)) {
+                characters.add(new Block(0,table.getTitle()));for(String h:table.getHeadings())characters.add(new Block(0,h));
+                for(List<String> row:table.getRows())for(String cell:row)characters.add(new Block(0,cell));
+            }
+            PDFont font = loadFont(document, characters);
             try (PdfCursor cursor = new PdfCursor(document, font)) {
+                writeBusinessPdf(cursor,project,findings,job,checklist);
+                cursor.newPage();cursor.block(new Block(2,"APPENDIX II - Review scope and evidence records"),null);
+                cursor.table(VettingReportPresentation.evidenceIndex(findings,job==null?null:job.getCoverage()));
                 for (int at = 0; at < outline.size(); at++)
                     cursor.block(outline.get(at), at + 1 < outline.size() ? outline.get(at + 1) : null);
             }
             for (int i = 0; i < document.getNumberOfPages(); i++) {
                 try (PDPageContentStream stream = new PDPageContentStream(document, document.getPage(i), PDPageContentStream.AppendMode.APPEND, true)) {
                     stream.beginText(); stream.setFont(font, 8); stream.setNonStrokingColor(100, 110, 120);
-                    stream.newLineAtOffset(MARGIN, 27);
-                    stream.showText(tr(lang, "第 ", "第 ", "Page ") + (i + 1) + " / " + document.getNumberOfPages());
+                    String footerLabel=tr(lang, "第 ", "第 ", "Page ") + (i + 1) + ("en".equalsIgnoreCase(lang)?" of ":" / ") + document.getNumberOfPages();
+                    stream.newLineAtOffset((PDRectangle.A4.getWidth()-font.getStringWidth(footerLabel)/1000*8)/2, 27);
+                    stream.showText(footerLabel);
                     stream.endText();
+                    stream.beginText();stream.setFont(font,9);stream.newLineAtOffset(MARGIN,PDRectangle.A4.getHeight()-27);
+                    stream.showText("Contract No. "+available(project.getContractNo(),"en"));stream.endText();
                 }
             }
             document.getDocumentInformation().setTitle(tr(lang, "招标文件审查报告", "招標文件審查報告", "Tender Document Vetting Report"));
@@ -118,6 +150,68 @@ public class VettingReportWriter {
         }
     }
 
+    private List<VettingReportPresentation.Table> businessTables(List<FindingVO> findings,VettingJobVO job,List<VettingChecklistCatalog.Result> checklist) {
+        List<VettingReportPresentation.Table> tables=new ArrayList<>(VettingReportPresentation.comments(findings,job==null?null:job.getCoverage()));
+        tables.addAll(VettingReportPresentation.checklist(checklist));return tables;
+    }
+    private void writeBusinessWord(XWPFDocument document,Project project,List<FindingVO> findings,VettingJobVO job,List<VettingChecklistCatalog.Result> checklist) {
+        wordLine(document,"Comments on Tender Documentation","Title",false);
+        XWPFTable metadata=document.createTable(4,3);metadata.setWidth("100%");
+        String[][] fields={{"Contract Title",available(projectName(project,"en"),"en")},{"Contract No.",available(project.getContractNo(),"en")},{"Contract Manager","Not provided"},{"Surveyor","Not provided"}};
+        for(int i=0;i<fields.length;i++)setWordCells(metadata.getRow(i),Arrays.asList(fields[i][0],":",fields[i][1]),new int[]{25,3,72},false);
+        CTTblBorders border=metadata.getCTTbl().getTblPr().addNewTblBorders();
+        for(CTBorder b:Arrays.asList(border.addNewTop(),border.addNewBottom(),border.addNewLeft(),border.addNewRight(),border.addNewInsideH(),border.addNewInsideV()))b.setVal(STBorder.NONE);
+        wordLine(document,"Comments below are review suggestions. Source quotations and the review scope are retained in Appendix II. Project team remarks are recorded independently.","Normal",false);
+        for(VettingReportPresentation.Table table:VettingReportPresentation.comments(findings,job==null?null:job.getCoverage()))wordTable(document,table);
+        wordLine(document,"The project team may record whether an amendment is required for incorporation into a tender addendum in the remarks column.","Normal",false);
+        wordLine(document,"APPENDIX I","Heading1",true);
+        wordLine(document,"Checklist for the Contract Team for Counterchecking Various PSS Clauses of PRE Worksection and Bills No. 1 and 2","Heading2",false);
+        wordLine(document,"Only a saved project team decision marks an item as checked and fulfilled or not applicable. Unchecked items remain unknown; no findings or a handled comment does not confirm fulfilment.","Normal",false);
+        wordLine(document,"Pricing-document counterchecks are retained from the sample for structure only and do not expand the competition review scope; automated review excludes pricing documents and works-related project-specific specifications.","Normal",false);
+        for(VettingReportPresentation.Table table:VettingReportPresentation.checklist(checklist))wordTable(document,table);
+    }
+    private void wordLine(XWPFDocument document,String text,String style,boolean pageBreak) {
+        XWPFParagraph p=document.createParagraph();p.setStyle(style);p.setPageBreak(pageBreak);
+        p.setSpacingAfter("Title".equals(style)?180:100);p.setSpacingBetween(1.15);
+        if(style.startsWith("Heading"))p.getCTP().addNewPPr().addNewKeepNext();
+        XWPFRun r=p.createRun();setWordFont(r);r.setFontSize("Title".equals(style)?12:style.startsWith("Heading")?12:11);r.setBold(style.startsWith("Heading"));r.setText(text);
+        if("Title".equals(style)){p.setAlignment(ParagraphAlignment.CENTER);r.setUnderline(UnderlinePatterns.SINGLE);}
+    }
+    private void wordTable(XWPFDocument document,VettingReportPresentation.Table model) {
+        wordLine(document,model.getTitle(),"Heading2",false);
+        XWPFTable table=document.createTable(1,model.getHeadings().size());table.setWidth("100%");
+        table.getCTTbl().getTblPr().addNewTblLayout().setType(STTblLayoutType.FIXED);
+        int[] widths=model.getWidths();
+        setWordCells(table.getRow(0),model.getHeadings(),widths,true);
+        table.getRow(0).setRepeatHeader(true);
+        for(List<String> values:model.getRows())setWordCells(table.createRow(),values,widths,false);
+    }
+    private void setWordCells(XWPFTableRow row,List<String> values,int[] widths,boolean header) {
+        row.getCtRow().addNewTrPr();
+        for(int i=0;i<values.size();i++) {
+            XWPFTableCell cell=row.getCell(i);cell.setWidth(String.valueOf(9986*widths[i]/100));
+            cell.setVerticalAlignment(XWPFTableCell.XWPFVertAlign.TOP);
+            XWPFParagraph p=cell.getParagraphs().get(0);p.setSpacingAfter(40);p.setSpacingBefore(40);p.setSpacingBetween(1.1);
+            if(header)p.getCTP().addNewPPr().addNewKeepNext();
+            XWPFRun r=p.createRun();setWordFont(r);r.setFontSize(12);r.setBold(header);
+            String[] lines=values.get(i).split("\n",-1);for(int n=0;n<lines.length;n++){if(n>0)r.addBreak();r.setText(lines[n]);}
+        }
+    }
+    private void writeBusinessPdf(PdfCursor cursor,Project project,List<FindingVO> findings,VettingJobVO job,List<VettingChecklistCatalog.Result> checklist) throws IOException {
+        cursor.centeredTitle("Comments on Tender Documentation");
+        cursor.metadata("Contract Title",available(projectName(project,"en"),"en"));
+        cursor.metadata("Contract No.",available(project.getContractNo(),"en"));
+        cursor.metadata("Contract Manager","Not provided");cursor.metadata("Surveyor","Not provided");
+        cursor.block(new Block(0,"Comments are review suggestions. Project team remarks are recorded independently; review scope and source evidence are retained in Appendix II."),null);
+        for(VettingReportPresentation.Table table:VettingReportPresentation.comments(findings,job==null?null:job.getCoverage()))cursor.table(table);
+        cursor.block(new Block(0,"The project team may record whether an amendment is required for incorporation into a tender addendum in the remarks column."),null);
+        cursor.newPage();cursor.block(new Block(2,"APPENDIX I"),null);
+        cursor.block(new Block(1,"Checklist for the Contract Team for Counterchecking Various PSS Clauses of PRE Worksection and Bills No. 1 and 2"),null);
+        cursor.block(new Block(0,"Only a saved project team decision marks an item as checked and fulfilled or not applicable. Unchecked items remain unknown; no findings or a handled comment does not confirm fulfilment."),null);
+        cursor.block(new Block(0,"Pricing-document counterchecks are retained from the sample for structure only and do not expand the competition review scope; automated review excludes pricing documents and works-related project-specific specifications."),null);
+        for(VettingReportPresentation.Table table:VettingReportPresentation.checklist(checklist))cursor.table(table);
+    }
+
     private List<Block> outline(Project project, List<FindingVO> findings, VettingJobVO job, String lang) {
         List<Block> blocks = new ArrayList<>();
         List<FindingVO> safeFindings = findings == null ? Collections.emptyList() : findings;
@@ -126,6 +220,7 @@ public class VettingReportWriter {
         blocks.add(new Block(0, tr(lang, "合约编号", "合約編號", "Contract number") + ": " + available(project.getContractNo(), lang)));
         blocks.add(new Block(0, tr(lang, "项目编号", "項目編號", "Project ID") + ": " + nvl(project.getId())));
         blocks.add(new Block(0, tr(lang, "任务编号", "任務編號", "Run ID") + ": " + (job == null ? available(null, lang) : nvl(job.getId()))));
+        if(job!=null&&job.getReportSnapshotId()!=null)blocks.add(new Block(0,"Report snapshot: "+job.getReportSnapshotId()));
         blocks.add(new Block(0, tr(lang, "模型", "模型", "Model") + ": " + (job == null || job.getResult() == null ? available(null, lang) : available(job.getResult().getModel(), lang))));
         blocks.add(new Block(0, tr(lang, "任务完成时间", "任務完成時間", "Run completed") + ": "
                 + (job == null || job.getFinishedAt() == null ? available(null, lang) : DATE.format(job.getFinishedAt()))));
@@ -160,8 +255,19 @@ public class VettingReportWriter {
             String aggregate=JsonUtils.isBlankText(topic.getAggregateReviewStatus())?"scope_unknown_legacy":topic.getAggregateReviewStatus();
             blocks.add(compact(new Block(1,tr(lang,"主题","主題","Topic")+" "+topic.getTopicIndex()+": "+nvl(topic.getTopic()))));
             blocks.add(compact(new Block(0,tr(lang,"来源范围状态","來源範圍狀態","Source scope status")+": "+aggregate+"    "+tr(lang,"全局调用状态（仅调用及解析）","全局呼叫狀態（僅呼叫及解析）","Global call status (call/decode only)")+": "+nvl(JsonUtils.isBlankText(topic.getGlobalCallStatus())?topic.getStatus():topic.getGlobalCallStatus()))));
+            blocks.add(compact(new Block(0,"Check state (observed scope): "+topic.getCheckState()+"; overall completeness: "+coverage.getReviewCompleteness())));
             blocks.add(compact(new Block(0,tr(lang,"待处理来源请求","待處理來源請求","Pending source requests")+": "+topic.getPendingSourceRequestCount()+" / "+topic.getSourceRequestCount()+"    "+tr(lang,"额外来源包","額外來源包","Extra source packets")+": "+topic.getExtraPacketCount()+"    "+tr(lang,"失败包","失敗包","Failed packets")+": "+topic.getFailedPacketCount()+"    "+tr(lang,"未提交包","未提交包","Packets not submitted")+": "+topic.getNotSubmittedPacketCount())));
-            for(SemanticPacketVO packet:safe(topic.getPacketAudits()))if(packet!=null)blocks.add(compact(new Block(0,tr(lang,"来源包","來源包","Source packet")+" "+packet.getPacketIndex()+": "+nvl(packet.getStatus())+"    "+tr(lang,"输入预算","輸入預算","Input budget")+": "+nvl(packet.getInputBudgetStatus())+(JsonUtils.isBlankText(packet.getFailureKind())?"":"    "+tr(lang,"失败类型","失敗類型","Failure kind")+": "+packet.getFailureKind()))));
+            for(SemanticPacketVO packet:safe(topic.getPacketAudits()))if(packet!=null){
+                blocks.add(compact(new Block(0,tr(lang,"来源包","來源包","Source packet")+" "+packet.getPacketIndex()+": "+nvl(packet.getStatus())+"; check state: "+packet.getCheckState()+"    "+tr(lang,"输入预算","輸入預算","Input budget")+": "+nvl(packet.getInputBudgetStatus())+(JsonUtils.isBlankText(packet.getFailureKind())?"":"    "+tr(lang,"失败类型","失敗類型","Failure kind")+": "+packet.getFailureKind()))));
+                for(com.fasterxml.jackson.databind.JsonNode reference:safe(packet.getFixedBaselineEvidence()))fixedReferenceBlocks(blocks,reference);
+                for(VerifiedAssessmentVO assessment:safe(packet.getVerifiedAssessments())){
+                    blocks.add(compact(new Block(0,"Assessment (observed scope): "+assessment.getAssessment()+"; "+assessment.getTitle()+"; "+assessment.getComment())));
+                    for(FindingEvidence evidence:safe(assessment.getEvidence())){
+                        blocks.add(compact(new Block(0,"Assessment source: "+evidence.getDocumentId()+"; revision: "+evidence.getSourceHash()+"; "+evidence.getAnchor())));
+                        Block quote=new Block(0,nvl(evidence.getQuote()));quote.quote=true;blocks.add(quote);
+                    }
+                }
+            }
         }
         blocks.add(new Block(0,tr(lang,"来源范围状态记录已观察请求的运输、调用及解析；模型的 consistent 或空数组不确认合同无问题，未知限定及遗漏仍须人工核对。","來源範圍狀態記錄已觀察請求的運輸、呼叫及解析；模型的 consistent 或空陣列不確認合同無問題，未知限定及遺漏仍須人工核對。","Source scope status records transport, calls and decoding of observed requests. A model's consistent declaration or empty array does not confirm the contract has no issues; unknown qualifiers and omitted requests still require human review.")));
 
@@ -211,6 +317,7 @@ public class VettingReportWriter {
                             + (evidence.isLocated() ? tr(lang, "已定位原文", "已定位原文", "Located in source") : tr(lang, "未定位原文", "未定位原文", "Not located in source")));
                     label.keepWithNextOpening = true; blocks.add(label);
                     Block quote = new Block(0, nvl(evidence.getQuote())); quote.quote = true; blocks.add(quote);
+                    if(evidence.getFixedBaselineEvidence()!=null)fixedReferenceBlocks(blocks,evidence.getFixedBaselineEvidence());
                 }
             }
         }
@@ -229,6 +336,12 @@ public class VettingReportWriter {
         }
         if (!hasWarning) blocks.add(new Block(0, tr(lang, "任务没有记录额外材料缺口；这不构成对未提供文件的完整性确认。", "任務沒有記錄額外材料缺口；這不構成對未提供文件的完整性確認。", "No additional material gaps were recorded. This is not confirmation that documents absent from the source set are complete.")));
         return blocks;
+    }
+
+    private static void fixedReferenceBlocks(List<Block> blocks,com.fasterxml.jackson.databind.JsonNode reference){
+        blocks.add(compact(new Block(0,"Fixed development reference: "+reference.path("parentId").asText()+"; version: "+reference.path("baselineVersion").asText()+"; manifest: "+reference.path("manifestSha256").asText())));
+        blocks.add(compact(new Block(0,"Original source: "+reference.path("originalSourceSha256").asText()+"; page: "+reference.path("pageNo").asText()+"; family: "+reference.path("sourceFamily").asText()+"; project applicability: "+reference.path("projectApplicability").asText("unconfirmed")+"; qualifiers: "+reference.path("qualifiersComplete").asText("unknown"))));
+        com.fasterxml.jackson.databind.JsonNode group=reference.get("sourceUnit");if(group!=null)blocks.add(compact(new Block(0,"Observed source group: "+group.path("unitId").asText()+"; status: "+group.path("status").asText("unknown")+"; required members: "+group.path("requiredMemberIds")+"; missing members: "+group.path("missingMemberIds")+"; unknown: "+group.path("unknown"))));
     }
 
     private void setupWord(XWPFDocument document) {
@@ -251,12 +364,13 @@ public class VettingReportWriter {
     }
 
     private void setWordFont(XWPFRun run) {
-        run.setFontFamily("Arial"); run.setFontFamily("Microsoft YaHei", XWPFRun.FontCharRange.eastAsia);
+        run.setFontFamily("Times New Roman"); run.setFontFamily("Microsoft YaHei", XWPFRun.FontCharRange.eastAsia);
     }
 
     private PDFont loadFont(PDDocument document, List<Block> blocks) throws IOException {
         List<String> candidates = new ArrayList<>();
         if (!nvl(fontPath).trim().isEmpty()) candidates.add(fontPath.trim());
+        if(candidates.isEmpty()&&canEncode(PDType1Font.TIMES_ROMAN,blocks))return PDType1Font.TIMES_ROMAN;
         candidates.addAll(Arrays.asList("C:/Windows/Fonts/simhei.ttf", "C:/Windows/Fonts/simkai.ttf",
                 "/usr/share/fonts/truetype/noto/NotoSansSC-Regular.ttf", "/usr/share/fonts/truetype/noto/NotoSansCJKsc-Regular.ttf",
                 "/usr/share/fonts/truetype/wqy/wqy-zenhei.ttf"));
@@ -290,6 +404,73 @@ public class VettingReportWriter {
             if (stream != null) stream.close();
             PDPage page = new PDPage(PDRectangle.A4); document.addPage(page);
             stream = new PDPageContentStream(document, page); y = PDRectangle.A4.getHeight() - MARGIN;
+        }
+        void centeredTitle(String text) throws IOException {
+            float w=font.getStringWidth(text)/1000*12,x=(PDRectangle.A4.getWidth()-w)/2;
+            y-=12;stream.beginText();stream.setFont(font,12);stream.setNonStrokingColor(0,0,0);
+            stream.newLineAtOffset(x,y);stream.showText(text);stream.endText();
+            stream.setStrokingColor(0,0,0);stream.setLineWidth(0.5f);stream.moveTo(x,y-2);stream.lineTo(x+w,y-2);stream.stroke();y-=32;
+        }
+        void metadata(String label,String value) throws IOException {
+            List<String> lines=wrap(value,11,WIDTH-142);
+            for(int i=0;i<lines.size();i++) {
+                if(i==0){textAt(MARGIN,y,11,label);textAt(MARGIN+130,y,11,":");}
+                textAt(MARGIN+142,y,11,lines.get(i));y-=17;
+            }
+            y-=5;
+        }
+        void textAt(float x,float baseline,float size,String text) throws IOException {
+            stream.beginText();stream.setFont(font,size);stream.setNonStrokingColor(0,0,0);
+            stream.newLineAtOffset(x,baseline);stream.showText(text);stream.endText();
+        }
+        void table(VettingReportPresentation.Table table) throws IOException {
+            List<List<String>> header=cellLines(table.getHeadings(),table.getWidths());
+            float headHeight=height(header);
+            float titleHeight=wrap(table.getTitle(),11,WIDTH).size()*11*1.48f+13;
+            float firstHeight=table.getRows().isEmpty()?0:height(cellLines(table.getRows().get(0),table.getWidths()));
+            float freshBody=PDRectangle.A4.getHeight()-MARGIN*2-titleHeight-headHeight;
+            // Keep a fresh table's heading/header with its first row. A row longer than a page
+            // is allowed to continue, but the opening must contain actual body text.
+            float opening=titleHeight+headHeight+(firstHeight<=freshBody?firstHeight:32);
+            if(y-opening<MARGIN)newPage();
+            block(new Block(1,table.getTitle()),null);
+            tableSlice(header,table.getWidths(),0,maxLines(header));
+            for(List<String> row:table.getRows()) {
+                List<List<String>> lines=cellLines(row,table.getWidths());int count=maxLines(lines),offset=0;
+                while(offset<count) {
+                    int fit=(int)((y-MARGIN-8)/14.4f);
+                    // If this row fits on a fresh page, keep it together. Long rows may continue.
+                    if(fit<1||(offset==0&&count>fit&&count*14.4f+8<PDRectangle.A4.getHeight()-MARGIN*2-headHeight-35)) {
+                        newPage();block(new Block(1,table.getTitle()+" (Cont'd)"),null);
+                        tableSlice(header,table.getWidths(),0,maxLines(header));fit=(int)((y-MARGIN-8)/14.4f);
+                    }
+                    int n=Math.min(count-offset,Math.max(1,fit));tableSlice(lines,table.getWidths(),offset,n);offset+=n;
+                    if(offset<count){newPage();block(new Block(1,table.getTitle()+" (Cont'd)"),null);tableSlice(header,table.getWidths(),0,maxLines(header));}
+                }
+            }
+            y-=12;
+        }
+        List<List<String>> cellLines(List<String> values,int[] widths) throws IOException {
+            List<List<String>> result=new ArrayList<>();
+            for(int i=0;i<values.size();i++) {
+                List<String> lines=new ArrayList<>();for(String p:nvl(values.get(i)).split("\n",-1))lines.addAll(wrap(p,12,WIDTH*widths[i]/100-8));result.add(lines);
+            }
+            return result;
+        }
+        int maxLines(List<List<String>> cells) {return cells.stream().mapToInt(List::size).max().orElse(1);}
+        float height(List<List<String>> cells){return maxLines(cells)*14.4f+8;}
+        void tableSlice(List<List<String>> cells,int[] widths,int offset,int count) throws IOException {
+            float h=count*14.4f+8,x=MARGIN;
+            stream.setStrokingColor(35,35,35);stream.setLineWidth(0.5f);
+            for(int i=0;i<cells.size();i++) {
+                float w=WIDTH*widths[i]/100;stream.addRect(x,y-h,w,h);stream.stroke();
+                for(int n=0;n<count;n++)if(offset+n<cells.get(i).size()) {
+                    stream.beginText();stream.setFont(font,12);stream.setNonStrokingColor(25,25,25);
+                    stream.newLineAtOffset(x+4,y-15-n*14.4f);stream.showText(cells.get(i).get(offset+n));stream.endText();
+                }
+                x+=w;
+            }
+            y-=h;
         }
         void block(Block block, Block next) throws IOException {
             if (block.pageBreak && y < PDRectangle.A4.getHeight() - MARGIN) newPage();
@@ -354,7 +535,9 @@ public class VettingReportWriter {
     }
     private static Block compact(Block block) { block.compact = true; return block; }
     private ReportSource reportSource(FindingVO finding, CoverageVO coverage) {
-        FindingEvidence primary = safe(finding.getEvidence()).stream().filter(Objects::nonNull).findFirst().orElse(null);
+        FindingEvidence primary = safe(finding.getEvidence()).stream().filter(Objects::nonNull)
+                .filter(e->"source".equalsIgnoreCase(e.getSide())).findFirst()
+                .orElseGet(()->safe(finding.getEvidence()).stream().filter(Objects::nonNull).findFirst().orElse(null));
         String key = nvl(primary == null ? finding.getFileKey() : primary.getFileKey());
         String documentId = primary == null ? "" : nvl(primary.getDocumentId());
         String fileName = primary == null ? "" : nvl(primary.getFileName());
@@ -444,6 +627,9 @@ public class VettingReportWriter {
         // Only known system-warning phrases are localized here. Evidence,
         // comments, filenames and opaque diagnostic details are never translated.
         String[][] phrases = {
+                {"规则与语义仅处理已采用的 canonical 来源观察；未采用区域、整份原件完整性、编辑状态及采用关系保持声明的未知。字符分母仅为已采用观察的 UTF16 范围并集，不代表原件全文覆盖。", "規則與語義僅處理已採用的 canonical 來源觀察；未採用區域、整份原件完整性、編輯狀態及採用關係保持聲明的未知。字元分母僅為已採用觀察的 UTF16 範圍聯集，不代表原件全文覆蓋。", "Rules and semantic review process only adopted canonical source observations; unadopted regions, completeness of the entire original, editing status and adoption relationships retain their declared unknowns. The character denominator is only the union of UTF16 ranges in adopted observations and does not represent full-text coverage of the original."},
+                {"片段与字符统计以已采用 canonical 观察为分母；未采用区域及原件完整性未确认。", "片段與字元統計以已採用 canonical 觀察為分母；未採用區域及原件完整性未確認。", "Segment and character statistics use adopted canonical observations as the denominator; unadopted regions and original-source completeness are unconfirmed."},
+                {"规则检查仅对已采用的 canonical 招标合同观察运行。", "規則檢查僅對已採用的 canonical 招標合同觀察執行。", " Rule checks run only on adopted canonical tender contract observations."},
                 {"未提供可解析的 Bills of Quantities，不能确认数量、提交范围及金额协调。", "未提供可解析的 Bills of Quantities，不能確認數量、提交範圍及金額協調。", "No parseable Bills of Quantities were supplied; quantities, submission scope and monetary coordination cannot be confirmed."},
                 {"未提供可解析的 General Summary，无法核对汇总金额。", "未提供可解析的 General Summary，無法核對匯總金額。", "No parseable General Summary was supplied; summary amounts cannot be checked."},
                 {"规则扫描全部可解析招标合同条款；标准文件仅作参考对照，项目事实和文件目录仅作上下文，均未当作实际合同执行规则检查。语义覆盖仅计实际成功的模型片段，未检索片段不代表完成语义审查。", "規則掃描全部可解析招標合同條款；標準文件僅作參考對照，項目事實和文件目錄僅作上下文，均未當作實際合同執行規則檢查。語義覆蓋僅計實際成功的模型片段，未檢索片段不代表完成語義審查。", "Rules scan all parseable tender contract provisions. Standards are comparison references; project facts and the package manifest provide context. These supporting sources are not checked as actual contract obligations. Semantic coverage counts only excerpts in successful model calls; unretrieved excerpts have not completed semantic review."},

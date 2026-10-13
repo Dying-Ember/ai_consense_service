@@ -27,6 +27,12 @@ class WorkspaceHealthTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder); self.assertEqual(resolve_workspace(path.parent, {'CONSENSE_WORKSPACE_ROOT': str(root)}), root.resolve())
 
+    def test_standalone_service_repository_stays_inside_its_root(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder); here = root / 'tools/vetting_eval'; here.mkdir(parents=True)
+            (root / 'pom.xml').write_text('<project/>'); (root / '.git').mkdir()
+            self.assertEqual(resolve_workspace(here, {}), root.resolve())
+
     def test_isolated_stage_root_is_explicit(self):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder); here = root / 'many/levels/isolated/frozen_software'; here.mkdir(parents=True)
@@ -91,13 +97,16 @@ class WorkspaceHealthTests(unittest.TestCase):
     def test_runtime_binds_workspace_helper_and_rejects_changed_loaded_bytes(self):
         rt = WindowRuntime(server)
         self.assertIn('workspace_root.py', rt.algorithms())
+        self.assertIn('qdrant_backend.py', rt.algorithms())
         original = runtime_module.file_identity
-        def changed(path):
-            value = original(path)
-            return {**value, 'sha256': '0' * 64} if Path(path).name == 'workspace_root.py' else value
-        with patch.object(runtime_module, 'file_identity', side_effect=changed), self.assertRaises(WindowError) as error:
-            rt.algorithms()
-        self.assertEqual(error.exception.kind, 'SOFTWARE_CHANGED_SINCE_IMPORT')
+        for dependency in ('workspace_root.py', 'qdrant_backend.py'):
+            with self.subTest(dependency=dependency):
+                def changed(path):
+                    value = original(path)
+                    return {**value, 'sha256': '0' * 64} if Path(path).name == dependency else value
+                with patch.object(runtime_module, 'file_identity', side_effect=changed), self.assertRaises(WindowError) as error:
+                    rt.algorithms()
+                self.assertEqual(error.exception.kind, 'SOFTWARE_CHANGED_SINCE_IMPORT')
 
 
 if __name__ == '__main__':

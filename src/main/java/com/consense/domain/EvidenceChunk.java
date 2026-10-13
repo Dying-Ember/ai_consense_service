@@ -25,6 +25,13 @@ public class EvidenceChunk {
     @Column(name = "document_id")
     private Long documentId;
 
+    /** Exact source revision at indexing; a changed source cannot reuse older evidence. */
+    @Column(name = "source_hash", length = 64)
+    private String sourceHash;
+
+    @Column(name = "source_role", length = 32)
+    private String sourceRole;
+
     @Column(name = "chunk_index", nullable = false)
     private Integer chunkIndex = 0;
 

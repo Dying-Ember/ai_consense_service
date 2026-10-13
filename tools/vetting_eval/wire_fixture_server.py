@@ -76,7 +76,7 @@ class Handler(BaseHTTPRequestHandler):
     counts['fixtureNonemptyRetrieve']+=1;payload=copy.deepcopy(next(c for c in state['chunks']if request.role is None or c['role']==request.role))
     # An injected ranked transport fixture still carries the actual pure-source
     # structural episode. The previous actual empty-scope episode has no seeds.
-    o['hits'],o['sourceUnits']=select_source_units(state['chunks'],[{'id':payload['id'],'score':.4,'payload':payload}],request.limit);o.pop('emptyScope',None)
+    o['hits'],o['sourceUnits']=select_source_units(state['chunks'],[{'id':payload['id'],'score':.4,'payload':payload}],request.limit,hierarchy_context=rt.structural_recipe.enabled);o.pop('emptyScope',None)
     if case=='changed_payload':o['hits'][0]['payload']['content']+=' changed'
    return self.answer(200,o,raw)
   self.answer(404,{'error':'not found'},raw)

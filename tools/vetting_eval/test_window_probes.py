@@ -66,7 +66,8 @@ class LoadPublicationTests(unittest.TestCase):
             def __getitem__(self,i):return module
         fake=SimpleNamespace(SentenceTransformer=lambda *a,**k:Embedding(),CrossEncoder=lambda *a,**k:SimpleNamespace(tokenizer=CharacterTokenizer()))
         s.release_other_model=lambda kind:None;s.model_path=lambda c:'mock';s.model_options=lambda:('cpu',{})
-        s._windows_runtime=SimpleNamespace(guard=lambda t,k:t)
+        s._windows_runtime=SimpleNamespace(guard=lambda t,k:t,
+            inference_cap=lambda kind:s.MODEL_SETTINGS[kind]['maxTokens'])
         s.verify_loaded_model=lambda model,kind:(_ for _ in()).throw(WindowError('MODEL_RUNTIME_MISMATCH','synthetic'))
         with patch.dict(sys.modules,{'sentence_transformers':fake}):
             for method,field in [(s.embedding_model,'_embedding'),(s.rerank_model,'_reranker')]:

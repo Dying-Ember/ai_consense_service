@@ -125,6 +125,9 @@ public class ConsenseProperties {
     public static class Vetting {
         /** Default-off vetting-only wire. Drafting and the shared Llm configuration are unchanged. */
         private Responses responses = new Responses();
+        /** Explicit minimax-cn selection uses Chat unless this Vetting-only wire is responses. */
+        private String minimaxCnWire = "chat-completions";
+        /** Legacy binding only; the withdrawn finding cap is never applied. */
         private int maxRiskFindings = 10;
         private boolean diffAgainstBaseline = true;
         private boolean semanticEnabled = true;
@@ -132,7 +135,7 @@ public class ConsenseProperties {
         private long retrievalTimeoutMs = 180_000;
         /** First-time corpus embedding/indexing can take much longer than one query. */
         private long retrievalIndexTimeoutMs = 1_800_000;
-        private int semanticTopics = 16;
+        private int semanticTopics = 17;
         private int semanticContextChars = 10000;
         /** Optional bounded literal-reference expansion; does not imply full contract coverage. */
         private int semanticContextExpansionChars = 20000;
@@ -156,6 +159,11 @@ public class ConsenseProperties {
         private int expectedEmbeddingWindowMaxTokens = 512;
         private int expectedRerankWindowMaxTokens = 512;
         private int expectedWindowOverlapTokens = 64;
+        /** Separate opt-in structural recipe; baseline short-window expectations stay unchanged. */
+        private String expectedRetrievalGranularity = "windows-v1";
+        private int expectedStructuralEmbeddingMaxTokens = 2048;
+        private int expectedStructuralRerankMaxTokens = 2048;
+        private boolean expectedStructuralRerankStrict = true;
         /** Optional externally frozen public health recipe fingerprint; never a model answer. */
         private String expectedRetrievalRecipeFingerprint;
         /** Optional externally frozen index signature, e.g. the approved GPU cache seal. */
@@ -175,7 +183,7 @@ public class ConsenseProperties {
         private String model = "MiniMax-M3";
         private double temperature = 0.2;
         private int maxOutputTokens = 16384;
-        /** For M3, high enables reasoning; it is not a claim of adjustable reasoning depth. */
+        /** M3 supports high or none. Explicit minimax-cn maps its captured thinking mode. */
         private String reasoningEffort = "high";
         private long counterTimeoutMs = 10000, generationTimeoutMs = 300000;
         private int counterMaxResponseBytes = 1048576, generationMaxResponseBytes = 4194304;

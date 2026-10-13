@@ -1,0 +1,7 @@
+# Preserve source and CAS identities on every checkout.
+src/test/resources/drafting/harness/ordered-list/SIM11-novel-round1-source.txt text eol=lf
+src/test/resources/oer/native-pdf-producer-v1/** -text
+src/test/resources/oer/canonical/authored-source.pdf -text
+src/test/resources/oer/recheck/**/*.blob -text
+artifacts/oer-freeze-20261012/manifest.json -text
+artifacts/oer-freeze-20261012/notices/** -text

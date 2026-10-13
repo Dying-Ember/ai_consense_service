@@ -34,12 +34,18 @@ public class InMemoryVectorStore implements VectorStore {
 
     @Override
     public List<SearchHit> search(String projectId, float[] query, int topK, double scoreThreshold) {
+        return search(projectId,null,query,topK,scoreThreshold);
+    }
+
+    @Override
+    public List<SearchHit> search(String projectId, java.util.Set<String> documentIds, float[] query, int topK, double scoreThreshold) {
         List<SearchHit> hits = new ArrayList<>();
         for (VectorPoint point : store.values()) {
             Object pid = point.getPayload().get("projectId");
             if (pid == null || !projectId.equals(String.valueOf(pid))) {
                 continue;
             }
+            if(documentIds!=null&&!documentIds.contains(String.valueOf(point.getPayload().get("documentId"))))continue;
             double score = cosine(query, point.getVector());
             if (score >= scoreThreshold) {
                 hits.add(new SearchHit(point.getId(), score, point.getPayload()));

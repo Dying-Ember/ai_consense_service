@@ -11,7 +11,7 @@ final class DraftSourceEditCompiler implements DraftClauseRules.SourceListener {
     private Map<Integer,Desired> desired=new LinkedHashMap<>();private List<Insertion> insertions=new ArrayList<>();
     private List<Removal> removals=new ArrayList<>();
     private static final class Removal {final String id;final List<NodeAnchor> nodes;Removal(String id,List<NodeAnchor> nodes){this.id=id;this.nodes=nodes;}}
-    private static final class Desired {final Paragraph p;final String value,id;Desired(Paragraph p,String value,String id){this.p=p;this.value=value;this.id=id;}}
+    private static final class Desired {final Paragraph p;final String value,id;final boolean tocTitle;Desired(Paragraph p,String value,String id){this(p,value,id,false);}Desired(Paragraph p,String value,String id,boolean tocTitle){this.p=p;this.value=value;this.id=id;this.tocTitle=tocTitle;}}
     private static final class Insertion {
         final Paragraph p,donor;final String value,id;final boolean after;
         Insertion(Paragraph p,String value,String id,boolean after){this(p,value,id,after,p);}
@@ -21,6 +21,7 @@ final class DraftSourceEditCompiler implements DraftClauseRules.SourceListener {
     String projection(){StringJoiner out=new StringJoiner("\n");for(Paragraph p:source.getMainParagraphs())out.add(p.getCatalogText());return out.toString();}
     @Override public void adopted(Map<String,Object> action,List<DraftClauseRules.SourceChange> changes,boolean changed) {
         if(changed&&changes.isEmpty())throw new BizException(4012,"SOURCE_WHOLE_FORMAT_MAPPING_REQUIRED");
+        verifyAutomaticSiteNegative(action);
         Map<Integer,Desired> trial=new LinkedHashMap<>(desired);List<Insertion> inserted=new ArrayList<>(insertions);List<Removal> removed=new ArrayList<>(removals);String id=String.valueOf(action.get("id"));
         for(DraftClauseRules.SourceChange change:changes) {
             if(change.scopeEnd>0){removed.add(removeBranch(id,change.paragraph,change.scopeEnd));continue;}
@@ -32,6 +33,17 @@ final class DraftSourceEditCompiler implements DraftClauseRules.SourceListener {
         }
         compile(trial,inserted,removed); // Factories validate text/control spans before committing this action's state.
         desired=trial;insertions=inserted;removals=removed;
+    }
+    private void verifyAutomaticSiteNegative(Map<String,Object> action) {
+        if(!"sct-site-formation-submissions".equals(action.get("id"))||Boolean.TRUE.equals(action.get("manual"))||!"not_used".equals(action.getOrDefault("decisionAction",action.get("action"))))return;
+        if(!"SCT".equals(document)||!"SCT6(1)(c)".equals(action.get("clause"))||!"7def01d62e07b35dd86beeff995e0e37d73ce18adca2746e2a6f6d9bafb5aaa4".equals(source.getSourceSha256()))throw new BizException(4012,"SOURCE_SITE_SUBMISSION_EDITION_UNVERIFIED");
+        for(int ordinal:new int[]{849,851,853,854,856})if(!source.mainParagraph(ordinal).getCatalogText().equals(DraftBusinessRules.standardParagraph("SCT",ordinal)))throw new BizException(4012,"SOURCE_SITE_SUBMISSION_SCOPE_CHANGED: P"+ordinal);
+        String first=source.mainParagraph(849).getRowId(),second=source.mainParagraph(854).getRowId();
+        if(first==null||second==null||first.equals(second)||!first.equals(source.mainParagraph(851).getRowId())||!first.equals(source.mainParagraph(853).getRowId())||!second.equals(source.mainParagraph(856).getRowId()))throw new BizException(4012,"SOURCE_SITE_SUBMISSION_SCOPE_CHANGED");
+        for(int[] ordinals:new int[][]{{849,850,851,852,853},{854,855,856,857}}) {
+            Set<String> expected=new LinkedHashSet<>();for(int ordinal:ordinals)expected.add(source.mainParagraph(ordinal).getId());
+            if(!expected.equals(new LinkedHashSet<>(source.anchor(source.mainParagraph(ordinals[0]).getRowId()).getParagraphIds())))throw new BizException(4012,"SOURCE_SITE_SUBMISSION_SCOPE_CHANGED");
+        }
     }
     private Removal removeBranch(String id,int start,int end) {
         return removeBranch(id,start,end,null);
@@ -81,6 +93,7 @@ final class DraftSourceEditCompiler implements DraftClauseRules.SourceListener {
         String value=text.trim();return value.startsWith("HD(QS)")||value.startsWith("March 2020")||value.startsWith("SPECIAL CONDITIONS OF TENDER")||value.startsWith("SPECIAL CONDITIONS OF CONTRACT")||value.equals("NOTES TO TENDERERS");
     }
     private void whole(Map<Integer,Desired> trial,List<Insertion> inserted,List<Removal> removed,Map<String,Object> action,String id,String clause,String replacement) {
+        if(verifiedAutomaticNegative(trial,removed,action,id,clause,replacement))return;
         if(verifiedSpecialistNegative(trial,removed,action,id,clause,replacement))return;
         if(verifiedWtoNegative(removed,action,id,clause,replacement))return;
         List<Paragraph> paragraphs=source.getMainParagraphs();List<Integer> matches=new ArrayList<>();
@@ -118,6 +131,39 @@ final class DraftSourceEditCompiler implements DraftClauseRules.SourceListener {
             trial.put(p.getOrdinal(),new Desired(p,i==first?lines[0]:"",id+"-scope-P"+p.getOrdinal()));
         }
         if(lines.length>1)inserted.add(new Insertion(paragraphs.get(first),String.join("\n",Arrays.asList(lines).subList(1,lines.length)),id+"-scope-continuation",true,donor));
+    }
+    /** A negative decision has an explicit output form only for its reviewed exact source scope. */
+    private boolean verifiedAutomaticNegative(Map<Integer,Desired> trial,List<Removal> removed,Map<String,Object> action,String id,String clause,String replacement) {
+        DraftClauseRules.NegativeScope scope=DraftClauseRules.negativeScope(action);if(scope==null)return false;
+        if(!"SCC".equals(document)||!scope.clause.equals(clause)||!(clause+" Not used").equals(replacement))
+            throw new BizException(4012,"SOURCE_NEGATIVE_REPLACEMENT_MISMATCH: "+clause);
+        if(!DraftClauseRules.SCC_NEGATIVE_SOURCE_SHA.equals(source.getSourceSha256()))
+            throw new BizException(4012,"SOURCE_STRUCTURAL_CLAUSE_EDITION_UNVERIFIED: "+clause);
+        int count=source.getMainParagraphs().size();
+        if(count<scope.last||scope.last==2074&&count!=scope.last||scope.last<2074&&count<=scope.last)
+            throw new BizException(4012,"SOURCE_CLAUSE_SCOPE_INCOMPLETE: "+clause);
+        for(int n=scope.first;n<=Math.min(scope.last+1,count);n++)if(!source.mainParagraph(n).getCatalogText().equals(DraftBusinessRules.standardParagraph(document,n)))
+            throw new BizException(4012,"SOURCE_PARAGRAPH_BINDING_MISMATCH: "+document+" P"+n);
+        Paragraph toc=source.mainParagraph(scope.toc);String tocText=toc.getText();int firstTab=tocText.indexOf('\t'),lastTab=tocText.lastIndexOf('\t');
+        if(!toc.getCatalogText().equals(DraftBusinessRules.standardParagraph(document,scope.toc))||firstTab!=clause.length()||lastTab<=firstTab||tocText.indexOf('\t',firstTab+1)!=lastTab||!tocText.startsWith(clause)||!tocText.substring(lastTab+1).matches("\\d+"))
+            throw new BizException(4012,"SOURCE_TOC_TITLE_PAGE_BINDING_MISMATCH: "+clause);
+        boolean pageRef=false;for(Feature feature:source.getFeatures())if("FIELD".equals(feature.getKind())&&feature.getStartId().startsWith(toc.getId()+"/")&&feature.getInstruction()!=null&&feature.getInstruction().trim().startsWith("PAGEREF "))pageRef=true;
+        if(!pageRef)throw new BizException(4012,"SOURCE_TOC_PAGEREF_REQUIRED: "+clause);
+        trial.put(scope.toc,new Desired(toc,"Not used",id+"-toc-P"+scope.toc,true));
+        Paragraph heading=source.mainParagraph(scope.first);
+        trial.put(scope.first,new Desired(heading,replacement,id+"-scope-P"+scope.first));
+        if("SCC20.303".equals(clause)) {
+            // This previously reviewed specialist branch includes complete native equations and tables.
+            removed.add(removeBranch(id,scope.first+1,scope.last,heading.getRowId()));return true;
+        }
+        for(int n=scope.first+1;n<=scope.last;n++){
+            Paragraph paragraph=source.mainParagraph(n);
+            for(Feature feature:source.getFeatures())if("OMML".equals(feature.getKind())&&feature.getStartId().startsWith(paragraph.getId()+"/"))
+                throw new BizException(4012,"SOURCE_FORMULA_SCOPE_REQUIRES_STRUCTURAL_REVIEW: "+clause);
+            if(globalPageFurniture(paragraph.getCatalogText())||paragraph.getCatalogText().trim().isEmpty())continue;
+            trial.put(n,new Desired(paragraph,"",id+"-scope-P"+n));
+        }
+        return true;
     }
     private boolean verifiedWtoNegative(List<Removal> removed,Map<String,Object> action,String id,String clause,String replacement) {
         String decision=String.valueOf(action.getOrDefault("decisionAction",action.get("action")));
@@ -180,6 +226,7 @@ final class DraftSourceEditCompiler implements DraftClauseRules.SourceListener {
         List<Edit> edits=new ArrayList<>();Set<String> removedParagraphs=removedIds(removed);
         for(Desired d:values.values()) {
             if(removedParagraphs.contains(d.p.getId()))continue;
+            if(d.tocTitle){int tab=d.p.getText().indexOf('\t'),lastTab=d.p.getText().lastIndexOf('\t');String title=d.p.getText().substring(tab+1,lastTab);edits.add(Edit.replaceCatalogTocLabel(d.id,d.p,tab,tab+title.length(),title,d.value));continue;}
             if(d.value.equals(d.p.getCatalogText()))continue;
             if(d.value.isEmpty()) {
                 guardClear(d.p);edits.add(Edit.clearParagraphAndNumbering(d.id,d.p));continue;

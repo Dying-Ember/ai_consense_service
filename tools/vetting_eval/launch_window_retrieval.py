@@ -46,7 +46,7 @@ def write_receipt(args, plan):
     require(not receipt.exists(), 'Fresh startup receipt required')
     receipt.parent.mkdir(parents=True, exist_ok=True)
     code = {name: desc(Path(__file__).with_name(name)) for name in
-            ('server.py', 'token_windows.py', 'window_runtime.py', 'workspace_root.py', 'fixed_vector_cache.py', 'retrieval_source_units.py', 'embedding_compatibility.py', 'actual_window_retrieval.py', 'launch_window_retrieval.py', 'samples.json')}
+            ('server.py', 'qdrant_backend.py', 'token_windows.py', 'window_runtime.py', 'workspace_root.py', 'fixed_vector_cache.py', 'retrieval_source_units.py', 'embedding_compatibility.py', 'actual_window_retrieval.py', 'launch_window_retrieval.py', 'samples.json')}
     value = {'protocol': 'explicit-offline-window-server-launch-receipt-v1', 'status': 'prepared_no_inference',
              'mode': args.mode, 'settings': plan, 'software': code,
              'actualCallsAtReceipt': {'modelWeightLoads': 0, 'encode': 0, 'predict': 0, 'index': 0, 'query': 0, 'HTTP': 0, 'download': 0, 'DB': 0},

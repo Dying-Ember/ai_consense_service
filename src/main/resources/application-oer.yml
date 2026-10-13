@@ -1,0 +1,15 @@
+# Explicit OCR/embedding/rerank experiment profile. Compose with the chosen LLM/database profiles.
+# Python retrieval must independently use dual-structure-v1 and matching short/long budgets.
+consense:
+  vetting:
+    retrieval-url: "${CONSENSE_RETRIEVAL_URL:http://127.0.0.1:8868}"
+    require-hybrid-retrieval: true
+    expected-retrieval-contract: ${CONSENSE_VETTING_RETRIEVAL_EXPECTED_CONTRACT:source-bound-dual-granularity-structure-results-v2}
+    expected-retrieval-signature-version: 4
+    expected-retrieval-granularity: dual-structure-v1
+    expected-embedding-window-max-tokens: 512
+    expected-rerank-window-max-tokens: 512
+    expected-window-overlap-tokens: 64
+    expected-structural-embedding-max-tokens: 2048
+    expected-structural-rerank-max-tokens: 2048
+    expected-structural-rerank-strict: true

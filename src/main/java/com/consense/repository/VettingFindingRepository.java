@@ -14,6 +14,9 @@ public interface VettingFindingRepository extends JpaRepository<VettingFinding, 
     List<VettingFinding> findByProjectIdOrderByCodeAsc(String projectId);
 
     Optional<VettingFinding> findByProjectIdAndCode(String projectId, String code);
+    @org.springframework.data.jpa.repository.Lock(javax.persistence.LockModeType.PESSIMISTIC_WRITE)
+    @Query("select f from VettingFinding f where f.projectId=:projectId and f.code=:code")
+    Optional<VettingFinding> lockByProjectIdAndCode(@Param("projectId") String projectId,@Param("code") String code);
 
     @Modifying
     @Query("delete from VettingFinding f where f.projectId = :projectId")

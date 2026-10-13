@@ -27,7 +27,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /** Real HTTP/persistence/retrieval with only the two external LLM adapters doubled. */
 @SpringBootTest(properties={"spring.jpa.hibernate.ddl-auto=create-drop","spring.flyway.enabled=false",
         "consense.ocr.enabled=false","consense.vector.provider=memory","consense.vector.stuffing-limit=1",
+        "consense.llm.enabled=true","consense.llm.base-url=https://local-llm-test.invalid",
         "consense.llm.chat-model=local-test-chat","consense.llm.embed-model=fixed-test-embedding",
+        "consense.llm.num-ctx=262144","consense.llm.structured-thinking=false",
+        "consense.minimax-cn.enabled=true","consense.minimax-cn.base-url=https://minimax-test.invalid",
         "consense.minimax-cn.api-key=advice-test-only-canary"})
 @ActiveProfiles("h2") @AutoConfigureMockMvc
 class AdviceLlmSelectionIntegrationTest {
@@ -39,8 +42,10 @@ class AdviceLlmSelectionIntegrationTest {
     @Autowired MockMvc mvc;
     @MockBean(name="llmClient") LlmClient local;
     @MockBean(name="miniMaxChatClient") LlmClient miniMax;
+    @MockBean com.consense.service.vetting.VettingTokenBudgetCliObserver counter;
 
     @BeforeEach void adapters() {
+        com.consense.service.advice.AdviceBudgetFixture.bind(counter,local,miniMax);
         when(local.available()).thenReturn(true);
         when(local.chatModel()).thenReturn("local-test-chat");
         when(local.embedModel()).thenReturn("fixed-test-embedding");
@@ -72,14 +77,14 @@ class AdviceLlmSelectionIntegrationTest {
 
     @Test void answerRetryKeepsSelectedProviderAndHistoryPreservesItsSafeIdentity() throws Exception {
         String id=projectWithIndex(),other=projectWithIndex();
-        when(local.chat(anyList())).thenReturn("{\"grounded\":true,\"answer\":\"Local answer TEST ONLY\"}");
+        when(local.chat(anyList())).thenReturn("{\"grounded\":true,\"answer\":\"Local answer TEST ONLY\",\"citations\":[\"[1]\"]}");
         java.util.concurrent.atomic.AtomicInteger calls=new java.util.concurrent.atomic.AtomicInteger();
         when(miniMax.chat(anyList())).thenAnswer(invocation->{
             if(calls.getAndIncrement()==0) {
                 ask(other,"local").andExpect(jsonPath("$.data.content.en").value("Local answer TEST ONLY"));
                 return "{\"grounded\":";
             }
-            return "{\"grounded\":true,\"answer\":\"MiniMax answer TEST ONLY\"}";
+            return "{\"grounded\":true,\"answer\":\"MiniMax answer TEST ONLY\",\"citations\":[\"[1]\"]}";
         });
         JsonNode answer=JsonUtils.parse(ask(id,"minimax-cn").andExpect(jsonPath("$.code").value(0))
                 .andExpect(jsonPath("$.data.content.en").value("MiniMax answer TEST ONLY"))
@@ -142,7 +147,7 @@ class AdviceLlmSelectionIntegrationTest {
 
     @Test void headerAbsentAdviceKeepsLegacyChatAndTheFixedEmbeddingIndex() throws Exception {
         String id=projectWithIndex();
-        when(local.chat(anyList())).thenReturn("{\"grounded\":true,\"answer\":\"Legacy deployment answer TEST ONLY\"}");
+        when(local.chat(anyList())).thenReturn("{\"grounded\":true,\"answer\":\"Legacy deployment answer TEST ONLY\",\"citations\":[\"[1]\"]}");
         mvc.perform(post("/api/advice/{id}/ask",id).contentType(MediaType.APPLICATION_JSON)
                 .content("{\"question\":\"What is the synthetic clause?\"}"))
                 .andExpect(jsonPath("$.code").value(0))
@@ -152,6 +157,15 @@ class AdviceLlmSelectionIntegrationTest {
                 .andExpect(jsonPath("$.data.embedModel").value("fixed-test-embedding"))
                 .andExpect(jsonPath("$.data.chunks").value(1));
         verify(miniMax,never()).chat(anyList());verify(miniMax,never()).embed(anyList());
+    }
+    @Test void missingDeploymentEmbeddingIsVisibleAndDoesNotDeleteExistingIndex() throws Exception {
+        String id=projectWithIndex();when(local.available()).thenReturn(false);
+        mvc.perform(get("/api/advice/{id}/index/status",id).header("X-ConSense-Llm-Profile","minimax-cn"))
+                .andExpect(jsonPath("$.data.embeddingReady").value(false))
+                .andExpect(jsonPath("$.data.message.en").value("Deployment embedding model fixed-test-embedding is unavailable. Restore that model before refreshing the advice evidence index."));
+        mvc.perform(post("/api/advice/{id}/index/rebuild",id).header("X-ConSense-Llm-Profile","minimax-cn")).andExpect(jsonPath("$.code").value(4201));
+        mvc.perform(get("/api/advice/{id}/index/status",id).header("X-ConSense-Llm-Profile","minimax-cn")).andExpect(jsonPath("$.data.indexed").value(1));
+        verify(miniMax,never()).embed(anyList());
     }
 
     private org.springframework.test.web.servlet.ResultActions ask(String id,String profile) throws Exception {
@@ -164,7 +178,7 @@ class AdviceLlmSelectionIntegrationTest {
         mvc.perform(post("/api/projects").contentType(MediaType.APPLICATION_JSON)
                 .content("{\"id\":\""+id+"\",\"nameZhHans\":\"ADVICE LLM SWITCH TEST ONLY\"}"))
                 .andExpect(jsonPath("$.code").value(0));
-        mvc.perform(multipart("/api/drafting/{id}/inputs/upload",id).file(new MockMultipartFile("files",
+        mvc.perform(multipart("/api/vetting/{id}/package/upload",id).file(new MockMultipartFile("files",
                 "ADVICE-SYNTHETIC-TEST-ONLY.txt","text/plain","TEST ONLY. SCC4.1: synthetic order of precedence is set by this test clause.".getBytes(StandardCharsets.UTF_8))))
                 .andExpect(jsonPath("$.data.parsed").value(1));
         mvc.perform(post("/api/advice/{id}/index/rebuild",id)).andExpect(jsonPath("$.code").value(0));

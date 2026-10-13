@@ -1,6 +1,6 @@
 # External fixture tests
 
-The publication snapshot preserves eight Java test files under java/ with their original package declarations and byte-identical code. This directory is outside Maven's default src/test/java source root.
+The publication snapshot preserves ten Java test files under java/ with their original package declarations and byte-identical code. This directory is outside Maven's default src/test/java source root.
 
 The tests require private uploaded correspondence or actual experimental/runtime captures that are intentionally absent from this repository. Their removal from the default test source root is a publication boundary, not deletion of the test implementation and not a claim that these tests passed without their data.
 

@@ -126,20 +126,21 @@ public final class VettingResponsesTransport {
         }
     }
     private static final class Profile {
-        final String base,model,effort,policy,key,sha,policySha;
+        final String base,model,effort,effortOverride,policy,key,sha,policySha;
         final double temperature; final int output,counterCap,generationCap; final long context,margin,counterTimeout,generationTimeout;
-        Profile(ConsenseProperties.Responses c) {
+        Profile(ConsenseProperties.Responses c) {this(c,null);}
+        Profile(ConsenseProperties.Responses c,String override) {
             if(!c.isEnabled())throw new IllegalArgumentException("Responses profile disabled");
-            base=normalizeBase(c.getBaseUrl());model=c.getModel();effort=c.getReasoningEffort();temperature=c.getTemperature();output=c.getMaxOutputTokens();
+            effortOverride=override;base=normalizeBase(c.getBaseUrl());model=c.getModel();effort=override==null?c.getReasoningEffort():override;temperature=c.getTemperature();output=c.getMaxOutputTokens();
             context=c.getConfiguredContextTokens();margin=c.getSafetyMarginTokens();policy=c.getEstimatePolicy();key=c.getApiKey();
             counterTimeout=c.getCounterTimeoutMs();generationTimeout=c.getGenerationTimeoutMs();counterCap=c.getCounterMaxResponseBytes();generationCap=c.getGenerationMaxResponseBytes();
-            if(!"MiniMax-M3".equals(model)||!"high".equals(effort)||!Double.isFinite(temperature)||temperature!=0.2||output!=16384
+            if(!"MiniMax-M3".equals(model)||!("high".equals(effort)||"none".equals(effort))||!Double.isFinite(temperature)||temperature!=0.2||output!=16384
                     ||counterTimeout<=0||counterTimeout>60000||generationTimeout<=0||generationTimeout>600000
                     ||counterCap<1024||counterCap>4194304||generationCap<1024||generationCap>16777216||context<0||margin<0)throw new IllegalArgumentException("Responses public profile invalid");
             Map<String,Object> cp=new LinkedHashMap<>();cp.put("policy",policy);cp.put("configuredContextTokens",context);cp.put("safetyMarginTokens",margin);cp.put("outputReserveTokens",output);cp.put("contextEvidenceScope","configured_operation_limit_not_measured_provider_maximum");policySha=hash(JsonUtils.write(cp));
             Map<String,Object> p=new LinkedHashMap<>();p.put("wire",WIRE);p.put("counterContract",COUNTER);p.put("baseUrl",base);p.put("model",model);p.put("temperature",temperature);p.put("maxOutputTokens",output);p.put("reasoningEffort",effort);p.put("counterTimeoutMs",counterTimeout);p.put("generationTimeoutMs",generationTimeout);p.put("counterMaxResponseBytes",counterCap);p.put("generationMaxResponseBytes",generationCap);p.put("contextPolicySha256",policySha);p.put("retries",0);p.put("stream",false);sha=hash(JsonUtils.write(p));
         }
-        boolean knownPolicy(){return POLICY.equals(policy)&&context>0&&context>=output&&margin<=context-output;}
+        boolean knownPolicy(){return POLICY.equals(policy)&&context>=262144&&context>=output&&margin<=context-output;}
         String authorization(){if(JsonUtils.isBlankText(key))throw new IllegalStateException("Responses credential unavailable");return "Bearer "+key;}
     }
     public static final class PreparedRequest {
@@ -159,8 +160,9 @@ public final class VettingResponsesTransport {
         public String getCounterEndpoint(){return profile.base+"/v1/responses/input_tokens";}
         public WireIdentity getWire(){return JsonUtils.read(JsonUtils.write(wire),WireIdentity.class);}
     }
-    public VettingInputBudget.Input input(String system,String user,JsonNode schema,String sourceSha) {
-        Profile p=profile();VettingInputBudget.Input in=VettingInputBudget.input(WIRE,p.model,p.sha,system,user,schema,p.output,sourceSha);
+    public VettingInputBudget.Input input(String system,String user,JsonNode schema,String sourceSha) {return input(profile(),system,user,schema,sourceSha);}
+    private VettingInputBudget.Input input(Profile p,String system,String user,JsonNode schema,String sourceSha) {
+        VettingInputBudget.Input in=VettingInputBudget.input(WIRE,p.model,p.sha,system,user,schema,p.output,sourceSha);
         PreparedRequest prepared=new PreparedRequest(p,in);VettingInputBudget.bindWire(in,prepared.getWire());return in;
     }
     /** File-only replay entry: a saved Gateway system already includes the schema envelope exactly once. */
@@ -172,8 +174,9 @@ public final class VettingResponsesTransport {
         if(!gatewaySystem.equals(in.getMessages().get(0).getContent())||!Objects.equals(user,in.getMessages().get(1).getContent()))throw new IllegalArgumentException("Saved Gateway turns differ");
         return in;
     }
-    public PreparedRequest prepare(VettingInputBudget.Input input) {
-        Profile p=profile();
+    public PreparedRequest prepare(VettingInputBudget.Input input) {return prepare(profile(),input);}
+    private PreparedRequest prepare(Profile p,VettingInputBudget.Input input) {
+
         if(!VettingInputBudget.validBinding(input)||!WIRE.equals(input.getProvider())||!p.model.equals(input.getModel())||!p.sha.equals(input.getProviderConfigurationSha256())||input.getOutputReserveTokens()!=p.output
                 ||input.getWire()==null||!isSha(input.getSourceSnapshotSha256())||input.getSchema()==null||!input.getSchema().isObject()
                 ||input.getMessages()==null||input.getMessages().size()!=2||!"system".equals(input.getMessages().get(0).getRole())||!"user".equals(input.getMessages().get(1).getRole())
@@ -183,7 +186,10 @@ public final class VettingResponsesTransport {
         return prepared;
     }
     public VettingInputBudget.Observation observe(VettingInputBudget.Input input) {
-        PreparedRequest prepared=prepare(input);Profile p=prepared.profile;
+        return observe(prepare(input),input);
+    }
+    private VettingInputBudget.Observation observe(PreparedRequest prepared,VettingInputBudget.Input input) {
+        Profile p=prepared.profile;
         if(!p.knownPolicy())return null; // A default-off/unknown policy never authorizes a request or a counter.
         Response response=http.post(prepared.getCounterEndpoint(),prepared.counterJson,p.counterTimeout,p.counterCap,p.authorization());
         if(response==null||response.body==null||response.body.getBytes(StandardCharsets.UTF_8).length>p.counterCap)throw new IllegalStateException("Responses counter response bound exceeded");
@@ -192,7 +198,7 @@ public final class VettingResponsesTransport {
         Iterator<String> names=raw.fieldNames();while(names.hasNext())if(!allowed.contains(names.next()))throw new IllegalStateException("Responses counter envelope differs");
         JsonNode count=raw.get("input_tokens");if(!"response.input_tokens".equals(raw.path("object").asText())||count==null||!count.isIntegralNumber()||!count.canConvertToLong()||count.longValue()<=0)throw new IllegalStateException("Responses counter count invalid");
         boolean unavailable=!raw.has("model");if(!unavailable&&(!raw.get("model").isTextual()||!p.model.equals(raw.get("model").textValue())))throw new IllegalStateException("Responses counter model differs");
-        if(!p.sha.equals(profile().sha))throw new IllegalStateException("Responses profile changed during counter");
+        if(!p.sha.equals(currentProfile(p).sha))throw new IllegalStateException("Responses profile changed during counter");
         VettingInputBudget.Observation out=new VettingInputBudget.Observation();out.setModel(p.model);out.setSerializedInputSha256(input.getSerializedInputSha256());out.setInputTokens(count.longValue());out.setEffectiveContextTokens(p.context);out.setOutputReserveTokens(p.output);out.setScope(SCOPE);out.setCompleteChatTemplateAndSchemaObserved(false);
         EstimateIdentity e=new EstimateIdentity();e.setKind(KIND);e.setWireProtocol(WIRE);e.setCounterContract(COUNTER);e.setProfileSha256(p.sha);e.setGenerationEntitySha256(prepared.wire.getGenerationEntitySha256());e.setCounterProjectionSha256(prepared.wire.getCounterProjectionSha256());e.setContextPolicySha256(p.policySha);e.setConfiguredContextTokens(p.context);e.setSafetyMarginTokens(p.margin);e.setEstimatePolicy(p.policy);e.setContextEvidenceScope(prepared.wire.getContextEvidenceScope());e.setModelIdentityScope("request_declared");e.setResponseModelUnavailable(unavailable);e.setCounterResponseSha256(hash(JsonUtils.write(raw)));out.setProviderEstimate(e);return out;
     }
@@ -204,14 +210,17 @@ public final class VettingResponsesTransport {
                 ||!Objects.equals(in.getProviderConfigurationSha256(),w.getProfileSha256())||!isSha(w.getProfileSha256())||!isSha(w.getGenerationEntitySha256())||!isSha(w.getCounterProjectionSha256())||!isSha(w.getContextPolicySha256())
                 ||!WIRE.equals(e.getWireProtocol())||!COUNTER.equals(e.getCounterContract())||!Objects.equals(w.getProfileSha256(),e.getProfileSha256())||!Objects.equals(w.getGenerationEntitySha256(),e.getGenerationEntitySha256())||!Objects.equals(w.getCounterProjectionSha256(),e.getCounterProjectionSha256())||!Objects.equals(w.getContextPolicySha256(),e.getContextPolicySha256())||!isSha(e.getCounterResponseSha256())
                 ||!POLICY.equals(w.getEstimatePolicy())||!Objects.equals(w.getEstimatePolicy(),e.getEstimatePolicy())||!"configured_operation_limit_not_measured_provider_maximum".equals(w.getContextEvidenceScope())||!Objects.equals(w.getContextEvidenceScope(),e.getContextEvidenceScope())||!"request_declared".equals(e.getModelIdentityScope())
-                ||w.getConfiguredContextTokens()<=0||w.getSafetyMarginTokens()<0||w.getConfiguredContextTokens()!=e.getConfiguredContextTokens()||w.getSafetyMarginTokens()!=e.getSafetyMarginTokens()
+                ||w.getConfiguredContextTokens()<262144||w.getSafetyMarginTokens()<0||w.getConfiguredContextTokens()!=e.getConfiguredContextTokens()||w.getSafetyMarginTokens()!=e.getSafetyMarginTokens()
                 ||o.getInputTokens()<=0||o.getEffectiveContextTokens()!=w.getConfiguredContextTokens()||o.getOutputReserveTokens()!=in.getOutputReserveTokens()||in.getOutputReserveTokens()<=0) {result.setReason("provider_estimate_identity_or_policy_unknown");return result;}
         long available=w.getConfiguredContextTokens()-in.getOutputReserveTokens();
         if(available<0||w.getSafetyMarginTokens()>available||o.getInputTokens()>available-w.getSafetyMarginTokens()){result.setStatus("over_budget");result.setReason("provider_estimate_output_and_absolute_margin_exceed_configured_limit");return result;}
         result.setStatus("provider_estimated_fit");result.setReason("provider_estimate_policy_not_exact_template_observation");result.setExtraDispatchPermitted(true);return result;
     }
     public <T> List<T> complete(VettingInputBudget.Input input,VettingInputBudget.Result budget,String system,String user,JsonNode schema,Class<T> type,List<String> rawOut,Map<String,Long> timings) {
-        PreparedRequest prepared=prepare(input);VettingInputBudget.Input regenerated=input(system,user,schema,input.getSourceSnapshotSha256());
+        return complete(prepare(input),input,budget,system,user,schema,type,rawOut,timings);
+    }
+    private <T> List<T> complete(PreparedRequest prepared,VettingInputBudget.Input input,VettingInputBudget.Result budget,String system,String user,JsonNode schema,Class<T> type,List<String> rawOut,Map<String,Long> timings) {
+        VettingInputBudget.Input regenerated=input(prepared.profile,system,user,schema,input.getSourceSnapshotSha256());
         if(!prepared.inputJson.equals(JsonUtils.write(regenerated)))throw new IllegalArgumentException("Responses final prompts differ from counted Input");
         VettingInputBudget.Result checked=new VettingInputBudget.Result();checked.setSerializedInputSha256(input.getSerializedInputSha256());
         if(budget==null||budget.getObservation()==null||!input.getSerializedInputSha256().equals(budget.getSerializedInputSha256())||!"provider_estimated_fit".equals(budget.getStatus())||!budget.isExtraDispatchPermitted()
@@ -223,7 +232,7 @@ public final class VettingResponsesTransport {
         private final PreparedRequest prepared;
         PreparedClient(PreparedRequest p){prepared=p;}
         @Override public String chatStructured(List<ChatTurn> turns,JsonNode schema) {
-            if(!JsonUtils.write(turns).equals(prepared.turnsJson)||!prepared.schemaJson.equals(JsonUtils.write(schema))||!prepared.profile.sha.equals(profile().sha))throw new IllegalArgumentException("Responses dispatch entity changed");
+            if(!JsonUtils.write(turns).equals(prepared.turnsJson)||!prepared.schemaJson.equals(JsonUtils.write(schema))||!prepared.profile.sha.equals(currentProfile(prepared.profile).sha))throw new IllegalArgumentException("Responses dispatch entity changed");
             Response response=http.post(prepared.getGenerationEndpoint(),prepared.generationJson,prepared.profile.generationTimeout,prepared.profile.generationCap,prepared.profile.authorization());
             if(response==null||response.body==null||response.body.getBytes(StandardCharsets.UTF_8).length>prepared.profile.generationCap)throw new IllegalStateException("Responses generation response bound exceeded");
             return decode(response,prepared.profile);
@@ -269,6 +278,40 @@ public final class VettingResponsesTransport {
         return new IncompleteModelResponseException(m,raw,text,kind,projected);
     }
     private Profile profile(){return new Profile(properties.getVetting().getResponses());}
+    private Profile currentProfile(Profile captured){return new Profile(properties.getVetting().getResponses(),captured.effortOverride);}
+    /** Captured once before queueing. Caches only immutable wire artifacts, never token verdicts. */
+    public Operation capture(String profileId,String effortOverride) {
+        Profile p=new Profile(properties.getVetting().getResponses(),effortOverride);
+        return new Operation(profileId,p);
+    }
+    public final class Operation {
+        private final Profile profile;
+        private final ModelIdentity identity;
+        private final Map<String,PreparedRequest> preparedByInput=new LinkedHashMap<>();
+        private Operation(String profileId,Profile p) {
+            profile=p;identity=new ModelIdentity(profileId,WIRE,p.model,p.sha,"configured_vetting_wire");
+        }
+        public ModelIdentity getIdentity(){return identity;}
+        public int getOutputReserveTokens(){return profile.output;}
+        public VettingInputBudget.Input input(String system,String user,JsonNode schema,String sourceSha) {
+            VettingInputBudget.Input in=VettingResponsesTransport.this.input(profile,system,user,schema,sourceSha);
+            prepare(in);return in;
+        }
+        public PreparedRequest prepare(VettingInputBudget.Input in) {
+            if(!profile.sha.equals(currentProfile(profile).sha))throw new IllegalStateException("Responses captured operation profile changed");
+            if(!VettingInputBudget.validBinding(in))throw new IllegalArgumentException("Responses Input binding changed");
+            String binding=in.getSerializedInputSha256();PreparedRequest existing=preparedByInput.get(binding);
+            if(existing!=null) {
+                if(!existing.inputJson.equals(JsonUtils.write(in)))throw new IllegalArgumentException("Responses prepared entity changed");
+                return existing;
+            }
+            PreparedRequest prepared=VettingResponsesTransport.this.prepare(profile,in);preparedByInput.put(binding,prepared);return prepared;
+        }
+        public VettingInputBudget.Observation observe(VettingInputBudget.Input in){return VettingResponsesTransport.this.observe(prepare(in),in);}
+        public <T> List<T> complete(VettingInputBudget.Input in,VettingInputBudget.Result budget,String system,String user,JsonNode schema,Class<T> type,List<String> rawOut,Map<String,Long> timings) {
+            return VettingResponsesTransport.this.complete(prepare(in),in,budget,system,user,schema,type,rawOut,timings);
+        }
+    }
     private static ObjectNode body(VettingInputBudget.Input in,Profile p) {
         ObjectNode body=JsonUtils.mapper().createObjectNode();body.put("model",p.model);body.put("instructions",in.getMessages().get(0).getContent());body.putArray("input").addObject().put("type","message").put("role","user").put("content",in.getMessages().get(1).getContent());body.putObject("reasoning").put("effort",p.effort);body.put("temperature",p.temperature);body.put("stream",false);body.put("max_output_tokens",p.output);return body;
     }

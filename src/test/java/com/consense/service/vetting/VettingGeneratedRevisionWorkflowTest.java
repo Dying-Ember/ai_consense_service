@@ -49,8 +49,8 @@ class VettingGeneratedRevisionWorkflowTest {
         SourceDocument doc=source();String project=doc.getProjectId();AtomicReference<String> variant=new AtomicReference<>("");
         when(semantic.reviewWithProgress(eq(project),anyList(),eq("en"),any(ReviewProgress.class)))
                 .thenAnswer(call->result(doc,variant.get()));
-        FindingVO first=run(project);service.updateStatus(project,first.getCode(),"Handled");
-        FindingVO reviewed=service.updateReview(project,first.getCode(),new ReviewUpdateRequest(" old manual \r\n原文😀 "," old action ",false));
+        FindingVO first=run(project);VettingHumanReviewFixture.updateStatus(service,project,first.getCode(),"Handled");
+        FindingVO reviewed=VettingHumanReviewFixture.updateReview(service,project,first.getCode(),new ReviewUpdateRequest(" old manual \r\n原文😀 "," old action ",false));
         Instant reviewedAt=reviewed.getReviewUpdatedAt();String originalRun=first.getRunId();
         variant.set(changedField);FindingVO changed=run(project);
         assertEquals(first.getFingerprint(),changed.getFingerprint(),"This regression has identical rule and evidence identity");
@@ -65,8 +65,8 @@ class VettingGeneratedRevisionWorkflowTest {
         JsonNode report=JsonUtils.parse(new String(service.exportJson(project,"en"),StandardCharsets.UTF_8));
         assertEquals(1,report.path("findings").size());assertEquals(changed.getCode(),report.path("findings").get(0).path("code").asText());
         assertTrue(report.path("findings").get(0).path("reviewRemarks").isNull());
-        service.updateStatus(project,changed.getCode(),"Assigned");
-        FindingVO newManual=service.updateReview(project,changed.getCode(),new ReviewUpdateRequest(" new review "," new action ",true));
+        VettingHumanReviewFixture.updateStatus(service,project,changed.getCode(),"Assigned");
+        FindingVO newManual=VettingHumanReviewFixture.updateReview(service,project,changed.getCode(),new ReviewUpdateRequest(" new review "," new action ",true));
         FindingVO repeated=run(project);
         assertEquals(changed.getCode(),repeated.getCode(),"An identical regenerated observation must reuse its own revision");
         assertEquals("Assigned",repeated.getStatus());assertEquals(newManual.getReviewRemarks(),repeated.getReviewRemarks());
@@ -77,8 +77,8 @@ class VettingGeneratedRevisionWorkflowTest {
     @Test void returningToAnExactEarlierRevisionPreservesThatRevisionsHistory() throws Exception {
         SourceDocument doc=source();String project=doc.getProjectId();AtomicReference<String> variant=new AtomicReference<>("");
         when(semantic.reviewWithProgress(eq(project),anyList(),eq("en"),any(ReviewProgress.class))).thenAnswer(call->result(doc,variant.get()));
-        FindingVO original=run(project);service.updateStatus(project,original.getCode(),"Handled");
-        FindingVO manual=service.updateReview(project,original.getCode(),new ReviewUpdateRequest(" Original version only ",null,false));
+        FindingVO original=run(project);VettingHumanReviewFixture.updateStatus(service,project,original.getCode(),"Handled");
+        FindingVO manual=VettingHumanReviewFixture.updateReview(service,project,original.getCode(),new ReviewUpdateRequest(" Original version only ",null,false));
         variant.set("comment");FindingVO second=run(project);assertNotEquals(original.getCode(),second.getCode());
         variant.set("");FindingVO returned=run(project);
         assertEquals(original.getCode(),returned.getCode());assertEquals("Handled",returned.getStatus());
@@ -89,8 +89,8 @@ class VettingGeneratedRevisionWorkflowTest {
     @Test void incompleteLegacyGeneratedContentDoesNotCertifyANewObservation() throws Exception {
         SourceDocument doc=source();String project=doc.getProjectId();
         when(semantic.reviewWithProgress(eq(project),anyList(),eq("en"),any(ReviewProgress.class))).thenAnswer(call->result(doc,""));
-        FindingVO original=run(project);service.updateStatus(project,original.getCode(),"Handled");
-        service.updateReview(project,original.getCode(),new ReviewUpdateRequest(" Legacy manual ",null,null));
+        FindingVO original=run(project);VettingHumanReviewFixture.updateStatus(service,project,original.getCode(),"Handled");
+        VettingHumanReviewFixture.updateReview(service,project,original.getCode(),new ReviewUpdateRequest(" Legacy manual ",null,null));
         VettingFinding legacy=findings.findByProjectIdAndCode(project,original.getCode()).orElseThrow(AssertionError::new);
         legacy.setBodyEn(null);findings.saveAndFlush(legacy);
         FindingVO current=run(project);assertNotEquals(original.getCode(),current.getCode());assertEquals("Open",current.getStatus());

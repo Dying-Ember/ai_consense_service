@@ -160,7 +160,10 @@ public class AiGateway {
         if(!embeddingAvailable())throw new BizException(5001,"Deployment embedding adapter is unavailable (model "+llmClient.embedModel()+").");
         return llmClient.embed(texts);
     }
-    public boolean embeddingAvailable(){return llmClient.available();}
+    public boolean embeddingAvailable(){
+        return llmClient instanceof EmbeddingAvailability
+                ?((EmbeddingAvailability)llmClient).embeddingAvailable():llmClient.available();
+    }
 
     /** Vetting-only strict schema subset decoding; source/evidence truth remains the caller's responsibility. */
     public <T> List<T> completeStructuredJsonList(String systemPrompt, String userPrompt,

@@ -16,23 +16,23 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class VettingUploadRoleTest {
     @Test void multipartRoleQueryReachesTheService() throws Exception {
         VettingService service = mock(VettingService.class);
-        when(service.uploadPackage(eq("p"), anyList(), eq("project_fact")))
+        when(service.uploadPackage(eq("p"), anyList(), eq("project_fact"),isNull()))
                 .thenReturn(new UploadResultVO(1, 1, 0, Collections.emptyList()));
         MockMvc mvc = MockMvcBuilders.standaloneSetup(new VettingController(service)).build();
         mvc.perform(multipart("/api/vetting/p/package/upload").file(file()).param("sourceRole", "project_fact"))
                 .andExpect(status().isOk()).andExpect(jsonPath("$.code").value(0));
         verify(service).uploadPackage(eq("p"), argThat(files -> files.size() == 1
-                && "notes.txt".equals(files.get(0).getOriginalFilename())), eq("project_fact"));
+                && "notes.txt".equals(files.get(0).getOriginalFilename())), eq("project_fact"),isNull());
     }
 
     @Test void legacyMultipartRequestRetainsAutomaticRoleInference() throws Exception {
         VettingService service = mock(VettingService.class);
-        when(service.uploadPackage(eq("p"), anyList(), isNull()))
+        when(service.uploadPackage(eq("p"), anyList(), isNull(),isNull()))
                 .thenReturn(new UploadResultVO(1, 1, 0, Collections.emptyList()));
         MockMvc mvc = MockMvcBuilders.standaloneSetup(new VettingController(service)).build();
         mvc.perform(multipart("/api/vetting/p/package/upload").file(file()))
                 .andExpect(status().isOk()).andExpect(jsonPath("$.code").value(0));
-        verify(service).uploadPackage(eq("p"), anyList(), isNull());
+        verify(service).uploadPackage(eq("p"), anyList(), isNull(),isNull());
     }
 
     private MockMultipartFile file() {

@@ -134,6 +134,12 @@ public class VettingRetrievalClient {
                 if (probe != null) probe.event("retrieve_identity_gate", VettingReviewProbe.map("status", "rejected", "reason", "response_project_signature_mode_or_shape_mismatch", "response", root));
                 throw new IllegalStateException("Required hybrid retrieval response has a different index identity or invalid shape");
             }
+            if (receipt.health.sourceUnitPolicy != null && root.has("sourceUnits")
+                    && !receipt.health.sourceUnitPolicy.equals(root.path("sourceUnits").path("policy").asText())) {
+                if (probe != null) probe.event("retrieve_identity_gate", VettingReviewProbe.map("status", "rejected", "reason", "source_unit_policy_differs_from_indexed_health",
+                        "indexedPolicy", receipt.health.sourceUnitPolicy, "responsePolicy", root.path("sourceUnits").path("policy").asText()));
+                throw new IllegalStateException("Required hybrid source-unit episode policy differs from indexed health");
+            }
             if (probe != null) probe.event("retrieve_identity_gate", VettingReviewProbe.map("status", "accepted", "indexSignature", receipt.signature,
                     "precomputed", root.path("precomputed").asBoolean(), "cacheMode", root.path("cacheMode").asText()));
             }

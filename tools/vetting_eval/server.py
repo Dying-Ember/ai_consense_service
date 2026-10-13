@@ -102,7 +102,9 @@ STATE = Path(os.environ.get('CONSENSE_RETRIEVAL_DATA', str(WORKSPACE / 'tmp/vett
 OFFLINE = True  # Isolated window recipe never downloads model artifacts.
 LOCK = threading.RLock()
 _embedding = _reranker = _ocr = _database = None
+_database_configuration = None
 _projects = {}
+_migrated_index = None
 _selected_device = None
 app = FastAPI(title='ConSense local vetting models', version='1.0.0')
 
@@ -230,7 +232,7 @@ def retrieval_settings(*, observe_tokenizer_identity=True):
                      **{key: parameters[key].default for key in ('k1', 'b', 'epsilon')}},
             'tokenPattern': TOKEN_PATTERN, 'tokenizerAlgorithm': TOKENIZER_ALGORITHM,
             'latinTokenPattern': LATIN_TOKEN_PATTERN, 'roleFilter': True,
-            'storage': 'Qdrant Python local', 'workers': 1,
+            'storage': 'Qdrant Server' if os.environ.get('CONSENSE_QDRANT_URL') else 'Qdrant Python local', 'workers': 1,
             'sourceWindows': (window_runtime().retrieval_recipe()if observe_tokenizer_identity
                               else window_runtime().retrieval_recipe(observe_tokenizer_identity=False))}
 
@@ -249,7 +251,7 @@ def embedding_model():
         from sentence_transformers import SentenceTransformer
         selected, options = model_options()
         loaded = SentenceTransformer(model_path(MODELS['embedding']), device=selected, model_kwargs=options, local_files_only=True)
-        loaded.max_seq_length = MODEL_SETTINGS['embedding']['maxTokens']
+        loaded.max_seq_length = window_runtime().inference_cap('embedding')
         if loaded[0].do_lower_case or getattr(loaded, 'default_prompt_name', None):
             raise WindowError('EMBEDDING_PREPROCESSING_MISMATCH', 'Recipe requires strip/no lower case/no implicit prompt')
         loaded[0].tokenizer = window_runtime().guard(loaded[0].tokenizer, 'embedding')
@@ -267,7 +269,7 @@ def rerank_model():
         from sentence_transformers import CrossEncoder
         selected, options = model_options()
         loaded = CrossEncoder(model_path(MODELS['reranker']), device=selected, model_kwargs=options,
-            max_length=MODEL_SETTINGS['reranker']['maxTokens'], local_files_only=True)
+            max_length=window_runtime().inference_cap('reranker'), local_files_only=True)
         loaded.tokenizer = window_runtime().guard(loaded.tokenizer, 'reranker')
         verify_loaded_model(loaded, 'reranker')
         _reranker = loaded
@@ -284,11 +286,17 @@ def rerank_candidates(query, candidates):
 
 
 def database():
-    global _database
+    global _database, _database_configuration
+    from migrated_qdrant_index import configured
+    from token_windows import fail
+    current = (str(STATE), os.environ.get('CONSENSE_QDRANT_URL'), os.environ.get('CONSENSE_QDRANT_API_KEY'))
     if _database is None:
-        from qdrant_client import QdrantClient
-        STATE.mkdir(parents=True, exist_ok=True)
-        _database = QdrantClient(path=str(STATE / 'qdrant'))
+        from qdrant_backend import connect
+        _database = connect(STATE, os.environ)
+        _database_configuration = current
+    else:
+        fail(_database_configuration == current or (_database_configuration is None and not configured(os.environ)),
+             'QDRANT_BACKEND_CONFIG_CHANGED', 'Cached Qdrant backend configuration differs; start a new runtime')
     return _database
 
 
@@ -301,6 +309,15 @@ def signature(chunks):
 
 
 def read_project(key):
+    global _migrated_index
+    from migrated_qdrant_index import MigratedIndex, configured
+    if configured(os.environ) or _migrated_index is not None:
+        try:
+            if _migrated_index is None:
+                _migrated_index = MigratedIndex(os.environ)
+            return _migrated_index.read(key, window_runtime(), database)
+        except WindowError as error:
+            raise HTTPException(409, {'kind':error.kind, 'message':str(error), 'metadata':error.metadata}) from error
     stored = _projects.get(key)
     if stored is None:
         path = metadata_path(key)
@@ -337,7 +354,7 @@ def validate_corpus(chunks):
 @app.get('/health')
 def health():
     import torch
-    return {'status': 'ok', 'mode': 'local', 'device': device(), 'offline': OFFLINE,
+    return {'status': 'ok', 'mode': 'server' if os.environ.get('CONSENSE_QDRANT_URL') else 'local', 'device': device(), 'offline': OFFLINE,
         'models': MODELS, 'maxTokens': MODEL_SETTINGS['embedding']['maxTokens'],
         'batchSize': MODEL_SETTINGS['embedding']['batchSize'],
         'runtime': {kind: model_runtime(kind) for kind in ('embedding', 'reranker')},
@@ -349,7 +366,7 @@ def health():
         'limitations': ['OCR does not interpret table cells or deletion state',
             'Source-bound windows count query/special tokens; oversized queries fail without silent clipping',
             'Legacy maxTokens/batchSize health fields describe embedding only',
-            'Run one server worker with Qdrant local persistence']}
+            'Run one server worker with one Qdrant storage owner']}
 
 
 @app.post('/ocr')
@@ -390,6 +407,9 @@ def ocr(file: UploadFile = File(...)):
 
 @app.post('/index')
 def index(request: IndexRequest):
+    from migrated_qdrant_index import configured
+    if configured(os.environ) or _migrated_index is not None:
+        raise HTTPException(409, 'Pinned migrated Server index is read-only')
     try:
         return window_runtime().index(request)
     except WindowError as error:
@@ -398,7 +418,14 @@ def index(request: IndexRequest):
 
 @app.post('/retrieve')
 def retrieve(request: RetrieveRequest):
-    return window_runtime().retrieve(request)
+    result = window_runtime().retrieve(request)
+    if _migrated_index is not None:
+        observed = _migrated_index.last_observation
+        result['indexAccess'] = {'mode':'pinned-migrated-server-read-only', 'readOnly':True,
+                                'migrationReceiptSha256':observed['receipt']['sha256'],
+                                'runtimeCompatibilityVerified':False,
+                                **{name:observed[name] for name in ('queryRuntimeSignature','queryIdentity','queryRecipe','target','fullVectorIntegrity')}}
+    return result
 
 
 if __name__ == '__main__':

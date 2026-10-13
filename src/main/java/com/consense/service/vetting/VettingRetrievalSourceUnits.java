@@ -10,6 +10,11 @@ import java.util.stream.Collectors;
 /** Source-only attached retrieval episode; members never join the ranked List. */
 final class VettingRetrievalSourceUnits {
     static final String POLICY="unique-source-structural-unit-seeds-v1";
+    static final String TYPED_PARENT_POLICY="unique-source-structural-unit-seeds-typed-parent-context-v2";
+    static final String ATTACHMENT_POLICY="unique-source-structural-unit-seeds-typed-parent-attachment-context-v3";
+    static final String SHARED_NOTE_POLICY="unique-source-structural-unit-seeds-typed-parent-shared-note-context-v4";
+    static boolean attachmentPolicy(String policy){return ATTACHMENT_POLICY.equals(policy)||SHARED_NOTE_POLICY.equals(policy);}
+    static boolean supportsPolicy(String policy){return POLICY.equals(policy)||TYPED_PARENT_POLICY.equals(policy)||attachmentPolicy(policy);}
     static final List<String> FIELDS=Arrays.asList("documentId","sourceHash","role","metadataVersion","segmentationVersion","nativeTableMetadataVersion","sourceQualityMetadataVersion","sourceQualityHash");
     static final class Unit {
         final String originId,status,reason;
@@ -25,13 +30,15 @@ final class VettingRetrievalSourceUnits {
     static List<Chunk> read(JsonNode root,List<Chunk> ranked,Map<String,Chunk> corpus,String role,boolean required) {
         JsonNode episode=root.get("sourceUnits");
         if(episode==null){require(!required,"advertised source-unit episode is missing");return ranked;}
-        require(episode.isObject()&&POLICY.equals(episode.path("policy").asText())&&episode.path("units").isArray(),"source-unit episode shape/policy differs");
+        require(episode.isObject()&&supportsPolicy(episode.path("policy").asText())&&episode.path("units").isArray(),"source-unit episode shape/policy differs");
         List<String> rankedIds=ranked.stream().map(Chunk::getId).collect(Collectors.toList());
         require(textIds(episode.path("originalHitIds")).equals(rankedIds)&&episode.path("units").size()==ranked.size(),"source-unit original seed identities differ");
         require(episode.path("derivedMembersCanBecomeOrigins").isBoolean()&&!episode.path("derivedMembersCanBecomeOrigins").asBoolean(),"derived source units cannot become origins");
         List<Unit> units=new ArrayList<>();Set<String> seenUnits=new HashSet<>(),seenStructuralKeys=new HashSet<>();int previousOrdinal=0;
         for(int i=0;i<ranked.size();i++) {
             Chunk seed=ranked.get(i);JsonNode u=episode.path("units").get(i);
+            require(!u.has("hierarchyContext"),"legacy reader cannot validate hierarchyContext");
+            require(!u.has("attachmentContext"),"legacy reader cannot validate attachmentContext");
             require(u.isObject()&&textIds(u.path("originIds")).equals(Collections.singletonList(seed.getId()))&&u.path("unitId").asText().matches("[a-f0-9]{64}")&&seenUnits.add(u.path("unitId").asText()),"source-unit ranked origin or unique unit identity differs");
             require(u.path("derivedMembersCanBecomeOrigins").isBoolean()&&!u.path("derivedMembersCanBecomeOrigins").asBoolean()&&u.path("memberScores").isNull(),"unranked source members cannot receive scores or become origins");
             require(u.path("sourceIdentity").equals(identity(seed)),"source-unit identity differs from original ranked seed");
@@ -49,6 +56,7 @@ final class VettingRetrievalSourceUnits {
                 reason=u.path("reason").asText();
             }
             Map<String,Object> trace=JsonUtils.readMap(JsonUtils.write(u));trace.remove("members");
+            trace.put("selectionPolicy",episode.path("policy").asText());
             units.add(new Unit(seed.getId(),status,reason,new ArrayList<>(ids),trace));
         }
         return new RankedChunks(ranked,units);

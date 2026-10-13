@@ -52,6 +52,7 @@ public final class DocxTemplateEditor {
             if(!hash(xml(target)).equals(edit.targetSha256))throw error("TARGET_HASH_MISMATCH",edit.operationId);
             if(edit.type==EditType.REPLACE_SPAN) {
                 validateSpan(target,edit);
+                if(edit.labelOutsideFields)validateGlobalLabelFields(target,edit);
                 if(edit.donorId!=null) {Element donor=model.nodes.get(edit.donorId);if(!is(donor,"r")||!intrinsicHash(donor).equals(edit.donorSha256))throw error("STYLE_DONOR_MISMATCH",edit.operationId);}
             }
             else if(insertion(edit))validateInsertion(model,target,edit);
@@ -103,13 +104,38 @@ public final class DocxTemplateEditor {
         private final List<NativeLayoutBoundary> boundaries;
         private final List<NodeAnchor> emptyExclusions;
         private final List<NativeLayoutSpacing> emptySpacing;
+        private final List<NodeAnchor> cohesiveRows;
+        private final List<NodeAnchor> compactGapRows,keepNextParagraphs;
+        private final List<NativeLayoutClearedParagraph> clearedParagraphs;
+        private final List<NativeLayoutClearedKeepNextBreak> clearedKeepNextBreaks;
+        private final List<NativeLayoutParagraphBoundary> paragraphBoundaries;
         public NativeLayoutPlan(String sourceSha256,String profile,List<NativeLayoutBoundary> boundaries,List<NodeAnchor> emptyExclusions){this(sourceSha256,profile,boundaries,emptyExclusions,Collections.emptyList());}
-        public NativeLayoutPlan(String sourceSha256,String profile,List<NativeLayoutBoundary> boundaries,List<NodeAnchor> emptyExclusions,List<NativeLayoutSpacing> emptySpacing){this.sourceSha256=Objects.requireNonNull(sourceSha256);this.profile=Objects.requireNonNull(profile);this.boundaries=Collections.unmodifiableList(new ArrayList<>(boundaries));this.emptyExclusions=Collections.unmodifiableList(new ArrayList<>(emptyExclusions));this.emptySpacing=Collections.unmodifiableList(new ArrayList<>(emptySpacing));}
+        public NativeLayoutPlan(String sourceSha256,String profile,List<NativeLayoutBoundary> boundaries,List<NodeAnchor> emptyExclusions,List<NativeLayoutSpacing> emptySpacing){this(sourceSha256,profile,boundaries,emptyExclusions,emptySpacing,Collections.emptyList());}
+        public NativeLayoutPlan(String sourceSha256,String profile,List<NativeLayoutBoundary> boundaries,List<NodeAnchor> emptyExclusions,List<NativeLayoutSpacing> emptySpacing,List<NodeAnchor> cohesiveRows){this(sourceSha256,profile,boundaries,emptyExclusions,emptySpacing,cohesiveRows,Collections.emptyList());}
+        public NativeLayoutPlan(String sourceSha256,String profile,List<NativeLayoutBoundary> boundaries,List<NodeAnchor> emptyExclusions,List<NativeLayoutSpacing> emptySpacing,List<NodeAnchor> cohesiveRows,List<NodeAnchor> compactGapRows){this(sourceSha256,profile,boundaries,emptyExclusions,emptySpacing,cohesiveRows,compactGapRows,Collections.emptyList(),Collections.emptyList());}
+        public NativeLayoutPlan(String sourceSha256,String profile,List<NativeLayoutBoundary> boundaries,List<NodeAnchor> emptyExclusions,List<NativeLayoutSpacing> emptySpacing,List<NodeAnchor> cohesiveRows,List<NodeAnchor> compactGapRows,List<NativeLayoutClearedParagraph> clearedParagraphs,List<NodeAnchor> keepNextParagraphs){this(sourceSha256,profile,boundaries,emptyExclusions,emptySpacing,cohesiveRows,compactGapRows,clearedParagraphs,keepNextParagraphs,Collections.emptyList());}
+        public NativeLayoutPlan(String sourceSha256,String profile,List<NativeLayoutBoundary> boundaries,List<NodeAnchor> emptyExclusions,List<NativeLayoutSpacing> emptySpacing,List<NodeAnchor> cohesiveRows,List<NodeAnchor> compactGapRows,List<NativeLayoutClearedParagraph> clearedParagraphs,List<NodeAnchor> keepNextParagraphs,List<NativeLayoutClearedKeepNextBreak> clearedKeepNextBreaks){this(sourceSha256,profile,boundaries,emptyExclusions,emptySpacing,cohesiveRows,compactGapRows,clearedParagraphs,keepNextParagraphs,clearedKeepNextBreaks,Collections.emptyList());}
+        public NativeLayoutPlan(String sourceSha256,String profile,List<NativeLayoutBoundary> boundaries,List<NodeAnchor> emptyExclusions,List<NativeLayoutSpacing> emptySpacing,List<NodeAnchor> cohesiveRows,List<NodeAnchor> compactGapRows,List<NativeLayoutClearedParagraph> clearedParagraphs,List<NodeAnchor> keepNextParagraphs,List<NativeLayoutClearedKeepNextBreak> clearedKeepNextBreaks,List<NativeLayoutParagraphBoundary> paragraphBoundaries){this.sourceSha256=Objects.requireNonNull(sourceSha256);this.profile=Objects.requireNonNull(profile);this.boundaries=Collections.unmodifiableList(new ArrayList<>(boundaries));this.emptyExclusions=Collections.unmodifiableList(new ArrayList<>(emptyExclusions));this.emptySpacing=Collections.unmodifiableList(new ArrayList<>(emptySpacing));this.cohesiveRows=Collections.unmodifiableList(new ArrayList<>(cohesiveRows));this.compactGapRows=Collections.unmodifiableList(new ArrayList<>(compactGapRows));this.clearedParagraphs=Collections.unmodifiableList(new ArrayList<>(clearedParagraphs));this.keepNextParagraphs=Collections.unmodifiableList(new ArrayList<>(keepNextParagraphs));this.clearedKeepNextBreaks=Collections.unmodifiableList(new ArrayList<>(clearedKeepNextBreaks));this.paragraphBoundaries=Collections.unmodifiableList(new ArrayList<>(paragraphBoundaries));}
     }
     /** An unchanged original empty paragraph associated with an exact manual footer. */
     public static final class NativeLayoutSpacing {
         private final NodeAnchor paragraph,footer;
         public NativeLayoutSpacing(NodeAnchor paragraph,NodeAnchor footer){this.paragraph=Objects.requireNonNull(paragraph);this.footer=Objects.requireNonNull(footer);}
+    }
+    /** Renderer-only padding, conditional on an exact adopted negative heading and cleared body. */
+    public static final class NativeLayoutClearedParagraph {
+        private final NodeAnchor paragraph,guard;private final String guardText;private final boolean removePageBreak;
+        public NativeLayoutClearedParagraph(NodeAnchor paragraph,NodeAnchor guard,String guardText,boolean removePageBreak){this.paragraph=Objects.requireNonNull(paragraph);this.guard=Objects.requireNonNull(guard);this.guardText=Objects.requireNonNull(guardText);this.removePageBreak=removePageBreak;}
+    }
+    /** An exact stale page break in guidance already cleared by business edits, within a registered heading chain. */
+    public static final class NativeLayoutClearedKeepNextBreak {
+        private final NodeAnchor paragraph,guard;private final String guardText;
+        public NativeLayoutClearedKeepNextBreak(NodeAnchor paragraph,NodeAnchor guard,String guardText){this.paragraph=Objects.requireNonNull(paragraph);this.guard=Objects.requireNonNull(guard);this.guardText=Objects.requireNonNull(guardText);}
+    }
+    /** Exact heading-to-body chain; only cleared intervening guidance admits a renderer page boundary. */
+    public static final class NativeLayoutParagraphBoundary {
+        private final NodeAnchor heading,body;private final List<NodeAnchor> gaps;
+        public NativeLayoutParagraphBoundary(NodeAnchor heading,NodeAnchor body,List<NodeAnchor> gaps){this.heading=Objects.requireNonNull(heading);this.body=Objects.requireNonNull(body);this.gaps=Collections.unmodifiableList(new ArrayList<>(gaps));}
     }
     public static final class NativeLayoutChange {
         private final String action,status,generatedId,layoutId;
@@ -120,7 +146,9 @@ public final class DocxTemplateEditor {
     }
     private static final class CapturedLayout {
         final NativeLayoutPlan plan;
-        final List<Element[]> boundaries=new ArrayList<>(),spacing=new ArrayList<>();final List<Element> empty=new ArrayList<>();
+        final List<Element[]> boundaries=new ArrayList<>(),spacing=new ArrayList<>(),cleared=new ArrayList<>();final List<Element> empty=new ArrayList<>(),cohesiveRows=new ArrayList<>(),compactGapRows=new ArrayList<>(),keepNext=new ArrayList<>();
+        final Map<String,Element[]> clearedKeepNextBreaks=new LinkedHashMap<>();
+        final List<List<Element>> paragraphBoundaries=new ArrayList<>();
         CapturedLayout(NativeLayoutPlan plan){this.plan=plan;}
     }
     private static CapturedLayout captureLayout(PackageModel model,NativeLayoutPlan plan) {
@@ -134,6 +162,13 @@ public final class DocxTemplateEditor {
         }
         for(NodeAnchor anchor:plan.emptyExclusions){Element paragraph=layoutAnchor(model,anchor);if(!selected.add(anchor.id)||!is(paragraph.getParentNode(),"body")||!layoutEmpty(paragraph))throw error("LAYOUT_EMPTY_SCOPE_CHANGED",anchor.id);result.empty.add(paragraph);}
         for(NativeLayoutSpacing spacing:plan.emptySpacing){Element paragraph=layoutAnchor(model,spacing.paragraph),footer=layoutAnchor(model,spacing.footer);if(!selected.add(spacing.paragraph.id)||!layoutEmpty(paragraph)||!is(footer.getParentNode(),"body")||!is(footer,"p"))throw error("LAYOUT_EMPTY_SCOPE_CHANGED",spacing.paragraph.id);result.spacing.add(new Element[]{paragraph,footer});}
+        for(NodeAnchor anchor:plan.cohesiveRows){Element row=layoutAnchor(model,anchor);if(!selected.add(anchor.id))throw error("LAYOUT_ROW_SCOPE_CHANGED",anchor.id);validateStructural(row,Edit.keepRowTogether("native-layout-row",anchor));result.cohesiveRows.add(row);}
+        for(NodeAnchor anchor:plan.compactGapRows){Element row=layoutAnchor(model,anchor);if(!selected.add(anchor.id))throw error("LAYOUT_ROW_SCOPE_CHANGED",anchor.id);validateStructural(row,Edit.keepRowTogether("native-layout-gap",anchor));validateNativeGapRow(row,anchor.id);result.compactGapRows.add(row);}
+        for(NativeLayoutClearedParagraph item:plan.clearedParagraphs){Element paragraph=layoutAnchor(model,item.paragraph),guard=layoutAnchor(model,item.guard);if(!selected.add(item.paragraph.id)||!is(paragraph.getParentNode(),"body")||!is(guard,"p")||!is(guard.getParentNode(),"body")||!item.guardText.matches("SCC\\d+\\.\\d{3}Not used"))throw error("LAYOUT_CLEARED_SCOPE_CHANGED",item.paragraph.id);validateClearedLayoutParagraph(paragraph,item.removePageBreak,item.paragraph.id);result.cleared.add(new Element[]{paragraph,guard});}
+        Set<String> keepIds=new HashSet<>();for(NodeAnchor anchor:plan.keepNextParagraphs)keepIds.add(anchor.id);
+        for(NativeLayoutClearedKeepNextBreak item:plan.clearedKeepNextBreaks){Element paragraph=layoutAnchor(model,item.paragraph),guard=layoutAnchor(model,item.guard);if(!keepIds.contains(item.paragraph.id)||!keepIds.contains(item.guard.id)||paragraph==guard||!is(guard,"p")||!is(guard.getParentNode(),"body")||!descendantText(guard,"t").equals(item.guardText)||!hasPageBreak(paragraph)||result.clearedKeepNextBreaks.put(item.paragraph.id,new Element[]{paragraph,guard})!=null)throw error("LAYOUT_KEEP_NEXT_SCOPE_CHANGED",item.paragraph.id);}
+        for(NodeAnchor anchor:plan.keepNextParagraphs){Element paragraph=layoutAnchor(model,anchor);boolean clearedBreak=result.clearedKeepNextBreaks.containsKey(anchor.id);if(!selected.add(anchor.id)||!is(paragraph,"p")||!is(paragraph.getParentNode(),"body")||has(paragraph,"sectPr")||has(paragraph,"pageBreakBefore")||hasPageBreak(paragraph)&&!clearedBreak)throw error("LAYOUT_KEEP_NEXT_SCOPE_CHANGED",anchor.id);validateClearedLayoutParagraph(paragraph,clearedBreak,anchor.id);result.keepNext.add(paragraph);}
+        Set<String> paragraphBoundaryIds=new HashSet<>();for(NativeLayoutParagraphBoundary boundary:plan.paragraphBoundaries){List<Element> chain=new ArrayList<>();Element heading=layoutAnchor(model,boundary.heading),body=layoutAnchor(model,boundary.body);chain.add(heading);for(NodeAnchor gap:boundary.gaps)chain.add(layoutAnchor(model,gap));chain.add(body);if(!paragraphBoundaryIds.add(boundary.heading.id)||boundary.gaps.isEmpty())throw error("LAYOUT_PARAGRAPH_BOUNDARY_SCOPE_CHANGED",boundary.heading.id);for(int i=0;i<chain.size();i++){Element node=chain.get(i);if(!is(node,"p")||!is(node.getParentNode(),"body"))throw error("LAYOUT_PARAGRAPH_BOUNDARY_SCOPE_CHANGED",boundary.heading.id);validateClearedLayoutParagraph(node,false,boundary.heading.id);if(i>0){Node following=chain.get(i-1).getNextSibling();while(following!=null&&!(following instanceof Element))following=following.getNextSibling();if(following!=node)throw error("LAYOUT_PARAGRAPH_BOUNDARY_SCOPE_CHANGED",boundary.heading.id);}}if(descendantText(heading,"t").trim().isEmpty()||descendantText(body,"t").trim().isEmpty())throw error("LAYOUT_PARAGRAPH_BOUNDARY_SCOPE_CHANGED",boundary.heading.id);result.paragraphBoundaries.add(chain);}
         return result;
     }
     private static Element layoutAnchor(PackageModel model,NodeAnchor anchor){Element node=model.nodes.get(anchor.id);if(!MAIN.equals(anchor.part)||node==null||!hash(xml(node)).equals(anchor.sha256))throw error("LAYOUT_ANCHOR_MISMATCH",anchor.id);return node;}
@@ -142,6 +177,8 @@ public final class DocxTemplateEditor {
     private static List<NativeLayoutChange> applyLayout(PackageModel model,CapturedLayout captured) {
         List<NativeLayoutChange> changes=new ArrayList<>();if(captured.plan==null)return changes;Document document=model.xmlParts.get(MAIN);Element root=document.getDocumentElement();
         long nextMarker=0;Set<String> markerNames=new HashSet<>();NodeList markers=document.getElementsByTagNameNS(W,"bookmarkStart");for(int i=0;i<markers.getLength();i++){Element marker=(Element)markers.item(i);markerNames.add(marker.getAttributeNS(W,"name"));try{nextMarker=Math.max(nextMarker,Long.parseLong(marker.getAttributeNS(W,"id"))+1);}catch(NumberFormatException ignored){}}
+        Set<String> clearedKeepNextEligibility=new HashSet<>();for(NativeLayoutClearedKeepNextBreak item:captured.plan.clearedKeepNextBreaks){Element[] nodes=captured.clearedKeepNextBreaks.get(item.paragraph.id);if(contains(root,nodes[0])&&contains(root,nodes[1])&&hash(xml(nodes[1])).equals(item.guard.sha256)&&descendantText(nodes[0],"t").trim().isEmpty())clearedKeepNextEligibility.add(item.paragraph.id);}
+        Set<Integer> paragraphBoundaryEligibility=new HashSet<>();for(int i=0;i<captured.paragraphBoundaries.size();i++){List<Element> chain=captured.paragraphBoundaries.get(i);NativeLayoutParagraphBoundary boundary=captured.plan.paragraphBoundaries.get(i);boolean eligible=contains(root,chain.get(0))&&contains(root,chain.get(chain.size()-1))&&hash(xml(chain.get(0))).equals(boundary.heading.sha256)&&hash(xml(chain.get(chain.size()-1))).equals(boundary.body.sha256);for(int j=1;j<chain.size()-1;j++)eligible=eligible&&contains(root,chain.get(j))&&descendantText(chain.get(j),"t").trim().isEmpty();for(int j=1;j<chain.size();j++){Node following=chain.get(j-1).getNextSibling();while(following!=null&&!(following instanceof Element))following=following.getNextSibling();eligible=eligible&&following==chain.get(j);}if(eligible)paragraphBoundaryEligibility.add(i);}
         for(int i=0;i<captured.empty.size();i++){Element paragraph=captured.empty.get(i);NodeAnchor anchor=captured.plan.emptyExclusions.get(i);if(!contains(root,paragraph)){changes.add(new NativeLayoutChange("remove_verified_empty","SKIPPED_REMOVED",anchor,null));continue;}if(!layoutEmpty(paragraph)||!hash(xml(paragraph)).equals(anchor.sha256))throw error("LAYOUT_EMPTY_SCOPE_CHANGED",anchor.id);paragraph.getParentNode().removeChild(paragraph);changes.add(new NativeLayoutChange("remove_verified_empty","APPLIED",anchor,null));}
         for(int i=0;i<captured.boundaries.size();i++) {
             Element table=captured.boundaries.get(i)[0],heading=captured.boundaries.get(i)[1];NodeAnchor anchor=captured.plan.boundaries.get(i).table;
@@ -160,13 +197,76 @@ public final class DocxTemplateEditor {
             String layoutId="CL"+hash((captured.plan.sourceSha256+"|"+captured.plan.profile+"|"+anchor.id).getBytes(StandardCharsets.UTF_8)).substring(0,28);if(!markerNames.add(layoutId))throw error("LAYOUT_BOOKMARK_CONFLICT",anchor.id);attachBookmark(document,paragraph,layoutId,nextMarker++);
             changes.add(new NativeLayoutChange("compact_verified_empty_spacing","APPLIED",anchor,MAIN+"#"+path(paragraph),layoutId));
         }
+        for(int i=0;i<captured.cleared.size();i++){
+            Element paragraph=captured.cleared.get(i)[0],guard=captured.cleared.get(i)[1];NativeLayoutClearedParagraph item=captured.plan.clearedParagraphs.get(i);NodeAnchor anchor=item.paragraph;
+            if(!contains(root,paragraph)||!contains(root,guard)){changes.add(new NativeLayoutChange("compact_verified_cleared_spacing","SKIPPED_REMOVED",anchor,null));continue;}
+            if(!descendantText(guard,"t").replaceAll("(?U)\\s+","").equals(item.guardText.replace(" ",""))||!descendantText(paragraph,"t").trim().isEmpty()){changes.add(new NativeLayoutChange("compact_verified_cleared_spacing","SKIPPED_NOT_CLEARED",anchor,MAIN+"#"+path(paragraph)));continue;}
+            validateClearedLayoutParagraph(paragraph,item.removePageBreak,anchor.id);
+            if(item.removePageBreak){List<Element> remove=new ArrayList<>();NodeList br=paragraph.getElementsByTagNameNS(W,"br");for(int j=0;j<br.getLength();j++)if("page".equals(((Element)br.item(j)).getAttributeNS(W,"type")))remove.add((Element)br.item(j));for(Element node:remove)node.getParentNode().removeChild(node);}
+            Element props=direct(paragraph,"pPr").isEmpty()?document.createElementNS(W,"w:pPr"):direct(paragraph,"pPr").get(0);if(props.getParentNode()==null)paragraph.insertBefore(props,paragraph.getFirstChild());compactSpacing(document,props);
+            String layoutId="CL"+hash((captured.plan.sourceSha256+"|"+captured.plan.profile+"|cleared|"+anchor.id).getBytes(StandardCharsets.UTF_8)).substring(0,28);if(!markerNames.add(layoutId))throw error("LAYOUT_BOOKMARK_CONFLICT",anchor.id);attachBookmark(document,paragraph,layoutId,nextMarker++);
+            changes.add(new NativeLayoutChange("compact_verified_cleared_spacing","APPLIED",anchor,MAIN+"#"+path(paragraph),layoutId));
+        }
+        for(int i=0;i<captured.keepNext.size();i++){
+            Element paragraph=captured.keepNext.get(i);NodeAnchor anchor=captured.plan.keepNextParagraphs.get(i);if(!contains(root,paragraph)){changes.add(new NativeLayoutChange("keep_verified_paragraph_with_next","SKIPPED_REMOVED",anchor,null));continue;}
+            boolean clearedBreak=captured.clearedKeepNextBreaks.containsKey(anchor.id);if(clearedBreak&&!clearedKeepNextEligibility.contains(anchor.id)){changes.add(new NativeLayoutChange("keep_verified_paragraph_with_next","SKIPPED_NOT_CLEARED",anchor,MAIN+"#"+path(paragraph)));continue;}
+            if(!hash(xml(paragraph)).equals(anchor.sha256)&&!descendantText(paragraph,"t").trim().isEmpty())throw error("LAYOUT_KEEP_NEXT_SCOPE_CHANGED",anchor.id);validateClearedLayoutParagraph(paragraph,clearedBreak,anchor.id);
+            if(clearedBreak){List<Element> remove=new ArrayList<>();NodeList br=paragraph.getElementsByTagNameNS(W,"br");for(int j=0;j<br.getLength();j++)if("page".equals(((Element)br.item(j)).getAttributeNS(W,"type")))remove.add((Element)br.item(j));for(Element node:remove)node.getParentNode().removeChild(node);}
+            keepWithNext(paragraph);
+            String layoutId="CL"+hash((captured.plan.sourceSha256+"|"+captured.plan.profile+"|keep-next|"+anchor.id).getBytes(StandardCharsets.UTF_8)).substring(0,28);if(!markerNames.add(layoutId))throw error("LAYOUT_BOOKMARK_CONFLICT",anchor.id);attachBookmark(document,paragraph,layoutId,nextMarker++);
+            changes.add(new NativeLayoutChange(clearedBreak?"keep_verified_cleared_guidance_with_next":"keep_verified_paragraph_with_next","APPLIED",anchor,MAIN+"#"+path(paragraph),layoutId));
+        }
+        for(int i=0;i<captured.paragraphBoundaries.size();i++){Element heading=captured.paragraphBoundaries.get(i).get(0);NodeAnchor anchor=captured.plan.paragraphBoundaries.get(i).heading;if(!paragraphBoundaryEligibility.contains(i)){changes.add(new NativeLayoutChange("page_break_before_verified_heading","SKIPPED_NOT_CLEARED",anchor,contains(root,heading)?MAIN+"#"+path(heading):null));continue;}pageBreakBeforeHeading(heading);
+            String layoutId="CL"+hash((captured.plan.sourceSha256+"|"+captured.plan.profile+"|heading-break|"+anchor.id).getBytes(StandardCharsets.UTF_8)).substring(0,28);if(!markerNames.add(layoutId))throw error("LAYOUT_BOOKMARK_CONFLICT",anchor.id);attachBookmark(document,heading,layoutId,nextMarker++);changes.add(new NativeLayoutChange("page_break_before_verified_heading","APPLIED",anchor,MAIN+"#"+path(heading),layoutId));}
+        for(int i=0;i<captured.cohesiveRows.size();i++){
+            Element row=captured.cohesiveRows.get(i);NodeAnchor anchor=captured.plan.cohesiveRows.get(i);
+            if(!contains(root,row)){changes.add(new NativeLayoutChange("keep_verified_row_together","SKIPPED_REMOVED",anchor,null));continue;}
+            validateStructural(row,Edit.keepRowTogether("native-layout-row",anchor));keepRowTogether(row);
+            NodeList paragraphs=row.getElementsByTagNameNS(W,"p");if(paragraphs.getLength()==0)throw error("LAYOUT_ROW_SCOPE_CHANGED",anchor.id);Element paragraph=(Element)paragraphs.item(0);
+            String layoutId="CL"+hash((captured.plan.sourceSha256+"|"+captured.plan.profile+"|row|"+anchor.id).getBytes(StandardCharsets.UTF_8)).substring(0,28);if(!markerNames.add(layoutId))throw error("LAYOUT_BOOKMARK_CONFLICT",anchor.id);attachBookmark(document,paragraph,layoutId,nextMarker++);
+            changes.add(new NativeLayoutChange("keep_verified_row_together","APPLIED",anchor,MAIN+"#"+path(paragraph),layoutId));
+        }
+        for(int i=0;i<captured.compactGapRows.size();i++){
+            Element row=captured.compactGapRows.get(i);NodeAnchor anchor=captured.plan.compactGapRows.get(i);
+            if(!contains(root,row)){changes.add(new NativeLayoutChange("compact_verified_row_gaps","SKIPPED_REMOVED",anchor,null));continue;}
+            validateStructural(row,Edit.keepRowTogether("native-layout-gap",anchor));validateNativeGapRow(row,anchor.id);
+            for(Element props:direct(row,"trPr"))for(Element height:direct(props,"trHeight"))props.removeChild(height);
+            NodeList paragraphs=row.getElementsByTagNameNS(W,"p");for(int p=0;p<paragraphs.getLength();p++){Element props=direct((Element)paragraphs.item(p),"pPr").get(0),gap=direct(props,"spacing").get(0);for(String attr:Arrays.asList("before","after","beforeLines","afterLines"))gap.setAttributeNS(W,"w:"+attr,"0");}
+            Element paragraph=(Element)paragraphs.item(0);String layoutId="CL"+hash((captured.plan.sourceSha256+"|"+captured.plan.profile+"|gap|"+anchor.id).getBytes(StandardCharsets.UTF_8)).substring(0,28);if(!markerNames.add(layoutId))throw error("LAYOUT_BOOKMARK_CONFLICT",anchor.id);attachBookmark(document,paragraph,layoutId,nextMarker++);
+            changes.add(new NativeLayoutChange("compact_verified_row_gaps","APPLIED",anchor,MAIN+"#"+path(paragraph),layoutId));
+        }
         // Later insertions may shift earlier BODY paths. Resolve IDs only after the complete layout.
         List<NativeLayoutChange> finalChanges=new ArrayList<>();int boundaryIndex=0;
         for(NativeLayoutChange change:changes){if("page_break_before".equals(change.action)){Element table=captured.boundaries.get(boundaryIndex++)[0];String id="APPLIED".equals(change.status)?MAIN+"#"+path((Element)table.getPreviousSibling()):null;finalChanges.add(new NativeLayoutChange(change.action,change.status,change.source,id,change.layoutId));}else finalChanges.add(change);}
         return finalChanges;
     }
+    /** Only source-verified minimum row heights and explicit paragraph gaps; fonts, line spacing and cells are retained. */
+    private static void validateNativeGapRow(Element row,String id){
+        List<Element> properties=direct(row,"trPr");if(properties.size()!=1)throw error("LAYOUT_ROW_GAP_SCOPE_CHANGED",id);List<Element> heights=direct(properties.get(0),"trHeight");if(heights.size()!=1||!Arrays.asList("","atLeast").contains(heights.get(0).getAttributeNS(W,"hRule")))throw error("LAYOUT_ROW_GAP_SCOPE_CHANGED",id);
+        NodeList paragraphs=row.getElementsByTagNameNS(W,"p");if(paragraphs.getLength()==0)throw error("LAYOUT_ROW_GAP_SCOPE_CHANGED",id);for(int i=0;i<paragraphs.getLength();i++){List<Element> props=direct((Element)paragraphs.item(i),"pPr");if(props.size()!=1||direct(props.get(0),"spacing").size()!=1)throw error("LAYOUT_ROW_GAP_SCOPE_CHANGED",id);Element spacing=direct(props.get(0),"spacing").get(0);boolean explicit=false;for(String attr:Arrays.asList("before","after","beforeLines","afterLines")){String value=spacing.getAttributeNS(W,attr);if(!value.isEmpty()){if(!value.matches("\\d+"))throw error("LAYOUT_ROW_GAP_SCOPE_CHANGED",id);explicit=true;}}if(!explicit)throw error("LAYOUT_ROW_GAP_SCOPE_CHANGED",id);}
+    }
+    private static boolean hasCompactNativeRowGaps(Element row){
+        for(Element props:direct(row,"trPr"))if(!direct(props,"trHeight").isEmpty())return false;NodeList paragraphs=row.getElementsByTagNameNS(W,"p");if(paragraphs.getLength()==0)return false;for(int i=0;i<paragraphs.getLength();i++){List<Element> props=direct((Element)paragraphs.item(i),"pPr");if(props.size()!=1||direct(props.get(0),"spacing").size()!=1)return false;Element spacing=direct(props.get(0),"spacing").get(0);for(String attr:Arrays.asList("before","after","beforeLines","afterLines"))if(!"0".equals(spacing.getAttributeNS(W,attr)))return false;}return true;
+    }
 
     /** CT_PPr is ordered: new spacing precedes ind/jc/rPr and preserves all existing siblings. */
+    private static boolean hasPageBreak(Element paragraph){NodeList nodes=paragraph.getElementsByTagNameNS(W,"br");for(int i=0;i<nodes.getLength();i++)if("page".equals(((Element)nodes.item(i)).getAttributeNS(W,"type")))return true;return false;}
+    private static void validateClearedLayoutParagraph(Element paragraph,boolean allowPageBreak,String id){
+        if(!is(paragraph,"p")||has(paragraph,"sectPr")||has(paragraph,"pageBreakBefore"))throw error("LAYOUT_CLEARED_SCOPE_CHANGED",id);
+        NodeList nodes=paragraph.getElementsByTagName("*");for(int i=0;i<nodes.getLength();i++){Element node=(Element)nodes.item(i);boolean properties=false;for(Node parent=node;parent!=paragraph;parent=parent.getParentNode())if(is(parent,"pPr")||is(parent,"rPr")){properties=true;break;}if(properties)continue;
+            // Native render metadata and legacy semantic text wrappers remain present.
+            if(!W.equals(node.getNamespaceURI())||!Arrays.asList("r","t","tab","bookmarkStart","bookmarkEnd","proofErr","br","lastRenderedPageBreak","smartTag","smartTagPr","attr").contains(node.getLocalName())||is(node,"br")&&(!allowPageBreak||!"page".equals(node.getAttributeNS(W,"type")))||!validLegacyLayoutInline(node))throw error("LAYOUT_CLEARED_INLINE_UNSUPPORTED",id);
+        }
+    }
+    private static boolean validLegacyLayoutInline(Element node){
+        if(is(node,"lastRenderedPageBreak"))return is(node.getParentNode(),"r")&&!node.hasChildNodes();
+        if(is(node,"attr"))return is(node.getParentNode(),"smartTagPr")&&!node.hasChildNodes();
+        if(is(node,"smartTagPr")){if(!is(node.getParentNode(),"smartTag"))return false;for(Node child=node.getFirstChild();child!=null;child=child.getNextSibling())if(child instanceof Element&&!is(child,"attr"))return false;}
+        if(is(node,"smartTag")){if(!is(node.getParentNode(),"p")&&!is(node.getParentNode(),"smartTag"))return false;for(Node child=node.getFirstChild();child!=null;child=child.getNextSibling())if(child instanceof Element&&!is(child,"smartTagPr")&&!is(child,"smartTag")&&!is(child,"r"))return false;}
+        return true;
+    }
+    private static void pageBreakBeforeHeading(Element heading){Document document=heading.getOwnerDocument();List<Element> values=direct(heading,"pPr");Element props=values.isEmpty()?document.createElementNS(W,"w:pPr"):values.get(0);if(values.isEmpty())heading.insertBefore(props,heading.getFirstChild());Element value=document.createElementNS(W,"w:pageBreakBefore");value.setAttributeNS(W,"w:val","1");Node later=null;Set<String> afterBreak=Set.of("framePr","widowControl","numPr","suppressLineNumbers","pBdr","shd","tabs","suppressAutoHyphens","kinsoku","wordWrap","overflowPunct","topLinePunct","autoSpaceDE","autoSpaceDN","bidi","adjustRightInd","snapToGrid","spacing","ind","contextualSpacing","mirrorIndents","suppressOverlap","jc","textDirection","textAlignment","textboxTightWrap","outlineLvl","divId","cnfStyle","rPr","sectPr","pPrChange");for(Node child=props.getFirstChild();child!=null;child=child.getNextSibling())if(child instanceof Element&&W.equals(child.getNamespaceURI())&&afterBreak.contains(child.getLocalName())){later=child;break;}props.insertBefore(value,later);}
+    private static void keepWithNext(Element paragraph){Document document=paragraph.getOwnerDocument();List<Element> values=direct(paragraph,"pPr");Element props=values.isEmpty()?document.createElementNS(W,"w:pPr"):values.get(0);if(values.isEmpty())paragraph.insertBefore(props,paragraph.getFirstChild());List<Element> existing=direct(props,"keepNext");if(!existing.isEmpty()){existing.get(0).setAttributeNS(W,"w:val","1");return;}Element value=document.createElementNS(W,"w:keepNext");value.setAttributeNS(W,"w:val","1");Node before=props.getFirstChild();if(is(before,"pStyle"))before=before.getNextSibling();props.insertBefore(value,before);}
     private static void compactSpacing(Document document,Element props){
         Element value=direct(props,"spacing").isEmpty()?document.createElementNS(W,"w:spacing"):direct(props,"spacing").get(0);if(value.getParentNode()==null){Node later=null;Set<String> afterSpacing=Set.of("ind","contextualSpacing","mirrorIndents","suppressOverlap","jc","textDirection","textAlignment","textboxTightWrap","outlineLvl","divId","cnfStyle","rPr","sectPr","pPrChange");for(Node child=props.getFirstChild();child!=null;child=child.getNextSibling())if(child instanceof Element&&W.equals(child.getNamespaceURI())&&afterSpacing.contains(child.getLocalName())){later=child;break;}props.insertBefore(value,later);}
             value.setAttributeNS(W,"w:before","0");value.setAttributeNS(W,"w:after","0");value.setAttributeNS(W,"w:line","1");value.setAttributeNS(W,"w:lineRule","exact");
@@ -229,10 +329,13 @@ public final class DocxTemplateEditor {
         private final String id,part,path,sha256,text,catalogText,cellId,rowId,tableId,sectionId;
         private final int ordinal;
         private final byte[] snapshotXml;
+        private final boolean nativeRowCohesion;
+        private final boolean compactNativeRowGaps;
         private Paragraph(String part,String path,Element node,int ordinal) {
             this.part=part;this.path=path;id=part+"#"+path;this.ordinal=ordinal;
             snapshotXml=xml(node);sha256=hash(snapshotXml);catalogText=descendantText(node,"t");text=editableText(node);
             cellId=ancestorId(part,node,"tc");rowId=ancestorId(part,node,"tr");tableId=ancestorId(part,node,"tbl");
+            boolean together=false,gaps=false;for(Node parent=node.getParentNode();parent!=null;parent=parent.getParentNode())if(is(parent,"tr")){List<Element> properties=direct((Element)parent,"trPr");if(properties.size()==1){List<Element> controls=direct(properties.get(0),"cantSplit");together=controls.size()==1&&!Arrays.asList("0","false","off").contains(controls.get(0).getAttributeNS(W,"val"));}gaps=DocxTemplateEditor.hasCompactNativeRowGaps((Element)parent);break;}nativeRowCohesion=together;compactNativeRowGaps=gaps;
             String section=null;NodeList sections=node.getOwnerDocument().getElementsByTagNameNS(W,"sectPr");
             for(int i=0;i<sections.getLength();i++)if((node.compareDocumentPosition(sections.item(i))&Node.DOCUMENT_POSITION_FOLLOWING)!=0) {section=part+"#"+path((Element)sections.item(i));break;}
             sectionId=section;
@@ -248,6 +351,12 @@ public final class DocxTemplateEditor {
                 if(paragraph.getElementsByTagNameNS(W,"pageBreakBefore").getLength()!=0||paragraph.getElementsByTagNameNS(W,"sectPr").getLength()!=0)return false;List<Element> props=direct(paragraph,"pPr");if(props.size()!=1)return false;List<Element> spacing=direct(props.get(0),"spacing");if(spacing.size()!=1)return false;Element value=spacing.get(0);NamedNodeMap attributes=value.getAttributes();int count=0;for(int i=0;i<attributes.getLength();i++){Node attribute=attributes.item(i);if(javax.xml.XMLConstants.XMLNS_ATTRIBUTE_NS_URI.equals(attribute.getNamespaceURI()))continue;if(!W.equals(attribute.getNamespaceURI())||!Set.of("before","after","line","lineRule").contains(attribute.getLocalName()))return false;count++;}if(count!=4)return false;return "0".equals(value.getAttributeNS(W,"before"))&&"0".equals(value.getAttributeNS(W,"after"))&&"1".equals(value.getAttributeNS(W,"line"))&&"exact".equals(value.getAttributeNS(W,"lineRule"));
             }catch(Exception failure){return false;}
         }
+        public boolean hasCompactClearedLayoutSpacing(){try{Element paragraph=parse(snapshotXml).getDocumentElement();validateClearedLayoutParagraph(paragraph,false,id);if(!descendantText(paragraph,"t").trim().isEmpty())return false;List<Element> props=direct(paragraph,"pPr");if(props.size()!=1)return false;List<Element> spacing=direct(props.get(0),"spacing");if(spacing.size()!=1)return false;Element value=spacing.get(0);return "0".equals(value.getAttributeNS(W,"before"))&&"0".equals(value.getAttributeNS(W,"after"))&&"1".equals(value.getAttributeNS(W,"line"))&&"exact".equals(value.getAttributeNS(W,"lineRule"));}catch(Exception invalid){return false;}}
+        public boolean hasNativeKeepNext(){try{Element paragraph=parse(snapshotXml).getDocumentElement();List<Element> props=direct(paragraph,"pPr");if(props.size()!=1)return false;List<Element> values=direct(props.get(0),"keepNext");return values.size()==1&&"1".equals(values.get(0).getAttributeNS(W,"val"));}catch(Exception invalid){return false;}}
+        public boolean hasNativeHeadingPageBreak(){try{Element paragraph=parse(snapshotXml).getDocumentElement();List<Element> props=direct(paragraph,"pPr");if(props.size()!=1)return false;List<Element> values=direct(props.get(0),"pageBreakBefore");return values.size()==1&&"1".equals(values.get(0).getAttributeNS(W,"val"));}catch(Exception invalid){return false;}}
+        public boolean hasClearedNativeKeepNext(){try{Element paragraph=parse(snapshotXml).getDocumentElement();return hasNativeKeepNext()&&descendantText(paragraph,"t").trim().isEmpty()&&!hasPageBreak(paragraph);}catch(Exception invalid){return false;}}
+        public boolean hasNativeRowCohesion(){return nativeRowCohesion;}
+        public boolean hasCompactNativeRowGaps(){return compactNativeRowGaps;}
         /** Blank plain text may complete an explicitly selected row; native controls and opaque inline nodes may not. */
         public boolean isPlainEmpty() {
             if(!text.trim().isEmpty())return false;
@@ -304,26 +413,37 @@ public final class DocxTemplateEditor {
     public enum EditType { REPLACE_SPAN, CLEAR_EDITORIAL_CELL, CLEAR_PARAGRAPH, CLEAR_PARAGRAPH_AND_NUMBERING, DELETE_PARAGRAPH, DELETE_ROW, DELETE_TABLE, REMOVE_NODES, KEEP_ROW_TOGETHER, INSERT_BEFORE, INSERT_AFTER }
     public static final class Edit {
         private final String operationId,targetId,targetSha256,expectedText,replacement,donorId,donorSha256;
+        private final boolean labelOutsideFields,tocFieldLabel;
         private final int start,end;
         private final EditType type;
         private final List<String> lines;
         private final List<NodeAnchor> targets;
         private Edit(String id,Paragraph p,int start,int end,String expected,String replacement) {
+            this(id,p,start,end,expected,replacement,false);
+        }
+        private Edit(String id,Paragraph p,int start,int end,String expected,String replacement,boolean labelOutsideFields) {
+            this(id,p,start,end,expected,replacement,labelOutsideFields,false);
+        }
+        private Edit(String id,Paragraph p,int start,int end,String expected,String replacement,boolean labelOutsideFields,boolean tocFieldLabel) {
             operationId=id;targetId=p.id;targetSha256=p.sha256;this.start=start;this.end=end;
             expectedText=expected;this.replacement=replacement;
+            this.labelOutsideFields=labelOutsideFields;this.tocFieldLabel=tocFieldLabel;
             type=EditType.REPLACE_SPAN;
             donorId=null;donorSha256=null;lines=Collections.emptyList();targets=Collections.emptyList();
         }
         private Edit(String id,String target,String sha,EditType type) {
+            labelOutsideFields=false;tocFieldLabel=false;
             operationId=id;targetId=target;targetSha256=sha;this.type=type;start=0;end=0;expectedText=null;replacement=null;
             donorId=null;donorSha256=null;lines=Collections.emptyList();targets=Collections.emptyList();
         }
         private Edit(String id,Paragraph anchor,boolean after,List<String> lines,Paragraph donor) {
+            labelOutsideFields=false;tocFieldLabel=false;
             operationId=id;targetId=anchor.id;targetSha256=anchor.sha256;type=after?EditType.INSERT_AFTER:EditType.INSERT_BEFORE;
             start=0;end=0;expectedText=null;replacement=null;donorId=donor.id;donorSha256=donor.sha256;
             this.lines=Collections.unmodifiableList(new ArrayList<>(lines));targets=Collections.emptyList();
         }
         private Edit(String id,List<NodeAnchor> targets) {
+            labelOutsideFields=false;tocFieldLabel=false;
             operationId=id;targetId=null;targetSha256=null;type=EditType.REMOVE_NODES;start=0;end=0;expectedText=null;replacement=null;
             donorId=null;donorSha256=null;lines=Collections.emptyList();this.targets=Collections.unmodifiableList(new ArrayList<>(targets));
         }
@@ -332,6 +452,20 @@ public final class DocxTemplateEditor {
         }
         /** Catalog offsets count only descendant w:t. Mapping across controls or opaque features is rejected. */
         public static Edit replaceCatalogSpan(String id,Paragraph p,int start,int end,String expected,String replacement) {
+            return catalogSpan(id,p,start,end,expected,replacement,false);
+        }
+        /** Explicit label-only edit. Native paragraph fields and the enclosing hyperlink remain intact. */
+        public static Edit replaceCatalogLabelOutsideFields(String id,Paragraph p,int start,int end,String expected,String replacement) {
+            return catalogSpan(id,p,start,end,expected,replacement,true);
+        }
+        /** Exact caller-bound TOC title only; apply verifies the complete outer TOC field in its story. */
+        public static Edit replaceCatalogTocLabel(String id,Paragraph p,int start,int end,String expected,String replacement) {
+            return catalogSpan(id,p,start,end,expected,replacement,true,true);
+        }
+        private static Edit catalogSpan(String id,Paragraph p,int start,int end,String expected,String replacement,boolean labelOutsideFields) {
+            return catalogSpan(id,p,start,end,expected,replacement,labelOutsideFields,false);
+        }
+        private static Edit catalogSpan(String id,Paragraph p,int start,int end,String expected,String replacement,boolean labelOutsideFields,boolean tocFieldLabel) {
             if(start<0||end<start||end>p.catalogText.length()||!p.catalogText.substring(start,end).equals(expected))throw error("TEXT_EXPECTATION_MISMATCH",id);
             if(start==end)throw error("EMPTY_SPAN_UNSUPPORTED",id);
             try {
@@ -344,7 +478,7 @@ public final class DocxTemplateEditor {
                     catalog+=length;
                 }
                 if(actualStart<0||actualEnd<actualStart)throw error("CATALOG_MAPPING_UNSUPPORTED",id);
-                Edit edit=new Edit(id,p,actualStart,actualEnd,p.text.substring(actualStart,actualEnd),replacement);
+                Edit edit=new Edit(id,p,actualStart,actualEnd,p.text.substring(actualStart,actualEnd),replacement,labelOutsideFields,tocFieldLabel);
                 validateSpan(parse(p.snapshotXml).getDocumentElement(),edit);
                 return edit;
             }catch(EditException e){throw e;}catch(Exception e){throw error("CATALOG_MAPPING_UNSUPPORTED",id);}
@@ -362,8 +496,9 @@ public final class DocxTemplateEditor {
         /** Each selected node has its own exact source hash. No numeric range is inferred. */
         public static Edit removeNodes(String id,List<NodeAnchor> nodes){return new Edit(id,nodes);}
         public String getOperationId(){return operationId;} public EditType getType(){return type;}
-        public Edit withStyleDonor(RunInfo donor){if(type!=EditType.REPLACE_SPAN)throw error("RUN_STYLE_DONOR_OPERATION_UNSUPPORTED",operationId);return new Edit(this,donor);}
+        public Edit withStyleDonor(RunInfo donor){if(type!=EditType.REPLACE_SPAN||labelOutsideFields)throw error("RUN_STYLE_DONOR_OPERATION_UNSUPPORTED",operationId);return new Edit(this,donor);}
         private Edit(Edit original,RunInfo donor) {
+            labelOutsideFields=original.labelOutsideFields;tocFieldLabel=original.tocFieldLabel;
             operationId=original.operationId;targetId=original.targetId;targetSha256=original.targetSha256;expectedText=original.expectedText;replacement=original.replacement;
             start=original.start;end=original.end;type=original.type;lines=original.lines;targets=original.targets;donorId=donor.id;donorSha256=donor.sha256;
         }
@@ -600,8 +735,64 @@ public final class DocxTemplateEditor {
         for(int offset:new int[]{edit.start,edit.end})if(offset>0&&offset<original.length()&&Character.isHighSurrogate(original.charAt(offset-1))&&Character.isLowSurrogate(original.charAt(offset)))throw error("INVALID_TEXT_BOUNDARY",edit.operationId);
         if(edit.replacement==null)throw error("INVALID_REPLACEMENT",edit.operationId);
         for(String fragment:edit.replacement.split("[\n\t]",-1))validText(fragment,edit.operationId);
-        for(Segment segment:segments(target))if(!segment.safe&&(segment.start<edit.end&&segment.end>edit.start||segment.start==segment.end&&edit.start<segment.start&&segment.start<edit.end))throw error("UNSUPPORTED_INLINE_FEATURE",edit.operationId);
-        if(has(target,"fldChar")||has(target,"instrText")||has(target,"fldSimple"))throw error("FIELD_TEXT_EDIT_UNSUPPORTED",edit.operationId);
+        if(edit.labelOutsideFields)validateLabelOutsideFields(target,edit);
+        else {
+            for(Segment segment:segments(target))if(!segment.safe&&(segment.start<edit.end&&segment.end>edit.start||segment.start==segment.end&&edit.start<segment.start&&segment.start<edit.end))throw error("UNSUPPORTED_INLINE_FEATURE",edit.operationId);
+            if(has(target,"fldChar")||has(target,"instrText")||has(target,"fldSimple"))throw error("FIELD_TEXT_EDIT_UNSUPPORTED",edit.operationId);
+        }
+    }
+    private static void validateLabelOutsideFields(Element target,Edit edit) {
+        Node container=null;Deque<Integer> fieldStarts=new ArrayDeque<>();Deque<Boolean> separated=new ArrayDeque<>();
+        for(Segment segment:segments(target)) {
+            if(is(segment.node,"fldChar")) {
+                String kind=segment.node.getAttributeNS(W,"fldCharType");
+                if("begin".equals(kind)){fieldStarts.push(segment.start);separated.push(false);}
+                else if("separate".equals(kind)&&!fieldStarts.isEmpty()&&!separated.peek()){separated.pop();separated.push(true);}
+                else if("end".equals(kind)&&!fieldStarts.isEmpty()) {
+                    int first=fieldStarts.pop();separated.pop();
+                    if(edit.start<segment.start&&edit.end>first)throw error("FIELD_TEXT_EDIT_UNSUPPORTED",edit.operationId);
+                }else throw error("INCOMPLETE_FIELD_SCOPE",edit.operationId);
+            }else if(is(segment.node,"instrText")&&fieldStarts.isEmpty())throw error("INCOMPLETE_FIELD_SCOPE",edit.operationId);
+            boolean intersects=segment.start<edit.end&&segment.end>edit.start;
+            boolean internalControl=segment.start==segment.end&&edit.start<segment.start&&segment.start<edit.end;
+            if(intersects) {
+                if(!is(segment.node,"t")||!is(segment.node.getParentNode(),"r"))throw error("UNSUPPORTED_INLINE_FEATURE",edit.operationId);
+                Node actual=segment.node.getParentNode().getParentNode();
+                if(actual!=target&&!(is(actual,"hyperlink")&&actual.getParentNode()==target))throw error("UNSUPPORTED_INLINE_FEATURE",edit.operationId);
+                if(!fieldStarts.isEmpty())throw error("FIELD_TEXT_EDIT_UNSUPPORTED",edit.operationId);
+                if(container==null)container=actual;
+                else if(container!=actual)throw error("UNSUPPORTED_INLINE_FEATURE",edit.operationId);
+            }else if(internalControl)throw error("UNSUPPORTED_INLINE_FEATURE",edit.operationId);
+        }
+        if(!fieldStarts.isEmpty())throw error("INCOMPLETE_FIELD_SCOPE",edit.operationId);
+        if(edit.tocFieldLabel&&(container==null||!is(container,"hyperlink")))throw error("TOC_LABEL_HYPERLINK_REQUIRED",edit.operationId);
+    }
+    private static final class LabelFieldScope {
+        final StringBuilder instruction=new StringBuilder();boolean separated,complete,invalid;
+    }
+    /** Detached paragraph snapshots cannot see a field that starts in an earlier paragraph. */
+    private static void validateGlobalLabelFields(Element target,Edit edit) {
+        Set<Element> selected=new HashSet<>();
+        for(Segment segment:segments(target))if(is(segment.node,"t")&&segment.start<edit.end&&segment.end>edit.start)selected.add(segment.node);
+        Deque<LabelFieldScope> active=new ArrayDeque<>();Set<LabelFieldScope> touched=new LinkedHashSet<>();
+        NodeList nodes=target.getOwnerDocument().getElementsByTagName("*");
+        for(int i=0;i<nodes.getLength();i++) {
+            Element node=(Element)nodes.item(i);
+            if(is(node,"fldChar")) {
+                String kind=node.getAttributeNS(W,"fldCharType");
+                if("begin".equals(kind))active.push(new LabelFieldScope());
+                else if("separate".equals(kind)&&!active.isEmpty()) {LabelFieldScope scope=active.peek();if(scope.separated)scope.invalid=true;scope.separated=true;}
+                else if("end".equals(kind)&&!active.isEmpty())active.pop().complete=true;
+                else if(!active.isEmpty())active.peek().invalid=true;
+            }else if(is(node,"instrText")&&!active.isEmpty()) {LabelFieldScope scope=active.peek();if(scope.separated)scope.invalid=true;scope.instruction.append(node.getTextContent());}
+            if(selected.contains(node))for(LabelFieldScope scope:active){if(!scope.separated)scope.invalid=true;touched.add(scope);}
+        }
+        if(edit.tocFieldLabel) {
+            if(touched.size()!=1)throw error("FIELD_TEXT_EDIT_UNSUPPORTED",edit.operationId);
+            LabelFieldScope scope=touched.iterator().next();
+            if(!scope.complete||!scope.separated||scope.invalid)throw error("INCOMPLETE_FIELD_SCOPE",edit.operationId);
+            if(!scope.instruction.toString().trim().matches("(?is)^TOC(?:\\s.*)?$"))throw error("FIELD_TEXT_EDIT_UNSUPPORTED",edit.operationId);
+        }else if(!touched.isEmpty())throw error("FIELD_TEXT_EDIT_UNSUPPORTED",edit.operationId);
     }
     private static void validateStructural(Element target,Edit edit) {
         if(edit.type==EditType.CLEAR_EDITORIAL_CELL) {
@@ -673,7 +864,8 @@ public final class DocxTemplateEditor {
     }
     private static void replace(PackageModel model,Element p,Edit edit) {
         List<Segment> segments=segments(p);Segment firstSegment=null;
-        for(Segment segment:segments)if(segment.safe&&segment.start<edit.end&&segment.end>edit.start){firstSegment=segment;break;}
+        for(Segment segment:segments)if((segment.safe||edit.labelOutsideFields&&is(segment.node,"t"))&&segment.start<edit.end&&segment.end>edit.start){firstSegment=segment;break;}
+        if(firstSegment==null)throw error("UNSUPPORTED_INLINE_FEATURE",edit.operationId);
         Element firstRun=(Element)firstSegment.node.getParentNode(),donor=edit.donorId==null?firstRun:model.nodes.get(edit.donorId);
         List<Element> firstProperties=direct(firstRun,"rPr"),donorProperties=direct(donor,"rPr");
         String originalStyle=firstProperties.isEmpty()?"":intrinsicHash(firstProperties.get(0)),donorStyle=donorProperties.isEmpty()?"":intrinsicHash(donorProperties.get(0));

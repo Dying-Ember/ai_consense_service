@@ -14,6 +14,19 @@ import static org.mockito.ArgumentMatchers.*;
 
 /** Actual Java review orchestration with fake HTTP, original source packaging and strict Gateway. */
 class VettingResponsesSemanticHarnessTest {
+    @Test void strictRetryCountsGatewayInvocationsWithoutChangingPlannedPacketDenominator() {
+        List<Chunk> cs=Collections.singletonList(corpus().get(0));
+        VettingResponsesTransportTest.Http h=new VettingResponsesTransportTest.Http() {
+            int generations;
+            @Override public VettingResponsesTransport.Response post(String endpoint,String body,long timeout,int cap,String authorization) {
+                if(endpoint.endsWith("/responses"))generation=VettingResponsesTransportTest.completed(++generations==1?"[]}":"[]");
+                return super.post(endpoint,body,timeout,cap,authorization);
+            }
+        };
+        VettingSemanticReview.Result r=review(cs,props(cs),h,mock(LlmClient.class));
+        assertEquals(1,r.getPlannedCallCount());assertEquals(2,r.getActualGatewayCallCount());assertNull(r.getModelFailure());
+        SemanticPacketVO packet=r.getTopicAudits().get(0).getPacketAudits().get(0);assertEquals(2,packet.getAttempts().size());assertEquals(VettingCorpus.hash("[]"),packet.getRawResponseSha256());
+    }
     private Chunk c(String id,String doc,String clause,String text) {
         Chunk c=new Chunk();c.setId(id);c.setDocumentId(doc);c.setFileName(doc+".docx");c.setRole("tender");c.setSourceHash(VettingCorpus.hash(doc));c.setFileKey(clause==null?"OTHER":"AAA");c.setClauseId(clause);c.setClauseHeadingLocation(clause==null?null:"body/heading/"+clause);c.setContent(text);c.setAnchor("body/"+id+"/paragraph");c.setMetadataVersion(VettingCorpus.METADATA_VERSION);c.setSegmentationVersion(VettingCorpus.SEGMENTATION_VERSION);c.setNativeTableMetadataVersion(VettingCorpus.NATIVE_TABLE_METADATA_VERSION);
         VettingSourceQuality.Info q=new VettingSourceQuality.Info();q.setParseStatus("PARSED");q.setOcrQualityStatus("not_observed");q.setCoverageMetadataSha256(VettingCorpus.hash("synthetic-parser-declaration"));c.setSourceQuality(q);c.setSourceQualityHash(VettingSourceQuality.hash(q));c.setSourceQualityMetadataVersion(VettingSourceQuality.VERSION);
@@ -44,7 +57,7 @@ class VettingResponsesSemanticHarnessTest {
         List<Chunk> cs=corpus();VettingResponsesTransportTest.Http h=new VettingResponsesTransportTest.Http();h.status=403;LlmClient local=mock(LlmClient.class);VettingSemanticReview.Result r=review(cs,props(cs),h,local);verifyNoInteractions(local);assertEquals(0,r.getActualGatewayCallCount());assertTrue(h.endpoints.stream().allMatch(s->s.endsWith("/input_tokens")));assertTrue(r.getReviewedChunkIds().isEmpty());assertEquals("not_submitted_budget_unknown",r.getTopicAudits().get(0).getGlobalCallStatus());assertEquals(0,r.getTopicAudits().get(0).getReturnedAssessments());
     }
     @Test void knownRemoteOverBudgetBlocksAllActualGeneration() {
-        List<Chunk> cs=corpus();VettingResponsesTransportTest.Http h=new VettingResponsesTransportTest.Http();h.count=50000;LlmClient local=mock(LlmClient.class);VettingSemanticReview.Result r=review(cs,props(cs),h,local);verifyNoInteractions(local);assertEquals(0,r.getActualGatewayCallCount());assertEquals("not_submitted_over_budget",r.getTopicAudits().get(0).getGlobalCallStatus());assertTrue(r.getTopicAudits().get(0).getSourceRequests().stream().anyMatch(x->"over_budget".equals(x.getTransportStatus())));assertTrue(h.endpoints.stream().allMatch(s->s.endsWith("/input_tokens")));
+        List<Chunk> cs=corpus();VettingResponsesTransportTest.Http h=new VettingResponsesTransportTest.Http();h.count=262144;LlmClient local=mock(LlmClient.class);VettingSemanticReview.Result r=review(cs,props(cs),h,local);verifyNoInteractions(local);assertEquals(0,r.getActualGatewayCallCount());assertEquals("not_submitted_over_budget",r.getTopicAudits().get(0).getGlobalCallStatus());assertTrue(r.getTopicAudits().get(0).getSourceRequests().stream().anyMatch(x->"over_budget".equals(x.getTransportStatus())));assertTrue(h.endpoints.stream().allMatch(s->s.endsWith("/input_tokens")));
     }
     @Test void finalProviderEstimateDriftRejectsItsPacketBeforeActualGateway() {
         List<Chunk> cs=Collections.singletonList(corpus().get(0));VettingResponsesTransportTest.Http h=new VettingResponsesTransportTest.Http();h.counterHook=()->h.count=h.endpoints.size()==1?100:101;LlmClient local=mock(LlmClient.class);VettingSemanticReview.Result r=review(cs,props(cs),h,local);assertEquals(0,r.getActualGatewayCallCount());assertEquals(2,h.endpoints.size());SemanticTopicVO a=r.getTopicAudits().get(0);assertEquals("not_submitted_budget_unknown",a.getGlobalCallStatus());assertEquals("token_preview_final_observation_changed",a.getError());verifyNoInteractions(local);

@@ -1,0 +1,1 @@
+ALTER TABLE chat_message MODIFY COLUMN evidence_id VARCHAR(256) NULL;

@@ -3,7 +3,16 @@ package com.consense.service.drafting;
 import com.consense.ai.LlmClient;
 import com.consense.ai.LlmProfiles;
 import com.consense.common.JsonUtils;
+import com.consense.domain.SourceDocument;
+import com.consense.repository.SourceDocumentRepository;
 import com.fasterxml.jackson.databind.JsonNode;
+import org.apache.pdfbox.cos.COSName;
+import org.apache.pdfbox.pdmodel.*;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.interactive.annotation.*;
+import org.apache.pdfbox.pdmodel.interactive.form.*;
+import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.util.*;
@@ -39,6 +48,7 @@ class DraftingExtractionHotfixIntegrationTest {
     }
     @Autowired MockMvc mvc;
     @Autowired LlmProfiles profiles;
+    @Autowired SourceDocumentRepository sourceDocuments;
     @MockBean(name="llmClient") LlmClient externalModel;
     @BeforeEach void modelAvailable() {
         // Explicit-profile failures must occur at the mocked provider attempt,
@@ -47,6 +57,34 @@ class DraftingExtractionHotfixIntegrationTest {
         assertNull(profiles.resolve("local").getUnavailableReason());
         when(externalModel.available()).thenReturn(true);
         when(externalModel.chatModel()).thenReturn("test-only-external-model");
+    }
+
+    @Test void aPreservedConflictingPdfWidgetDoesNotTurnADraftingInputIntoAcceptedCorrespondence() throws Exception {
+        String project=project(); byte[] bytes;
+        try(PDDocument document=new PDDocument()) {
+            PDPage page=new PDPage(); document.addPage(page);
+            try(PDPageContentStream stream=new PDPageContentStream(document,page)) {
+                stream.beginText();stream.setFont(PDType1Font.HELVETICA,10);stream.newLineAtOffset(30,700);
+                stream.showText("The project correspondence identifies the contractor and the procurement schedule; classifications require source review.");stream.endText();
+            }
+            PDAcroForm acro=new PDAcroForm(document); document.getDocumentCatalog().setAcroForm(acro);
+            PDTextField field=new PDTextField(acro);field.setPartialName("DomesticBlockChoice");field.getCOSObject().setString(COSName.V,"No");acro.getFields().add(field);
+            PDAnnotationWidget widget=field.getWidgets().get(0);widget.setPage(page);widget.setRectangle(new PDRectangle(30,600,200,20));page.getAnnotations().add(widget);
+            PDAppearanceStream ap=new PDAppearanceStream(document);ap.setBBox(new PDRectangle(200,20));ap.setResources(new PDResources());
+            try(PDPageContentStream stream=new PDPageContentStream(document,ap)) {
+                stream.beginText();stream.setFont(PDType1Font.HELVETICA,10);stream.newLineAtOffset(2,5);stream.showText("Yes");stream.endText();
+            }
+            PDAppearanceDictionary appearance=new PDAppearanceDictionary();appearance.setNormalAppearance(ap);widget.setAppearance(appearance);
+            ByteArrayOutputStream out=new ByteArrayOutputStream();document.save(out);bytes=out.toByteArray();
+        }
+        mvc.perform(multipart("/api/drafting/{id}/inputs/upload",project).file(new MockMultipartFile("files","test-only-conflicting-form.pdf","application/pdf",bytes)))
+                .andExpect(jsonPath("$.code").value(0)).andExpect(jsonPath("$.data.parsed").value(1));
+        SourceDocument source=sourceDocuments.findByProjectIdAndCategoryOrderByIdAsc(project,SourceDocument.CATEGORY_PROJECT_INPUT).get(0);
+        assertEquals("PARTIAL",source.getParseStatus());assertFalse(source.getTextContent().contains("Yes"));assertFalse(source.getTextContent().contains("No"));
+        JsonNode widget=JsonUtils.parse(source.getStructuredContentJson()).findValue("pdfFormField");
+        assertNotNull(widget);assertEquals("No",widget.path("fieldValue").asText());assertEquals("Yes",widget.path("appearanceValue").asText());assertTrue(widget.path("conflict").asBoolean());
+        extract(project,4005);org.mockito.Mockito.verify(externalModel,org.mockito.Mockito.never()).chat(anyList());
+        assertEquals("",variable(project,"domesticBlocks").path("value").asText());assertFalse(variable(project,"domesticBlocks").path("confirmed").asBoolean());
     }
 
     @Test void explicitUnknownRetainsItsReasonAndSourceWithoutInventingOrAdoptingAnAnswer() throws Exception {

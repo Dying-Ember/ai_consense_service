@@ -1,0 +1,11 @@
+# Independent Linux NVIDIA candidate environment for the H800 deployment path.
+# Retained successful Linux recipe; full hashes are in the adjacent .lock.txt.
+mineru[full]==4.0.10
+vllm==0.19.1
+torch==2.10.0
+torchvision==0.25.0
+torchaudio==2.10.0
+transformers==5.10.1
+nvidia-cutlass-dsl==4.4.0
+pypdf==6.19.0
+# Keep separate from retrieval and business LLM environments.

@@ -44,6 +44,12 @@ public final class VettingInputBudget {
         in.setSchema(schema.deepCopy());in.setMessages(Arrays.asList(LlmClient.ChatTurn.system(system+"\nReturn only a JSON array conforming to this schema:\n"+JsonUtils.write(schema)),LlmClient.ChatTurn.user(user)));
         in.setSerializedInputSha256(bindingHash(in));return in;
     }
+    /** The caller supplies the actual gateway envelope, including any JSON retry instruction. */
+    public static Input chatInput(String provider,String model,String configurationSha,List<LlmClient.ChatTurn> messages,int outputReserve,String sourceSha) {
+        Input input=new Input();input.setProvider(provider);input.setModel(model);input.setProviderConfigurationSha256(configurationSha);
+        input.setMessages(new ArrayList<>(messages));input.setSchema(JsonUtils.mapper().createObjectNode());
+        input.setOutputReserveTokens(outputReserve);input.setSourceSnapshotSha256(sourceSha);input.setSerializedInputSha256(bindingHash(input));return input;
+    }
     private static String bindingHash(Input in) {Map<String,Object> b=new LinkedHashMap<>();b.put("provider",in.getProvider());b.put("model",in.getModel());b.put("providerConfigurationSha256",in.getProviderConfigurationSha256());b.put("messages",in.getMessages());b.put("schema",in.getSchema());b.put("outputReserveTokens",in.getOutputReserveTokens());b.put("sourceSnapshotSha256",in.getSourceSnapshotSha256());if(in.getWire()!=null)b.put("wire",in.getWire());return VettingCorpus.hash(JsonUtils.write(b));}
     static void bindWire(Input input,VettingResponsesTransport.WireIdentity wire) {input.setWire(wire);input.setSerializedInputSha256(bindingHash(input));}
     static boolean validBinding(Input input) {return input!=null&&Objects.equals(bindingHash(input),input.getSerializedInputSha256());}

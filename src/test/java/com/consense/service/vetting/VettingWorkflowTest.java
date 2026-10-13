@@ -52,6 +52,8 @@ import static org.mockito.ArgumentMatchers.*;
         "spring.jpa.hibernate.ddl-auto=create-drop",
         "spring.flyway.enabled=false",
         "consense.llm.enabled=false",
+        "consense.llm.num-ctx=524288",
+        "consense.llm.structured-thinking=false",
         "consense.ocr.enabled=false",
         "consense.vector.provider=memory",
         "consense.vetting.semantic-enabled=true",
@@ -77,16 +79,42 @@ class VettingWorkflowTest {
     @Autowired private VettingFindingRepository findings;
     @Autowired private VettingRunRepository runs;
     @Autowired private ConsenseProperties props;
+    @Autowired private VettingSemanticReview semantic;
     @MockBean private AiGateway ai;
     @MockBean private VettingRetrievalClient retrieval;
 
     @BeforeEach
     void offlineModel() {
+        semantic.setInputBudgetObserver(VettingTokenFixture::observe);
         props.getDocument().setProbeDirectory(null);
         props.getVetting().setExportProbeDirectory(null);
         props.getVetting().setRequireHybridRetrieval(false);props.getVetting().setProbeDirectory(null);
         when(ai.available()).thenReturn(false);
         when(ai.chatModel()).thenReturn("offline-test-model");
+    }
+
+    @Test
+    void replacedReviewPackageCannotExportThePreviousCompletedRunAsTheCurrentReport() throws Exception {
+        String projectId = project("Review source replacement");
+        source(projectId, SourceDocument.CATEGORY_VETTING_PACKAGE, "NTT", "NTT.txt",
+                "NTT 1.1 Tenderers shall provide the original form.");
+        complete(projectId, service.startRun(projectId, "en"));
+        assertTrue(service.exportJson(projectId, "en").length > 0);
+        source(projectId, SourceDocument.CATEGORY_VETTING_PACKAGE, "NTT", "NTT.txt",
+                "NTT 1.1 Tenderers shall provide two signed original forms.");
+        BizException failure = assertThrows(BizException.class, () -> service.exportJson(projectId, "en"));
+        assertEquals(4104, failure.getCode());
+    }
+
+    @Test
+    void competitionExcludesPricingDocumentsWithoutReportingTheirAbsenceAsMissingReviewEvidence() throws Exception {
+        String projectId = project("Competition document boundary");
+        source(projectId, SourceDocument.CATEGORY_VETTING_PACKAGE, "NTT", "NTT.txt",
+                "NTT 1.1 Tenderers shall provide the original form with the stated source condition.");
+        VettingJobVO run = complete(projectId, service.startRun(projectId, "en"));
+        assertFalse(run.getCoverage().getWarnings().stream().anyMatch(w ->
+                w.contains("未提供可解析的 Bills of Quantities") || w.contains("未提供可解析的 General Summary")),
+                "Excluded pricing files are outside the competition review scope, not missing mandatory evidence");
     }
 
     @Test
@@ -182,7 +210,7 @@ class VettingWorkflowTest {
         service.uploadPackage(projectId,Collections.singletonList(upload("SCC.docx","application/vnd.openxmlformats-officedocument.wordprocessingml.document",original)));
         SourceDocument source=documents.findByProjectIdOrderByIdAsc(projectId).get(0);
         String revision=VettingCorpus.sourceHash(source);
-        VettingService.OriginalSource served=service.originalSource(projectId,source.getId(),revision);
+        VettingService.OriginalSource served=service.originalSource(projectId,source.getId(),revision,source.getSourceSha256());
         assertArrayEquals(original,java.nio.file.Files.readAllBytes(served.getPath()));
         assertEquals(revision,served.getSourceRevision());assertEquals("SCC.docx",served.getFileName());
         assertThrows(BizException.class,()->service.originalSource(other,source.getId(),revision));
@@ -334,16 +362,16 @@ class VettingWorkflowTest {
         assertTrue(recovered.getItems().stream().anyMatch(e -> REFERENCE.equals(e.getQuote())));
 
         String otherProject = project("Foreign status access");
-        assertThrows(BizException.class, () -> service.updateStatus(otherProject, issue.getCode(), "Handled"));
+        assertThrows(BizException.class, () -> VettingHumanReviewFixture.updateStatus(service,otherProject, issue.getCode(), "Handled"));
         assertThrows(BizException.class, () -> service.evidence(otherProject, issue.getCode()));
 
-        assertThrows(BizException.class, () -> service.updateStatus(projectId, issue.getCode(), "invalid-status"));
+        assertThrows(BizException.class, () -> VettingHumanReviewFixture.updateStatus(service,projectId, issue.getCode(), "invalid-status"));
         assertEquals(VettingFinding.STATUS_OPEN, list(projectId).get(0).getStatus());
-        assertEquals(VettingFinding.STATUS_HANDLED, service.updateStatus(projectId, issue.getCode(), "Handled").getStatus());
+        assertEquals(VettingFinding.STATUS_HANDLED, VettingHumanReviewFixture.updateStatus(service,projectId, issue.getCode(), "Handled").getStatus());
 
         String remarks = "  HUMAN_REVIEW_ONLY_20261002: confirm the intended clause.\r\n人工复核记录 ✓  ";
         String action = "  HUMAN_ACTION_ONLY_20261002: draft correction not yet included in an addendum.  ";
-        FindingVO reviewed = service.updateReview(projectId, issue.getCode(), new ReviewUpdateRequest(remarks, action, true));
+        FindingVO reviewed = VettingHumanReviewFixture.updateReview(service,projectId, issue.getCode(), new ReviewUpdateRequest(remarks, action, true));
         Instant reviewTime = reviewed.getReviewUpdatedAt();
         assertEquals(remarks, reviewed.getReviewRemarks());
         assertEquals(action, reviewed.getActionTaken());
@@ -415,7 +443,7 @@ class VettingWorkflowTest {
         assertNull(stored.getAddendumRequired()); assertNull(stored.getReviewUpdatedAt());
         String remarks = "\t  复核意见 😀\r\nKeep user whitespace.  ";
         String action = "  A draft amendment was checked.\nIt has not been issued.  ";
-        FindingVO first = service.updateReview(projectId, stored.getCode(), new ReviewUpdateRequest(remarks, action, true));
+        FindingVO first = VettingHumanReviewFixture.updateReview(service,projectId, stored.getCode(), new ReviewUpdateRequest(remarks, action, true));
         Instant timestamp = first.getReviewUpdatedAt();
         VettingFinding restored = findings.findByProjectIdAndCode(projectId, stored.getCode()).orElseThrow(AssertionError::new);
         assertEquals(remarks, restored.getReviewRemarks()); assertEquals(action, restored.getActionTaken());
@@ -423,14 +451,14 @@ class VettingWorkflowTest {
         assertEquals("Generated observation", restored.getBodyEn());
         assertEquals("Generated recommendation", restored.getSuggestionEn());
 
-        FindingVO assigned = service.updateStatus(projectId, stored.getCode(), "Assigned");
+        FindingVO assigned = VettingHumanReviewFixture.updateStatus(service,projectId, stored.getCode(), "Assigned");
         assertEquals(remarks, assigned.getReviewRemarks()); assertEquals(action, assigned.getActionTaken());
         assertTrue(assigned.getAddendumRequired()); assertEquals(timestamp, assigned.getReviewUpdatedAt());
-        FindingVO replacement = service.updateReview(projectId, stored.getCode(), new ReviewUpdateRequest("", null, false));
+        FindingVO replacement = VettingHumanReviewFixture.updateReview(service,projectId, stored.getCode(), new ReviewUpdateRequest("", null, false));
         assertEquals("", replacement.getReviewRemarks(), "Empty user text must not be silently changed to null");
         assertNull(replacement.getActionTaken()); assertFalse(replacement.getAddendumRequired());
         assertEquals(VettingFinding.STATUS_ASSIGNED, replacement.getStatus());
-        FindingVO cleared = service.updateReview(projectId, stored.getCode(), new ReviewUpdateRequest(null, null, null));
+        FindingVO cleared = VettingHumanReviewFixture.updateReview(service,projectId, stored.getCode(), new ReviewUpdateRequest(null, null, null));
         assertNull(cleared.getReviewRemarks()); assertNull(cleared.getActionTaken()); assertNull(cleared.getAddendumRequired());
         assertNotNull(cleared.getReviewUpdatedAt());
         assertEquals(VettingFinding.STATUS_ASSIGNED, cleared.getStatus());
@@ -443,14 +471,14 @@ class VettingWorkflowTest {
         VettingFinding stored = manualFinding(projectId, "VT-001");
         String boundary = String.join("", Collections.nCopies(2000, "😀"));
         assertEquals(4000, boundary.length());
-        FindingVO accepted = service.updateReview(projectId, stored.getCode(), new ReviewUpdateRequest(boundary, "Original action", false));
+        FindingVO accepted = VettingHumanReviewFixture.updateReview(service,projectId, stored.getCode(), new ReviewUpdateRequest(boundary, "Original action", false));
         Instant timestamp = accepted.getReviewUpdatedAt();
         assertEquals(boundary, accepted.getReviewRemarks(), "The exact 4000 UTF-16 boundary must be stored without clipping");
-        assertThrows(BizException.class, () -> service.updateReview(projectId, stored.getCode(), new ReviewUpdateRequest(boundary + "x", "Changed action", true)));
-        assertThrows(BizException.class, () -> service.updateReview(projectId, stored.getCode(), new ReviewUpdateRequest("Changed remarks", boundary + "x", true)));
-        assertThrows(BizException.class, () -> service.updateReview(projectId, stored.getCode(), null));
-        assertThrows(BizException.class, () -> service.updateReview(otherProject, stored.getCode(), new ReviewUpdateRequest("Foreign update", null, true)));
-        assertThrows(BizException.class, () -> service.updateReview(projectId, "missing-code", new ReviewUpdateRequest(null, null, null)));
+        assertThrows(BizException.class, () -> VettingHumanReviewFixture.updateReview(service,projectId, stored.getCode(), new ReviewUpdateRequest(boundary + "x", "Changed action", true)));
+        assertThrows(BizException.class, () -> VettingHumanReviewFixture.updateReview(service,projectId, stored.getCode(), new ReviewUpdateRequest("Changed remarks", boundary + "x", true)));
+        assertThrows(BizException.class, () -> VettingHumanReviewFixture.updateReview(service,projectId, stored.getCode(), null));
+        assertThrows(BizException.class, () -> VettingHumanReviewFixture.updateReview(service,otherProject, stored.getCode(), new ReviewUpdateRequest("Foreign update", null, true)));
+        assertThrows(BizException.class, () -> VettingHumanReviewFixture.updateReview(service,projectId, "missing-code", new ReviewUpdateRequest(null, null, null)));
         VettingFinding unchanged = findings.findByProjectIdAndCode(projectId, stored.getCode()).orElseThrow(AssertionError::new);
         assertEquals(boundary, unchanged.getReviewRemarks()); assertEquals("Original action", unchanged.getActionTaken());
         assertFalse(unchanged.getAddendumRequired()); assertEquals(timestamp, unchanged.getReviewUpdatedAt());
@@ -474,7 +502,7 @@ class VettingWorkflowTest {
         assertNull(service.latestRun(otherProject));
         assertThrows(BizException.class, () -> service.getRun(otherProject, job.getId()));
         assertThrows(BizException.class, () -> service.getRun(projectId, "unknown-run"));
-        assertThrows(BizException.class, () -> service.updateStatus(otherProject, "F0001", "Handled"));
+        assertThrows(BizException.class, () -> VettingHumanReviewFixture.updateStatus(service,otherProject, "F0001", "Handled"));
     }
 
     @Test
@@ -488,13 +516,13 @@ class VettingWorkflowTest {
         service.uploadPackage(projectId, Collections.singletonList(upload("GCC discussion.eml", "message/rfc822", mail)));
         List<SourceDocument> uploaded = documents.findByProjectIdAndCategoryOrderByIdAsc(projectId, SourceDocument.CATEGORY_VETTING_PACKAGE);
         assertEquals(5, uploaded.size());
-        assertEquals("tender", uploaded.stream().filter(d -> "SCC.docx".equals(d.getFileName())).findFirst().get().getReviewRole());
+        assertNull(uploaded.stream().filter(d -> "SCC.docx".equals(d.getFileName())).findFirst().get().getReviewRole(), "Automatic roles remain inferred, not persisted as an explicit user choice");
         assertEquals("project_fact", uploaded.stream().filter(d -> "PRE meeting.docx".equals(d.getFileName())).findFirst().get().getReviewRole());
         SourceDocument manifest = uploaded.stream().filter(d -> "directory.docx".equals(d.getFileName())).findFirst().get();
         assertEquals("package_manifest", manifest.getReviewRole());
         assertEquals("INDEX", manifest.getFileKey());
-        assertEquals("standard", uploaded.stream().filter(d -> "GCC.docx".equals(d.getFileName())).findFirst().get().getReviewRole());
-        assertEquals("project_fact", uploaded.stream().filter(d -> "GCC discussion.eml".equals(d.getFileName())).findFirst().get().getReviewRole());
+        assertNull(uploaded.stream().filter(d -> "GCC.docx".equals(d.getFileName())).findFirst().get().getReviewRole(), "Automatic roles remain inferred, not persisted as an explicit user choice");
+        assertNull(uploaded.stream().filter(d -> "GCC discussion.eml".equals(d.getFileName())).findFirst().get().getReviewRole(), "Automatic roles remain inferred, not persisted as an explicit user choice");
         assertThrows(BizException.class, () -> service.uploadPackage(projectId,
                 Collections.singletonList(upload("invalid.txt", "text/plain", REFERENCE.getBytes(StandardCharsets.UTF_8))), "answer"));
         assertEquals(5, documents.findByProjectIdAndCategoryOrderByIdAsc(projectId, SourceDocument.CATEGORY_VETTING_PACKAGE).size());
@@ -502,7 +530,7 @@ class VettingWorkflowTest {
         assertTrue(list(projectId).isEmpty(), "Fact emails and manifests may quote provisions without activating them");
         assertEquals(5, job.getCoverage().getTotalDocuments());
         for (SourceDocument d : uploaded) {
-            if (Arrays.asList("project_fact", "package_manifest").contains(d.getReviewRole())) {
+            if (Arrays.asList("project_fact", "package_manifest").contains(VettingCorpus.sourceRole(d))) {
                 DocumentCoverageVO c = coverage(job, d);
                 assertTrue(c.getWarnings().stream().anyMatch(w -> w.contains("不作为有效合同条款")));
                 assertFalse(c.getWarnings().stream().anyMatch(w -> w.contains("规则已扫描全部")));
@@ -510,7 +538,7 @@ class VettingWorkflowTest {
         }
         assertEquals("Project facts", service.listFiles(projectId).stream().filter(f -> "GCC discussion.eml".equals(f.getFileName())).findFirst().get().getRole().getEn());
         for (SourceDocument d : uploaded) {
-            assertEquals(d.getReviewRole(), service.listFiles(projectId).stream()
+            assertEquals(VettingCorpus.sourceRole(d), service.listFiles(projectId).stream()
                     .filter(f -> d.getFileName().equals(f.getFileName())).findFirst().get().getSourceRole());
         }
     }
@@ -584,8 +612,10 @@ class VettingWorkflowTest {
     }
 
     private VettingFinding manualFinding(String projectId, String code) {
+        VettingRun run=new VettingRun();run.setId(UUID.randomUUID().toString());run.setProjectId(projectId);run.setStatus("COMPLETED");run.setStartedAt(Instant.now());run.setCoverageJson("{\"documents\":[]}");run.setSourceSnapshotSha256(VettingCorpus.hash("competition-review-package-v1\n[]"));runs.saveAndFlush(run);
         VettingFinding finding = new VettingFinding();
         finding.setProjectId(projectId); finding.setCode(code); finding.setGroupKey("reference");
+        finding.setRunId(run.getId());
         finding.setBodyEn("Generated observation"); finding.setSuggestionEn("Generated recommendation");
         return findings.saveAndFlush(finding);
     }

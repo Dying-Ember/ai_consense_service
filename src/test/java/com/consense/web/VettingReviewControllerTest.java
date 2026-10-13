@@ -30,6 +30,7 @@ class VettingReviewControllerTest {
         when(service.updateReview(eq("p"),eq("VT-001"),any(ReviewUpdateRequest.class))).thenAnswer(call -> {
             ReviewUpdateRequest request=call.getArgument(2);
             assertEquals(remarks,request.getReviewRemarks());assertEquals(action,request.getActionTaken());assertFalse(request.getAddendumRequired());
+            assertEquals("loaded-run",request.getExpectedRunId());assertEquals("generated-revision",request.getExpectedGeneratedRevisionSha256());assertEquals("source-revision",request.getExpectedSourceSnapshotSha256());
             FindingVO response=new FindingVO();response.setCode("VT-001");response.setStatus("Open");
             response.setReviewRemarks(request.getReviewRemarks());response.setActionTaken(request.getActionTaken());
             response.setAddendumRequired(request.getAddendumRequired());response.setReviewUpdatedAt(saved);
@@ -37,6 +38,7 @@ class VettingReviewControllerTest {
         });
         MockMvc mvc=mvc(service);
         Map<String,Object> body=new LinkedHashMap<>();body.put("reviewRemarks",remarks);body.put("actionTaken",action);body.put("addendumRequired",false);
+        body.put("expectedRunId","loaded-run");body.put("expectedGeneratedRevisionSha256","generated-revision");body.put("expectedSourceSnapshotSha256","source-revision");
         body.put("reviewUpdatedAt","2000-01-01T00:00:00Z");
         mvc.perform(put("/api/vetting/p/findings/VT-001/review").contentType(MediaType.APPLICATION_JSON).content(JsonUtils.write(body)))
                 .andExpect(status().isOk()).andExpect(jsonPath("$.code").value(0))
@@ -48,14 +50,14 @@ class VettingReviewControllerTest {
     }
 
     @Test
-    void emptyObjectReachesTheServiceAsAFullNullableReplacement() throws Exception {
+    void boundRequestCanExplicitlyClearAllNullableHumanFields() throws Exception {
         VettingService service=mock(VettingService.class);
         when(service.updateReview(eq("p"),eq("VT-001"),any(ReviewUpdateRequest.class))).thenReturn(new FindingVO());
         MockMvc mvc=mvc(service);
-        mvc.perform(put("/api/vetting/p/findings/VT-001/review").contentType(MediaType.APPLICATION_JSON).content("{}"))
+        mvc.perform(put("/api/vetting/p/findings/VT-001/review").contentType(MediaType.APPLICATION_JSON).content("{\"expectedRunId\":\"loaded-run\",\"expectedGeneratedRevisionSha256\":\"generated-revision\",\"expectedSourceSnapshotSha256\":\"source-revision\"}"))
                 .andExpect(status().isOk());
         verify(service).updateReview(eq("p"),eq("VT-001"),argThat(request -> request.getReviewRemarks()==null
-                && request.getActionTaken()==null && request.getAddendumRequired()==null));
+                && request.getActionTaken()==null && request.getAddendumRequired()==null&&"loaded-run".equals(request.getExpectedRunId())));
     }
 
     @Test

@@ -11,6 +11,18 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class VettingServiceTest {
+    @Test void ruleOriginalIdentityRejectsAnotherDocumentRevisionOrRawBindingAndDoesNotInventLegacySha() {
+        SourceDocument captured=document(block("paragraph 1","Captured clause."));captured.setSourceSha256(VettingCorpus.hash("captured bytes"));
+        for(String mismatch:Arrays.asList("document","parsed","raw")) {
+            FindingEvidence quote=evidence(captured.getFileName(),VettingCorpus.sourceHash(captured),"paragraph 1","Captured clause.");
+            if("document".equals(mismatch))quote.setDocumentId("another-document");
+            if("parsed".equals(mismatch))quote.setSourceHash(VettingCorpus.hash("replacement parsed revision"));
+            if("raw".equals(mismatch))quote.setOriginalSourceSha256(VettingCorpus.hash("replacement original"));
+            assertThrows(IllegalStateException.class,()->VettingService.bindRuleOriginalSources(Collections.singletonList(candidate(quote)),Collections.singletonList(captured)),mismatch);
+        }
+        SourceDocument legacy=document(block("paragraph 1","Legacy clause without retained raw bytes."));FindingEvidence quote=evidence(legacy.getFileName(),VettingCorpus.sourceHash(legacy),"paragraph 1",legacy.getTextContent());
+        VettingService.bindRuleOriginalSources(Collections.singletonList(candidate(quote)),Collections.singletonList(legacy));assertNull(quote.getOriginalSourceSha256());
+    }
     @Test void nonBmpSplitBoundariesAndOverlapsCountOnlyOriginalUtf16Ranges() {
         String text = String.join("",Collections.nCopies(1199,"a")) + "\uD83D\uDE00"
                 + String.join("",Collections.nCopies(198,"b")) + "\uD83D\uDE00"

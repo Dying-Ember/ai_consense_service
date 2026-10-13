@@ -68,6 +68,15 @@ class StructuredJsonValidatorTest {
         ArrayNode rows=JsonUtils.mapper().createArrayNode();for(int i=0;i<3;i++)rows.add(item.deepCopy());
         assertEquals(3,decode(rows.toString()).size());
     }
+    @Test void productionFindingArrayIsUncappedWhileExplicitFiniteSchemaBoundsRemainEnforced() {
+        ArrayNode rows=JsonUtils.mapper().createArrayNode();for(int i=0;i<4;i++)rows.add(issue());
+        assertEquals(4,decode(rows.toString()).size());assertFalse(actualSchema("submitted-1").has("maxItems"));
+        ObjectNode bounded=(ObjectNode)actualSchema("submitted-1");bounded.put("maxItems",3);
+        StructuredOutputValidationException rejected=assertThrows(StructuredOutputValidationException.class,
+                ()->new AiGateway(provider(rows.toString())).completeStructuredJsonList("system","source",JsonNode.class,bounded));
+        assertEquals(SCHEMA_MISMATCH,rejected.getReason());rows.remove(3);
+        assertEquals(3,new AiGateway(provider(rows.toString())).completeStructuredJsonList("system","source",JsonNode.class,bounded).size());
+    }
 
     static Stream<Arguments> schemaViolations() {
         List<Arguments> cases=new ArrayList<>();
@@ -97,7 +106,6 @@ class StructuredJsonValidatorTest {
         ObjectNode noQuotes=issue();noQuotes.putArray("evidence");cases.add(Arguments.of("min_items_evidence",array(noQuotes)));
         ObjectNode fiveQuotes=issue();ArrayNode quotes=(ArrayNode)fiveQuotes.get("evidence");for(int i=1;i<5;i++)quotes.add(quotes.get(0).deepCopy());
         cases.add(Arguments.of("max_items_evidence",array(fiveQuotes)));
-        cases.add(Arguments.of("max_items_records","["+issue()+","+issue()+","+issue()+","+issue()+"]"));
         ObjectNode wrongType=issue();wrongType.put("title",123);cases.add(Arguments.of("number_in_string",array(wrongType)));
         ObjectNode objectEvidence=issue();objectEvidence.set("evidence",evidence(objectEvidence).deepCopy());cases.add(Arguments.of("object_in_array",array(objectEvidence)));
         ObjectNode stringQuote=issue();((ArrayNode)stringQuote.get("evidence")).removeAll().add("quote");cases.add(Arguments.of("string_in_object_array",array(stringQuote)));

@@ -1,0 +1,133 @@
+{
+  "status": "ok",
+  "mode": "local",
+  "device": "cpu",
+  "offline": true,
+  "models": {
+    "embedding": {
+      "name": "BAAI/bge-m3",
+      "revision": "5617a9f61b028005a4858fdac845db406aefb181"
+    },
+    "reranker": {
+      "name": "BAAI/bge-reranker-v2-m3",
+      "revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e"
+    }
+  },
+  "maxTokens": 512,
+  "batchSize": 4,
+  "runtime": {
+    "embedding": {
+      "maxTokens": 512,
+      "batchSize": 4,
+      "name": "BAAI/bge-m3",
+      "revision": "5617a9f61b028005a4858fdac845db406aefb181",
+      "device": "cpu",
+      "dtype": "float32",
+      "serialOffload": false
+    },
+    "reranker": {
+      "maxTokens": 512,
+      "batchSize": 4,
+      "name": "BAAI/bge-reranker-v2-m3",
+      "revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e",
+      "device": "cpu",
+      "dtype": "float32",
+      "serialOffload": false
+    }
+  },
+  "retrieval": {
+    "requestDefaults": {
+      "candidates": 50,
+      "limit": 10
+    },
+    "rrfConstant": 60,
+    "rrfWeights": {
+      "dense": 1,
+      "bm25": 1
+    },
+    "bm25": {
+      "implementation": "rank_bm25.BM25Okapi",
+      "parameterSource": "installed library defaults",
+      "k1": 1.5,
+      "b": 0.75,
+      "epsilon": 0.25
+    },
+    "tokenPattern": "(?P<latin>[a-z0-9]+(?:[./()-][a-z0-9]+)*)|(?P<cjk>[\\u3400-\\u4dbf\\u4e00-\\u9fff\\uf900-\\ufaff\\U00020000-\\U0002a6df\\U0002a700-\\U0002b73f\\U0002b740-\\U0002b81f\\U0002b820-\\U0002ceaf\\U0002ceb0-\\U0002ebef\\U0002ebf0-\\U0002ee5f\\U0002f800-\\U0002fa1f\\U00030000-\\U0003134f\\U00031350-\\U000323af\\u3040-\\u309f\\u30a0-\\u30ff\\u31f0-\\u31ff\\uff66-\\uff9f\\u1100-\\u11ff\\u3130-\\u318f\\ua960-\\ua97f\\uac00-\\ud7af\\ud7b0-\\ud7ff]+)",
+    "tokenizerAlgorithm": "casefold-latin-v1-cjk-unigram-bigram-source-order-v1",
+    "latinTokenPattern": "[a-z0-9]+(?:[./()-][a-z0-9]+)*",
+    "roleFilter": true,
+    "storage": "Qdrant Python local",
+    "workers": 1,
+    "sourceWindows": {
+      "contract": "source-bound-dual-granularity-structure-results-v1",
+      "denseAggregation": "independent_lane_rrf",
+      "rerankAggregation": "observed_structure_context_max_with_same_pool_baseline",
+      "embeddingWindows": {
+        "max_tokens": 512,
+        "overlap_tokens": 64,
+        "max_windows_per_parent": 10000,
+        "aggregation": "max",
+        "version": "source-bound-token-windows-v1"
+      },
+      "rerankWindows": {
+        "max_tokens": 512,
+        "overlap_tokens": 64,
+        "max_windows_per_parent": 10000,
+        "aggregation": "max",
+        "version": "source-bound-token-windows-v1"
+      },
+      "rerankRuntime": {
+        "maxTokens": 512,
+        "batchSize": 4,
+        "name": "BAAI/bge-reranker-v2-m3",
+        "revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e",
+        "device": "cpu",
+        "dtype": "float32",
+        "serialOffload": false
+      },
+      "rerankTokenizerAndModelFiles": null,
+      "algorithms": {
+        "window_runtime.py": "54af667455ab1433e93e31cab7e4dfc49247c9d3a002404dfc54d20fe7848770",
+        "token_windows.py": "0da4545863f2e5174a17694f9e942f4a6ef172c3bd7d536e96b3addbbf0a450b",
+        "fixed_vector_cache.py": "27d9d63474fc067decf465d1fc9e684378bf52a9c7c64aa6f81d6b95feea71be",
+        "server.py": "2b4b5240364c8b1968de1cb8f07481bf268a2454b76c6045b1f0aae828f02609",
+        "workspace_root.py": "e49083c27cb71060e40eacafcdad8b8161d81a57a151543f4024b6aa5d7d1ca9",
+        "retrieval_source_units.py": "a528457827bc655e4980bbf9187251a16b94c481c98971e87f99db6157443104",
+        "embedding_compatibility.py": "ee19f5532a59399c18b05acdeb3027f01494982d521b9f5ee5f590f05b9548d4",
+        "structural_retrieval.py": "b9071d3ea0be0c8a27863a4691c20643034ee8c6b5ba1083bee1b5e562be1287"
+      },
+      "tokenizerIdentityObserved": false,
+      "identityScope": "configured recipe; tokenizer/model identity not loaded by health",
+      "structuralSelection": {
+        "policy": "unique-source-structural-unit-seeds-v1",
+        "topKScope": "unique_reliable_structural_units_or_unknown_single_seeds",
+        "closureMembersAreRanked": false,
+        "scope": "canonical_observed_structure_only"
+      },
+      "structuralRecipe": {
+        "mode": "dual-structure-v1",
+        "long_embedding_tokens": 2048,
+        "context_rerank_tokens": 2048,
+        "strict_context": true,
+        "version": "observed-structure-dual-granularity-and-same-pool-rerank-v1"
+      },
+      "longEmbeddingMaxTokens": 2048,
+      "contextRerankMaxTokens": 2048,
+      "limitations": "Max over groups favors long parents with more opportunities; observed structural context does not establish semantic completeness or quality improvement. Necessary-evidence recall and same-pool ranking require separate labels/evaluation."
+    }
+  },
+  "indexSignatureVersion": 4,
+  "loaded": {
+    "embedding": false,
+    "reranker": false,
+    "ocr": false
+  },
+  "cudaAllocatedMiB": null,
+  "ocrEngine": "RapidOCR CPU baseline",
+  "limitations": [
+    "OCR does not interpret table cells or deletion state",
+    "Source-bound windows count query/special tokens; oversized queries fail without silent clipping",
+    "Legacy maxTokens/batchSize health fields describe embedding only",
+    "Run one server worker with Qdrant local persistence"
+  ]
+}

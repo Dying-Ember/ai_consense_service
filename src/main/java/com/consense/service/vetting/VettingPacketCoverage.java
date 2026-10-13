@@ -17,6 +17,23 @@ final class VettingPacketCoverage {
     static void callResult(SemanticTopicVO call,SemanticPacketVO p) {
         p.setStatus(call.getStatus());p.setFailureKind(call.getFailureKind());p.setError(call.getError());p.setModelResponseMetadata(call.getModelResponseMetadata());p.setRawResponseSha256(call.getRawResponseSha256());
         p.setReturnedAssessments(call.getReturnedAssessments());p.setIssueAssessments(call.getIssueAssessments());p.setConsistentAssessments(call.getConsistentAssessments());p.setInsufficientContextAssessments(call.getInsufficientContextAssessments());p.setAcceptedFindings(call.getAcceptedFindings());p.setRejectedRecords(call.getRejectedRecords());
+        p.setVerifiedConsistentAssessments(call.getVerifiedConsistentAssessments());p.setVerifiedInsufficientContextAssessments(call.getVerifiedInsufficientContextAssessments());
+        p.setVerifiedNotApplicableAssessments(call.getVerifiedNotApplicableAssessments());
+        p.setCheckState(checkState(p));call.setCheckState(p.getCheckState());
+    }
+    static void restore(SemanticPacketVO saved,SemanticTopicVO call,SemanticPacketVO packet) {
+        packet.setAttempts(saved.getAttempts());
+        call.setStatus(saved.getStatus());call.setFailureKind(saved.getFailureKind());call.setError(saved.getError());call.setModelResponseMetadata(saved.getModelResponseMetadata());call.setRawResponseSha256(saved.getRawResponseSha256());
+        call.setReturnedAssessments(saved.getReturnedAssessments());call.setIssueAssessments(saved.getIssueAssessments());call.setConsistentAssessments(saved.getConsistentAssessments());call.setInsufficientContextAssessments(saved.getInsufficientContextAssessments());call.setAcceptedFindings(saved.getAcceptedFindings());call.setRejectedRecords(saved.getRejectedRecords());
+        call.setVerifiedConsistentAssessments(saved.getVerifiedConsistentAssessments());call.setVerifiedInsufficientContextAssessments(saved.getVerifiedInsufficientContextAssessments());call.setVerifiedNotApplicableAssessments(saved.getVerifiedNotApplicableAssessments());packet.setVerifiedAssessments(saved.getVerifiedAssessments());packet.setActualGatewayCallStarted(saved.isActualGatewayCallStarted());callResult(call,packet);
+    }
+    private static String checkState(SemanticPacketVO p) {
+        if(!Arrays.asList("completed","completed_empty","completed_with_rejections").contains(p.getStatus()))return "not_completed";
+        if(p.getAcceptedFindings()>0)return "issue";
+        if(p.getVerifiedInsufficientContextAssessments()>0)return "insufficient_evidence";
+        if(p.getVerifiedNotApplicableAssessments()>0&&p.getVerifiedNotApplicableAssessments()==p.getReturnedAssessments()&&p.getRejectedRecords()==0)return "not_applicable";
+        if(p.getVerifiedConsistentAssessments()>0&&p.getRejectedRecords()==0)return "checked_pass";
+        return "not_completed";
     }
     static void finish(SemanticTopicVO audit,VettingSourceRequestPacks.Result plan) {
         audit.setGlobalCallStatus(audit.getStatus());audit.setExtraPacketCount(Math.max(0,audit.getPacketAudits().size()-1));
@@ -39,6 +56,11 @@ final class VettingPacketCoverage {
         else if(audit.getPacketAudits().stream().noneMatch(SemanticPacketVO::isActualGatewayCallStarted))audit.setAggregateReviewStatus("not_submitted");
         else if(audit.getPendingSourceRequestCount()>0||audit.getFailedPacketCount()>0||audit.getNotSubmittedPacketCount()>0||audit.getPacketAudits().stream().anyMatch(p->!"observed_tokens".equals(p.getInputBudgetStatus())))audit.setAggregateReviewStatus("partial");
         else audit.setAggregateReviewStatus("observed_requests_decoded_scope_unknown");
+        if(audit.getPacketAudits().stream().anyMatch(p->"issue".equals(p.getCheckState())))audit.setCheckState("issue");
+        else if(audit.getPacketAudits().stream().anyMatch(p->"insufficient_evidence".equals(p.getCheckState())))audit.setCheckState("insufficient_evidence");
+        else if(!audit.getPacketAudits().isEmpty()&&audit.getPacketAudits().stream().allMatch(p->"checked_pass".equals(p.getCheckState()))&&audit.getPendingSourceRequestCount()==0)audit.setCheckState("checked_pass");
+        else if(!audit.getPacketAudits().isEmpty()&&audit.getPacketAudits().stream().allMatch(p->"not_applicable".equals(p.getCheckState()))&&audit.getPendingSourceRequestCount()==0)audit.setCheckState("not_applicable");
+        else audit.setCheckState("not_completed");
     }
     private static String execution(SemanticPacketVO p) {
         if("failed".equals(p.getStatus()))return "failed";

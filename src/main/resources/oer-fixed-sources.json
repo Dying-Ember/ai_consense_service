@@ -1,0 +1,20 @@
+{
+  "schema": "consense.fixed-source-routing.v1",
+  "version": "source-registry-20261011-v2",
+  "identityMeaning": "exact_original_file_bytes_sha256",
+  "scopeMeaning": "Identity does not establish project adoption or semantic correctness; SL page scope remains separate",
+  "sources": [
+    {"sourceSha256":"60bd8796aa828863c7edfe8617b7a5c56ee383afe8ba87a089e820f0fd9a982c","kind":"NTT","sourcePurpose":"standard_template","role":"standard","version":"provided-standard-template-20260904"},
+    {"sourceSha256":"7def01d62e07b35dd86beeff995e0e37d73ce18adca2746e2a6f6d9bafb5aaa4","kind":"SCT","sourcePurpose":"standard_template","role":"standard","version":"provided-standard-template-20260904"},
+    {"sourceSha256":"9aa2fa06683652548e72dbf955c3f236d86cb0958a8fdf3b1ff6cf75b65c7208","kind":"SCC","sourcePurpose":"standard_template","role":"standard","version":"provided-standard-template-20260904"},
+    {"sourceSha256":"d7d74db6d9aee390093b9e22bb30dccdbf3c0316d47635922109422278d161e7","kind":"GCC","sourcePurpose":"reference_standard","role":"standard","version":"provided-GCC-20260904"},
+    {"sourceSha256":"6331c283da806846a06644814fa2271182314dbc2235c711a16e8492faaa0492","kind":"SL","sourcePurpose":"reference_standard","role":"standard","version":"SL2022-April2024-Batch02"},
+    {"sourceSha256":"ca3944c16890cb5ea7f8b24e2fab613c7ffd621809f7f850529901649e6f15f8","kind":"GCT","sourcePurpose":"project_document","role":"tender","version":"provided-GCT-20260904"},
+    {"sourceSha256":"8ba80d183f6adf7a11eeb08f75e32c2bffdc3960f969202fcbed357e477f7af3","kind":"SCC","sourcePurpose":"project_document","role":"tender","version":"provided-2b-project-SCC-20260904"},
+    {"sourceSha256":"3fa27b8e63e55f881260800a56e7a07218c1c1ed927e98292decd54af924b24e","kind":"SP","sourcePurpose":"project_document","role":"tender","version":"provided-2b-specification-composition-20260904"},
+    {"sourceSha256":"f6044aeb2e4d6b572155b315708615f3f7a711880052d18c1b61e7b85c181f2d","kind":"EVALUATION_ANSWER","sourcePurpose":"evaluation_answer","role":null,"version":"provided-2d-vetting-comments"},
+    {"sourceSha256":"dfdef3f92a810e9c88ebf20f260d2d1a292d778689421c714b0d05d68e60c86c","kind":"EVALUATION_ANSWER","sourcePurpose":"evaluation_answer","role":null,"version":"provided-2d-checklist"},
+    {"sourceSha256":"6df367235fa35d43d5febc5e36e99ba32519b68802881124a7028626e30efb91","kind":"EVALUATION_ANSWER","sourcePurpose":"evaluation_answer","role":null,"version":"provided-2e-contractual-advice"},
+    {"sourceSha256":"c26aae05c033faff74bcdcda162cadd9e100f2471c50f5ea2f7a8f8a4be00d71","kind":"EVALUATION_ANSWER","sourcePurpose":"evaluation_answer","role":null,"version":"provided-2e-flowchart"}
+  ]
+}

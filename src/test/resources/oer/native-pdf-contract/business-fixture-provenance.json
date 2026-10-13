@@ -1,0 +1,47 @@
+{
+  "schema": "consense.authored-native-pdf-business-fixture-provenance.v1",
+  "sourceKind": "authored_pdf_actual_java_pdfbox_observation",
+  "dualLayoutKind": "synthetic_declared_dual_parser_outputs_not_neural_model_runs",
+  "originalPhysicalPages": 2,
+  "actualAdoptionDocumentId": "42",
+  "documentIdPurpose": "isolated_authored_fixture_not_live_db_registration",
+  "producerOperation": "copy_actual_cas_change_actual_adoption_document_id_then_frozen_producer_transport_publish_and_cold_hydrate",
+  "publicRawBytesManuallyResealed": false,
+  "coldPythonHydrationPassed": true,
+  "files": {
+    "authored-business-public-v1.json": {
+      "byteCount": 43078,
+      "sha256": "f2e7455b6cd84b08a11fccc85e66dc9ea2f0335444f382c57b2c4c2de41dc068"
+    },
+    "authored-business-source.pdf": {
+      "byteCount": 2744,
+      "sha256": "da26cdde7e7e53bf7ad25891e699f2d31e57bfa2252a3e1a3b05a1915a6764ab"
+    },
+    "authored-business-source-unit.json": {
+      "byteCount": 24373,
+      "sha256": "b8fee1bde1a45e720f8bbeeafbd61cb9825313c24f423d3e8752d538b957efdb"
+    }
+  },
+  "internalSnapshotBytes": 217833,
+  "internalSnapshotBytesSha256": "27568303e0ab3be474e0d4d246dda2dd7cdb8685a1f91b16c2562031edd2ee1d",
+  "projectionSha256": "20c154be8b8d37731c455fecf37e2572bb0ca19495182e23f6cac12b9f278782",
+  "adoptionManifestSha256": "b2b4b835454adae65c714acdaac0f83855497dfa55150d61aa192dc1b48e0fef",
+  "frozenPython": {
+    "native_pdf_canonical_projection.py": "bf75da59df2c696cd56b7628b104d89ea12f57c783bfd5e9a4cc06f4de991416",
+    "native_pdf_projection_transport.py": "60c969f2e11b490b7618f973c592c584a62b971046298daa403910c048c05d23",
+    "retrieval_source_units.py": "a528457827bc655e4980bbf9187251a16b94c481c98971e87f99db6157443104"
+  },
+  "originIgnoredRelativePath": ".local/state/oer-native-pdf-java-consumer-20261010/business-fixture-052637-396076",
+  "exportReceiptSha256": "a6303930d042687d98ab968186d475ab1e191ae771af895b69da42d209a87f3e",
+  "sourceUnitStatus": "complete_observed_unit",
+  "sourceUnitSemanticScopeVerified": false,
+  "sourceUnitQualifiersComplete": "unknown",
+  "javaValidation": "public_declarations_and_raw_seal_local_http_registry_double_no_actual_cas_hydration_by_java",
+  "negativeTests": "explicit_fixture_mutations_not_republished_actual_artifacts",
+  "semanticQuality": "unknown",
+  "humanConfirmed": false,
+  "competitionOriginalOrGold": false,
+  "neuralCalls": 0,
+  "actualPythonHttpCalls": 0,
+  "liveDeployment": false
+}

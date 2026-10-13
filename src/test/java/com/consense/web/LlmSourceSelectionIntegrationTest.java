@@ -15,7 +15,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /** HTTP outcomes with only external chat adapters doubled; no real credential or network call. */
 @SpringBootTest(properties={"spring.jpa.hibernate.ddl-auto=create-drop","spring.flyway.enabled=false",
         "spring.datasource.url=jdbc:h2:mem:llm_source_api;MODE=MySQL;DATABASE_TO_LOWER=TRUE;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE",
-        "consense.ocr.enabled=false","consense.vector.provider=memory","consense.minimax-cn.api-key=","consense.storage-root=target/llm-profile-metadata-uploads"})
+        "consense.ocr.enabled=false","consense.vector.provider=memory",
+        "consense.llm.enabled=true","consense.llm.base-url=https://local-llm-test.invalid",
+        "consense.minimax-cn.enabled=true","consense.minimax-cn.base-url=https://minimax-test.invalid",
+        "consense.minimax-cn.api-key=","consense.storage-root=target/llm-profile-metadata-uploads"})
 @ActiveProfiles("h2") @AutoConfigureMockMvc
 class LlmSourceSelectionIntegrationTest {
     @Autowired MockMvc mvc;
@@ -46,7 +49,7 @@ class LlmSourceSelectionIntegrationTest {
         when(local.embedModel()).thenReturn("deployment-embedding");
         mvc.perform(get("/api/system/health").header("X-ConSense-Llm-Profile","minimax-cn"))
                 .andExpect(jsonPath("$.data.llm.provider").value("openai"))
-                .andExpect(jsonPath("$.data.llm.baseUrl").value("https://api.minimax.cn"))
+                .andExpect(jsonPath("$.data.llm.baseUrl").value("https://minimax-test.invalid"))
                 .andExpect(jsonPath("$.data.llm.chatModel").value("MiniMax-M3"))
                 .andExpect(jsonPath("$.data.llm.embedModel").value("deployment-embedding"))
                 .andExpect(jsonPath("$.data.llm.available").value(false));

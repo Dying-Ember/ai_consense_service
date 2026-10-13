@@ -17,9 +17,16 @@ spec=importlib.util.spec_from_file_location('isolated_window_server_test',path);
 
 
 class FakeDb:
-    def __init__(self):self.collections={};self.fetch_limits=[]
+    def __init__(self):self.collections={};self.fetch_limits=[];self.vector_params={}
     def collection_exists(self,name):return name in self.collections
-    def create_collection(self,name,**kwargs):self.collections[name]={}
+    def create_collection(self,name,**kwargs):self.collections[name]={};self.vector_params[name]=kwargs['vectors_config']
+    def get_collection(self,name):return SimpleNamespace(config=SimpleNamespace(params=SimpleNamespace(vectors=self.vector_params[name])))
+    def scroll(self,name,limit,offset=None,with_payload=True,with_vectors=True):
+        rows=sorted(self.collections[name].values(),key=lambda p:str(p.id))
+        begin=0 if offset is None else next(i for i,p in enumerate(rows) if str(p.id)==str(offset))
+        selected=rows[begin:begin+limit]
+        next_offset=rows[begin+limit].id if begin+limit<len(rows) else None
+        return [SimpleNamespace(id=p.id,payload=copy.deepcopy(p.payload),vector=copy.deepcopy(p.vector)) for p in selected],next_offset
     def upsert(self,name,points):
         for p in points:self.collections[name][str(p.id)]=p
     def count(self,name,**kwargs):return SimpleNamespace(count=len(self.collections[name]))

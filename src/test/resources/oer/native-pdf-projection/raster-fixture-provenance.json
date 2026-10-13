@@ -1,0 +1,18 @@
+{
+  "sourcePdfSha256": "da26cdde7e7e53bf7ad25891e699f2d31e57bfa2252a3e1a3b05a1915a6764ab",
+  "scope": "Synthetic authored source fixture only; no GPU/HTTP/LLM",
+  "renderer": "PDFBox 2.0.31 renderImageWithDPI 72",
+  "images": [
+    {
+      "name": "authored-original-page-1.png",
+      "sha256": "9e7241428f18796a36134ac7f9bf39188793c6b936bd243cf2025287e885f27c",
+      "bytes": 2829
+    },
+    {
+      "name": "authored-original-page-2.png",
+      "sha256": "3e92ed4fa6d119f117979e36cf883dfe530f2031d6b1d0f5396f04be2fa3b654",
+      "bytes": 2779
+    }
+  ],
+  "rendererSourceSha256": "1ab91a6c4e66a989ca88df7a01342af64b2946f4e20a6b0f6b64f7b450e9b2f9"
+}

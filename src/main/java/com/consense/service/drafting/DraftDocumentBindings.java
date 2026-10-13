@@ -37,8 +37,18 @@ final class DraftDocumentBindings {
             int ordinal=((Number)row.get("sourceParagraphOrdinal")).intValue();Set<String> fields=new LinkedHashSet<>(),actions=new LinkedHashSet<>();
             for(Object entry:DraftBusinessRules.list(plan.get("actions"))) {
                 Map<String,Object> action=DraftBusinessRules.asMap(entry);
-                if(!fileKey.equals(action.get("document"))||!paragraphOrdinals(String.valueOf(action.get("paragraphs"))).contains(ordinal))continue;
-                actions.add(String.valueOf(action.get("id")));for(Object key:DraftBusinessRules.list(action.get("inputKeys")))fields.add(String.valueOf(key));
+                if(!fileKey.equals(action.get("document")))continue;
+                Set<Integer> targets=paragraphOrdinals(String.valueOf(action.get("paragraphs")));
+                String actionId=String.valueOf(action.get("id"));int[] exact=DraftSourceAnchors.associationScope(actionId);
+                if(exact!=null){targets.clear();for(int target:exact)targets.add(target);}
+                DraftClauseRules.NegativeScope negative=DraftClauseRules.negativeScope(action);
+                if(negative!=null&&DraftClauseRules.SCC_NEGATIVE_SOURCE_SHA.equals(source.getSourceSha256())) {
+                    targets.clear();
+                    for(int n=negative.first;n<=negative.last;n++)targets.add(n);
+                    targets.add(negative.toc);
+                }
+                if(!targets.contains(ordinal))continue;
+                actions.add(actionId);for(Object key:DraftSourceAnchors.associationInputs(actionId,ordinal,DraftBusinessRules.list(action.get("inputKeys"))))fields.add(String.valueOf(key));
             }
             row.put("fieldKeys",new ArrayList<>(fields));row.put("actionIds",new ArrayList<>(actions));
             if(!actions.isEmpty())row.put("applicationStatus","unapplied");
@@ -66,6 +76,7 @@ final class DraftDocumentBindings {
             else for(AppliedEdit edit:result.getLedger())for(TargetChange change:edit.getTargets())if(change.getSource().getParagraphIds().contains(sourceId))operations.add(edit.getOperationId());
             Set<String> appliedActions=new LinkedHashSet<>();for(Object action:DraftBusinessRules.list(row.get("actionIds")))for(String operation:operations)if(operation.equals(action)||operation.startsWith(action+"-"))appliedActions.add(String.valueOf(action));
             row.put("operationIds",new ArrayList<>(operations));row.put("appliedActionIds",new ArrayList<>(appliedActions));row.put("documentEditStatus",operations.isEmpty()?"unchanged":"applied");
+            row.put("editorialOperationIds",DraftFormattedRules.editorialOperations(result.getOriginalSourceSha256(),row.get("sourceParagraphOrdinal"),row.get("operationIds")));
             if(!appliedActions.isEmpty()||DraftBusinessRules.list(row.get("actionIds")).isEmpty()&&!operations.isEmpty())row.put("applicationStatus","applied");
             if(!operations.isEmpty()&&"missing".equals(row.get("locationStatus")))row.put("locationStatus","removed");
         }
@@ -138,7 +149,7 @@ final class DraftDocumentBindings {
     }
     static DocumentBindingsVO bundle(String fileKey,String view,String sourceHash,String revisionId,String docxHash,List<Map<String,Object>> rows) {
         DocumentBindingsVO vo=new DocumentBindingsVO();vo.setFileKey(fileKey);vo.setView(view);vo.setSourceSha256(sourceHash);vo.setRevisionId(revisionId);vo.setDocxSha256(docxHash);
-        for(Map<String,Object> row:rows){row.put("geometry",null);row.put("geometryStatus","exact".equals(row.get("locationStatus"))?"pending":"unavailable");}
+        for(Map<String,Object> row:rows){row.put("geometry",null);row.put("geometryStatus","exact".equals(row.get("locationStatus"))?"pending":"unavailable");row.put("editorialOperationIds",DraftFormattedRules.editorialOperations(sourceHash,row.get("sourceParagraphOrdinal"),row.get("operationIds")));}
         vo.setGeometryStatus("pending");vo.setBindings(rows);return vo;
     }
     /** PDFBox resolves both legacy /Dests dictionaries and /Names trees using the canonical name. */

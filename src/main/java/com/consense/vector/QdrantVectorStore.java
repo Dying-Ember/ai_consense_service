@@ -83,9 +83,14 @@ public class QdrantVectorStore implements VectorStore {
 
     @Override
     public List<SearchHit> search(String projectId, float[] query, int topK, double scoreThreshold) {
+        return search(projectId,null,query,topK,scoreThreshold);
+    }
+
+    @Override
+    public List<SearchHit> search(String projectId, java.util.Set<String> documentIds, float[] query, int topK, double scoreThreshold) {
+        if(documentIds!=null&&documentIds.isEmpty())return java.util.Collections.emptyList();
         ensureCollection();
         ObjectNode body = JsonUtils.mapper().createObjectNode();
-        // Qdrant 1.10+ 推荐的 /points/query：query 字段即向量（旧 /points/search 的 vector 写法已废弃）
         ArrayNode queryVec = body.putArray("query");
         for (float value : query) {
             queryVec.add(value);
@@ -98,10 +103,14 @@ public class QdrantVectorStore implements VectorStore {
         ObjectNode match = must.addObject();
         match.put("key", "projectId");
         match.putObject("match").put("value", projectId);
+        if(documentIds!=null) {
+            ObjectNode allowed=must.addObject();allowed.put("key","documentId");
+            ArrayNode any=allowed.putObject("match").putArray("any");
+            documentIds.stream().sorted().forEach(any::add);
+        }
 
         String raw = http.postJson(base() + "/collections/" + cfg.getCollection() + "/points/query",
                 JsonUtils.write(body), cfg.getTimeoutMs());
-        // /points/query 响应结构：{result: {points: [...]}}（旧 /points/search 的 result 直接是数组）
         JsonNode result = JsonUtils.parse(raw).path("result").path("points");
         List<SearchHit> hits = new ArrayList<>();
         for (JsonNode node : result) {

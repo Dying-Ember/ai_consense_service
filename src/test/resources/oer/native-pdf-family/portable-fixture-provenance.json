@@ -1,0 +1,34 @@
+{
+  "schema": "consense.authored-native-pdf-family-portable-fixtures.v1",
+  "authoredOnly": true,
+  "competitionOriginalReads": 0,
+  "modelCalls": 0,
+  "existingV1": {
+    "bytes": 43078,
+    "sha256": "f2e7455b6cd84b08a11fccc85e66dc9ea2f0335444f382c57b2c4c2de41dc068",
+    "resourcePath": "oer/native-pdf-family/authored-child-v1.json"
+  },
+  "generatedV2": [
+    {
+      "bytes": 33870,
+      "sha256": "ffe83bb5b2dfcadabf676bbfd8099ceef1e544b705ba220371d24640eb0c7811",
+      "resourcePath": "oer/native-pdf-family/authored-child-v2.json"
+    },
+    {
+      "bytes": 81362,
+      "sha256": "b7f33359200abd13b8d5f0792bee424fe4ae12f861d5edd5cdead92eb7411444",
+      "resourcePath": "oer/native-pdf-family/authored-family-v2.json"
+    },
+    {
+      "bytes": 35839,
+      "sha256": "9a92c8150566554e5513e881a0c272b931c2623efb072d4b8a5ad110e73f5afb",
+      "resourcePath": "oer/native-pdf-family/authored-family-v2-source-units.json"
+    }
+  ],
+  "fullParentCount": 2,
+  "sourceUnitSummaries": 2,
+  "limitations": [
+    "Synthetic contracts, not actual OCR or legal quality acceptance.",
+    "Actual mixed v1/v2 full54 remains an explicit local replay."
+  ]
+}

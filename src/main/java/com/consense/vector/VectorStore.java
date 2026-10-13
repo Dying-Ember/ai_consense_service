@@ -15,6 +15,11 @@ public interface VectorStore {
 
     List<SearchHit> search(String projectId, float[] query, int topK, double scoreThreshold);
 
+    /** Restrict allowed documents before similarity ranking/topK. Empty means no eligible evidence. */
+    default List<SearchHit> search(String projectId, java.util.Set<String> documentIds, float[] query, int topK, double scoreThreshold) {
+        throw new UnsupportedOperationException("This vector adapter does not support document-scoped retrieval.");
+    }
+
     int count(String projectId);
 
     void deleteByProject(String projectId);

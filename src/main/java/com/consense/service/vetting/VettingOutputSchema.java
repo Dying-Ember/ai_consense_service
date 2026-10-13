@@ -12,10 +12,10 @@ final class VettingOutputSchema {
 
     static JsonNode forChunkIds(Collection<String> chunkIds) {
         ObjectNode root = JsonUtils.mapper().createObjectNode();
-        root.put("type", "array"); root.put("maxItems", 3);
+        root.put("type", "array");
         ObjectNode item = root.putObject("items"); item.put("type", "object"); item.put("additionalProperties", false);
         ObjectNode fields = item.putObject("properties");
-        fields.set("assessment", choice("consistent", "insufficient_context", "issue"));
+        fields.set("assessment", choice("consistent", "insufficient_context", "issue", "not_applicable"));
         fields.set("type", choice("reference", "conflict", "language", "risk"));
         fields.set("severity", choice("high", "medium", "low"));
         fields.set("title", text(1, 160)); fields.set("comment", text(1, 1200));

@@ -1,0 +1,2293 @@
+{
+  "purpose": "Pure Python source-unit selector cases, not PDF/model acceptance",
+  "selectorSha256": "a528457827bc655e4980bbf9187251a16b94c481c98971e87f99db6157443104",
+  "cases": [
+    {
+      "name": "block_member_other_blocks_do_not_become_origins",
+      "parents": [
+        {
+          "id": "head",
+          "documentId": "42",
+          "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "role": "tender",
+          "metadataVersion": "authored-native-v1",
+          "segmentationVersion": "authored-source-v1",
+          "nativeTableMetadataVersion": "authored-table-v1",
+          "sourceQualityMetadataVersion": "authored-quality-v1",
+          "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "sourceQuality": {
+            "semanticQuality": "unknown"
+          },
+          "clauseId": null,
+          "clauseHeadingLocation": null,
+          "content": "ab",
+          "parts": [
+            {
+              "blockId": "A",
+              "text": "ab",
+              "startOffset": 0,
+              "endOffset": 2,
+              "anchor": "p3"
+            }
+          ]
+        },
+        {
+          "id": "middle",
+          "documentId": "42",
+          "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "role": "tender",
+          "metadataVersion": "authored-native-v1",
+          "segmentationVersion": "authored-source-v1",
+          "nativeTableMetadataVersion": "authored-table-v1",
+          "sourceQualityMetadataVersion": "authored-quality-v1",
+          "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "sourceQuality": {
+            "semanticQuality": "unknown"
+          },
+          "clauseId": null,
+          "clauseHeadingLocation": null,
+          "content": "cd\nef",
+          "parts": [
+            {
+              "blockId": "A",
+              "text": "cd",
+              "startOffset": 2,
+              "endOffset": 4,
+              "anchor": "p3"
+            },
+            {
+              "blockId": "B",
+              "text": "ef",
+              "startOffset": 0,
+              "endOffset": 2,
+              "anchor": "p3"
+            }
+          ]
+        },
+        {
+          "id": "far",
+          "documentId": "42",
+          "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "role": "tender",
+          "metadataVersion": "authored-native-v1",
+          "segmentationVersion": "authored-source-v1",
+          "nativeTableMetadataVersion": "authored-table-v1",
+          "sourceQualityMetadataVersion": "authored-quality-v1",
+          "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "sourceQuality": {
+            "semanticQuality": "unknown"
+          },
+          "clauseId": null,
+          "clauseHeadingLocation": null,
+          "content": "gh",
+          "parts": [
+            {
+              "blockId": "B",
+              "text": "gh",
+              "startOffset": 2,
+              "endOffset": 4,
+              "anchor": "p3"
+            }
+          ]
+        }
+      ],
+      "seedId": "head",
+      "resolved": {
+        "originIds": [
+          "head"
+        ],
+        "kind": "observed_source_blocks",
+        "status": "complete_observed_unit",
+        "reason": null,
+        "requiredMemberIds": [
+          "head",
+          "middle"
+        ],
+        "members": [
+          {
+            "id": "head",
+            "documentId": "42",
+            "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "role": "tender",
+            "metadataVersion": "authored-native-v1",
+            "segmentationVersion": "authored-source-v1",
+            "nativeTableMetadataVersion": "authored-table-v1",
+            "sourceQualityMetadataVersion": "authored-quality-v1",
+            "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "sourceQuality": {
+              "semanticQuality": "unknown"
+            },
+            "clauseId": null,
+            "clauseHeadingLocation": null,
+            "content": "ab",
+            "parts": [
+              {
+                "blockId": "A",
+                "text": "ab",
+                "startOffset": 0,
+                "endOffset": 2,
+                "anchor": "p3"
+              }
+            ]
+          },
+          {
+            "id": "middle",
+            "documentId": "42",
+            "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "role": "tender",
+            "metadataVersion": "authored-native-v1",
+            "segmentationVersion": "authored-source-v1",
+            "nativeTableMetadataVersion": "authored-table-v1",
+            "sourceQualityMetadataVersion": "authored-quality-v1",
+            "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "sourceQuality": {
+              "semanticQuality": "unknown"
+            },
+            "clauseId": null,
+            "clauseHeadingLocation": null,
+            "content": "cd\nef",
+            "parts": [
+              {
+                "blockId": "A",
+                "text": "cd",
+                "startOffset": 2,
+                "endOffset": 4,
+                "anchor": "p3"
+              },
+              {
+                "blockId": "B",
+                "text": "ef",
+                "startOffset": 0,
+                "endOffset": 2,
+                "anchor": "p3"
+              }
+            ]
+          }
+        ],
+        "observedRanges": [
+          {
+            "blockId": "A",
+            "startUtf16": 0,
+            "endUtf16": 4,
+            "status": "observed_canonical_ranges_zero_gap",
+            "sourceBlockComplete": null
+          }
+        ],
+        "sourceIdentity": {
+          "documentId": "42",
+          "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "role": "tender",
+          "metadataVersion": "authored-native-v1",
+          "segmentationVersion": "authored-source-v1",
+          "nativeTableMetadataVersion": "authored-table-v1",
+          "sourceQualityMetadataVersion": "authored-quality-v1",
+          "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "clauseId": null,
+        "headingLocation": null,
+        "blockIds": [
+          "A"
+        ],
+        "derivedMembersCanBecomeOrigins": false,
+        "memberScores": null,
+        "qualifiersComplete": "unknown",
+        "semanticScopeVerified": false,
+        "unitId": "9c5f15acca52a7081c70e39a88e205c0bba9fbebdab27632edf14bd1bf78129c"
+      },
+      "response": {
+        "hits": [
+          {
+            "id": "head",
+            "score": 0.9,
+            "payload": {
+              "id": "head",
+              "documentId": "42",
+              "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "role": "tender",
+              "metadataVersion": "authored-native-v1",
+              "segmentationVersion": "authored-source-v1",
+              "nativeTableMetadataVersion": "authored-table-v1",
+              "sourceQualityMetadataVersion": "authored-quality-v1",
+              "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "sourceQuality": {
+                "semanticQuality": "unknown"
+              },
+              "clauseId": null,
+              "clauseHeadingLocation": null,
+              "content": "ab",
+              "parts": [
+                {
+                  "blockId": "A",
+                  "text": "ab",
+                  "startOffset": 0,
+                  "endOffset": 2,
+                  "anchor": "p3"
+                }
+              ]
+            }
+          }
+        ],
+        "sourceUnits": {
+          "policy": "unique-source-structural-unit-seeds-v1",
+          "scope": "canonical_observed_structure_only",
+          "originalHitIds": [
+            "head"
+          ],
+          "units": [
+            {
+              "originIds": [
+                "head"
+              ],
+              "kind": "observed_source_blocks",
+              "status": "complete_observed_unit",
+              "reason": null,
+              "requiredMemberIds": [
+                "head",
+                "middle"
+              ],
+              "members": [
+                {
+                  "id": "head",
+                  "documentId": "42",
+                  "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                  "role": "tender",
+                  "metadataVersion": "authored-native-v1",
+                  "segmentationVersion": "authored-source-v1",
+                  "nativeTableMetadataVersion": "authored-table-v1",
+                  "sourceQualityMetadataVersion": "authored-quality-v1",
+                  "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+                  "sourceQuality": {
+                    "semanticQuality": "unknown"
+                  },
+                  "clauseId": null,
+                  "clauseHeadingLocation": null,
+                  "content": "ab",
+                  "parts": [
+                    {
+                      "blockId": "A",
+                      "text": "ab",
+                      "startOffset": 0,
+                      "endOffset": 2,
+                      "anchor": "p3"
+                    }
+                  ]
+                },
+                {
+                  "id": "middle",
+                  "documentId": "42",
+                  "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                  "role": "tender",
+                  "metadataVersion": "authored-native-v1",
+                  "segmentationVersion": "authored-source-v1",
+                  "nativeTableMetadataVersion": "authored-table-v1",
+                  "sourceQualityMetadataVersion": "authored-quality-v1",
+                  "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+                  "sourceQuality": {
+                    "semanticQuality": "unknown"
+                  },
+                  "clauseId": null,
+                  "clauseHeadingLocation": null,
+                  "content": "cd\nef",
+                  "parts": [
+                    {
+                      "blockId": "A",
+                      "text": "cd",
+                      "startOffset": 2,
+                      "endOffset": 4,
+                      "anchor": "p3"
+                    },
+                    {
+                      "blockId": "B",
+                      "text": "ef",
+                      "startOffset": 0,
+                      "endOffset": 2,
+                      "anchor": "p3"
+                    }
+                  ]
+                }
+              ],
+              "observedRanges": [
+                {
+                  "blockId": "A",
+                  "startUtf16": 0,
+                  "endUtf16": 4,
+                  "status": "observed_canonical_ranges_zero_gap",
+                  "sourceBlockComplete": null
+                }
+              ],
+              "sourceIdentity": {
+                "documentId": "42",
+                "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "role": "tender",
+                "metadataVersion": "authored-native-v1",
+                "segmentationVersion": "authored-source-v1",
+                "nativeTableMetadataVersion": "authored-table-v1",
+                "sourceQualityMetadataVersion": "authored-quality-v1",
+                "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+              },
+              "clauseId": null,
+              "headingLocation": null,
+              "blockIds": [
+                "A"
+              ],
+              "derivedMembersCanBecomeOrigins": false,
+              "memberScores": null,
+              "qualifiersComplete": "unknown",
+              "semanticScopeVerified": false,
+              "unitId": "9c5f15acca52a7081c70e39a88e205c0bba9fbebdab27632edf14bd1bf78129c",
+              "originalRerankOrdinal": 1,
+              "seedScore": 0.9
+            }
+          ],
+          "rawParentTopKIds": [
+            "head"
+          ],
+          "skippedDuplicateUnitSeeds": [],
+          "derivedMembersCanBecomeOrigins": false,
+          "memberOrder": "canonical_parent_id_lexical",
+          "qualifiersComplete": "unknown",
+          "semanticScopeVerified": false
+        }
+      }
+    },
+    {
+      "name": "source_block_crosses_clause_unit_boundary",
+      "parents": [
+        {
+          "id": "head",
+          "documentId": "42",
+          "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "role": "tender",
+          "metadataVersion": "authored-native-v1",
+          "segmentationVersion": "authored-source-v1",
+          "nativeTableMetadataVersion": "authored-table-v1",
+          "sourceQualityMetadataVersion": "authored-quality-v1",
+          "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "sourceQuality": {
+            "semanticQuality": "unknown"
+          },
+          "clauseId": "C1",
+          "clauseHeadingLocation": "H1",
+          "content": "ab",
+          "parts": [
+            {
+              "blockId": "A",
+              "text": "ab",
+              "startOffset": 0,
+              "endOffset": 2,
+              "anchor": "H1"
+            }
+          ]
+        },
+        {
+          "id": "foreign",
+          "documentId": "42",
+          "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "role": "tender",
+          "metadataVersion": "authored-native-v1",
+          "segmentationVersion": "authored-source-v1",
+          "nativeTableMetadataVersion": "authored-table-v1",
+          "sourceQualityMetadataVersion": "authored-quality-v1",
+          "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "sourceQuality": {
+            "semanticQuality": "unknown"
+          },
+          "clauseId": "C2",
+          "clauseHeadingLocation": "H2",
+          "content": "cd",
+          "parts": [
+            {
+              "blockId": "A",
+              "text": "cd",
+              "startOffset": 2,
+              "endOffset": 4,
+              "anchor": "H2"
+            }
+          ]
+        }
+      ],
+      "seedId": "head",
+      "resolved": {
+        "originIds": [
+          "head"
+        ],
+        "kind": "exact_clause_heading",
+        "status": "unknown",
+        "reason": "source_block_crosses_clause_unit_boundary",
+        "requiredMemberIds": [],
+        "members": [],
+        "observedRanges": [],
+        "sourceIdentity": {
+          "documentId": "42",
+          "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "role": "tender",
+          "metadataVersion": "authored-native-v1",
+          "segmentationVersion": "authored-source-v1",
+          "nativeTableMetadataVersion": "authored-table-v1",
+          "sourceQualityMetadataVersion": "authored-quality-v1",
+          "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "clauseId": "C1",
+        "headingLocation": "H1",
+        "blockIds": [],
+        "derivedMembersCanBecomeOrigins": false,
+        "memberScores": null,
+        "qualifiersComplete": "unknown",
+        "semanticScopeVerified": false,
+        "unitId": "efb540545217b050e4dd759cf80d7ab64cb24b8be8544dff183a09887a19cb39"
+      },
+      "response": {
+        "hits": [
+          {
+            "id": "head",
+            "score": 0.9,
+            "payload": {
+              "id": "head",
+              "documentId": "42",
+              "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "role": "tender",
+              "metadataVersion": "authored-native-v1",
+              "segmentationVersion": "authored-source-v1",
+              "nativeTableMetadataVersion": "authored-table-v1",
+              "sourceQualityMetadataVersion": "authored-quality-v1",
+              "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "sourceQuality": {
+                "semanticQuality": "unknown"
+              },
+              "clauseId": "C1",
+              "clauseHeadingLocation": "H1",
+              "content": "ab",
+              "parts": [
+                {
+                  "blockId": "A",
+                  "text": "ab",
+                  "startOffset": 0,
+                  "endOffset": 2,
+                  "anchor": "H1"
+                }
+              ]
+            }
+          }
+        ],
+        "sourceUnits": {
+          "policy": "unique-source-structural-unit-seeds-v1",
+          "scope": "canonical_observed_structure_only",
+          "originalHitIds": [
+            "head"
+          ],
+          "units": [
+            {
+              "originIds": [
+                "head"
+              ],
+              "kind": "exact_clause_heading",
+              "status": "unknown",
+              "reason": "source_block_crosses_clause_unit_boundary",
+              "requiredMemberIds": [],
+              "members": [],
+              "observedRanges": [],
+              "sourceIdentity": {
+                "documentId": "42",
+                "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "role": "tender",
+                "metadataVersion": "authored-native-v1",
+                "segmentationVersion": "authored-source-v1",
+                "nativeTableMetadataVersion": "authored-table-v1",
+                "sourceQualityMetadataVersion": "authored-quality-v1",
+                "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+              },
+              "clauseId": "C1",
+              "headingLocation": "H1",
+              "blockIds": [],
+              "derivedMembersCanBecomeOrigins": false,
+              "memberScores": null,
+              "qualifiersComplete": "unknown",
+              "semanticScopeVerified": false,
+              "unitId": "efb540545217b050e4dd759cf80d7ab64cb24b8be8544dff183a09887a19cb39",
+              "originalRerankOrdinal": 1,
+              "seedScore": 0.9
+            }
+          ],
+          "rawParentTopKIds": [
+            "head"
+          ],
+          "skippedDuplicateUnitSeeds": [],
+          "derivedMembersCanBecomeOrigins": false,
+          "memberOrder": "canonical_parent_id_lexical",
+          "qualifiersComplete": "unknown",
+          "semanticScopeVerified": false
+        }
+      }
+    },
+    {
+      "name": "source_block_gap_unknown",
+      "parents": [
+        {
+          "id": "head",
+          "documentId": "42",
+          "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "role": "tender",
+          "metadataVersion": "authored-native-v1",
+          "segmentationVersion": "authored-source-v1",
+          "nativeTableMetadataVersion": "authored-table-v1",
+          "sourceQualityMetadataVersion": "authored-quality-v1",
+          "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "sourceQuality": {
+            "semanticQuality": "unknown"
+          },
+          "clauseId": null,
+          "clauseHeadingLocation": null,
+          "content": "ab",
+          "parts": [
+            {
+              "blockId": "A",
+              "text": "ab",
+              "startOffset": 4,
+              "endOffset": 6,
+              "anchor": "p3"
+            }
+          ]
+        }
+      ],
+      "seedId": "head",
+      "resolved": {
+        "originIds": [
+          "head"
+        ],
+        "kind": "observed_source_blocks",
+        "status": "unknown",
+        "reason": "observed_block_start_or_gap_unknown",
+        "requiredMemberIds": [],
+        "members": [],
+        "observedRanges": [],
+        "sourceIdentity": {
+          "documentId": "42",
+          "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "role": "tender",
+          "metadataVersion": "authored-native-v1",
+          "segmentationVersion": "authored-source-v1",
+          "nativeTableMetadataVersion": "authored-table-v1",
+          "sourceQualityMetadataVersion": "authored-quality-v1",
+          "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "clauseId": null,
+        "headingLocation": null,
+        "blockIds": [],
+        "derivedMembersCanBecomeOrigins": false,
+        "memberScores": null,
+        "qualifiersComplete": "unknown",
+        "semanticScopeVerified": false,
+        "unitId": "2faa669af821ded6d55b8c742784909bbbc3c17e56398556c60b6546c036d771"
+      },
+      "response": {
+        "hits": [
+          {
+            "id": "head",
+            "score": 0.9,
+            "payload": {
+              "id": "head",
+              "documentId": "42",
+              "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "role": "tender",
+              "metadataVersion": "authored-native-v1",
+              "segmentationVersion": "authored-source-v1",
+              "nativeTableMetadataVersion": "authored-table-v1",
+              "sourceQualityMetadataVersion": "authored-quality-v1",
+              "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "sourceQuality": {
+                "semanticQuality": "unknown"
+              },
+              "clauseId": null,
+              "clauseHeadingLocation": null,
+              "content": "ab",
+              "parts": [
+                {
+                  "blockId": "A",
+                  "text": "ab",
+                  "startOffset": 4,
+                  "endOffset": 6,
+                  "anchor": "p3"
+                }
+              ]
+            }
+          }
+        ],
+        "sourceUnits": {
+          "policy": "unique-source-structural-unit-seeds-v1",
+          "scope": "canonical_observed_structure_only",
+          "originalHitIds": [
+            "head"
+          ],
+          "units": [
+            {
+              "originIds": [
+                "head"
+              ],
+              "kind": "observed_source_blocks",
+              "status": "unknown",
+              "reason": "observed_block_start_or_gap_unknown",
+              "requiredMemberIds": [],
+              "members": [],
+              "observedRanges": [],
+              "sourceIdentity": {
+                "documentId": "42",
+                "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "role": "tender",
+                "metadataVersion": "authored-native-v1",
+                "segmentationVersion": "authored-source-v1",
+                "nativeTableMetadataVersion": "authored-table-v1",
+                "sourceQualityMetadataVersion": "authored-quality-v1",
+                "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+              },
+              "clauseId": null,
+              "headingLocation": null,
+              "blockIds": [],
+              "derivedMembersCanBecomeOrigins": false,
+              "memberScores": null,
+              "qualifiersComplete": "unknown",
+              "semanticScopeVerified": false,
+              "unitId": "2faa669af821ded6d55b8c742784909bbbc3c17e56398556c60b6546c036d771",
+              "originalRerankOrdinal": 1,
+              "seedScore": 0.9
+            }
+          ],
+          "rawParentTopKIds": [
+            "head"
+          ],
+          "skippedDuplicateUnitSeeds": [],
+          "derivedMembersCanBecomeOrigins": false,
+          "memberOrder": "canonical_parent_id_lexical",
+          "qualifiersComplete": "unknown",
+          "semanticScopeVerified": false
+        }
+      }
+    },
+    {
+      "name": "source_block_overlap_disagrees",
+      "parents": [
+        {
+          "id": "head",
+          "documentId": "42",
+          "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "role": "tender",
+          "metadataVersion": "authored-native-v1",
+          "segmentationVersion": "authored-source-v1",
+          "nativeTableMetadataVersion": "authored-table-v1",
+          "sourceQualityMetadataVersion": "authored-quality-v1",
+          "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "sourceQuality": {
+            "semanticQuality": "unknown"
+          },
+          "clauseId": null,
+          "clauseHeadingLocation": null,
+          "content": "abcd",
+          "parts": [
+            {
+              "blockId": "A",
+              "text": "abcd",
+              "startOffset": 0,
+              "endOffset": 4,
+              "anchor": "p3"
+            }
+          ]
+        },
+        {
+          "id": "tail",
+          "documentId": "42",
+          "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "role": "tender",
+          "metadataVersion": "authored-native-v1",
+          "segmentationVersion": "authored-source-v1",
+          "nativeTableMetadataVersion": "authored-table-v1",
+          "sourceQualityMetadataVersion": "authored-quality-v1",
+          "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "sourceQuality": {
+            "semanticQuality": "unknown"
+          },
+          "clauseId": null,
+          "clauseHeadingLocation": null,
+          "content": "XY",
+          "parts": [
+            {
+              "blockId": "A",
+              "text": "XY",
+              "startOffset": 1,
+              "endOffset": 3,
+              "anchor": "p3"
+            }
+          ]
+        }
+      ],
+      "seedId": "head",
+      "resolved": {
+        "originIds": [
+          "head"
+        ],
+        "kind": "observed_source_blocks",
+        "status": "unknown",
+        "reason": "overlapping_source_text_mismatch",
+        "requiredMemberIds": [],
+        "members": [],
+        "observedRanges": [],
+        "sourceIdentity": {
+          "documentId": "42",
+          "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "role": "tender",
+          "metadataVersion": "authored-native-v1",
+          "segmentationVersion": "authored-source-v1",
+          "nativeTableMetadataVersion": "authored-table-v1",
+          "sourceQualityMetadataVersion": "authored-quality-v1",
+          "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "clauseId": null,
+        "headingLocation": null,
+        "blockIds": [],
+        "derivedMembersCanBecomeOrigins": false,
+        "memberScores": null,
+        "qualifiersComplete": "unknown",
+        "semanticScopeVerified": false,
+        "unitId": "2faa669af821ded6d55b8c742784909bbbc3c17e56398556c60b6546c036d771"
+      },
+      "response": {
+        "hits": [
+          {
+            "id": "head",
+            "score": 0.9,
+            "payload": {
+              "id": "head",
+              "documentId": "42",
+              "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "role": "tender",
+              "metadataVersion": "authored-native-v1",
+              "segmentationVersion": "authored-source-v1",
+              "nativeTableMetadataVersion": "authored-table-v1",
+              "sourceQualityMetadataVersion": "authored-quality-v1",
+              "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "sourceQuality": {
+                "semanticQuality": "unknown"
+              },
+              "clauseId": null,
+              "clauseHeadingLocation": null,
+              "content": "abcd",
+              "parts": [
+                {
+                  "blockId": "A",
+                  "text": "abcd",
+                  "startOffset": 0,
+                  "endOffset": 4,
+                  "anchor": "p3"
+                }
+              ]
+            }
+          }
+        ],
+        "sourceUnits": {
+          "policy": "unique-source-structural-unit-seeds-v1",
+          "scope": "canonical_observed_structure_only",
+          "originalHitIds": [
+            "head"
+          ],
+          "units": [
+            {
+              "originIds": [
+                "head"
+              ],
+              "kind": "observed_source_blocks",
+              "status": "unknown",
+              "reason": "overlapping_source_text_mismatch",
+              "requiredMemberIds": [],
+              "members": [],
+              "observedRanges": [],
+              "sourceIdentity": {
+                "documentId": "42",
+                "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "role": "tender",
+                "metadataVersion": "authored-native-v1",
+                "segmentationVersion": "authored-source-v1",
+                "nativeTableMetadataVersion": "authored-table-v1",
+                "sourceQualityMetadataVersion": "authored-quality-v1",
+                "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+              },
+              "clauseId": null,
+              "headingLocation": null,
+              "blockIds": [],
+              "derivedMembersCanBecomeOrigins": false,
+              "memberScores": null,
+              "qualifiersComplete": "unknown",
+              "semanticScopeVerified": false,
+              "unitId": "2faa669af821ded6d55b8c742784909bbbc3c17e56398556c60b6546c036d771",
+              "originalRerankOrdinal": 1,
+              "seedScore": 0.9
+            }
+          ],
+          "rawParentTopKIds": [
+            "head"
+          ],
+          "skippedDuplicateUnitSeeds": [],
+          "derivedMembersCanBecomeOrigins": false,
+          "memberOrder": "canonical_parent_id_lexical",
+          "qualifiersComplete": "unknown",
+          "semanticScopeVerified": false
+        }
+      }
+    },
+    {
+      "name": "heading_not_physically_located",
+      "parents": [
+        {
+          "id": "head",
+          "documentId": "42",
+          "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "role": "tender",
+          "metadataVersion": "authored-native-v1",
+          "segmentationVersion": "authored-source-v1",
+          "nativeTableMetadataVersion": "authored-table-v1",
+          "sourceQualityMetadataVersion": "authored-quality-v1",
+          "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "sourceQuality": {
+            "semanticQuality": "unknown"
+          },
+          "clauseId": "C1",
+          "clauseHeadingLocation": "H1",
+          "content": "abc",
+          "parts": [
+            {
+              "blockId": "A",
+              "text": "abc",
+              "startOffset": 0,
+              "endOffset": 3,
+              "anchor": "other"
+            }
+          ]
+        }
+      ],
+      "seedId": "head",
+      "resolved": {
+        "originIds": [
+          "head"
+        ],
+        "kind": "unknown",
+        "status": "unknown",
+        "reason": "heading_not_located_in_observed_parts",
+        "requiredMemberIds": [],
+        "members": [],
+        "observedRanges": [],
+        "sourceIdentity": {
+          "documentId": "42",
+          "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "role": "tender",
+          "metadataVersion": "authored-native-v1",
+          "segmentationVersion": "authored-source-v1",
+          "nativeTableMetadataVersion": "authored-table-v1",
+          "sourceQualityMetadataVersion": "authored-quality-v1",
+          "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "clauseId": "C1",
+        "headingLocation": "H1",
+        "blockIds": [],
+        "derivedMembersCanBecomeOrigins": false,
+        "memberScores": null,
+        "qualifiersComplete": "unknown",
+        "semanticScopeVerified": false,
+        "unitId": "1208822994f3cd6f816700c4e276294f3abbcb083705b6b65694bc93c63a2270"
+      },
+      "response": {
+        "hits": [
+          {
+            "id": "head",
+            "score": 0.9,
+            "payload": {
+              "id": "head",
+              "documentId": "42",
+              "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "role": "tender",
+              "metadataVersion": "authored-native-v1",
+              "segmentationVersion": "authored-source-v1",
+              "nativeTableMetadataVersion": "authored-table-v1",
+              "sourceQualityMetadataVersion": "authored-quality-v1",
+              "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "sourceQuality": {
+                "semanticQuality": "unknown"
+              },
+              "clauseId": "C1",
+              "clauseHeadingLocation": "H1",
+              "content": "abc",
+              "parts": [
+                {
+                  "blockId": "A",
+                  "text": "abc",
+                  "startOffset": 0,
+                  "endOffset": 3,
+                  "anchor": "other"
+                }
+              ]
+            }
+          }
+        ],
+        "sourceUnits": {
+          "policy": "unique-source-structural-unit-seeds-v1",
+          "scope": "canonical_observed_structure_only",
+          "originalHitIds": [
+            "head"
+          ],
+          "units": [
+            {
+              "originIds": [
+                "head"
+              ],
+              "kind": "unknown",
+              "status": "unknown",
+              "reason": "heading_not_located_in_observed_parts",
+              "requiredMemberIds": [],
+              "members": [],
+              "observedRanges": [],
+              "sourceIdentity": {
+                "documentId": "42",
+                "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "role": "tender",
+                "metadataVersion": "authored-native-v1",
+                "segmentationVersion": "authored-source-v1",
+                "nativeTableMetadataVersion": "authored-table-v1",
+                "sourceQualityMetadataVersion": "authored-quality-v1",
+                "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+              },
+              "clauseId": "C1",
+              "headingLocation": "H1",
+              "blockIds": [],
+              "derivedMembersCanBecomeOrigins": false,
+              "memberScores": null,
+              "qualifiersComplete": "unknown",
+              "semanticScopeVerified": false,
+              "unitId": "1208822994f3cd6f816700c4e276294f3abbcb083705b6b65694bc93c63a2270",
+              "originalRerankOrdinal": 1,
+              "seedScore": 0.9
+            }
+          ],
+          "rawParentTopKIds": [
+            "head"
+          ],
+          "skippedDuplicateUnitSeeds": [],
+          "derivedMembersCanBecomeOrigins": false,
+          "memberOrder": "canonical_parent_id_lexical",
+          "qualifiersComplete": "unknown",
+          "semanticScopeVerified": false
+        }
+      }
+    },
+    {
+      "name": "non_bmp_utf16_exact_clause",
+      "parents": [
+        {
+          "id": "head",
+          "documentId": "42",
+          "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "role": "tender",
+          "metadataVersion": "authored-native-v1",
+          "segmentationVersion": "authored-source-v1",
+          "nativeTableMetadataVersion": "authored-table-v1",
+          "sourceQualityMetadataVersion": "authored-quality-v1",
+          "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "sourceQuality": {
+            "semanticQuality": "unknown"
+          },
+          "clauseId": "C1",
+          "clauseHeadingLocation": "H1",
+          "content": "😀甲",
+          "parts": [
+            {
+              "blockId": "A",
+              "text": "😀甲",
+              "startOffset": 0,
+              "endOffset": 3,
+              "anchor": "H1"
+            }
+          ]
+        },
+        {
+          "id": "tail",
+          "documentId": "42",
+          "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "role": "tender",
+          "metadataVersion": "authored-native-v1",
+          "segmentationVersion": "authored-source-v1",
+          "nativeTableMetadataVersion": "authored-table-v1",
+          "sourceQualityMetadataVersion": "authored-quality-v1",
+          "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "sourceQuality": {
+            "semanticQuality": "unknown"
+          },
+          "clauseId": "C1",
+          "clauseHeadingLocation": "H1",
+          "content": "乙",
+          "parts": [
+            {
+              "blockId": "A",
+              "text": "乙",
+              "startOffset": 3,
+              "endOffset": 4,
+              "anchor": "tail"
+            }
+          ]
+        }
+      ],
+      "seedId": "head",
+      "resolved": {
+        "originIds": [
+          "head"
+        ],
+        "kind": "exact_clause_heading",
+        "status": "complete_observed_unit",
+        "reason": null,
+        "requiredMemberIds": [
+          "head",
+          "tail"
+        ],
+        "members": [
+          {
+            "id": "head",
+            "documentId": "42",
+            "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "role": "tender",
+            "metadataVersion": "authored-native-v1",
+            "segmentationVersion": "authored-source-v1",
+            "nativeTableMetadataVersion": "authored-table-v1",
+            "sourceQualityMetadataVersion": "authored-quality-v1",
+            "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "sourceQuality": {
+              "semanticQuality": "unknown"
+            },
+            "clauseId": "C1",
+            "clauseHeadingLocation": "H1",
+            "content": "😀甲",
+            "parts": [
+              {
+                "blockId": "A",
+                "text": "😀甲",
+                "startOffset": 0,
+                "endOffset": 3,
+                "anchor": "H1"
+              }
+            ]
+          },
+          {
+            "id": "tail",
+            "documentId": "42",
+            "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "role": "tender",
+            "metadataVersion": "authored-native-v1",
+            "segmentationVersion": "authored-source-v1",
+            "nativeTableMetadataVersion": "authored-table-v1",
+            "sourceQualityMetadataVersion": "authored-quality-v1",
+            "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "sourceQuality": {
+              "semanticQuality": "unknown"
+            },
+            "clauseId": "C1",
+            "clauseHeadingLocation": "H1",
+            "content": "乙",
+            "parts": [
+              {
+                "blockId": "A",
+                "text": "乙",
+                "startOffset": 3,
+                "endOffset": 4,
+                "anchor": "tail"
+              }
+            ]
+          }
+        ],
+        "observedRanges": [
+          {
+            "blockId": "A",
+            "startUtf16": 0,
+            "endUtf16": 4,
+            "status": "observed_canonical_ranges_zero_gap",
+            "sourceBlockComplete": null
+          }
+        ],
+        "sourceIdentity": {
+          "documentId": "42",
+          "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "role": "tender",
+          "metadataVersion": "authored-native-v1",
+          "segmentationVersion": "authored-source-v1",
+          "nativeTableMetadataVersion": "authored-table-v1",
+          "sourceQualityMetadataVersion": "authored-quality-v1",
+          "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "clauseId": "C1",
+        "headingLocation": "H1",
+        "blockIds": [
+          "A"
+        ],
+        "derivedMembersCanBecomeOrigins": false,
+        "memberScores": null,
+        "qualifiersComplete": "unknown",
+        "semanticScopeVerified": false,
+        "unitId": "8140465379d3f3a91cea6b865357e009336c815d8b0a6d2cf06826b735964c39"
+      },
+      "response": {
+        "hits": [
+          {
+            "id": "head",
+            "score": 0.9,
+            "payload": {
+              "id": "head",
+              "documentId": "42",
+              "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "role": "tender",
+              "metadataVersion": "authored-native-v1",
+              "segmentationVersion": "authored-source-v1",
+              "nativeTableMetadataVersion": "authored-table-v1",
+              "sourceQualityMetadataVersion": "authored-quality-v1",
+              "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "sourceQuality": {
+                "semanticQuality": "unknown"
+              },
+              "clauseId": "C1",
+              "clauseHeadingLocation": "H1",
+              "content": "😀甲",
+              "parts": [
+                {
+                  "blockId": "A",
+                  "text": "😀甲",
+                  "startOffset": 0,
+                  "endOffset": 3,
+                  "anchor": "H1"
+                }
+              ]
+            }
+          }
+        ],
+        "sourceUnits": {
+          "policy": "unique-source-structural-unit-seeds-v1",
+          "scope": "canonical_observed_structure_only",
+          "originalHitIds": [
+            "head"
+          ],
+          "units": [
+            {
+              "originIds": [
+                "head"
+              ],
+              "kind": "exact_clause_heading",
+              "status": "complete_observed_unit",
+              "reason": null,
+              "requiredMemberIds": [
+                "head",
+                "tail"
+              ],
+              "members": [
+                {
+                  "id": "head",
+                  "documentId": "42",
+                  "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                  "role": "tender",
+                  "metadataVersion": "authored-native-v1",
+                  "segmentationVersion": "authored-source-v1",
+                  "nativeTableMetadataVersion": "authored-table-v1",
+                  "sourceQualityMetadataVersion": "authored-quality-v1",
+                  "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+                  "sourceQuality": {
+                    "semanticQuality": "unknown"
+                  },
+                  "clauseId": "C1",
+                  "clauseHeadingLocation": "H1",
+                  "content": "😀甲",
+                  "parts": [
+                    {
+                      "blockId": "A",
+                      "text": "😀甲",
+                      "startOffset": 0,
+                      "endOffset": 3,
+                      "anchor": "H1"
+                    }
+                  ]
+                },
+                {
+                  "id": "tail",
+                  "documentId": "42",
+                  "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                  "role": "tender",
+                  "metadataVersion": "authored-native-v1",
+                  "segmentationVersion": "authored-source-v1",
+                  "nativeTableMetadataVersion": "authored-table-v1",
+                  "sourceQualityMetadataVersion": "authored-quality-v1",
+                  "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+                  "sourceQuality": {
+                    "semanticQuality": "unknown"
+                  },
+                  "clauseId": "C1",
+                  "clauseHeadingLocation": "H1",
+                  "content": "乙",
+                  "parts": [
+                    {
+                      "blockId": "A",
+                      "text": "乙",
+                      "startOffset": 3,
+                      "endOffset": 4,
+                      "anchor": "tail"
+                    }
+                  ]
+                }
+              ],
+              "observedRanges": [
+                {
+                  "blockId": "A",
+                  "startUtf16": 0,
+                  "endUtf16": 4,
+                  "status": "observed_canonical_ranges_zero_gap",
+                  "sourceBlockComplete": null
+                }
+              ],
+              "sourceIdentity": {
+                "documentId": "42",
+                "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "role": "tender",
+                "metadataVersion": "authored-native-v1",
+                "segmentationVersion": "authored-source-v1",
+                "nativeTableMetadataVersion": "authored-table-v1",
+                "sourceQualityMetadataVersion": "authored-quality-v1",
+                "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+              },
+              "clauseId": "C1",
+              "headingLocation": "H1",
+              "blockIds": [
+                "A"
+              ],
+              "derivedMembersCanBecomeOrigins": false,
+              "memberScores": null,
+              "qualifiersComplete": "unknown",
+              "semanticScopeVerified": false,
+              "unitId": "8140465379d3f3a91cea6b865357e009336c815d8b0a6d2cf06826b735964c39",
+              "originalRerankOrdinal": 1,
+              "seedScore": 0.9
+            }
+          ],
+          "rawParentTopKIds": [
+            "head"
+          ],
+          "skippedDuplicateUnitSeeds": [],
+          "derivedMembersCanBecomeOrigins": false,
+          "memberOrder": "canonical_parent_id_lexical",
+          "qualifiersComplete": "unknown",
+          "semanticScopeVerified": false
+        }
+      }
+    },
+    {
+      "name": "non_unique_heading",
+      "parents": [
+        {
+          "id": "head",
+          "documentId": "42",
+          "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "role": "tender",
+          "metadataVersion": "authored-native-v1",
+          "segmentationVersion": "authored-source-v1",
+          "nativeTableMetadataVersion": "authored-table-v1",
+          "sourceQualityMetadataVersion": "authored-quality-v1",
+          "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "sourceQuality": {
+            "semanticQuality": "unknown"
+          },
+          "clauseId": "C1",
+          "clauseHeadingLocation": "H1",
+          "content": "ab",
+          "parts": [
+            {
+              "blockId": "A",
+              "text": "ab",
+              "startOffset": 0,
+              "endOffset": 2,
+              "anchor": "H1"
+            }
+          ]
+        },
+        {
+          "id": "tail",
+          "documentId": "42",
+          "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "role": "tender",
+          "metadataVersion": "authored-native-v1",
+          "segmentationVersion": "authored-source-v1",
+          "nativeTableMetadataVersion": "authored-table-v1",
+          "sourceQualityMetadataVersion": "authored-quality-v1",
+          "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "sourceQuality": {
+            "semanticQuality": "unknown"
+          },
+          "clauseId": "C1",
+          "clauseHeadingLocation": "H2",
+          "content": "cd",
+          "parts": [
+            {
+              "blockId": "A",
+              "text": "cd",
+              "startOffset": 2,
+              "endOffset": 4,
+              "anchor": "H2"
+            }
+          ]
+        }
+      ],
+      "seedId": "head",
+      "resolved": {
+        "originIds": [
+          "head"
+        ],
+        "kind": "unknown",
+        "status": "unknown",
+        "reason": "clause_heading_not_unique",
+        "requiredMemberIds": [],
+        "members": [],
+        "observedRanges": [],
+        "sourceIdentity": {
+          "documentId": "42",
+          "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "role": "tender",
+          "metadataVersion": "authored-native-v1",
+          "segmentationVersion": "authored-source-v1",
+          "nativeTableMetadataVersion": "authored-table-v1",
+          "sourceQualityMetadataVersion": "authored-quality-v1",
+          "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "clauseId": "C1",
+        "headingLocation": "H1",
+        "blockIds": [],
+        "derivedMembersCanBecomeOrigins": false,
+        "memberScores": null,
+        "qualifiersComplete": "unknown",
+        "semanticScopeVerified": false,
+        "unitId": "1208822994f3cd6f816700c4e276294f3abbcb083705b6b65694bc93c63a2270"
+      },
+      "response": {
+        "hits": [
+          {
+            "id": "head",
+            "score": 0.9,
+            "payload": {
+              "id": "head",
+              "documentId": "42",
+              "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "role": "tender",
+              "metadataVersion": "authored-native-v1",
+              "segmentationVersion": "authored-source-v1",
+              "nativeTableMetadataVersion": "authored-table-v1",
+              "sourceQualityMetadataVersion": "authored-quality-v1",
+              "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "sourceQuality": {
+                "semanticQuality": "unknown"
+              },
+              "clauseId": "C1",
+              "clauseHeadingLocation": "H1",
+              "content": "ab",
+              "parts": [
+                {
+                  "blockId": "A",
+                  "text": "ab",
+                  "startOffset": 0,
+                  "endOffset": 2,
+                  "anchor": "H1"
+                }
+              ]
+            }
+          }
+        ],
+        "sourceUnits": {
+          "policy": "unique-source-structural-unit-seeds-v1",
+          "scope": "canonical_observed_structure_only",
+          "originalHitIds": [
+            "head"
+          ],
+          "units": [
+            {
+              "originIds": [
+                "head"
+              ],
+              "kind": "unknown",
+              "status": "unknown",
+              "reason": "clause_heading_not_unique",
+              "requiredMemberIds": [],
+              "members": [],
+              "observedRanges": [],
+              "sourceIdentity": {
+                "documentId": "42",
+                "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "role": "tender",
+                "metadataVersion": "authored-native-v1",
+                "segmentationVersion": "authored-source-v1",
+                "nativeTableMetadataVersion": "authored-table-v1",
+                "sourceQualityMetadataVersion": "authored-quality-v1",
+                "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+              },
+              "clauseId": "C1",
+              "headingLocation": "H1",
+              "blockIds": [],
+              "derivedMembersCanBecomeOrigins": false,
+              "memberScores": null,
+              "qualifiersComplete": "unknown",
+              "semanticScopeVerified": false,
+              "unitId": "1208822994f3cd6f816700c4e276294f3abbcb083705b6b65694bc93c63a2270",
+              "originalRerankOrdinal": 1,
+              "seedScore": 0.9
+            }
+          ],
+          "rawParentTopKIds": [
+            "head"
+          ],
+          "skippedDuplicateUnitSeeds": [],
+          "derivedMembersCanBecomeOrigins": false,
+          "memberOrder": "canonical_parent_id_lexical",
+          "qualifiersComplete": "unknown",
+          "semanticScopeVerified": false
+        }
+      }
+    },
+    {
+      "name": "source_quality_disagrees",
+      "parents": [
+        {
+          "id": "head",
+          "documentId": "42",
+          "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "role": "tender",
+          "metadataVersion": "authored-native-v1",
+          "segmentationVersion": "authored-source-v1",
+          "nativeTableMetadataVersion": "authored-table-v1",
+          "sourceQualityMetadataVersion": "authored-quality-v1",
+          "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "sourceQuality": {
+            "semanticQuality": "unknown"
+          },
+          "clauseId": null,
+          "clauseHeadingLocation": null,
+          "content": "abcd",
+          "parts": [
+            {
+              "blockId": "A",
+              "text": "abcd",
+              "startOffset": 0,
+              "endOffset": 4,
+              "anchor": "p3"
+            }
+          ]
+        },
+        {
+          "id": "tail",
+          "documentId": "42",
+          "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "role": "tender",
+          "metadataVersion": "authored-native-v1",
+          "segmentationVersion": "authored-source-v1",
+          "nativeTableMetadataVersion": "authored-table-v1",
+          "sourceQualityMetadataVersion": "authored-quality-v1",
+          "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "sourceQuality": {
+            "semanticQuality": "different_unknown"
+          },
+          "clauseId": null,
+          "clauseHeadingLocation": null,
+          "content": "cd",
+          "parts": [
+            {
+              "blockId": "A",
+              "text": "cd",
+              "startOffset": 2,
+              "endOffset": 4,
+              "anchor": "p3"
+            }
+          ]
+        }
+      ],
+      "seedId": "head",
+      "resolved": {
+        "originIds": [
+          "head"
+        ],
+        "kind": "observed_source_blocks",
+        "status": "unknown",
+        "reason": "source_quality_or_scope_differs",
+        "requiredMemberIds": [],
+        "members": [],
+        "observedRanges": [],
+        "sourceIdentity": {
+          "documentId": "42",
+          "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "role": "tender",
+          "metadataVersion": "authored-native-v1",
+          "segmentationVersion": "authored-source-v1",
+          "nativeTableMetadataVersion": "authored-table-v1",
+          "sourceQualityMetadataVersion": "authored-quality-v1",
+          "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "clauseId": null,
+        "headingLocation": null,
+        "blockIds": [],
+        "derivedMembersCanBecomeOrigins": false,
+        "memberScores": null,
+        "qualifiersComplete": "unknown",
+        "semanticScopeVerified": false,
+        "unitId": "2faa669af821ded6d55b8c742784909bbbc3c17e56398556c60b6546c036d771"
+      },
+      "response": {
+        "hits": [
+          {
+            "id": "head",
+            "score": 0.9,
+            "payload": {
+              "id": "head",
+              "documentId": "42",
+              "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "role": "tender",
+              "metadataVersion": "authored-native-v1",
+              "segmentationVersion": "authored-source-v1",
+              "nativeTableMetadataVersion": "authored-table-v1",
+              "sourceQualityMetadataVersion": "authored-quality-v1",
+              "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "sourceQuality": {
+                "semanticQuality": "unknown"
+              },
+              "clauseId": null,
+              "clauseHeadingLocation": null,
+              "content": "abcd",
+              "parts": [
+                {
+                  "blockId": "A",
+                  "text": "abcd",
+                  "startOffset": 0,
+                  "endOffset": 4,
+                  "anchor": "p3"
+                }
+              ]
+            }
+          }
+        ],
+        "sourceUnits": {
+          "policy": "unique-source-structural-unit-seeds-v1",
+          "scope": "canonical_observed_structure_only",
+          "originalHitIds": [
+            "head"
+          ],
+          "units": [
+            {
+              "originIds": [
+                "head"
+              ],
+              "kind": "observed_source_blocks",
+              "status": "unknown",
+              "reason": "source_quality_or_scope_differs",
+              "requiredMemberIds": [],
+              "members": [],
+              "observedRanges": [],
+              "sourceIdentity": {
+                "documentId": "42",
+                "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "role": "tender",
+                "metadataVersion": "authored-native-v1",
+                "segmentationVersion": "authored-source-v1",
+                "nativeTableMetadataVersion": "authored-table-v1",
+                "sourceQualityMetadataVersion": "authored-quality-v1",
+                "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+              },
+              "clauseId": null,
+              "headingLocation": null,
+              "blockIds": [],
+              "derivedMembersCanBecomeOrigins": false,
+              "memberScores": null,
+              "qualifiersComplete": "unknown",
+              "semanticScopeVerified": false,
+              "unitId": "2faa669af821ded6d55b8c742784909bbbc3c17e56398556c60b6546c036d771",
+              "originalRerankOrdinal": 1,
+              "seedScore": 0.9
+            }
+          ],
+          "rawParentTopKIds": [
+            "head"
+          ],
+          "skippedDuplicateUnitSeeds": [],
+          "derivedMembersCanBecomeOrigins": false,
+          "memberOrder": "canonical_parent_id_lexical",
+          "qualifiersComplete": "unknown",
+          "semanticScopeVerified": false
+        }
+      }
+    },
+    {
+      "name": "ambiguous_document_source_identity",
+      "parents": [
+        {
+          "id": "head",
+          "documentId": "42",
+          "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "role": "tender",
+          "metadataVersion": "authored-native-v1",
+          "segmentationVersion": "authored-source-v1",
+          "nativeTableMetadataVersion": "authored-table-v1",
+          "sourceQualityMetadataVersion": "authored-quality-v1",
+          "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "sourceQuality": {
+            "semanticQuality": "unknown"
+          },
+          "clauseId": null,
+          "clauseHeadingLocation": null,
+          "content": "ab",
+          "parts": [
+            {
+              "blockId": "A",
+              "text": "ab",
+              "startOffset": 0,
+              "endOffset": 2,
+              "anchor": "p3"
+            }
+          ]
+        },
+        {
+          "id": "tail",
+          "documentId": "42",
+          "sourceHash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "role": "tender",
+          "metadataVersion": "authored-native-v1",
+          "segmentationVersion": "authored-source-v1",
+          "nativeTableMetadataVersion": "authored-table-v1",
+          "sourceQualityMetadataVersion": "authored-quality-v1",
+          "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "sourceQuality": {
+            "semanticQuality": "unknown"
+          },
+          "clauseId": null,
+          "clauseHeadingLocation": null,
+          "content": "cd",
+          "parts": [
+            {
+              "blockId": "A",
+              "text": "cd",
+              "startOffset": 2,
+              "endOffset": 4,
+              "anchor": "p3"
+            }
+          ]
+        }
+      ],
+      "seedId": "head",
+      "resolved": {
+        "originIds": [
+          "head"
+        ],
+        "kind": "unknown",
+        "status": "unknown",
+        "reason": "ambiguous_document_source_identity",
+        "requiredMemberIds": [],
+        "members": [],
+        "observedRanges": [],
+        "sourceIdentity": {
+          "documentId": "42",
+          "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "role": "tender",
+          "metadataVersion": "authored-native-v1",
+          "segmentationVersion": "authored-source-v1",
+          "nativeTableMetadataVersion": "authored-table-v1",
+          "sourceQualityMetadataVersion": "authored-quality-v1",
+          "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "clauseId": null,
+        "headingLocation": null,
+        "blockIds": [],
+        "derivedMembersCanBecomeOrigins": false,
+        "memberScores": null,
+        "qualifiersComplete": "unknown",
+        "semanticScopeVerified": false,
+        "unitId": "49754f65a523ddcd3fd74fca51c96f99b05b301fbcf570df4bf26c76a3ccdf87"
+      },
+      "response": {
+        "hits": [
+          {
+            "id": "head",
+            "score": 0.9,
+            "payload": {
+              "id": "head",
+              "documentId": "42",
+              "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "role": "tender",
+              "metadataVersion": "authored-native-v1",
+              "segmentationVersion": "authored-source-v1",
+              "nativeTableMetadataVersion": "authored-table-v1",
+              "sourceQualityMetadataVersion": "authored-quality-v1",
+              "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "sourceQuality": {
+                "semanticQuality": "unknown"
+              },
+              "clauseId": null,
+              "clauseHeadingLocation": null,
+              "content": "ab",
+              "parts": [
+                {
+                  "blockId": "A",
+                  "text": "ab",
+                  "startOffset": 0,
+                  "endOffset": 2,
+                  "anchor": "p3"
+                }
+              ]
+            }
+          }
+        ],
+        "sourceUnits": {
+          "policy": "unique-source-structural-unit-seeds-v1",
+          "scope": "canonical_observed_structure_only",
+          "originalHitIds": [
+            "head"
+          ],
+          "units": [
+            {
+              "originIds": [
+                "head"
+              ],
+              "kind": "unknown",
+              "status": "unknown",
+              "reason": "ambiguous_document_source_identity",
+              "requiredMemberIds": [],
+              "members": [],
+              "observedRanges": [],
+              "sourceIdentity": {
+                "documentId": "42",
+                "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "role": "tender",
+                "metadataVersion": "authored-native-v1",
+                "segmentationVersion": "authored-source-v1",
+                "nativeTableMetadataVersion": "authored-table-v1",
+                "sourceQualityMetadataVersion": "authored-quality-v1",
+                "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+              },
+              "clauseId": null,
+              "headingLocation": null,
+              "blockIds": [],
+              "derivedMembersCanBecomeOrigins": false,
+              "memberScores": null,
+              "qualifiersComplete": "unknown",
+              "semanticScopeVerified": false,
+              "unitId": "49754f65a523ddcd3fd74fca51c96f99b05b301fbcf570df4bf26c76a3ccdf87",
+              "originalRerankOrdinal": 1,
+              "seedScore": 0.9
+            }
+          ],
+          "rawParentTopKIds": [
+            "head"
+          ],
+          "skippedDuplicateUnitSeeds": [],
+          "derivedMembersCanBecomeOrigins": false,
+          "memberOrder": "canonical_parent_id_lexical",
+          "qualifiersComplete": "unknown",
+          "semanticScopeVerified": false
+        }
+      }
+    },
+    {
+      "name": "part_utf16_mismatch",
+      "parents": [
+        {
+          "id": "head",
+          "documentId": "42",
+          "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "role": "tender",
+          "metadataVersion": "authored-native-v1",
+          "segmentationVersion": "authored-source-v1",
+          "nativeTableMetadataVersion": "authored-table-v1",
+          "sourceQualityMetadataVersion": "authored-quality-v1",
+          "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "sourceQuality": {
+            "semanticQuality": "unknown"
+          },
+          "clauseId": null,
+          "clauseHeadingLocation": null,
+          "content": "😀",
+          "parts": [
+            {
+              "blockId": "A",
+              "text": "😀",
+              "startOffset": 0,
+              "endOffset": 1,
+              "anchor": "p3"
+            }
+          ]
+        }
+      ],
+      "seedId": "head",
+      "resolved": {
+        "originIds": [
+          "head"
+        ],
+        "kind": "unknown",
+        "status": "unknown",
+        "reason": "PART_UTF16_MISMATCH",
+        "requiredMemberIds": [],
+        "members": [],
+        "observedRanges": [],
+        "sourceIdentity": {
+          "documentId": "42",
+          "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "role": "tender",
+          "metadataVersion": "authored-native-v1",
+          "segmentationVersion": "authored-source-v1",
+          "nativeTableMetadataVersion": "authored-table-v1",
+          "sourceQualityMetadataVersion": "authored-quality-v1",
+          "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "clauseId": null,
+        "headingLocation": null,
+        "blockIds": [],
+        "derivedMembersCanBecomeOrigins": false,
+        "memberScores": null,
+        "qualifiersComplete": "unknown",
+        "semanticScopeVerified": false,
+        "unitId": "49754f65a523ddcd3fd74fca51c96f99b05b301fbcf570df4bf26c76a3ccdf87"
+      },
+      "response": {
+        "hits": [
+          {
+            "id": "head",
+            "score": 0.9,
+            "payload": {
+              "id": "head",
+              "documentId": "42",
+              "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "role": "tender",
+              "metadataVersion": "authored-native-v1",
+              "segmentationVersion": "authored-source-v1",
+              "nativeTableMetadataVersion": "authored-table-v1",
+              "sourceQualityMetadataVersion": "authored-quality-v1",
+              "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "sourceQuality": {
+                "semanticQuality": "unknown"
+              },
+              "clauseId": null,
+              "clauseHeadingLocation": null,
+              "content": "😀",
+              "parts": [
+                {
+                  "blockId": "A",
+                  "text": "😀",
+                  "startOffset": 0,
+                  "endOffset": 1,
+                  "anchor": "p3"
+                }
+              ]
+            }
+          }
+        ],
+        "sourceUnits": {
+          "policy": "unique-source-structural-unit-seeds-v1",
+          "scope": "canonical_observed_structure_only",
+          "originalHitIds": [
+            "head"
+          ],
+          "units": [
+            {
+              "originIds": [
+                "head"
+              ],
+              "kind": "unknown",
+              "status": "unknown",
+              "reason": "PART_UTF16_MISMATCH",
+              "requiredMemberIds": [],
+              "members": [],
+              "observedRanges": [],
+              "sourceIdentity": {
+                "documentId": "42",
+                "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "role": "tender",
+                "metadataVersion": "authored-native-v1",
+                "segmentationVersion": "authored-source-v1",
+                "nativeTableMetadataVersion": "authored-table-v1",
+                "sourceQualityMetadataVersion": "authored-quality-v1",
+                "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+              },
+              "clauseId": null,
+              "headingLocation": null,
+              "blockIds": [],
+              "derivedMembersCanBecomeOrigins": false,
+              "memberScores": null,
+              "qualifiersComplete": "unknown",
+              "semanticScopeVerified": false,
+              "unitId": "49754f65a523ddcd3fd74fca51c96f99b05b301fbcf570df4bf26c76a3ccdf87",
+              "originalRerankOrdinal": 1,
+              "seedScore": 0.9
+            }
+          ],
+          "rawParentTopKIds": [
+            "head"
+          ],
+          "skippedDuplicateUnitSeeds": [],
+          "derivedMembersCanBecomeOrigins": false,
+          "memberOrder": "canonical_parent_id_lexical",
+          "qualifiersComplete": "unknown",
+          "semanticScopeVerified": false
+        }
+      }
+    },
+    {
+      "name": "content_not_source_mappable",
+      "parents": [
+        {
+          "id": "head",
+          "documentId": "42",
+          "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "role": "tender",
+          "metadataVersion": "authored-native-v1",
+          "segmentationVersion": "authored-source-v1",
+          "nativeTableMetadataVersion": "authored-table-v1",
+          "sourceQualityMetadataVersion": "authored-quality-v1",
+          "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "sourceQuality": {
+            "semanticQuality": "unknown"
+          },
+          "clauseId": null,
+          "clauseHeadingLocation": null,
+          "content": "transformed",
+          "parts": [
+            {
+              "blockId": "A",
+              "text": "abc",
+              "startOffset": 0,
+              "endOffset": 3,
+              "anchor": "p3"
+            }
+          ]
+        }
+      ],
+      "seedId": "head",
+      "resolved": {
+        "originIds": [
+          "head"
+        ],
+        "kind": "unknown",
+        "status": "unknown",
+        "reason": "UNMAPPED_PARENT_CONTENT",
+        "requiredMemberIds": [],
+        "members": [],
+        "observedRanges": [],
+        "sourceIdentity": {
+          "documentId": "42",
+          "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "role": "tender",
+          "metadataVersion": "authored-native-v1",
+          "segmentationVersion": "authored-source-v1",
+          "nativeTableMetadataVersion": "authored-table-v1",
+          "sourceQualityMetadataVersion": "authored-quality-v1",
+          "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "clauseId": null,
+        "headingLocation": null,
+        "blockIds": [],
+        "derivedMembersCanBecomeOrigins": false,
+        "memberScores": null,
+        "qualifiersComplete": "unknown",
+        "semanticScopeVerified": false,
+        "unitId": "49754f65a523ddcd3fd74fca51c96f99b05b301fbcf570df4bf26c76a3ccdf87"
+      },
+      "response": {
+        "hits": [
+          {
+            "id": "head",
+            "score": 0.9,
+            "payload": {
+              "id": "head",
+              "documentId": "42",
+              "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "role": "tender",
+              "metadataVersion": "authored-native-v1",
+              "segmentationVersion": "authored-source-v1",
+              "nativeTableMetadataVersion": "authored-table-v1",
+              "sourceQualityMetadataVersion": "authored-quality-v1",
+              "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "sourceQuality": {
+                "semanticQuality": "unknown"
+              },
+              "clauseId": null,
+              "clauseHeadingLocation": null,
+              "content": "transformed",
+              "parts": [
+                {
+                  "blockId": "A",
+                  "text": "abc",
+                  "startOffset": 0,
+                  "endOffset": 3,
+                  "anchor": "p3"
+                }
+              ]
+            }
+          }
+        ],
+        "sourceUnits": {
+          "policy": "unique-source-structural-unit-seeds-v1",
+          "scope": "canonical_observed_structure_only",
+          "originalHitIds": [
+            "head"
+          ],
+          "units": [
+            {
+              "originIds": [
+                "head"
+              ],
+              "kind": "unknown",
+              "status": "unknown",
+              "reason": "UNMAPPED_PARENT_CONTENT",
+              "requiredMemberIds": [],
+              "members": [],
+              "observedRanges": [],
+              "sourceIdentity": {
+                "documentId": "42",
+                "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "role": "tender",
+                "metadataVersion": "authored-native-v1",
+                "segmentationVersion": "authored-source-v1",
+                "nativeTableMetadataVersion": "authored-table-v1",
+                "sourceQualityMetadataVersion": "authored-quality-v1",
+                "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+              },
+              "clauseId": null,
+              "headingLocation": null,
+              "blockIds": [],
+              "derivedMembersCanBecomeOrigins": false,
+              "memberScores": null,
+              "qualifiersComplete": "unknown",
+              "semanticScopeVerified": false,
+              "unitId": "49754f65a523ddcd3fd74fca51c96f99b05b301fbcf570df4bf26c76a3ccdf87",
+              "originalRerankOrdinal": 1,
+              "seedScore": 0.9
+            }
+          ],
+          "rawParentTopKIds": [
+            "head"
+          ],
+          "skippedDuplicateUnitSeeds": [],
+          "derivedMembersCanBecomeOrigins": false,
+          "memberOrder": "canonical_parent_id_lexical",
+          "qualifiersComplete": "unknown",
+          "semanticScopeVerified": false
+        }
+      }
+    },
+    {
+      "name": "exact_java_trim_is_supported",
+      "parents": [
+        {
+          "id": "head",
+          "documentId": "42",
+          "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "role": "tender",
+          "metadataVersion": "authored-native-v1",
+          "segmentationVersion": "authored-source-v1",
+          "nativeTableMetadataVersion": "authored-table-v1",
+          "sourceQualityMetadataVersion": "authored-quality-v1",
+          "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "sourceQuality": {
+            "semanticQuality": "unknown"
+          },
+          "clauseId": null,
+          "clauseHeadingLocation": null,
+          "content": "abc",
+          "parts": [
+            {
+              "blockId": "A",
+              "text": "  abc  ",
+              "startOffset": 0,
+              "endOffset": 7,
+              "anchor": "p3"
+            }
+          ]
+        }
+      ],
+      "seedId": "head",
+      "resolved": {
+        "originIds": [
+          "head"
+        ],
+        "kind": "observed_source_blocks",
+        "status": "complete_observed_unit",
+        "reason": null,
+        "requiredMemberIds": [
+          "head"
+        ],
+        "members": [
+          {
+            "id": "head",
+            "documentId": "42",
+            "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "role": "tender",
+            "metadataVersion": "authored-native-v1",
+            "segmentationVersion": "authored-source-v1",
+            "nativeTableMetadataVersion": "authored-table-v1",
+            "sourceQualityMetadataVersion": "authored-quality-v1",
+            "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "sourceQuality": {
+              "semanticQuality": "unknown"
+            },
+            "clauseId": null,
+            "clauseHeadingLocation": null,
+            "content": "abc",
+            "parts": [
+              {
+                "blockId": "A",
+                "text": "  abc  ",
+                "startOffset": 0,
+                "endOffset": 7,
+                "anchor": "p3"
+              }
+            ]
+          }
+        ],
+        "observedRanges": [
+          {
+            "blockId": "A",
+            "startUtf16": 0,
+            "endUtf16": 7,
+            "status": "observed_canonical_ranges_zero_gap",
+            "sourceBlockComplete": null
+          }
+        ],
+        "sourceIdentity": {
+          "documentId": "42",
+          "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "role": "tender",
+          "metadataVersion": "authored-native-v1",
+          "segmentationVersion": "authored-source-v1",
+          "nativeTableMetadataVersion": "authored-table-v1",
+          "sourceQualityMetadataVersion": "authored-quality-v1",
+          "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "clauseId": null,
+        "headingLocation": null,
+        "blockIds": [
+          "A"
+        ],
+        "derivedMembersCanBecomeOrigins": false,
+        "memberScores": null,
+        "qualifiersComplete": "unknown",
+        "semanticScopeVerified": false,
+        "unitId": "1222f338f50a1b08439ce50db8a1f407f5f49431b569219b6e5db8134ccf22b3"
+      },
+      "response": {
+        "hits": [
+          {
+            "id": "head",
+            "score": 0.9,
+            "payload": {
+              "id": "head",
+              "documentId": "42",
+              "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "role": "tender",
+              "metadataVersion": "authored-native-v1",
+              "segmentationVersion": "authored-source-v1",
+              "nativeTableMetadataVersion": "authored-table-v1",
+              "sourceQualityMetadataVersion": "authored-quality-v1",
+              "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "sourceQuality": {
+                "semanticQuality": "unknown"
+              },
+              "clauseId": null,
+              "clauseHeadingLocation": null,
+              "content": "abc",
+              "parts": [
+                {
+                  "blockId": "A",
+                  "text": "  abc  ",
+                  "startOffset": 0,
+                  "endOffset": 7,
+                  "anchor": "p3"
+                }
+              ]
+            }
+          }
+        ],
+        "sourceUnits": {
+          "policy": "unique-source-structural-unit-seeds-v1",
+          "scope": "canonical_observed_structure_only",
+          "originalHitIds": [
+            "head"
+          ],
+          "units": [
+            {
+              "originIds": [
+                "head"
+              ],
+              "kind": "observed_source_blocks",
+              "status": "complete_observed_unit",
+              "reason": null,
+              "requiredMemberIds": [
+                "head"
+              ],
+              "members": [
+                {
+                  "id": "head",
+                  "documentId": "42",
+                  "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                  "role": "tender",
+                  "metadataVersion": "authored-native-v1",
+                  "segmentationVersion": "authored-source-v1",
+                  "nativeTableMetadataVersion": "authored-table-v1",
+                  "sourceQualityMetadataVersion": "authored-quality-v1",
+                  "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+                  "sourceQuality": {
+                    "semanticQuality": "unknown"
+                  },
+                  "clauseId": null,
+                  "clauseHeadingLocation": null,
+                  "content": "abc",
+                  "parts": [
+                    {
+                      "blockId": "A",
+                      "text": "  abc  ",
+                      "startOffset": 0,
+                      "endOffset": 7,
+                      "anchor": "p3"
+                    }
+                  ]
+                }
+              ],
+              "observedRanges": [
+                {
+                  "blockId": "A",
+                  "startUtf16": 0,
+                  "endUtf16": 7,
+                  "status": "observed_canonical_ranges_zero_gap",
+                  "sourceBlockComplete": null
+                }
+              ],
+              "sourceIdentity": {
+                "documentId": "42",
+                "sourceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "role": "tender",
+                "metadataVersion": "authored-native-v1",
+                "segmentationVersion": "authored-source-v1",
+                "nativeTableMetadataVersion": "authored-table-v1",
+                "sourceQualityMetadataVersion": "authored-quality-v1",
+                "sourceQualityHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+              },
+              "clauseId": null,
+              "headingLocation": null,
+              "blockIds": [
+                "A"
+              ],
+              "derivedMembersCanBecomeOrigins": false,
+              "memberScores": null,
+              "qualifiersComplete": "unknown",
+              "semanticScopeVerified": false,
+              "unitId": "1222f338f50a1b08439ce50db8a1f407f5f49431b569219b6e5db8134ccf22b3",
+              "originalRerankOrdinal": 1,
+              "seedScore": 0.9
+            }
+          ],
+          "rawParentTopKIds": [
+            "head"
+          ],
+          "skippedDuplicateUnitSeeds": [],
+          "derivedMembersCanBecomeOrigins": false,
+          "memberOrder": "canonical_parent_id_lexical",
+          "qualifiersComplete": "unknown",
+          "semanticScopeVerified": false
+        }
+      }
+    }
+  ]
+}

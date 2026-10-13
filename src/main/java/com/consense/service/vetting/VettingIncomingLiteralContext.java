@@ -137,6 +137,7 @@ public final class VettingIncomingLiteralContext {
     private static String canonicalSourceStatus(Chunk c) {
         if(nvl(c.getDocumentId()).isEmpty()||!nvl(c.getSourceHash()).matches("[a-f0-9]{64}")
                 ||!Arrays.asList("tender","standard","project_fact","package_manifest").contains(c.getRole()))return "unknown_incoming_source_identity";
+        if(c.getCanonicalPayload()!=null||c.getCanonicalEvidence()!=null){String state=OerBusinessEvidence.canonicalViewStatus(c);return state==null?"source_bound":state;}
         if(!VettingCorpus.METADATA_VERSION.equals(c.getMetadataVersion())||!VettingCorpus.SEGMENTATION_VERSION.equals(c.getSegmentationVersion())
                 ||!VettingCorpus.NATIVE_TABLE_METADATA_VERSION.equals(c.getNativeTableMetadataVersion())
                 ||!VettingSourceQuality.VERSION.equals(c.getSourceQualityMetadataVersion())||c.getSourceQuality()==null

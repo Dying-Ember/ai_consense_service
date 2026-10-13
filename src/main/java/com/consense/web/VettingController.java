@@ -32,8 +32,9 @@ public class VettingController {
     @PostMapping("/package/upload")
     public ApiResponse<UploadResultVO> upload(@PathVariable String projectId,
                                               @RequestParam("files") List<MultipartFile> files,
-                                              @RequestParam(required = false) String sourceRole) {
-        return ApiResponse.ok(vettingService.uploadPackage(projectId, files, sourceRole));
+                                              @RequestParam(required = false) String sourceRole,
+                                              @RequestParam(required = false) String documentScope) {
+        return ApiResponse.ok(vettingService.uploadPackage(projectId, files, sourceRole,documentScope));
     }
 
     @PostMapping("/run")
@@ -58,6 +59,16 @@ public class VettingController {
         return ApiResponse.ok(vettingService.getRun(projectId, id));
     }
 
+    @GetMapping("/runs/latest/progress")
+    public ApiResponse<VettingProgressVO> latestProgress(@PathVariable String projectId) {
+        return ApiResponse.ok(vettingService.latestProgress(projectId));
+    }
+
+    @GetMapping("/runs/{id}/progress")
+    public ApiResponse<VettingProgressVO> getProgress(@PathVariable String projectId, @PathVariable String id) {
+        return ApiResponse.ok(vettingService.getProgress(projectId,id));
+    }
+
     @GetMapping("/findings")
     public ApiResponse<List<FindingVO>> findings(@PathVariable String projectId,
                                                  @RequestParam(required = false) String search,
@@ -76,8 +87,9 @@ public class VettingController {
     @PostMapping("/findings/{code}/status")
     public ApiResponse<FindingVO> updateStatus(@PathVariable String projectId,
                                                @PathVariable String code,
-                                               @RequestParam String status) {
-        return ApiResponse.ok(vettingService.updateStatus(projectId, code, status));
+                                               @RequestParam String status,@RequestParam(required=false) String expectedRunId,
+                                               @RequestParam(required=false) String expectedGeneratedRevisionSha256,@RequestParam(required=false) String expectedSourceSnapshotSha256) {
+        return ApiResponse.ok(vettingService.updateStatus(projectId,code,status,expectedRunId,expectedGeneratedRevisionSha256,expectedSourceSnapshotSha256));
     }
 
     @PutMapping("/findings/{code}/review")
@@ -95,8 +107,8 @@ public class VettingController {
 
     @GetMapping("/sources/{documentId}/original")
     public ResponseEntity<FileSystemResource> original(@PathVariable String projectId,@PathVariable long documentId,
-                                                       @RequestParam String sourceHash) {
-        VettingService.OriginalSource source=vettingService.originalSource(projectId,documentId,sourceHash);
+                                                       @RequestParam String sourceHash,@RequestParam(required=false) String originalSourceSha256) {
+        VettingService.OriginalSource source=vettingService.originalSource(projectId,documentId,sourceHash,originalSourceSha256);
         boolean pdf=source.getFileName().toLowerCase(java.util.Locale.ROOT).endsWith(".pdf");
         return ResponseEntity.ok().contentLength(source.getSize())
                 .contentType(pdf?MediaType.APPLICATION_PDF:MediaType.APPLICATION_OCTET_STREAM)

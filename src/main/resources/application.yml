@@ -51,9 +51,7 @@ consense:
   # 上传文件落盘目录（相对 service 运行目录）
   storage-root: "${CONSENSE_STORAGE_ROOT:./data/uploads}"
   cors:
-    # 使用 originPatterns：允许任意局域网 IP 的 5173 前端（浏览器从 LAN IP 访问时 Origin 不再被 403）。
-    # 默认值用 http*://*:5173（pattern 由 Spring 在 WebConfig 里转成 allowedOriginPatterns），
-    # 以便用户在 localhost / 127.0.0.1 / 局域网 IP（如 10.148.2.62）访问前端时 CORS 都能通过。
+    # 使用 originPatterns：允许任意局域网 IP 的 5173 前端（浏览器从 LAN IP 访问时 Origin 不再被 403）
     allowed-origins: "${CONSENSE_ALLOWED_ORIGINS:http*://*:5173}"
 
   # ---------------- 本地大模型（Ollama） ----------------
@@ -72,7 +70,7 @@ consense:
   minimax-cn:
     enabled: "${CONSENSE_MINIMAX_ENABLED:true}"
     provider: openai
-    base-url: "${CONSENSE_MINIMAX_BASE_URL:https://api.minimax.cn/v1}"
+    base-url: "${CONSENSE_MINIMAX_BASE_URL:https://api.minimax.cn}"
     chat-model: MiniMax-M3
     # Dedicated alias accepts either a relay token or a direct provider key; legacy variable stays compatible.
     api-key: ${CONSENSE_MINIMAX_API_KEY:${MiniMaxCN_Token_Plan_API_Key:}}
@@ -117,7 +115,7 @@ consense:
 
   # ---------------- 业务规则 ----------------
   vetting:
-    # 主观风险条款每次产出上限（对应设计稿 Skill 3 规则 7）
+    # Legacy configuration is accepted for compatibility; findings are no longer capped.
     max-risk-findings: 10
     # 只审查相对标准模板基线改动过的内容
     diff-against-baseline: true

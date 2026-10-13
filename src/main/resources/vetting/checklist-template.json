@@ -1,0 +1,485 @@
+[
+  {
+    "id": "APP-I-001",
+    "section": "THE SPECIFICATION (PAGE SP/1)",
+    "clause": "1. Item 1",
+    "description": "If the Hong Kong Government General Specification for Civil Engineering Works, 2020 Edition (GS CEW) is to form the Specification, ensure to state which parts of the Works are subject to GS CEW.",
+    "templatePage": 1
+  },
+  {
+    "id": "APP-I-002",
+    "section": "GENERALLY",
+    "clause": "1. All clauses",
+    "description": "- Ensure clauses have been correctly selected according to the type of contract and/or criteria as indicated in the Guidance Note of the respective clauses in SL.",
+    "templatePage": 1
+  },
+  {
+    "id": "APP-I-003",
+    "section": "GENERALLY",
+    "clause": "1. All clauses",
+    "description": "- Ensure the suffix of the Specification clauses is changed to \".P\" as appropriate for any project-specific amendments made, including the selection of the alternative / option as indicated in the various Guidance Notes in the SL.",
+    "templatePage": 1
+  },
+  {
+    "id": "APP-I-004",
+    "section": "GENERALLY",
+    "clause": "1. All clauses",
+    "description": "- Ensure new/revised Specification clauses as promulgated under recently issued DCMBIs and Technical Feedbacks have been suitably incorporated.",
+    "templatePage": 1
+  },
+  {
+    "id": "APP-I-005",
+    "section": "GENERALLY",
+    "clause": "1. All clauses",
+    "description": "- For words and expressions used in the project-specific Specification clauses which are intended to mean the defined words and expressions under GCC Clause 1.1 and other clauses of GCC for building works contracts, ensure the defined words and expressions under GCC are adopted and the capitalization thereof (if applicable) is followed wherever it suits the Contract Team's intention. Some non-exhaustive examples include - - \"site\" (vs. \"Site\" under GCC Clause 1.1); - \"works\" (vs. \"Works\" under GCC Clause 1.1); - \"contract\" (vs. \"Contract\" under GCC Clause 1.1); - \"utility companies\" / \"utility undertakers\" (vs. \"Utility Undertaking\" under GCC Clause 1.1); - \"date of commencement of the Works\" / \"commencement of the Contract\" (vs. \"the notified date for commencement of the Works\" under GCC Clause 8.1), etc.",
+    "templatePage": 1
+  },
+  {
+    "id": "APP-I-006",
+    "section": "GENERALLY",
+    "clause": "1. All clauses (Cont’d)",
+    "description": "- Avoid using statement such as \"no claims for extension of time or cost or whatsoever will be entertained\" in the project-specific Specification clauses since whether the Contractor is entitled to extension of time and/or additional costs is governed by the Conditions of Contract.",
+    "templatePage": 2
+  },
+  {
+    "id": "APP-I-007",
+    "section": "GENERALLY",
+    "clause": "2. All clauses",
+    "description": "As a gentle reminder, where the works described in PRE clauses are stated with phrases like \"when instructed / if instructed / as instructed by the CM\", such kind of descriptions may be interpreted by the Contractor as either - (i) the works is required and provided for under the Contract, while the timing of execution or the actual location of the works is subject to the CM's instruction, or (ii) the work itself is provisional or optional and may not be required. For the case where the Contract Team considers the works are to be executed certainly (only the exact timing or location of the works is yet to be ascertained), but the Contractor interprets such works \"if instructed\" as optional, the Contractor may argue that the subsequent CM's instruction for confirmation of timing of execution or location of such works constitutes a Variation under the Contract. In the former case (i), avoid the use of phrases like \"if instructed\" or similar for the works to be executed certainly. If the Contract Team intends to clarify that the exact timing or location of the required works is yet to be ascertained, please consider stating that the exact timing of execution or the location of the works is subject to CM's direction. In the latter case (ii), PQS is to review whether works that are described as \"if instructed\" or similar in PRE clauses shall, where they are optional, be measured separately in the Bills of Quantities as items of provisional quantity as appropriate.",
+    "templatePage": 2
+  },
+  {
+    "id": "APP-I-008",
+    "section": "GENERALLY",
+    "clause": "3. All appendices",
+    "description": "Ensure the clause number, the appendix reference in the heading and the header at top right corner of each page tally with each other.",
+    "templatePage": 2
+  },
+  {
+    "id": "APP-I-009",
+    "section": "PRE.B2",
+    "clause": "1. PRE.B2.010",
+    "description": "Ensure only major items of the Works described in broad terms have been listed under this clause. The purpose of this clause is to provide a generic description of the Works. It is not intended to list out every single detail of the Works to be executed by the Contractor to cover his financial obligations under this clause. Indeed, the financial obligations of the Works shall be included in the items as set out in Bills of Quantities, measured in accordance with the principles of measurement laid down in SMM and priced by the Contractor. Detailed descriptions should therefore be included in other relevant parts of PRE or technical Worksections of the Specification.",
+    "templatePage": 3
+  },
+  {
+    "id": "APP-I-010",
+    "section": "PRE.B3",
+    "clause": "1. PRE.B3.020",
+    "description": "Ensure the Site boundary is precisely delineated on the Drawing. Attention is drawn to \"Site\" as defined in GCC Clause 1.1 which means \"the lands and other places provided by the Employer for the purpose of the execution of the Works\". Whether an area is outside estate boundary or the Contractor will only be given non-exclusive possession of an area or the Contractor will have to obtain permission from Government departments/other parties to carry out the Works in an area will not prevent such area from being included within the boundary of the Site. The Contract Team should only consider the works as \"works outside the boundary of the Site\" in exceptional case.",
+    "templatePage": 3
+  },
+  {
+    "id": "APP-I-011",
+    "section": "PRE.B3",
+    "clause": "2. PRE.B3.040",
+    "description": "Ensure the kinds of works required to be carried out below high water levels have been specified precisely in this clause.",
+    "templatePage": 3
+  },
+  {
+    "id": "APP-I-012",
+    "section": "PRE.B4",
+    "clause": "1. PRE.B4.030 sub-clause 1",
+    "description": "Ensure time of availability of working drawings and details for architectural, structural, geotechnical, landscape and civil works (if any, subject to the scope of the Works) have been specified in this sub-clause.",
+    "templatePage": 3
+  },
+  {
+    "id": "APP-I-013",
+    "section": "PRE.B4",
+    "clause": "2. PRE.B4.035 sub-clause 1",
+    "description": "Ensure design work items included in different stages of submission (i.e. Type Ma Stage 1, Stage 2 and so on, and Type Mi) are properly stated. Examples that are considered not stated properly may include the following - a. same design work item appears in two or more stages of submission; b. design work item stated under PRE.B4.035 is not one of the design work items included in PRE.B6.085; c. neither performance criteria nor design requirements are included in technical Worksections of the Specification for design work item stated under PRE.B4.035.",
+    "templatePage": 3
+  },
+  {
+    "id": "APP-I-014",
+    "section": "PRE.B4",
+    "clause": "3. PRE.B4.035 sub-clause 3, PRE.B6.085 sub-clause 3(c)",
+    "description": "Ensure the time allowed for processing of submissions (including first submission and each re-submission) to the CM for approval in relation to the works designed by the Contractor specified in these sub-clauses are in line with each other. Also ensure they are in line with the requirement specified in any project-specific PRE sub-clause(s) under PRE.B4.040, PRE.B9.630, etc. where added by the Contract Team.",
+    "templatePage": 4
+  },
+  {
+    "id": "APP-I-015",
+    "section": "PRE.B4",
+    "clause": "4. PRE.B4.085 sub-clause 1(b)(i)",
+    "description": "Ensure the time of submission of record plans for works designed by the Contractor prior to completion of the Works specified in this sub-clause is in line with the requirement specified in any project-specific PRE sub-clause(s) under PRE.B6.085, PRE.B9.630, etc. where added by the Contract Team.",
+    "templatePage": 4
+  },
+  {
+    "id": "APP-I-016",
+    "section": "PRE.B6",
+    "clause": "1. PRE.B6.035 sub-clause 10 and PRE.B9.210",
+    "description": "Ensure the list of specialist works to be carried out by the approved contractors listed in PRE.B6.035 sub-clause 10 match with the list specified in PRE.B9.210.",
+    "templatePage": 4
+  },
+  {
+    "id": "APP-I-017",
+    "section": "PRE.B6",
+    "clause": "2. PRE.B6.050",
+    "description": "As a gentle reminder, the Contractor shall submit the programme to the CM within 14 days of the date of the Letter of Acceptance (save as otherwise specified in the Contract) under GCC Clause 5.7. The time frame of \"within 14 days of the date of the Letter of Acceptance\" for the submission of the programme as referred to in GCC Clause 5.7 is stated in the template of Letter of Acceptance DCT-F22. Where the Contract Team intends to specify a different time frame (instead of \"within 14 days of the date of the Letter of Acceptance\") for the submission of the programme as referred to in GCC Clause 5.7 on a project-specific basis in PRE.B6.050, be aware that the specified time frame (instead of \"within 14 days of the date of the Letter of Acceptance\" as stated in the template) should be adopted in the Letter of Acceptance.",
+    "templatePage": 4
+  },
+  {
+    "id": "APP-I-018",
+    "section": "PRE.B6",
+    "clause": "3. PRE.B6.060 sub-clause 1",
+    "description": "Ensure the members of the Contractor's Management Team stated under 1st list of sub-clause 1 are under the direct employment of the Contractor. Remove from the 1st list of sub-clause 1 those superintendents who are not required to be under direct employment. If there is any exclusion of superintendents from the 1st list under sub-clause 1, exclude the same superintendents from the 2nd list of sub-clause 1 if necessary. If any superintendents listed in the 1st list are not required to be full-time, please also identify them in the 2nd list of sub-clause 1.",
+    "templatePage": 4
+  },
+  {
+    "id": "APP-I-019",
+    "section": "PRE.B6",
+    "clause": "4. PRE.B6.060 sub-clauses 4 and 5 and PRE.B8.1425 sub-clause 3",
+    "description": "Ensure the number of AQCC and SQCC in PRE.B6.060 sub-clauses 4 and 5 where stated by the Contract Team ties in with that specified in PRE.B8.1425 sub-clause 3.",
+    "templatePage": 5
+  },
+  {
+    "id": "APP-I-020",
+    "section": "PRE.B6",
+    "clause": "5. PRE.B6.060 sub-clauses 33 and 35",
+    "description": "Ensure the appointed superintendents attaining the required safety training qualification listed in PRE.B6.060 sub-clauses 33 and 35 are properly edited to match with those applicable to the Contract but do not add other superintendents that are not present in sub-clauses 33 and 35.",
+    "templatePage": 5
+  },
+  {
+    "id": "APP-I-021",
+    "section": "PRE.B6",
+    "clause": "6. PRE.B6.085 sub-clauses 1(e) and 1(f)",
+    "description": "a. Ensure Supervising AD's approval on the work items tabulated in PRE.B6.085 sub-clauses 1(e) and 1(f) for which the Contractor shall take up the design responsibility has been obtained.",
+    "templatePage": 5
+  },
+  {
+    "id": "APP-I-022",
+    "section": "PRE.B6",
+    "clause": "6. PRE.B6.085 sub-clauses 1(e) and 1(f)",
+    "description": "b. Ensure the design intent and the Employer's requirements of all the listed work items have been precisely indicated in the Specification clauses listed in this clause and the drawings listed in PRE.B6.APPEND5.",
+    "templatePage": 5
+  },
+  {
+    "id": "APP-I-023",
+    "section": "PRE.B6",
+    "clause": "6. PRE.B6.085 sub-clauses 1(e) and 1(f)",
+    "description": "c. Ensure the Specification has adequately described the performance criteria and the design requirements for all the listed work items.",
+    "templatePage": 5
+  },
+  {
+    "id": "APP-I-024",
+    "section": "PRE.B6",
+    "clause": "6. PRE.B6.085 sub-clauses 1(e) and 1(f)",
+    "description": "d. Ensure Specification clause references have all been inserted against each of the work items tabulated in PRE.B6.085 sub-clauses 1(e) and 1(f) and such clause references are properly and correctly stated.",
+    "templatePage": 5
+  },
+  {
+    "id": "APP-I-025",
+    "section": "PRE.B6",
+    "clause": "7. PRE.B6.300",
+    "description": "As referred to in Guidance Notes for this clause, the purpose of the inclusion of the list of materials is to streamline the process for interim payment valuation in respect of materials on Site. Ensure only major and cost significant items are included in the lists of materials.",
+    "templatePage": 5
+  },
+  {
+    "id": "APP-I-026",
+    "section": "PRE.B6",
+    "clause": "8. PRE.B6.590",
+    "description": "As referred to in Guidance Notes for this clause, this warranty on Waterproofing System Installation is required only in areas where the Waterproofing System Installation are sensitive to water leakage and require immediate rectification before detailed investigation can be carried out and the water leakage cannot be readily attributable to defects in materials and workmanship of the Waterproofing System installed; but normally not required for water tanks of waterproofed concrete construction and in single-storey buildings in external areas. Ensure the guiding principles in the Guidance Notes are followed as far as possible.",
+    "templatePage": 5
+  },
+  {
+    "id": "APP-I-027",
+    "section": "PRE.B6",
+    "clause": "9. PRE.B6.650",
+    "description": "Where project specific works and/or services for the taking care of the Works after completion have been added by the Contract Team, ensure only those works and/or services that shall be subject to the instruction by the CM are added under PRE.B6.650. Remove those post-completion works and/or services (if any) which must be executed certainly, and relocate them to other relevant parts of PRE or technical Worksections of the Specification. For those post-completion works and/or services which must be executed certainly, PQS please ensure the related BQ items are provided in the appropriate Bill(s) (but not in Bill for Taking Care of the Works after Completion) for the tenderers to price for them.",
+    "templatePage": 6
+  },
+  {
+    "id": "APP-I-028",
+    "section": "PRE.B6",
+    "clause": "10. PRE.B6.810 sub-clause 1",
+    "description": "Ensure only the Portion(s) of the Site that are subject to provisions under Clause SCC22.3(11) are specified in PRE.B6.810 sub-clause 1. Do not include any area outside the boundary of the Site that is subject to conditions of Excavation Permits under PRE.B6.810 sub-clause 1. For any area outside the boundary of the Site that is subject to conditions of Excavation Permits, consider inserting project specific specification clauses to indicate relevant requirements and the Contractor's obligations for such area in appropriate Worksections of the Specification as necessary.",
+    "templatePage": 6
+  },
+  {
+    "id": "APP-I-029",
+    "section": "PRE.B6",
+    "clause": "11. PRE.B6.APPEND5",
+    "description": "a. Ensure the items listed here have corresponded to those Contractor's design items listed under PRE.B6.085 sub-clauses 1(e) and 1(f).",
+    "templatePage": 6
+  },
+  {
+    "id": "APP-I-030",
+    "section": "PRE.B6",
+    "clause": "11. PRE.B6.APPEND5",
+    "description": "b. Ensure the listed drawings issued for all Contractor's design items are for indication of design intent only, and the same purpose has been stated explicitly on these drawings.",
+    "templatePage": 6
+  },
+  {
+    "id": "APP-I-031",
+    "section": "PRE.B6",
+    "clause": "11. PRE.B6.APPEND5",
+    "description": "c. Ensure the drawing numbers listed in this Appendix match with those stated in \"Appendix B - List of Contract Drawings\" to the Specification.",
+    "templatePage": 6
+  },
+  {
+    "id": "APP-I-032",
+    "section": "PRE.B7",
+    "clause": "1. PRE.B7.070",
+    "description": "a. Ensure abbreviations used in PRE clauses have been defined under this clause.",
+    "templatePage": 6
+  },
+  {
+    "id": "APP-I-033",
+    "section": "PRE.B7",
+    "clause": "1. PRE.B7.070",
+    "description": "b. \"TD\" has been denoted under PRE.B6.060 sub-clause 18 as \"Technical Director\". Should the Contract Team need to mention \"Transport Department\" in PRE clauses, avoid the use of the abbreviation \"TD\" for \"Transport Department\".",
+    "templatePage": 6
+  },
+  {
+    "id": "APP-I-034",
+    "section": "PRE.B8",
+    "clause": "1. PRE.B8.241 sub-clauses 1, 8 and 10, PRE.B8.APPEND10 and PRE.B8.APPEND11",
+    "description": "Ensure major construction plant subject to overhaul requirements listed in PRE.B8.241 sub-clauses 1, 8 and 10, Appendices PRE.B8.APPEND10 and PRE.B8.APPEND11 are in line with each other.",
+    "templatePage": 7
+  },
+  {
+    "id": "APP-I-035",
+    "section": "PRE.B8",
+    "clause": "2. PRE.B8.510, PRE.B8.520, PRE.B8.610, PRE.B8.892, PRE.B8.1995, PRE.B8.2810, PRE.B8.2820, PRE.B8.4030 and PRE.B8.APPEND9",
+    "description": "a. Ensure the version of the \"BEAM Plus New Buildings\" specified in these clauses are the correct version applicable to the Contract and they are in line with each other.",
+    "templatePage": 7
+  },
+  {
+    "id": "APP-I-036",
+    "section": "PRE.B8",
+    "clause": "2. PRE.B8.510, PRE.B8.520, PRE.B8.610, PRE.B8.892, PRE.B8.1995, PRE.B8.2810, PRE.B8.2820, PRE.B8.4030 and PRE.B8.APPEND9",
+    "description": "b. Ensure the BEAM Plus credits and prerequisites listed under PRE.B8.2820 sub-clauses 1 and 2 and tabulated in PRE.B8.APPEND9 are relevant to this Contract and in line with each other.",
+    "templatePage": 7
+  },
+  {
+    "id": "APP-I-037",
+    "section": "PRE.B8",
+    "clause": "2. PRE.B8.510, PRE.B8.520, PRE.B8.610, PRE.B8.892, PRE.B8.1995, PRE.B8.2810, PRE.B8.2820, PRE.B8.4030 and PRE.B8.APPEND9",
+    "description": "c. Ensure the clauses references in PRE.B8.APPEND9 are correct.",
+    "templatePage": 7
+  },
+  {
+    "id": "APP-I-038",
+    "section": "PRE.B8",
+    "clause": "3. PRE.B8.2540",
+    "description": "Ensure checking frequency and correct PRE clause references have been stated against all items in this clause.",
+    "templatePage": 7
+  },
+  {
+    "id": "APP-I-039",
+    "section": "PRE.B8",
+    "clause": "4. PRE.B8.2710 to PRE.B8.2740",
+    "description": "PRE.B8.2710 to PRE.B8.2740 are referred to in PRE.B3.060 sub-clause 7 and PRE.B6.810 sub-clause 2 to specify the requirements for works on \"Street Maintained by the Highways Department\", and the requirements therein may not be applicable for works on \"areas maintained by the parties other than the Highways Department\". Should the Contract involve excavation works on \"areas maintained by the parties other than the Highways Department\" that require an Excavation Permit, and the Contract Team considers it necessary to specify relevant requirements for such areas, please insert project-specific Specification clause(s) to specify such requirements as new clause(s) after PRE.B8.2740, and consider cross-referencing such new clause(s) in PRE.B6.810 sub-clause 3; please also add \"OR AREAS MAINTAINED BY OTHERS\" to the end of the Section heading \"WORKS ON STREET MAINTAINED BY HIGHWAYS DEPARTMENT\" above PRE.B8.2710.",
+    "templatePage": 8
+  },
+  {
+    "id": "APP-I-040",
+    "section": "PRE.B8",
+    "clause": "5. PRE.B8.4030 sub-clause 2(c)(ii)",
+    "description": "Should there be any Government Entrusted Works included in this Contract, ensure this sub-clause 2(c)(ii) has been adopted and such Government Entrusted Works have been delineated on the Drawings. Also ensure relevant drawing number has been inserted in this sub-clause.",
+    "templatePage": 8
+  },
+  {
+    "id": "APP-I-041",
+    "section": "PRE.B8",
+    "clause": "6. PRE.B8.APPEND12",
+    "description": "Ensure the time for submission of material storage location plan to the CM has been inserted in Item (a) under the heading \"3.3 Storage\".",
+    "templatePage": 8
+  },
+  {
+    "id": "APP-I-042",
+    "section": "PRE.B9",
+    "clause": "1. PRE.B9.116",
+    "description": "Ensure documentations tabulated in PRE.B9.116 are relevant to this Contract.",
+    "templatePage": 9
+  },
+  {
+    "id": "APP-I-043",
+    "section": "PRE.B9",
+    "clause": "2. PRE.B9.530 and PRE.B11.010 sub-clause 3",
+    "description": "Ensure the list of tests to be carried out by Direct Testing Contractor(s) specified in PRE.B9.530 is in line with the list in PRE.B11.010 sub-clause 3.",
+    "templatePage": 9
+  },
+  {
+    "id": "APP-I-044",
+    "section": "PRE.B10",
+    "clause": "1. PRE.B10.580 to PRE.B10.586",
+    "description": "If any of CTA(S), CTA(A), CTA(BS), CTA(BW), CTA(BSS) or CTA(WS) will not be procured under this Contract, ensure - a. sub-clauses corresponding to such inapplicable CTA will be marked as \"Not used\", and irrelevant phrases in relation to such inapplicable CTA will be deleted under PRE.B10.580; and b. the corresponding PRE clause(s) regarding the job specification of such inapplicable CTA (PRE.B10.581 to PRE.B10.586) are not included in the Specification.",
+    "templatePage": 9
+  },
+  {
+    "id": "APP-I-045",
+    "section": "PRE.B10",
+    "clause": "2. PRE.B10.710 and PRE.B10.720",
+    "description": "a. Ensure the types and extents of different hoardings have been clearly indicated on the contract drawings and are in line with the following hoarding works as described in PRE.B10.710 and PRE.B10.720 where applicable - i. Existing hoardings to be taken over from previous contractor and maintained / modified / demolished by the Contractor; and ii. New hoardings to be erected by the Contractor.",
+    "templatePage": 9
+  },
+  {
+    "id": "APP-I-046",
+    "section": "PRE.B10",
+    "clause": "2. PRE.B10.710 and PRE.B10.720",
+    "description": "b. Review by PQS whether it is required to reflect in the Bills of Quantities if the \"modification\" / \"conversion\" of hoardings stated in the drawings will most probably involve demolition and removal of existing hoardings and construction of new hoardings.",
+    "templatePage": 9
+  },
+  {
+    "id": "APP-I-047",
+    "section": "PRE.B10",
+    "clause": "3. PRE.B10.710 sub-clauses 13 and 14, PRE.B10.720 sub-clause 3",
+    "description": "Ensure the frequency of submission of safety certificate for existing hoardings erected by previous contractor / newly erected hoardings specified in these sub-clauses are in line with each other. Also ensure they are in line with the requirement specified in any project-specific PRE sub-clause under PRE.B10.010, etc. where added by the Contract Team.",
+    "templatePage": 9
+  },
+  {
+    "id": "APP-I-048",
+    "section": "PRE.B10",
+    "clause": "4. PRE.B10.1110",
+    "description": "Ensure the number of publicity boards/accident statistic boards stated in this clause is in line with the number shown on the Drawings and measured in the Bills of Quantities by PQS.",
+    "templatePage": 9
+  },
+  {
+    "id": "APP-I-049",
+    "section": "PRE.B11",
+    "clause": "1. PRE.B11.010 and PRE.B12",
+    "description": "a. Ensure that if any special attendance provided by the Contractor to the works of Direct Contractors and Direct Testing Contractors has been specified under PRE.B12.510 to PRE.B12.590, such works by Direct Contractors and Direct Testing Contractors have also been listed in PRE.B11.010 sub-clauses 2 and 3.",
+    "templatePage": 10
+  },
+  {
+    "id": "APP-I-050",
+    "section": "PRE.B11",
+    "clause": "1. PRE.B11.010 and PRE.B12",
+    "description": "b. Ensure that if any special attendance provided by the Contractor to the works of Utility Undertaking has been specified under PRE.B12.620 to PRE.B12.640, such works by Utility Undertaking have also been listed in PRE.B11.010 sub-clause 1.",
+    "templatePage": 10
+  },
+  {
+    "id": "APP-I-051",
+    "section": "PRE.B11",
+    "clause": "1. PRE.B11.010 and PRE.B12",
+    "description": "c. Review by PQS whether BQ items for pricing of attendance for Government Departments, Utility Undertaking, Direct Contractors and Direct Testing Contractors in the Bill for Prime Cost and Provisional Sums are in line with the lists in PRE.B11.010.",
+    "templatePage": 10
+  },
+  {
+    "id": "APP-I-052",
+    "section": "PRE.B12",
+    "clause": "1. PRE.B12.720",
+    "description": "Ensure Direct Contractors specified under PRE.B12.720 have been included in PRE.B11.010 sub-clause 2.",
+    "templatePage": 10
+  },
+  {
+    "id": "APP-I-053",
+    "section": "PRE.B12",
+    "clause": "2. PRE.B12.730",
+    "description": "Ensure Utility Undertaking specified under PRE.B12.730 have been included in PRE.B11.010 sub-clause 1.",
+    "templatePage": 10
+  },
+  {
+    "id": "APP-I-054",
+    "section": "PRE.B12",
+    "clause": "3. PRE.B12.920",
+    "description": "Ensure the installations specified under PRE.B12.920 are applicable to the Contract.",
+    "templatePage": 10
+  },
+  {
+    "id": "APP-I-055",
+    "section": "PRE.B12",
+    "clause": "4. Builder’s works for building services installations mentioned in PRE.B12 (See Annex 1 to this Appendix)",
+    "description": "Where builder's works for building services installations have been specified in Worksection PRE.B12, the Contract Team is suggested to take this opportunity to review and ensure that incorporation of such builder's works in PRE as attendance for pricing is appropriate. In particular, for some common examples of builder's works included in building tenders, actions suggested to be taken by the Contract Team in consideration of nature of the builder's works, Preambles and Special Preambles and principles of measurement laid down in SMM are listed in Annex 1 to this Appendix. Moreover, it is advisable to specify builder's works centrally under PRE.B12.230 instead of being scattered under different clauses in Worksection PRE.B12.",
+    "templatePage": 11
+  },
+  {
+    "id": "APP-I-056",
+    "section": "APPENDIX B TO SPECIFICATION",
+    "clause": "1. APB.A010 List of Contract Drawings",
+    "description": "Since Site Plans, and Sketches and Details as listed in Appendices A and C shall also form part of Contract Drawings, consider adding the following descriptions at the end of Appendix B to the Specification - \"OTHER DRAWINGS All Site/Phase/Estate Boundary Plans as listed and included in APPENDIX A - SITE/PHASE/ESTATE BOUNDARY PLAN; and All sketches and details as listed and included in APPENDIX C - SKETCHES AND DETAILS.\".",
+    "templatePage": 11
+  },
+  {
+    "id": "APP-I-057",
+    "section": "APPENDIX U TO SPECIFICATION",
+    "clause": "1. APU.A010 List of Reference Drawings / Documents",
+    "description": "As referred to in the first paragraph of this clause in SL, the drawings / documents in Appendix U to Specification are for the Contractor's reference only; they are not part of the \"Drawings\" as defined in GCC Clause 1.1 and do not form part of the Contract. Ensure all requirements that should form the basis for execution of the Works by the Contractor are properly included in Appendix A/B/C to Specification but not in Appendix U to Specification.",
+    "templatePage": 11
+  },
+  {
+    "id": "APP-I-058",
+    "section": "BILL NO. 1 –",
+    "clause": "PRELIMINARIES 1. Generally",
+    "description": "a. Ensure references to GCC/SCC/Specification clauses are correct and consistent.",
+    "templatePage": 12
+  },
+  {
+    "id": "APP-I-059",
+    "section": "BILL NO. 1 –",
+    "clause": "PRELIMINARIES 1. Generally",
+    "description": "b. Ensure all GCC clauses, relevant SCC clauses and PRE clauses are listed in Bill No. 1 for pricing.",
+    "templatePage": 12
+  },
+  {
+    "id": "APP-I-060",
+    "section": "BILL NO. 1 –",
+    "clause": "PRELIMINARIES 1. Generally",
+    "description": "c. Generally, ensure that appropriate notes are included in the Preliminaries items in Bill No. 1 where necessary when - (i) special requirements are included in a Preliminaries clause which require special attention of the tenderers; (ii) pricing obligation is provided for elsewhere in the Bills of Quantities; and (iii) pricing obligation is to be read in conjunction with other clauses.",
+    "templatePage": 12
+  },
+  {
+    "id": "APP-I-061",
+    "section": "BILL NO. 1 –",
+    "clause": "PRELIMINARIES 1. Generally",
+    "description": "d. If the pricing documents of a contract comprise both Bills of Quantities and schedule of rates, ensure specific requirements in respect of the schedule of rates are provided and/or standard wordings in Bill No. 1 (e.g. references to \"Bills\", etc.) are appropriately modified to suit.",
+    "templatePage": 12
+  },
+  {
+    "id": "APP-I-062",
+    "section": "BILL NO. 1 –",
+    "clause": "PRELIMINARIES 1. Generally",
+    "description": "e. Ensure the latest copying charges included in the paragraph under GCC Clause 4.2 are amended as appropriate. For information, the latest copying charges for additional hard copy of Drawing, and soft copy of Drawing plus overhead per Contractor's request can be obtained from eHousing 2.0 at the following path - Infolib > HA > Finance Info > Fees & Charges Register > Development and Construction Division > Others",
+    "templatePage": 12
+  },
+  {
+    "id": "APP-I-063",
+    "section": "BILL NO. 2 - PREAMBLES",
+    "clause": "1. Generally",
+    "description": "a. Ensure the Preambles are in order and adequately cover all works measured in the Bills of Quantities.",
+    "templatePage": 13
+  },
+  {
+    "id": "APP-I-064",
+    "section": "BILL NO. 2 - PREAMBLES",
+    "clause": "1. Generally",
+    "description": "b. Ensure the latest version of the Preambles including any subsequent revisions relating to the new/revised Specification clauses promulgated under DCMBIs have been used.",
+    "templatePage": 13
+  },
+  {
+    "id": "APP-I-065",
+    "section": "BILL NO. 2 - PREAMBLES",
+    "clause": "1. Generally",
+    "description": "c. Ensure the Standard Preambles are used wholly intact, and any amendments to the Standard Preambles are made by way of Special Preambles.",
+    "templatePage": 13
+  },
+  {
+    "id": "APP-I-066",
+    "section": "BILL NO. 2 - PREAMBLES",
+    "clause": "1. Generally",
+    "description": "d. Where a Special Preamble is provided for in a Particular Bill, ensure it is correctly applied to all relevant BQ items. PQS's attention is also drawn to Consultant Management Circular No. 10/2017 regarding the use of special preambles.",
+    "templatePage": 13
+  },
+  {
+    "id": "APP-I-067",
+    "section": "BILL NO. 2 - PREAMBLES",
+    "clause": "1. Generally",
+    "description": "e. If the pricing documents of a contract comprise both Bills of Quantities and schedule of rates, ensure appropriate note is provided to indicate which parts of the Preambles are applicable to the Bills of Quantities and which parts are applicable to the schedule of rates for the purpose of clarity.",
+    "templatePage": 13
+  },
+  {
+    "id": "APP-I-068",
+    "section": "ANNEX 1 TO APPENDIX I - BUILDER WORKS AS ATTENDANCE IN PRE.B12",
+    "clause": "1.",
+    "description": "- Ducting system and draw pits - Trench excavation and backfilling - Concrete covers, concrete plinths - Metal works, cover metal frames - Matching cover - Fire rated enclosures - Painting to pipes for Utility Undertaking Suggested actions: - review if such builder's works should be measured in the BQ separately in accordance with the principles laid down in SMM; and - make clear cross reference in Bill No. 1 - Preliminaries for builder's works measured elsewhere in the BQ.",
+    "templatePage": 14
+  },
+  {
+    "id": "APP-I-069",
+    "section": "ANNEX 1 TO APPENDIX I - BUILDER WORKS AS ATTENDANCE IN PRE.B12",
+    "clause": "2.",
+    "description": "- Painting of pipe brackets / supports for pipework measured under Plumbing Works in BQ - Earthing lugs on metal parts of building works - Drawing wires to conduits of MiC and precast items Suggested actions: - review if the rates of measured works in the BQ have included for such builder's works as referred to in General Preambles / Special Preambles; and - state clearly in Bill No. 1 - Preliminaries: - which types of builder's works are to be allowed in Bill No. 1 - Preliminaries as attendance; and - which other types of builder's works of which the allowance are to be included in rates of measured works in the BQ.",
+    "templatePage": 14
+  }
+]

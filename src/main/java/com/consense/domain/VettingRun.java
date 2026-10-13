@@ -24,4 +24,11 @@ public class VettingRun {
     @Lob @Column(name = "result_json", columnDefinition = "LONGTEXT") private String resultJson;
     @Lob @Column(name = "coverage_json", columnDefinition = "LONGTEXT") private String coverageJson;
     @Lob @Column(name = "model_identity_json", columnDefinition = "LONGTEXT") private String modelIdentityJson;
+    @Column(name = "source_snapshot_sha256", length = 64) private String sourceSnapshotSha256;
+    @Column(name = "recovery_contract_sha256", length = 64) private String recoveryContractSha256;
+    @Column(name = "model_profile_explicit") private Boolean modelProfileExplicit;
+    @Column(name = "execution_owner", length = 64) private String executionOwner;
+    @Column(name = "lease_until") private Instant leaseUntil;
+    @Column(name = "recovery_status", length = 32) private String recoveryStatus;
+    @Column(name = "report_snapshot_sha256", length = 64) private String reportSnapshotSha256;
 }

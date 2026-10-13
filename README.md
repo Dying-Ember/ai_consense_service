@@ -1,4 +1,10 @@
-# Service publication snapshot: configuration and verification
+# ConSense service
+
+The current OER / Vetting / Advisory delivery is described in [the split-repository handoff](docs/public-split-delivery-20261013.md). It includes the matching [frontend PR](https://github.com/s1765029698/ai_consense_web/pull/6), current V1-V18 database migrations, and separately distributed frozen model weights and fixed05 vector database.
+
+The historical publication snapshot below records the earlier source export and its validation. Its source pin, migration count and source-only packaging statements describe that earlier snapshot; current checks and artifact scope are in the handoff above.
+
+## Previous service publication snapshot: configuration and verification
 
 Source: 67ceb7081d42204aa17b12b149f52081e348da71  
 Module: ai_consense_service  

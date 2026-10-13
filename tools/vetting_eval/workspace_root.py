@@ -16,5 +16,6 @@ def resolve_workspace(here, environ):
     # names. It does not inspect document filenames or assume stage depth.
     if (directory.name == 'vetting_eval' and directory.parent.name == 'tools'
             and (directory.parents[1] / 'pom.xml').is_file()):
-        return directory.parents[2]
+        service = directory.parents[1]
+        return service if (service / '.git').exists() else directory.parents[2]
     raise ValueError('Set CONSENSE_WORKSPACE_ROOT explicitly for an isolated or portable package')

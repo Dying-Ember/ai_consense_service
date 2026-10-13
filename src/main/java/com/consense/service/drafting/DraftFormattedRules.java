@@ -15,6 +15,22 @@ final class DraftFormattedRules {
             return JsonUtils.mapper().readValue(in,Map.class);
         }catch(IOException failure){throw new IllegalStateException("Verified guidance catalog unavailable",failure);}
     }
+    /** Sidecar classification is tied to the same immutable source and compiler catalog. */
+    static List<String> editorialOperations(String sourceHash,Object sourceOrdinal,Object actualOperations) {
+        if(!(sourceOrdinal instanceof Number))return Collections.emptyList();
+        Set<String> verified=new LinkedHashSet<>();
+        for(Object raw:DraftBusinessRules.list(GUIDANCE.get("operations"))) {
+            Map<String,Object> op=DraftBusinessRules.asMap(raw);
+            if(!Objects.equals(sourceHash,op.get("sourceSha256"))||((Number)sourceOrdinal).intValue()!=((Number)op.get("p")).intValue())continue;
+            String id=String.valueOf(op.get("id"));
+            for(Object actual:DraftBusinessRules.list(actualOperations)) {
+                String operation=String.valueOf(actual);
+                boolean guidanceRow="SCT".equals(op.get("sourceKey"))&&"clear_text".equals(op.get("operation"))&&Arrays.asList(55,476,547,582).contains(((Number)op.get("p")).intValue());
+                if(operation.equals(id)||guidanceRow&&operation.equals(id+"-remove-scope"))verified.add(operation);
+            }
+        }
+        return new ArrayList<>(verified);
+    }
     static DocxEditResult compile(byte[] original,String key,Map<String,Object> plan) {
         return compile(original,key,plan,Collections.emptyMap());
     }

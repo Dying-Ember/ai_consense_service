@@ -8,6 +8,57 @@ import java.util.regex.*;
 public final class DraftClauseRules {
     private DraftClauseRules() { }
     private static final Pattern HEADING = Pattern.compile("(?m)^\\s*(?:#{1,6}\\s*)?\\*?(\\d{1,3})\\.(?:[ \\t]|$)");
+    /** Reviewed negative output forms for the exact SCC source catalog; no inferred clause mapping. */
+    static final String SCC_NEGATIVE_SOURCE_SHA="9aa2fa06683652548e72dbf955c3f236d86cb0958a8fdf3b1ff6cf75b65c7208";
+    static final class NegativeScope {
+        final String clause,decision;final int first,last,toc;
+        NegativeScope(String clause,int first,int last,String decision){this.clause=clause;this.first=first;this.last=last;this.decision=decision;this.toc=tocOrdinal(clause);}
+    }
+    private static final Map<String,NegativeScope> SCC_NEGATIVES;
+    static {
+        Map<String,NegativeScope> scopes=new LinkedHashMap<>();
+        negative(scopes,"scc-specialist-SCC20.303","SCC20.303",1550,1664);
+        negative(scopes,"scc-advance-adoption","SCC14.305",1206,1223);
+        negative(scopes,"scc-railway-adoption","SCC22.307",1959,2027);
+        negative(scopes,"scc-ovt-definitions","SCC1.305",166,177);
+        negative(scopes,"scc-ovt-aftercare","SCC22.302",1803,1820);
+        negative(scopes,"scc-ovt-protection","SCC22.301",1781,1802);
+        negative(scopes,"scc-excision","SCC9.301",951,956);
+        negative(scopes,"scc-permit-definition","SCC1.306",178,197);
+        negative(scopes,"scc-permit-works","SCC22.303",1821,1881);
+        negative(scopes,"scc-ssf","SCC8.306",908,919);
+        negative(scopes,"scc-show-flats","SCC22.306",1939,1958);
+        negative(scopes,"scc-design-foundation-warranty","SCC7.302",542,551);
+        negative(scopes,"scc-design-adverse-ground","SCC8.304",878,889);
+        negative(scopes,"scc-design-failure-cost","SCC22.305",1921,1938);
+        negative(scopes,"scc-all-provisional-definition","SCC1.304",154,165);
+        negative(scopes,"scc-bq-measurement","SCC11.301",975,1002);
+        negative(scopes,"scc-weather-8303","SCC8.303",831,877);
+        negative(scopes,"scc-section-enhancement","SCC11.304",1072,1084);
+        scopes.put("scc-late-possession",new NegativeScope("SCC8.301",811,824,"not_used"));
+        negative(scopes,"scc-additional-loss","SCC8.305",890,907);
+        negative(scopes,"scc-demolition-training","SCC8.308",925,948);
+        negative(scopes,"scc-partnership","SCC22.308",2028,2041);
+        negative(scopes,"scc-joint-venture","SCC22.309",2042,2074);
+        SCC_NEGATIVES=Collections.unmodifiableMap(scopes);
+    }
+    private static void negative(Map<String,NegativeScope> scopes,String id,String clause,int first,int last){scopes.put(id,new NegativeScope(clause,first,last,"not_adopted"));}
+    private static int tocOrdinal(String clause){switch(clause){
+        case"SCC20.303":return 83;case"SCC14.305":return 71;case"SCC22.307":return 92;
+        case"SCC1.305":return 8;case"SCC22.302":return 87;case"SCC22.301":return 86;
+        case"SCC9.301":return 54;case"SCC1.306":return 9;case"SCC22.303":return 88;
+        case"SCC8.306":return 50;case"SCC22.306":return 91;case"SCC7.302":return 37;
+        case"SCC8.304":return 48;case"SCC22.305":return 90;case"SCC1.304":return 7;
+        case"SCC11.301":return 59;case"SCC8.303":return 47;case"SCC11.304":return 62;
+        case"SCC8.301":return 45;case"SCC8.305":return 49;case"SCC8.308":return 52;
+        case"SCC22.308":return 93;case"SCC22.309":return 94;default:throw new IllegalArgumentException("Unreviewed SCC TOC clause: "+clause);
+    }}
+    static NegativeScope negativeScope(Map<String,Object> action){
+        NegativeScope scope=SCC_NEGATIVES.get(String.valueOf(action.get("id")));
+        String decision=String.valueOf(action.getOrDefault("decisionAction",action.get("action")));
+        return scope!=null&&!Boolean.TRUE.equals(action.get("manual"))&&"SCC".equals(action.get("document"))&&scope.clause.equals(action.get("clause"))&&scope.decision.equals(decision)?scope:null;
+    }
+    static Integer negativeTocParagraph(Map<String,Object> action){NegativeScope scope=negativeScope(action);return scope==null?null:scope.toc;}
 
     /** Apply source-bound deterministic edits. Unmatched/unsupported targets keep their original text. */
     public static String apply(String source,String document,Map<String,Object> plan) {
@@ -28,6 +79,7 @@ public final class DraftClauseRules {
         for(Object o:actions){Map<String,Object>a=DraftBusinessRules.asMap(o);if(document.equals(a.get("document"))&&Boolean.TRUE.equals(a.get("manual"))){manualParents.add(String.valueOf(a.get("clause")));manualParagraphs.addAll(targetParagraphs(a));}}
         for(Object o:actions){Map<String,Object>a=DraftBusinessRules.asMap(o);if(!document.equals(a.get("document")))continue;
             String id=String.valueOf(a.get("id"));String decision=String.valueOf(a.getOrDefault("decisionAction",a.get("action")));a.putIfAbsent("decisionAction",decision);
+            NegativeScope negative=negativeScope(a);if(negative!=null){a.putIfAbsent("declaredParagraphs",a.get("paragraphs"));a.put("paragraphs","P"+negative.first+"–"+negative.last+"; TOC P"+negative.toc);}
             if(!a.containsKey("sourceText")){String actual=sourceForTarget(source,document,a);if(!actual.isEmpty())a.put("sourceText",actual);}
             if("pending".equals(decision)){a.put("application","pending");a.put("applicationState","pending");continue;}
             if(!Boolean.TRUE.equals(a.get("manual"))&&(hasManualParent(String.valueOf(a.get("clause")),manualParents)||!Collections.disjoint(targetParagraphs(a),manualParagraphs))){a.put("application","covered_by_manual_parent");a.put("applicationState","covered_by_manual_parent");continue;}
@@ -79,6 +131,7 @@ public final class DraftClauseRules {
     private static int[] manualParagraphs(String id){DraftSourceAnchors.Target target=DraftSourceAnchors.target(id);return target==null?null:target.manualParagraphs();}
     private static String subitemPrefix(String source){Matcher m=Pattern.compile("^\\*?(\\([a-z0-9]+\\))").matcher(source);return m.find()?m.group(1)+" ":"";}
     private static void applyKnown(Editor e,String id,String decision){Map<String,Object>v=DraftBusinessRules.asMap(e.plan.get("effectiveValues"));Object value=e.action.get("value");
+        NegativeScope negative=negativeScope(e.action);if(negative!=null){e.negativeWhole(negative);return;}
         switch(id){
         case"NTT-1E-FACADE":if("delete".equals(decision))e.p(e.anchor(0),"");else e.checkParagraph(e.anchor(0));e.pOptional(e.guidance(0),"");return;
         case"NTT-2-L10PRO":if("delete".equals(decision))e.removeRange(97,124);else{e.checkParagraph(104);e.removeRangeBetween(107,109,106,111);e.removeRangeBetween(122,124,120,127);}return;
@@ -98,20 +151,32 @@ public final class DraftClauseRules {
         case"sct-issue-alternative":if("L10Pro".equals(value)){e.removeBranchRange(229,387);e.checkParagraph(225);}else{e.removeBranchRange(58,225);e.checkParagraph(387);}e.pOptional(55,"");return;
         case"sct-pricing-return-alternative":if("L10Pro".equals(value)){e.removeBranchRange(516,542);e.checkParagraph(493);e.removeEditorialPrefix(478,479);e.removeEditorialPrefix(508,509);}else{e.removeBranchRange(478,514);e.checkParagraph(524);e.removeEditorialPrefix(516,518);e.removeEditorialPrefix(533,535);}e.pOptional(476,"");return;
         case"sct-shared-bill-list":e.billDistribution(DraftBusinessRules.list(value),String.valueOf(v.get("electronicTendering")));return;
+        case"sct-source-bill-identities":{
+            Map<String,Object> distribution=null;for(Object raw:DraftBusinessRules.list(e.plan.get("actions"))){Map<String,Object> row=DraftBusinessRules.asMap(raw);if("sct-shared-bill-list".equals(row.get("id")))distribution=row;}
+            if(distribution!=null&&"applied".equals(distribution.get("applicationState"))){e.coveredBy("sct-shared-bill-list");return;}
+            boolean electronic="L10Pro".equals(v.get("electronicTendering"));
+            for(Object raw:DraftBusinessRules.list(value)){Map<String,Object> bill=DraftBusinessRules.asMap(raw);int number=Integer.parseInt(String.valueOf(bill.get("number")));int paragraph=(electronic?170:331)+(number-3)*2;
+                String source=e.standard(paragraph);if(!source.trim().matches("Bill No\\. "+number+"\\s*[–-]")){e.fail("The Bill identity placeholder does not match the exact source number/type at P"+paragraph);return;}
+                e.p(paragraph,"Bill No. "+number+" – "+bill.get("description"));
+            }
+            return;
+        }
         case"sct-bill-body-summary":case"sct-project-bq-sor-placement":e.coveredBy("sct-shared-bill-list");return;
         case"sct-envelope-price-documents":if("not_adopted".equals(decision)){e.coveredBy("sct-tender-system");return;}if("L10Pro".equals(value)){e.removeBranchRange(685,717);e.removeEditorialPrefix(642,644);e.removeEditorialPrefix(668,670);}else{e.removeBranchRange(642,681);e.removeEditorialPrefix(685,687);e.removeEditorialPrefix(708,710);}return;
         case"sct-envelope-bill-range":if("not_adopted".equals(decision)){e.coveredBy("sct-tender-system");return;}e.coveredBy("sct-envelope-price-documents");if(e.reason!=null)return;String numbers=joinValue(value);int ordinary="L10Pro".equals(v.get("electronicTendering"))?674:697;String tail="L10Pro".equals(v.get("electronicTendering"))?" generated by the L10Pro program":"";e.p(ordinary,DraftBusinessRules.list(value).isEmpty()?"(ii) No other ordinary Bills of Quantities":"(ii)Bills No. "+numbers+tail);return;
         case"sct-original-hardcopy-wording":{if("not_adopted".equals(decision)){e.coveredBy("sct-tender-system");return;}String original=e.standard(760);if(original.isEmpty()||!original.contains("Bill of Quantities")){e.fail("The original-hardcopy qualifier target requires actual source mapping.");return;}if("L10Pro".equals(value)){String edited=original.replace(" *and the Bill of Quantities and General Summary","");if(edited.equals(original)){e.fail("The starred BQ / General Summary phrase is not matched.");return;}e.p(760,edited);}else e.p(760,original.replace(" *and"," and"));e.pOptional(771,"");e.pOptional(772,"");return;}
-        case"sct-domestic-entire-clause":if("not_used".equals(decision))e.whole("SCT4","SCT4 Not used");else{e.checkParagraph(554);e.pOptional(547,"");}return;
+        // P547 is a separately verified editorial row; keeping the SCT4 body is not a business edit.
+        case"sct-domestic-entire-clause":if("not_used".equals(decision))e.whole("SCT4","SCT4 Not used");else e.checkParagraph(554);return;
         case"sct-payment-option":if("not_adopted".equals(decision)){e.coveredBy("sct-domestic-entire-clause");return;}if("Option 2".equals(value)){e.p(572,"");e.p(575,e.standard(575).replaceFirst("^\\*",""));}else{e.p(575,"");e.p(572,e.standard(572).replaceFirst("^\\*",""));}e.pOptional(573,"");e.pOptional(576,"");return;
         case"sct-tender-system":if("amend".equals(decision))e.whole("SCT5",String.valueOf(value));else e.checkParagraph(582);return;
         case"sct-envelope-foundation":case"sct-envelope-site-formation":case"sct-envelope-domestic":case"sct-envelope-special-payment":{
             if("not_adopted".equals(decision)){e.coveredBy("sct-tender-system");return;}int[]ps=manualParagraphs(id);if("delete".equals(decision)){e.removeRows(ps);return;}
             Map<String,Object>letters=DraftBusinessRules.asMap(DraftBusinessRules.asMap(e.plan.get("derived")).get("sct5SubmissionLetters"));String original=id.equals("sct-envelope-foundation")?"e":id.equals("sct-envelope-site-formation")?"f":id.equals("sct-envelope-domestic")?"g":"h";Object mapped=letters.get(original);if(mapped==null){e.fail("Final SCT5 row lettering is unresolved.");return;}e.p(ps[0],e.standard(ps[0]).replaceFirst("^#?\\("+original+"\\)","("+mapped+")"));return;}
         case"sct-foundation-assessment":if("delete".equals(decision))e.p(e.anchor(0),"");else e.checkParagraph(e.anchor(0));e.pOptional(e.guidance(0),"");return;
-        case"sct-domestic-proposals":if("not_used".equals(decision)){e.p(862,"(2) Not used");e.pOptional(864,"");e.pOptional(871,"");}else e.checkParagraph(862);e.pOptional(859,"");return;
+        case"sct-site-formation-submissions":if("not_used".equals(decision)){e.p(849,"(c) Not used.");e.p(851,"");e.removeRows(new int[]{854,856});}else e.fail("Site formation submission still requires the actual PRE.B9.260(4) adoption relation.");return;
+        case"sct-domestic-proposals":e.checkParagraph(862);e.checkParagraph(864);e.checkParagraph(871);if(e.reason!=null)return;if("not_used".equals(decision)){e.p(862,"(2) Not used");e.p(864,"");e.p(871,"");}return;
         case"sct-domestic-payment-proposal":if("not_adopted".equals(decision)){e.coveredBy("sct-domestic-proposals");return;}e.checkParagraph(e.anchor(0));return;
-        case"sct-domestic-submission-liability":if("not_used".equals(decision))e.p(898,"(c) Not used");else if("amend".equals(decision))e.p(898,e.standard(898).replace("(#and the submission for special terms of payment)","").replaceFirst("^\\*",""));else e.checkParagraph(898);e.pOptional(895,"");e.pOptional(899,"");return;
+        case"sct-domestic-submission-liability":if("not_used".equals(decision))e.p(898,"(c) Not used");else if("amend".equals(decision))e.p(898,e.standard(898).replace("(#and the submission for special terms of payment)","").replaceFirst("^\\*",""));else e.checkParagraph(898);return;
         case"sct-structural-submission-signature":if("not_used".equals(decision))e.p(e.anchor(0),"(d) Not used");else e.p(e.anchor(0),e.standard(e.anchor(0)).replaceFirst("^\\*",""));e.pOptional(e.guidance(0),"");return;
         case"sct-photocopy-rates":if("not_adopted".equals(decision)){e.coveredBy("sct-tender-system");return;}Map<String,Object> rates=DraftBusinessRules.asMap(value);e.p(751,e.standard(751).replace("#$8.7","$"+rates.get("upToA3")).replace("#$45","$"+rates.get("aboveA3")));e.pOptional(752,"");return;
         case"sct-architect-contact":{Map<String,Object>x=DraftBusinessRules.asMap(value);String p=e.standard(e.anchor(0));p=p.replaceFirst("A/\\s*\\(\\*Mr/Ms\\s*\\)",Matcher.quoteReplacement(String.valueOf(x.get("post"))+" ("+DraftArchitectContactEvidence.renderedName(String.valueOf(x.get("title")),String.valueOf(x.get("name")))+")"));p=p.replaceFirst("telephone\\s*\\.",Matcher.quoteReplacement("telephone "+x.get("phone")+"."));if(p.equals(e.standard(e.anchor(0))))e.fail("Architect placeholder pattern does not match the actual template.");else e.p(e.anchor(0),p);e.pOptional(e.guidance(0),"");return;}
@@ -150,6 +215,10 @@ public final class DraftClauseRules {
         case"scc-section-enhancement":if("amend".equals(decision)){e.p(1082,e.standard(1082).replace("_________*",joinValue(value)));e.removeRange(1074,1078);return;}e.fail("Optional SCC11.304 non-adoption output form is unresolved.");return;
         case"scc-weather-8303":if("amend".equals(decision)){for(int p:new int[]{845,855,869,871}){String old=e.standard(p);if(!old.contains("___")){e.fail("The six actual demolition Section blanks are not present.");return;}e.p(p,old.replaceAll("_+\\*?",Matcher.quoteReplacement(String.valueOf(value))));}e.removeRange(833,839);return;}e.fail("Optional weather clause non-adoption output form is unresolved.");return;
         case"scc-training-numbering":if("not_adopted".equals(decision)){e.coveredBy("scc-demolition-training");return;}if(String.valueOf(value).startsWith("(3)")){for(int p=939;p<=951;p++){String old=e.standard(p);String edited=old.replace("(3)","(5)").replace("(4)","(6)").replace("8.2(3)","8.2(5)");if(!old.equals(edited))e.p(p,edited);}}else e.checkParagraph(939);return;
+        case"scc-foundation-version-reference":{
+            if("not_adopted".equals(decision)&&Boolean.FALSE.equals(v.get("contractorDesignedFoundations")))for(Object raw:DraftBusinessRules.list(e.plan.get("actions"))){Map<String,Object> parent=DraftBusinessRules.asMap(raw);if("sct-foundation-assessment".equals(parent.get("id"))&&"SCT".equals(parent.get("document"))&&"delete".equals(parent.getOrDefault("decisionAction",parent.get("action")))&&"applied".equals(parent.get("applicationState")))return;}
+            e.fail("The obsolete SCC8.2 reference is covered only by an actually applied SCT foundation-assessment deletion; no current SCC clause mapping is inferred.");return;
+        }
         case"scc-definition-collection":{for(String dependency:Arrays.asList("scc-all-provisional-definition","scc-ovt-definitions","scc-permit-definition"))e.coveredBy(dependency);if(e.reason!=null)return;String old=e.standard(244);String replaced=old.replaceAll("SCC1\\.301\\s+to\\s+SCC1\\.307",Matcher.quoteReplacement(joinValue(value))).replace("Clauses *","Clauses ");if(replaced.equals(old)){e.fail("Definition collection source pattern is not matched.");return;}e.p(244,replaced);e.pOptional(246,"");return;}
         case"scc-technical-proposal-reference":{String old=e.standard(e.anchor(0));Map<String,Object>x=DraftBusinessRules.asMap(value);String edited=old.replaceAll("Envelope\\s*_+\\*?",Matcher.quoteReplacement("Envelope "+x.get("envelope"))).replaceAll("SCT\\s*_+\\*?",Matcher.quoteReplacement(String.valueOf(x.get("submissionClause"))));if(edited.equals(old)){e.fail("Technical proposal placeholders are absent from the actual definition.");return;}e.p(e.anchor(0),edited);e.pOptional(e.guidance(0),"");return;}
         case"scc-advance-repayment-standard":if("not_adopted".equals(decision)){e.coveredBy("scc-advance-adoption");return;}Map<String,Object>repay=DraftBusinessRules.asMap(value);String r=e.standard(1220).replace("#six",ordinalWord(repay.get("months"),false)).replace("#seventh",ordinalWord(repay.get("firstCertificate"),true));if(r.equals(e.standard(1220))){e.fail("Actual repayment placeholders are absent; guidance text is not the target.");return;}e.p(1220,r);e.pOptional(1214,"");return;
@@ -210,8 +279,30 @@ public final class DraftClauseRules {
         boolean isPageFurniture(String t){return t.contains("HD(QS)")||t.matches(".*(?:NTT|SCT|SCC)/\\d+.*")||t.contains("(Cont’d)")||t.contains("(Cont'd)")||t.equals("SPECIAL CONDITIONS OF TENDER")||t.equals("SPECIAL CONDITIONS OF CONTRACT");}
         void insertAfterParagraph(int n,String insertion){String src=standard(n);if(insertion.isEmpty()){checkParagraph(n);return;}String before=text;replace(src,src+"\n"+insertion,false);if(!before.equals(text))changes.add(new SourceChange(n,insertion,true,true));}
         void insertBeforeParagraph(int n,String insertion){String src=standard(n);if(insertion.isEmpty()){checkParagraph(n);return;}String before=text;replace(src,insertion+"\n"+src,false);if(!before.equals(text))changes.add(new SourceChange(n,insertion,true,false));}
-        void coveredBy(String id){Map<String,Object>parent=null;for(Object o:DraftBusinessRules.list(plan.get("actions")))if(id.equals(DraftBusinessRules.asMap(o).get("id")))parent=DraftBusinessRules.asMap(o);if(parent==null||"pending".equals(parent.get("action"))||"unresolved".equals(parent.get("application")))fail("Parent target "+id+" remains unresolved; cached child values are excluded.");}
+        void coveredBy(String id){Map<String,Object>parent=null;for(Object o:DraftBusinessRules.list(plan.get("actions")))if(id.equals(DraftBusinessRules.asMap(o).get("id")))parent=DraftBusinessRules.asMap(o);if(parent==null||"pending".equals(parent.get("action"))||"unresolved".equals(parent.get("application"))||negativeScope(parent)!=null&&!"applied".equals(parent.get("applicationState")))fail("Parent target "+id+" remains unresolved; cached child values are excluded.");}
         void check(){String clause=String.valueOf(action.get("clause")).replace(" ","");String root=clause.replaceFirst("[^A-Za-z0-9.].*$","");if(root.startsWith("NTT")){Matcher m=Pattern.compile("NTT(\\d+)").matcher(root);if(m.find()&&section(text,Integer.parseInt(m.group(1)))!=null)return;}if(Pattern.compile(Pattern.quote(root)+"\\b").matcher(text).find())return;Matcher n=Pattern.compile("(?:^|[ ;])P(\\d+)").matcher(String.valueOf(action.get("paragraphs")));if(n.find()){checkParagraph(Integer.parseInt(n.group(1)));return;}fail("No verified target anchor is present for this retained action.");}
+        void negativeWhole(NegativeScope scope){
+            int[] range=sectionRange(text,scope.clause);if(range==null){fail("The reviewed negative clause heading is absent: "+scope.clause);return;}
+            if(scope.last<2074){
+                String boundary=standard(scope.last+1);
+                Matcher m=exact(boundary).matcher(text).region(range[0],text.length());
+                if(!m.find()){fail("The reviewed following clause/chapter boundary is absent: "+scope.clause);return;}
+                int end=m.start();if(m.find()){fail("The reviewed following clause/chapter boundary is ambiguous: "+scope.clause);return;}range[1]=end;
+            }
+            StringJoiner expected=new StringJoiner("\n"),furniture=new StringJoiner("\n");
+            for(int n=scope.first;n<=scope.last;n++){String paragraph=DraftBusinessRules.standardParagraph("SCC",n);expected.add(paragraph);if(isPageFurniture(paragraph)||paragraph.startsWith("March 2020"))furniture.add(paragraph);}
+            String body=text.substring(range[0],range[1]);
+            if(!body.replaceAll("(?U)\\s+","").equals(expected.toString().replaceAll("(?U)\\s+",""))){fail("The reviewed negative clause contains missing, additional or changed source text: "+scope.clause);return;}
+            String tocSource=DraftBusinessRules.standardParagraph("SCC",scope.toc);Matcher cache=Pattern.compile("\\d+$").matcher(tocSource);
+            if(!tocSource.startsWith(scope.clause)||!cache.find()){fail("The reviewed negative clause has no exact TOC title/page binding: "+scope.clause);return;}
+            String tocReplacement=scope.clause+"Not used"+cache.group();Matcher toc=exact(tocSource).matcher(text);
+            if(!toc.find()){fail("The exact source TOC title/page is absent: "+scope.clause);return;}int tocStart=toc.start(),tocEnd=toc.end();
+            if(toc.find()){fail("The exact source TOC title/page is ambiguous: "+scope.clause);return;}
+            action.put("sourceText",body);String replacement=scope.clause+" Not used";
+            text=text.substring(0,range[0])+replacement+"\n"+(furniture.length()>0?furniture+"\n":"")+text.substring(range[1]);
+            text=text.substring(0,tocStart)+tocReplacement+text.substring(tocEnd);current.put(scope.toc,tocReplacement);
+            for(int n=scope.first;n<=scope.last;n++)current.put(n,"");current.put(scope.first,replacement);changed=true;changes.add(new SourceChange(scope.clause,replacement));
+        }
         void whole(String clause,String replacement){int[]range=sectionRange(text,clause);if(range==null){fail("The actual full clause "+clause+" is not located.");return;}
             String decision=String.valueOf(action.getOrDefault("decisionAction",action.get("action")));
             if(Boolean.TRUE.equals(action.get("manual"))&&"scc-specialist-SCC20.304".equals(action.get("id"))&&"SCC20.304".equals(clause)&&Arrays.asList("delete","not_used").contains(decision)) {

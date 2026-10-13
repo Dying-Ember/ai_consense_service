@@ -19,9 +19,9 @@ class VettingH800BudgetProfileTest {
         VettingResponsesTransportTest.Http http=new VettingResponsesTransportTest.Http();
         VettingResponsesTransport transport=new VettingResponsesTransport(p,http);
         VettingInputBudget.Input input=VettingResponsesTransportTest.input(transport);
-        http.count=98304;assertTrue(VettingInputBudget.check(input,transport::observe).isExtraDispatchPermitted());
-        http.count=98305;assertEquals("over_budget",VettingInputBudget.check(input,transport::observe).getStatus());
-        assertEquals(131072,input.getWire().getConfiguredContextTokens());assertEquals(16384,input.getWire().getSafetyMarginTokens());
+        http.count=229376;assertTrue(VettingInputBudget.check(input,transport::observe).isExtraDispatchPermitted());
+        http.count=229377;assertEquals("over_budget",VettingInputBudget.check(input,transport::observe).getStatus());
+        assertEquals(262144,input.getWire().getConfiguredContextTokens());assertEquals(16384,input.getWire().getSafetyMarginTokens());
         assertEquals(45000,p.getVetting().getResponses().getCounterTimeoutMs());
         assertTrue(http.endpoints.stream().allMatch(x->x.endsWith("/input_tokens")));
     }

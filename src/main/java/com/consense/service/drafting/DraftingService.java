@@ -198,6 +198,7 @@ public class DraftingService {
                 document.setTextContent(result.getText());
                 document.setStructuredContentJson(JsonUtils.write(result.getBlocks()));
                 document.setParseCoverageJson(JsonUtils.write(result.getCoverage()));
+                com.consense.service.sources.OerSourceMetadata.captureParsed(document,result);
                 if ("FAILED".equals(result.getParseStatus())) throw new BizException(4003, result.getMessage());
                 parsed++;
                 messages.add(fileKey + " ← " + stored.getOriginalName() + " 已解析（"
@@ -277,6 +278,7 @@ public class DraftingService {
             document.setTextContent(result.getText());
             document.setStructuredContentJson(JsonUtils.write(result.getBlocks()));
             document.setParseCoverageJson(JsonUtils.write(result.getCoverage()));
+            com.consense.service.sources.OerSourceMetadata.captureParsed(document,result);
             if ("FAILED".equals(result.getParseStatus())) throw new BizException(4003, result.getMessage());
             parsed = 1;
             failed = 0;
@@ -327,6 +329,7 @@ public class DraftingService {
                 document.setTextContent(result.getText());
                 document.setStructuredContentJson(JsonUtils.write(result.getBlocks()));
                 document.setParseCoverageJson(JsonUtils.write(result.getCoverage()));
+                com.consense.service.sources.OerSourceMetadata.captureParsed(document,result);
                 if ("FAILED".equals(result.getParseStatus())) throw new BizException(4003, result.getMessage());
                 parsed++;
                 messages.add(stored.getOriginalName() + "：" + result.getMessage());
@@ -467,6 +470,10 @@ public class DraftingService {
     public Map<String,Object> catalog(String projectId) { projectService.require(projectId);return DraftBusinessRules.catalog(); }
     @Transactional(readOnly=true)
     public Map<String,Object> plan(String projectId,Map<String,String> patches) {
+        Map<String,Object> current=preparePlan(projectId,patches);
+        return patches==null?savedGenerationPlan(projectId,current):current;
+    }
+    private Map<String,Object> preparePlan(String projectId,Map<String,String> patches) {
         projectService.require(projectId);Map<String,Object> values=decodedValues(projectId);
         Map<String,Object> visibleValues=new LinkedHashMap<>(values);
         for(DraftVariable variable:inputVariables(projectId))
@@ -509,6 +516,36 @@ public class DraftingService {
             for(SourceDocument source:sourceDocumentRepository.findByProjectIdAndCategoryOrderByIdAsc(projectId,category))sourceIdentities.add(DraftAdoption.sourceIdentity(source));
         result.put("sourceIdentities",sourceIdentities);result.put("documentLanguage","en");
         result.put("snapshotId",snapshotId(projectId,patches));result.put("savedSnapshotId",snapshotId(projectId,null));result.put("preview",patches!=null);return result;
+    }
+    /** The lossy flat projection is a preview; completed source edits belong to the exact saved revisions. */
+    private Map<String,Object> savedGenerationPlan(String projectId,Map<String,Object> current) {
+        if(documentRepository==null||artifactRepository==null)return current;
+        String snapshot=String.valueOf(current.get("snapshotId"));Map<String,DraftDocument> documents=new LinkedHashMap<>();
+        for(DraftDocument document:documentRepository.findByProjectIdOrderByIdAsc(projectId))if(DraftBlueprint.draftFileKeys().contains(document.getFileKey())) {
+            if(documents.put(document.getFileKey(),document)!=null)return current;
+        }
+        Map<String,Object> frozen=null;Map<String,String> revisions=new LinkedHashMap<>();
+        for(String key:DraftBlueprint.draftFileKeys()) {
+            DraftDocument document=documents.get(key);
+            if(document==null||!Boolean.TRUE.equals(document.getGenerated())||Boolean.TRUE.equals(document.getContentEdited())||document.getRevisionId()==null||!snapshot.equals(document.getSnapshotId())||!Objects.equals(current.get("ruleVersion"),document.getRuleVersion()))return current;
+            DraftArtifact artifact=artifactRepository.findById(document.getRevisionId()).orElse(null);
+            if(artifact==null||!projectId.equals(artifact.getProjectId())||!key.equals(artifact.getFileKey())||!snapshot.equals(artifact.getSnapshotId())||artifact.getParentRevisionId()!=null||artifact.getDocxBytes()==null||!Objects.equals(artifact.getDocxSha256(),DraftPdfConverter.sha256(artifact.getDocxBytes())))return current;
+            SourceDocument source=sourceDocumentRepository.findFirstByProjectIdAndFileKeyAndCategory(projectId,key,SourceDocument.CATEGORY_STANDARD_TEMPLATE).orElse(null);
+            if(source==null||!"PARSED".equals(source.getParseStatus())||source.getStoragePath()==null||!Objects.equals(artifact.getSourceSha256(),DraftPdfConverter.sha256(storageService.read(source.getStoragePath()))))return current;
+            Map<String,Object> saved;
+            try{saved=JsonUtils.readMap(document.getInputSnapshotJson());}catch(RuntimeException legacy){return current;}
+            // Database source IDs are Longs; persisted JSON may decode small IDs as Integers.
+            // Compare their exact JSON values rather than Java numeric wrapper identity.
+            for(String identity:Arrays.asList("snapshotId","ruleVersion","evidenceRevision","effectiveValues","sourceIdentities"))if(!JsonUtils.write(current.get(identity)).equals(JsonUtils.write(saved.get(identity))))return current;
+            if(!(saved.get("actions") instanceof List)||!(saved.get("unresolved") instanceof List))return current;
+            if(frozen!=null&&!frozen.equals(saved))return current;
+            frozen=saved;revisions.put(key,artifact.getId());
+        }
+        Map<String,Object> result=new LinkedHashMap<>(frozen);
+        // The visible adopted-input view remains live; only the matching compiled generation supplies outcomes.
+        for(String live:Arrays.asList("inputValues","snapshotId","savedSnapshotId","preview","evidenceRevision","evidenceChangedSinceExtraction","sourceIdentities"))result.put(live,current.get(live));
+        result.put("applicationStateSource",DraftBusinessRules.map("kind","saved_generation","snapshotId",snapshot,"revisionIds",revisions));
+        return result;
     }
     private Map<String,Object> decodedValues(String projectId) {
         Map<String,Object> values=new LinkedHashMap<>();
@@ -862,7 +899,7 @@ public class DraftingService {
     @Transactional(isolation=Isolation.REPEATABLE_READ)
     public List<DraftDocumentVO> generate(String projectId,String lang) {
         ensureInputs(projectId);
-        Map<String,Object> prepared=plan(projectId,null);
+        Map<String,Object> prepared=preparePlan(projectId,null);
         String snapshot=(String)prepared.get("snapshotId");
         Map<String,DraftArtifact> revisions=new LinkedHashMap<>();Map<String,String> contents=new LinkedHashMap<>();
         // Compile/validate every package before any current document pointer changes.
@@ -870,8 +907,8 @@ public class DraftingService {
             SourceDocument template=requireTemplate(projectId,key);
             if(template.getStoragePath()==null)throw new BizException(4012,"EDITABLE_DOCX_REQUIRED: Re-upload the original editable "+key+" DOCX.");
             byte[] original=storageService.read(template.getStoragePath());
-            String actualText=documentParser.parse(template.getFileName(),original).getText();
-            if(!nvl(template.getTextContent()).equals(nvl(actualText)))throw new BizException(4012,"SOURCE_TEXT_DIVERGENCE: Re-upload the edited DOCX; saved flat template text cannot replace its formatting.");
+            DocumentParser.ParsedDocument fresh=documentParser.parse(template.getFileName(),original);
+            if(!DraftTemplateSourceText.matches(template.getTextContent(),fresh))throw new BizException(4012,"SOURCE_TEXT_DIVERGENCE: "+key+" saved template text differs from the original DOCX; verify and re-upload the original editable DOCX.");
             DocxTemplateEditor.TemplateIndex sourceIndex=new DocxTemplateEditor().inspect(original);
             List<Map<String,Object>> sourceBindings=DraftDocumentBindings.source(key,sourceIndex);
             DraftDocumentBindings.associateTargets(key,sourceIndex,prepared,sourceBindings);
@@ -1179,6 +1216,7 @@ public class DraftingService {
                 template.setOcrUsed(result.isOcrUsed());
                 template.setStructuredContentJson(JsonUtils.write(result.getBlocks()));
                 template.setParseCoverageJson(JsonUtils.write(result.getCoverage()));
+                com.consense.service.sources.OerSourceMetadata.captureParsed(template,result);
                 sourceDocumentRepository.save(template);
             } catch (Exception failure) {
                 template.setParseStatus("FAILED");

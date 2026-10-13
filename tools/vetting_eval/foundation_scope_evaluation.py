@@ -8,6 +8,8 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
+import struct
 from pathlib import Path
 from typing import Iterable
 
@@ -25,6 +27,20 @@ def sha_bytes(data):
 
 def canonical_digest(value):
     return sha_bytes(json.dumps(value,ensure_ascii=False,sort_keys=True,separators=(",",":")).encode("utf-8"))
+
+
+def form_source_digest(value):
+    """Hash-only binary64 values; source fields and the general canonical digest stay unchanged."""
+    def normalized(item):
+        if isinstance(item, float):
+            require(math.isfinite(item), "Non-finite form source number")
+            return {"$binary64": struct.pack(">d", item).hex()}
+        if isinstance(item, dict):
+            return {key: normalized(child) for key, child in item.items()}
+        if isinstance(item, list):
+            return [normalized(child) for child in item]
+        return item
+    return canonical_digest(normalized(value))
 
 
 def descriptor(path):
@@ -207,9 +223,22 @@ def _canonical_checks(row, parent, *, material=False):
             require(observed.pop("observationScope",None)=="stored_parser_declarations_only; textAccuracy_unverified; legalCoverage_unknown","material quality observation scope mismatch")
         require(_without_nulls(observed) == _without_nulls(parent.get(name)), f"canonical returned/selected payload mismatch: {name}")
     if material:
-        expected = [{"partAnchor":p.get("anchor"),"blockId":p.get("blockId"),
-                     "startOffset":p.get("startOffset"),"endOffset":p.get("endOffset"),
-                     "extractionSource":p.get("extractionSource")} for p in parent.get("parts", [])]
+        expected = []
+        for p in parent.get("parts", []):
+            observation = {"partAnchor":p.get("anchor"),"blockId":p.get("blockId"),
+                           "startOffset":p.get("startOffset"),"endOffset":p.get("endOffset"),
+                           "extractionSource":p.get("extractionSource")}
+            if p.get("pdfFormField") is not None:
+                require(row.get("projectionVersion") == "selected-native-source-material-form-observations-v6",
+                        "material form observation projection version mismatch")
+                field = p["pdfFormField"]
+                compact = {k:field[k] for k in ("id","fieldName","fieldType","fieldValue","appearanceValue","appearanceState",
+                           "visibilityStatus","valueStatus","pageNo","needAppearances","appearancePresent","conflict",
+                           "appearanceStreamObservationStatus","appearanceGlyphObservationStatus","limitations") if k in field}
+                observation.update(formObservationStatus="observed_selected_original_widget",
+                                   pdfFormField=compact, pdfFormFieldSourceSha256=form_source_digest(field), nativeVisibilityStatus=p.get("nativeVisibilityStatus"),
+                                   formInterpretation="Stored value, selected appearance, blank/nontext and conflict are observations only; blank meaning, raster visibility, parent-child selection and legal OR applicability remain unknown. Raw streams, glyph coordinates and audit fields remain in source storage identified by pdfFormFieldSourceSha256.")
+            expected.append(observation)
         require(row.get("selectedPartExtractionObservations") == expected, "material source part observations mismatch")
 
 

@@ -20,11 +20,18 @@ class VettingSafeDiagnosticsPropagationTest {
         assertNotNull(d);Set<String> names=new HashSet<>();d.fieldNames().forEachRemaining(names::add);assertEquals(SAFE,names);assertEquals("unknown",d.path("rootCauseStatus").textValue());assertTrue(d.path("wallNanos").longValue()>0);
         String json=JsonUtils.write(d);for(String secret:Arrays.asList("SYNTHETIC_PRIVATE_ORIGINAL_MESSAGE","127.0.0.1","api.minimax.cn","Authorization","Bearer","\"message\":","\"cause\":","\"headers\":","\"requestBody\":","\"stackTrace\":"))assertFalse(json.contains(secret),secret);
     }
-    @ParameterizedTest @ValueSource(strings={"noObserver","ordinaryIllegalState","nestedTypedCause","ordinaryIllegalArgument","nullObservation","fitObservation","overObservation","providerFit","providerOver","providerHttpFailure"})
+    @ParameterizedTest @ValueSource(strings={"noObserver","ordinaryIllegalState","nestedTypedCause","ordinaryIllegalArgument","nullObservation","fitObservation","overObservation"})
     void ordinaryResultsRemainExactAgainstActualFrozen731Serialization(String name)throws Exception {
         byte[] bytes;try(java.io.InputStream in=getClass().getResourceAsStream("/safe-diagnostics/legacy-results-731.json")){assertNotNull(in);bytes=readAll(in);}
         JsonNode original=JsonUtils.parse(new String(bytes,StandardCharsets.UTF_8));String expected=JsonUtils.write(original.get(name));String actual=JsonUtils.write(SafeDiagnosticsFixtureSupport.legacyResults().get(name));
         assertArrayEquals(expected.getBytes(StandardCharsets.UTF_8),actual.getBytes(StandardCharsets.UTF_8));assertFalse(actual.contains("failureDiagnostics"));
+    }
+    @ParameterizedTest @ValueSource(strings={"providerFit","providerOver","providerHttpFailure"})
+    void frozenShortResponsesPoliciesCannotAuthorizeGenerationUnderTheCurrentMinimum(String name)throws Exception {
+        byte[] bytes;try(java.io.InputStream in=getClass().getResourceAsStream("/safe-diagnostics/legacy-results-731.json")){assertNotNull(in);bytes=readAll(in);}
+        JsonNode frozen=JsonUtils.parse(new String(bytes,StandardCharsets.UTF_8)).get(name);VettingInputBudget.Result current=(VettingInputBudget.Result)SafeDiagnosticsFixtureSupport.legacyResults().get(name);
+        assertEquals(frozen.path("serializedInputSha256").asText(),current.getSerializedInputSha256(),"The archived input is retained; only its short-window admission changes");
+        assertEquals("budget_unknown",current.getStatus());assertFalse(current.isExtraDispatchPermitted());assertNull(current.getObservation());assertNull(current.getFailureDiagnostics());
     }
     private static byte[] readAll(java.io.InputStream in)throws Exception {java.io.ByteArrayOutputStream out=new java.io.ByteArrayOutputStream();byte[] b=new byte[1024];for(int n;(n=in.read(b))!=-1;)out.write(b,0,n);return out.toByteArray();}
     @Test void directNativeFailureSurvivesRealCheckAndResultCopyWithoutGrantingGeneration() {

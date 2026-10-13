@@ -117,7 +117,7 @@ def source_spans(start, end, mapped):
     return rows
 
 
-def windows(parent, tokenizer, recipe, tokenizer_identity, *, query=None, embedding_strip=False):
+def windows(parent, tokenizer, recipe, tokenizer_identity, *, query=None, embedding_strip=False, structural_boundaries=False):
     fail(getattr(tokenizer, "is_fast", False), "OFFSET_TOKENIZER_REQUIRED", "A fast tokenizer with explicit offsets is required")
     text = parent["content"]
     fail(isinstance(text, str) and text.strip(), "EMPTY_PARENT", "Parent content cannot be empty")
@@ -137,6 +137,9 @@ def windows(parent, tokenizer, recipe, tokenizer_identity, *, query=None, embedd
                      "parentId": parent["id"], "parentContentSha256": text_sha(text), "sourceHash": parent["sourceHash"],
                      "documentId": str(parent["documentId"]), "role": parent["role"],
                      "querySha256": text_sha(query) if query is not None else None, "embeddingStrip": embedding_strip}
+    boundaries = {item['parentStartCp'] for item in mapped} | {0, len(text)}
+    if structural_boundaries:
+        identity_base['boundaryPolicy'] = 'observed-source-part-boundaries-v1'
     result, token_start, start_cp = [], 0, 0
     while start_cp < len(text):
         fail(len(result) < recipe.max_windows_per_parent, "WINDOW_COUNT_GUARD", "All-or-fail window count guard reached; no omitted tail", parentId=parent["id"])
@@ -154,6 +157,16 @@ def windows(parent, tokenizer, recipe, tokenizer_identity, *, query=None, embedd
                 break
             token_end -= 1
         fail(token_end > token_start, "DOCUMENT_TOKEN_BUDGET_EXHAUSTED", "No advancing source-bound document window fits the full pair budget", parentId=parent["id"], startCp=start_cp)
+        if structural_boundaries and end_cp < len(text):
+            aligned = [boundary for boundary in boundaries if start_cp < boundary <= end_cp]
+            if aligned:
+                end_cp = max(aligned)
+                piece = text[start_cp:end_cp]
+                actual_text = piece.strip() if embedding_strip else piece
+                count = len(one_tokens(tokenizer, query, actual_text)['input_ids']) if query is not None else len(one_tokens(tokenizer, actual_text)['input_ids'])
+                token_end = sum(1 for _, b in valid if b <= end_cp)
+                fail(token_end > token_start and count <= recipe.max_tokens, 'STRUCTURAL_WINDOW_BUDGET',
+                     'Aligned observed Parts must advance within the full model budget')
         fail(piece.strip(), "EMPTY_MODEL_WINDOW", "Window contains only whitespace")
         window_id = str(uuid.uuid5(NAMESPACE, digest(identity_base | {"startUtf16": utf16_length(text[:start_cp]), "endUtf16": utf16_length(text[:end_cp])})))
         result.append({"id": window_id, "parentId": parent["id"], "parentContentSha256": text_sha(text),
@@ -166,11 +179,18 @@ def windows(parent, tokenizer, recipe, tokenizer_identity, *, query=None, embedd
                        "fullModelTokens": count, "queryTokens": query_tokens, "specialTokens": special_tokens,
                        "modelTextTransform": "strip" if embedding_strip else "identity", "modelTextSha256": text_sha(actual_text),
                        "algorithmVersion": recipe.version, "recipeFingerprint": digest(identity_base)})
+        if structural_boundaries:
+            result[-1].update(boundaryPolicy='observed-source-part-boundaries-v1',
+                              oversizedPartSplit=start_cp not in boundaries or end_cp not in boundaries)
         if end_cp == len(text):
             break
         effective_overlap = min(recipe.overlap_tokens, max(0, token_end - token_start - 1))
         next_token = max(token_start + 1, token_end - effective_overlap)
         next_start = min(end_cp, valid[next_token][0])
+        if structural_boundaries and end_cp in boundaries:
+            aligned = [boundary for boundary in boundaries if start_cp < boundary <= next_start]
+            next_start = max(aligned) if aligned else end_cp
+            next_token = next((index for index, (_, b) in enumerate(valid) if b > next_start), len(valid))
         fail(next_start > start_cp, "NONADVANCING_WINDOW", "Window offset failed to advance")
         token_start, start_cp = next_token, next_start
     verify_window_coverage(parent, result, recipe.max_tokens)
@@ -214,7 +234,7 @@ def aggregate_max(window_scores, windows_by_id, parents_by_id):
     return sorted(best.values(), key=lambda r: (-r["score"], r["id"]))
 
 
-def dense_expand(fetch, windows_by_id, parents_by_id, *, parent_limit, eligible_window_count, initial_limit=None):
+def dense_expand(fetch, windows_by_id, parents_by_id, *, parent_limit, eligible_window_count, initial_limit=None, aggregator=aggregate_max):
     """Fetch sorted global window prefixes until enough unique parents or exhausted.
 
     Every query result is checked. Max aggregation's top-parent guarantee holds
@@ -230,7 +250,7 @@ def dense_expand(fetch, windows_by_id, parents_by_id, *, parent_limit, eligible_
         points = fetch(limit)
         fail(len(points) <= limit and len({x[0] for x in points}) == len(points), "INVALID_DENSE_PREFIX", "Dense prefix has duplicate/too many window points")
         fail(all(float(points[i][1]) >= float(points[i + 1][1]) for i in range(len(points) - 1)), "INVALID_DENSE_PREFIX", "Dense prefix is not in score order")
-        parents = aggregate_max(points, windows_by_id, parents_by_id)
+        parents = aggregator(points, windows_by_id, parents_by_id)
         exhausted = limit >= eligible_window_count or len(points) < limit
         attempts.append({"requestedWindowLimit": limit, "returnedWindows": len(points), "uniqueParents": len(parents), "exhausted": exhausted,
                          "cutoffWindowScore": float(points[-1][1]) if points else None})

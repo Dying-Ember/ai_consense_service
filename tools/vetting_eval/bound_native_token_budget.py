@@ -15,6 +15,7 @@ import sys
 
 PROTOCOL = 'vetting-bound-token-budget-cli-recipe-v1'
 SCOPE = 'complete_serialized_messages_with_gateway_schema_envelope'
+JSON_OBJECT_INSTRUCTION = '\n\n【输出要求】只输出一个合法的 JSON，不要 Markdown 代码块，不要任何解释文字。'
 
 def compact(value):
     return json.dumps(value,ensure_ascii=False,separators=(',',':'),allow_nan=False)
@@ -43,6 +44,14 @@ def verify_artifact(d):
     require(len(b)==d['bytes'] and sha(b)==d['sha256'],'Software artifact identity changed')
     return p.resolve()
 
+def validate_message_envelope(messages, schema):
+    require(isinstance(messages,list) and len(messages)==2,'Unsupported message history')
+    for message,role in zip(messages,('system','user')):
+        require(isinstance(message,dict) and set(message)=={'role','content'} and message['role']==role and isinstance(message['content'],str),'Unsupported message scope')
+    array_envelope='\nReturn only a JSON array conforming to this schema:\n'+compact(schema)
+    object_envelope=schema=={} and messages[0]['content'].endswith(JSON_OBJECT_INSTRUCTION)
+    require(messages[0]['content'].endswith(array_envelope) or object_envelope,'Actual gateway schema envelope missing or changed')
+
 def observe(recipe, data):
     require(recipe.get('protocol')==PROTOCOL,'Recipe protocol mismatch')
     require(recipe.get('contextEvidenceScope') in ('offline_plan','current_deployment_configuration_bound'),'Context evidence scope missing')
@@ -63,10 +72,7 @@ def observe(recipe, data):
     binding={k:data[k]for k in ('provider','model','providerConfigurationSha256','messages','schema','outputReserveTokens','sourceSnapshotSha256')}
     require(sha(compact(binding).encode('utf-8'))==data['serializedInputSha256'],'Serialized gateway input SHA mismatch')
     messages=data['messages']
-    require(isinstance(messages,list) and len(messages)==2,'Unsupported message history')
-    for m,role in zip(messages,('system','user')):
-        require(isinstance(m,dict) and set(m)=={'role','content'} and m['role']==role and isinstance(m['content'],str),'Unsupported message scope')
-    require(messages[0]['content'].endswith('\nReturn only a JSON array conforming to this schema:\n'+compact(data['schema'])),'Actual gateway schema envelope missing or changed')
+    validate_message_envelope(messages,data['schema'])
     exe=Path(recipe['nativeTokenizerExecutable']).resolve()
     require(str(exe) in verified,'Native tokenizer executable not sealed')
     directory=Path(recipe['nativeTokenizerResourceDirectory']).resolve()
